@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "705478736954",
+    "project_id": "flickrate-b668e",
+    "storage_bucket": "flickrate-b668e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705478736954:android:a57e7f020637f443208903",
+        "android_client_info": {
+          "package_name": "com.example.flickrate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEn0B0eQU5Uzu7Itb6jD-BFwPvP_tC9_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
