@@ -1,3 +1,14 @@
 import 'package:flutter/material.dart';
 
-class LoginViewModel extends ChangeNotifier {}
+import '../../routing/inavigation_util.dart';
+import '../../routing/routes.dart';
+
+class LoginViewModel extends ChangeNotifier {
+  final INavigationUtil navigationUtil;
+
+  LoginViewModel({required this.navigationUtil});
+
+  void onSignInWithNumberButtonPressed() {
+    navigationUtil.navigateTo(routeNumber, allowBackNavigation: true);
+  }
+}

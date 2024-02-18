@@ -1,16 +1,17 @@
+import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
+import 'package:flickrate/app/common/widgets/my_field.dart';
+import 'package:flickrate/app/common/widgets/my_text_button.dart';
 import 'package:flickrate/app/theme/color_palete.dart';
 import 'package:flutter/material.dart';
 
-import 'forgot_password_button.dart';
+import 'login_view_model.dart';
 import 'widgets/draw_circle.dart';
-import 'widgets/email_field.dart';
 import 'widgets/flickrate_text.dart';
-import 'widgets/login_buttom.dart';
-import 'widgets/password_field.dart';
-import 'widgets/signup_button.dart';
 
 class LoginView extends StatelessWidget {
-  LoginView({super.key});
+  final LoginViewModel model;
+
+  LoginView({required this.model, Key? key}) : super(key: key);
   final ColorsPalete colorsPalete = ColorsPalete();
 
   @override
@@ -23,17 +24,28 @@ class LoginView extends StatelessWidget {
             Container(height: 60),
             FlicrRateText(colorsPalete: colorsPalete),
             Container(height: 50),
-            EmailField(colorsPalete: colorsPalete),
-            PasswordField(colorsPalete: colorsPalete),
-            LoginButton(colorsPalete: colorsPalete),
+            MyField(label: 'Email'),
+            const SizedBox(height: 20),
+            MyField(label: 'Password'),
+            const SizedBox(height: 20),
+            MyElevatedButton(title: 'GO', onButtonPressed: () {}),
             const SizedBox(height: 20),
             SizedBox(
               width: 250,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const ForgotPasswordButton(),
-                  SignUpButton(colorsPalete: colorsPalete)
+                  MyTextButton(
+                    textColor: colorsPalete.mainColor,
+                    textSize: 14,
+                    title: 'Sign in with phone',
+                    onButtonPressed: model.onSignInWithNumberButtonPressed,
+                  ),
+                  MyTextButton(
+                      textColor: Colors.black,
+                      textSize: 14,
+                      title: 'Sign up ',
+                      onButtonPressed: () {}),
                 ],
               ),
             )

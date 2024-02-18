@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'home_view_model.dart';
+
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final HomeViewModel viewModel;
+  const HomeView({required this.viewModel, super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -10,6 +13,21 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.logout_rounded),
+            onPressed: () {
+              widget.viewModel.onLogOutButtonPressed(context);
+            },
+          ),
+        ],
+      ),
+      body: const Column(
+        children: [],
+      ),
+    );
   }
 }
