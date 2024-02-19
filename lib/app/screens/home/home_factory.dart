@@ -1,3 +1,4 @@
+import 'package:flickrate/app/theme/color_palete.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,8 @@ class HomeFactory {
       create: (context) =>
           HomeViewModel(authService: context.read<IAuthService>()),
       child: Consumer<HomeViewModel>(
-        builder: (context, model, child) => HomeView(viewModel: model),
+        builder: (context, model, child) =>
+            HomeView(viewModel: model, colorsPalete: ColorsPalete()),
       ),
     );
   }

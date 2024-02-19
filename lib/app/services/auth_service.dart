@@ -32,9 +32,9 @@ class AuthService implements IAuthService {
   }
 
   @override
-  Future sentOtp() async {
+  Future sentOtp(String number) async {
     _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: "+380969699999",
+      phoneNumber: "+380$number",
       verificationCompleted: (phoneAuthCredential) async {
         return;
       },

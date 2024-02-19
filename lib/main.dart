@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flickrate/app/app.dart';
+import 'package:flickrate/app/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,7 @@ void main() async {
     ],
     child: App(
       authService: authService,
+      appRouter: AppRouter(),
     ),
   ));
 }

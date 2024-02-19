@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import '../../services/iauth_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final IAuthService authService;
+  final IAuthService _authService;
 
-  HomeViewModel({required this.authService});
+  HomeViewModel({required IAuthService authService})
+      : _authService = authService;
 
   void onLogOutButtonPressed(BuildContext context) async {
-    await authService.logOut();
+    await _authService.logOut();
   }
 }

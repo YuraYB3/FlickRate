@@ -9,11 +9,13 @@ import 'services/iauth_service.dart';
 
 class App extends StatefulWidget {
   final IAuthService _authService;
-  final AppRouter appRouter = AppRouter();
+  final AppRouter _appRouter;
   App({
     Key? key,
     required IAuthService authService,
+    required AppRouter appRouter,
   })  : _authService = authService,
+        _appRouter = appRouter,
         super(key: key);
 
   @override
@@ -26,7 +28,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: context.read<INavigationUtil>().navigatorKey,
-      onGenerateRoute: widget.appRouter.onGenerateRoute,
+      onGenerateRoute: widget._appRouter.onGenerateRoute,
       home: StreamBuilder<AuthState>(
         stream: widget._authService.authState(),
         builder: (context, snapshot) {

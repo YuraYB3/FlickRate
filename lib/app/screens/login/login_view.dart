@@ -1,9 +1,9 @@
-import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
-import 'package:flickrate/app/common/widgets/my_field.dart';
 import 'package:flutter/material.dart';
 import '../../theme/color_palete.dart';
 import 'login_view_model.dart';
 import 'widgets/draw_circle.dart';
+import 'widgets/enter_code.dart';
+import 'widgets/enter_number.dart';
 import 'widgets/flickrate_text.dart';
 
 class LoginView extends StatelessWidget {
@@ -24,28 +24,9 @@ class LoginView extends StatelessWidget {
             FlicrRateText(colorsPalete: colorsPalete),
             Container(height: 50),
             if (!model.isOtpSent)
-              Column(
-                children: [
-                  MyField(label: 'Number'),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  MyElevatedButton(
-                      title: 'Sent', onButtonPressed: model.sentOtpClicked)
-                ],
-              ),
+              EnterNumber(model: model, colorsPalete: colorsPalete),
             if (model.isOtpSent)
-              Column(
-                children: [
-                  MyField(label: 'Code'),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  MyElevatedButton(
-                      title: 'Apply',
-                      onButtonPressed: model.onApplyButtonClicked)
-                ],
-              ),
+              EnterCode(model: model, colorsPalete: colorsPalete),
           ],
         ),
       ),
