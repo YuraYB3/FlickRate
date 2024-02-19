@@ -1,9 +1,7 @@
 import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
 import 'package:flickrate/app/common/widgets/my_field.dart';
-import 'package:flickrate/app/common/widgets/my_text_button.dart';
-import 'package:flickrate/app/theme/color_palete.dart';
 import 'package:flutter/material.dart';
-
+import '../../theme/color_palete.dart';
 import 'login_view_model.dart';
 import 'widgets/draw_circle.dart';
 import 'widgets/flickrate_text.dart';
@@ -12,6 +10,7 @@ class LoginView extends StatelessWidget {
   final LoginViewModel model;
 
   LoginView({required this.model, Key? key}) : super(key: key);
+
   final ColorsPalete colorsPalete = ColorsPalete();
 
   @override
@@ -24,31 +23,29 @@ class LoginView extends StatelessWidget {
             Container(height: 60),
             FlicrRateText(colorsPalete: colorsPalete),
             Container(height: 50),
-            MyField(label: 'Email'),
-            const SizedBox(height: 20),
-            MyField(label: 'Password'),
-            const SizedBox(height: 20),
-            MyElevatedButton(title: 'GO', onButtonPressed: () {}),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 250,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            if (!model.isOtpSent)
+              Column(
                 children: [
-                  MyTextButton(
-                    textColor: colorsPalete.mainColor,
-                    textSize: 14,
-                    title: 'Sign in with phone',
-                    onButtonPressed: model.onSignInWithNumberButtonPressed,
+                  MyField(label: 'Number'),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  MyTextButton(
-                      textColor: Colors.black,
-                      textSize: 14,
-                      title: 'Sign up ',
-                      onButtonPressed: () {}),
+                  MyElevatedButton(
+                      title: 'Sent', onButtonPressed: model.sentOtpClicked)
                 ],
               ),
-            )
+            if (model.isOtpSent)
+              Column(
+                children: [
+                  MyField(label: 'Code'),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  MyElevatedButton(
+                      title: 'Apply',
+                      onButtonPressed: model.onApplyButtonClicked)
+                ],
+              ),
           ],
         ),
       ),

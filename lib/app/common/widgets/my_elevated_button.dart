@@ -1,5 +1,6 @@
-import 'package:flickrate/app/theme/color_palete.dart';
 import 'package:flutter/material.dart';
+
+import '../../theme/color_palete.dart';
 
 class MyElevatedButton extends StatelessWidget {
   final Function() onButtonPressed;

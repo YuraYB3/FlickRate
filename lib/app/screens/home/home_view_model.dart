@@ -1,5 +1,6 @@
-import 'package:flickrate/app/services/iauth_service.dart';
 import 'package:flutter/material.dart';
+
+import '../../services/iauth_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final IAuthService authService;

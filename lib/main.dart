@@ -1,19 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flickrate/app/services/auth_service.dart';
-import 'package:flickrate/app/services/iauth_service.dart';
+import 'package:flickrate/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'app/app.dart';
 import 'app/routing/inavigation_util.dart';
 import 'app/routing/navigation_util.dart';
-import 'app/services/networking/inetwork_service.dart';
-import 'app/services/networking/network_service.dart';
+import 'app/services/auth_service.dart';
+import 'app/services/iauth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final INetworkService networkService = NetworkService();
+
   final INavigationUtil navigationUtil = NavigationUtil();
   await Firebase.initializeApp();
   final IAuthService authService = AuthService(
@@ -22,12 +20,10 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       Provider.value(value: authService),
-      Provider.value(value: networkService),
       Provider.value(value: navigationUtil),
     ],
-    child: const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: App(),
+    child: App(
+      authService: authService,
     ),
   ));
 }

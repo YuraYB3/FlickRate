@@ -1,7 +1,7 @@
-import 'package:flickrate/app/services/iauth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/iauth_service.dart';
 import 'home_view.dart';
 import 'home_view_model.dart';
 

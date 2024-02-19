@@ -1,12 +1,12 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flickrate/app/routing/routes.dart';
 import 'package:flickrate/app/services/iauth_service.dart';
 
 import '../routing/inavigation_util.dart';
 
 class AuthService implements IAuthService {
   final FirebaseAuth _firebaseAuth;
-  final INavigationUtil _navigationUtil;
   String verifyId = '';
 
   @override
@@ -15,9 +15,10 @@ class AuthService implements IAuthService {
   AuthService(
       {required INavigationUtil navigationUtil,
       required FirebaseAuth firebaseAuth})
-      : _navigationUtil = navigationUtil,
-        _firebaseAuth = firebaseAuth;
+      : _firebaseAuth = firebaseAuth;
 
+  final StreamController<AuthState> _streamController =
+      StreamController.broadcast();
   @override
   Future loginWithOtp({required String otp}) async {
     final cred =
@@ -42,11 +43,31 @@ class AuthService implements IAuthService {
       },
       codeSent: (verificationId, forceResendingToken) async {
         verifyId = verificationId;
-        _navigationUtil.navigateTo(routeEnterOtp);
       },
       codeAutoRetrievalTimeout: (verificationId) async {
         return;
       },
     );
+  }
+
+  @override
+  bool isUserLoggedIn() {
+    return _firebaseAuth.currentUser != null;
+  }
+
+  @override
+  Stream<AuthState> authState() {
+    Stream<AuthState> stream =
+        _firebaseAuth.authStateChanges().map((firebaseUser) {
+      if (firebaseUser != null) {
+        return AuthState.authorized;
+      } else {
+        return AuthState.unauthorized;
+      }
+    });
+    stream.listen((authState) {
+      _streamController.add(authState);
+    });
+    return _streamController.stream;
   }
 }
