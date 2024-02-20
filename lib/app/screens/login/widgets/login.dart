@@ -1,9 +1,9 @@
-import 'package:flickrate/app/screens/login/widgets/login_with_email_and_pass.dart';
-import 'package:flickrate/app/screens/login/widgets/login_with_phone.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/color_palete.dart';
 import '../login_view_model.dart';
+import 'login_with_email_and_pass.dart';
+import 'login_with_phone.dart';
 
 class Login extends StatelessWidget {
   final LoginViewModel model;

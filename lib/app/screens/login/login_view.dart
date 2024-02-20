@@ -1,9 +1,10 @@
-import 'package:flickrate/app/screens/login/widgets/login.dart';
 import 'package:flutter/material.dart';
+
 import '../../theme/color_palete.dart';
 import 'login_view_model.dart';
 import 'widgets/draw_circle.dart';
 import 'widgets/flickrate_text.dart';
+import 'widgets/login.dart';
 
 class LoginView extends StatelessWidget {
   final LoginViewModel model;

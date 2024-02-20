@@ -1,7 +1,7 @@
-import 'package:flickrate/app/theme/color_palete.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/widgets/my_text_button.dart';
+import '../../../theme/color_palete.dart';
 import '../login_view_model.dart';
 import 'enter_code.dart';
 import 'enter_number.dart';

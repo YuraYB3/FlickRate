@@ -1,7 +1,7 @@
-import 'package:flickrate/app/services/local_storage/keys.dart';
-import 'package:flickrate/domain/auth/iauth_service.dart';
-import 'package:flickrate/app/services/iuser_service.dart';
-import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
+import '../../domain/auth/iauth_service.dart';
+import '../../domain/local_storage/ilocal_storage.dart';
+import 'iuser_service.dart';
+import 'local_storage/keys.dart';
 
 class UserService implements IUserService {
   final IAuthService _authService;

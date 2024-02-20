@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../domain/local_storage/ilocal_storage.dart';
 
 class LocalStorage implements ILocalStorage {

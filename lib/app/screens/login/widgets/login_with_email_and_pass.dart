@@ -1,8 +1,8 @@
-import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
-import 'package:flickrate/app/common/widgets/my_text_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_field.dart';
+import '../../../common/widgets/my_text_button.dart';
 import '../../../theme/color_palete.dart';
 import '../login_view_model.dart';
 

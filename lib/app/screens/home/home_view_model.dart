@@ -1,7 +1,8 @@
-import 'package:flickrate/app/services/iuser_service.dart';
-import 'package:flickrate/app/services/local_storage/keys.dart';
-import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/local_storage/ilocal_storage.dart';
+import '../../services/iuser_service.dart';
+import '../../services/local_storage/keys.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final IUserService _userService;

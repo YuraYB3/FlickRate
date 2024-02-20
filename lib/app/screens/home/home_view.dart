@@ -1,6 +1,6 @@
-import 'package:flickrate/app/theme/color_palete.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme/color_palete.dart';
 import 'home_view_model.dart';
 
 class HomeView extends StatefulWidget {

@@ -1,8 +1,9 @@
-import 'package:flickrate/app/services/input_validator.dart';
-import 'package:flickrate/app/services/local_storage/keys.dart';
-import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
 import 'package:flutter/material.dart';
+
 import '../../../domain/auth/iauth_service.dart';
+import '../../../domain/local_storage/ilocal_storage.dart';
+import '../../services/input_validator.dart';
+import '../../services/local_storage/keys.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final IAuthService _authService;
