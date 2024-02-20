@@ -1,1 +1,3 @@
-class IUserService {}
+abstract interface class IUserService {
+  void logout();
+}

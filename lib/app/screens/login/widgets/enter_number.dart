@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../common/widgets/my_elevated_button.dart';
+import '../../../common/widgets/show_notification.dart';
 import '../../../theme/color_palete.dart';
 import '../login_view_model.dart';
 
@@ -41,7 +42,13 @@ class EnterNumber extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        MyElevatedButton(title: 'Sent', onButtonPressed: model.sentOtpClicked)
+        MyElevatedButton(
+            title: 'Sent',
+            onButtonPressed: () {
+              model.sentOtpClicked(
+                  showException: (message) =>
+                      showNotification(context, message));
+            })
       ],
     );
   }

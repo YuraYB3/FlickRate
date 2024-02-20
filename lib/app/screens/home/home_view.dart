@@ -15,6 +15,12 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   @override
+  void initState() {
+    super.initState();
+    widget.viewModel.loadPhoneNumber();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -28,8 +34,11 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: const Column(
-        children: [],
+      body: Center(
+        child: Text(
+          'Phone Number: ${widget.viewModel.phoneNumber}',
+          style: const TextStyle(fontSize: 24),
+        ),
       ),
     );
   }

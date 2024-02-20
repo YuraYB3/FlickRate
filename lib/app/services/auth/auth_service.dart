@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flickrate/app/services/iauth_service.dart';
+import 'package:flickrate/domain/auth/iauth_service.dart';
 
-import '../routing/inavigation_util.dart';
+import '../../routing/inavigation_util.dart';
 
 class AuthService implements IAuthService {
   final FirebaseAuth _firebaseAuth;
@@ -19,6 +19,7 @@ class AuthService implements IAuthService {
 
   final StreamController<AuthState> _streamController =
       StreamController.broadcast();
+
   @override
   Future loginWithOtp({required String otp}) async {
     final cred =

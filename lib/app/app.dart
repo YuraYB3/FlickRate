@@ -5,12 +5,12 @@ import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
 import 'screens/home/home_factory.dart';
 import 'screens/login/login_factory.dart';
-import 'services/iauth_service.dart';
+import '../domain/auth/iauth_service.dart';
 
 class App extends StatefulWidget {
   final IAuthService _authService;
   final AppRouter _appRouter;
-  App({
+  const App({
     Key? key,
     required IAuthService authService,
     required AppRouter appRouter,
@@ -56,7 +56,10 @@ class _AppState extends State<App> {
               default:
                 return const Scaffold(
                   body: Center(
-                    child: Text('default'),
+                    child: Text(
+                      'default',
+                      style: TextStyle(color: Colors.black, fontSize: 36),
+                    ),
                   ),
                 );
             }

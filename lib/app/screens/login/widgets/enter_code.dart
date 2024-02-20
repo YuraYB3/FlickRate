@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../common/widgets/my_elevated_button.dart';
+import '../../../common/widgets/show_notification.dart';
 import '../../../theme/color_palete.dart';
 import '../login_view_model.dart';
 
@@ -42,7 +43,12 @@ class EnterCode extends StatelessWidget {
           height: 20,
         ),
         MyElevatedButton(
-            title: 'Apply', onButtonPressed: model.onApplyButtonClicked)
+            title: 'Apply',
+            onButtonPressed: () {
+              model.onApplyButtonClicked(
+                  showException: (message) =>
+                      showNotification(context, message));
+            })
       ],
     );
   }
