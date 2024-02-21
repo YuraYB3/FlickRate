@@ -46,7 +46,7 @@ class LoginViewModel extends ChangeNotifier {
     bool isValid = _inputValidator.isOtpValid(_otpCode);
     if (isValid) {
       try {
-        await _authService.loginWithOtp(otp: _otpCode);
+        await _authService.signinWithOtp(otp: _otpCode);
         _localStorage.save(keyPhone, _phoneNumber);
       } catch (e) {
         showException("Incorect code. Please try again");
@@ -64,5 +64,9 @@ class LoginViewModel extends ChangeNotifier {
   void updateOtpCode(String value) {
     _otpCode = value;
     notifyListeners();
+  }
+
+  void onSignInWitchGoogleClicked() async {
+    await _authService.signInWithGoogle();
   }
 }

@@ -20,9 +20,9 @@ class LoginView extends StatelessWidget {
         child: Column(
           children: [
             DrawCircle(colorsPalete: colorsPalete),
-            Container(height: 60),
+            Container(height: 40),
             FlicrRateText(colorsPalete: colorsPalete),
-            Container(height: 50),
+            Container(height: 40),
             Login(model: model, colorsPalete: colorsPalete)
           ],
         ),

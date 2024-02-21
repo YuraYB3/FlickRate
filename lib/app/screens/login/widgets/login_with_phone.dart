@@ -27,7 +27,7 @@ class LoginWithPhone extends StatelessWidget {
         MyTextButton(
             textColor: colorsPalete.mainColor,
             textSize: 18,
-            title: 'Enter with email',
+            title: 'Sign in with email',
             onButtonPressed: model.switchAutheticationClicked)
       ],
     );

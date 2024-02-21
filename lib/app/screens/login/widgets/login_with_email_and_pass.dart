@@ -36,8 +36,16 @@ class LoginWithEmailAndPassword extends StatelessWidget {
         MyTextButton(
             textColor: colorsPalete.mainColor,
             textSize: 16,
-            title: 'Enter with number',
-            onButtonPressed: model.switchAutheticationClicked)
+            title: 'Sign in with phone number',
+            onButtonPressed: model.switchAutheticationClicked),
+        const SizedBox(
+          height: 10,
+        ),
+        MyTextButton(
+            textColor: colorsPalete.flickRateColor,
+            textSize: 16,
+            title: 'Sign in with google',
+            onButtonPressed: model.onSignInWitchGoogleClicked)
       ],
     );
   }

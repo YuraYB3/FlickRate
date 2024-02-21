@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flickrate/domain/auth/iauth_service.dart';
@@ -21,7 +22,7 @@ class AuthService implements IAuthService {
       StreamController.broadcast();
 
   @override
-  Future loginWithOtp({required String otp}) async {
+  Future signinWithOtp({required String otp}) async {
     final cred =
         PhoneAuthProvider.credential(verificationId: verifyId, smsCode: otp);
     await _firebaseAuth.signInWithCredential(cred);
@@ -70,5 +71,27 @@ class AuthService implements IAuthService {
       _streamController.add(authState);
     });
     return _streamController.stream;
+  }
+
+  @override
+  Future signInWithGoogle() async {
+    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+
+    if (gUser == null) {
+      return null;
+    }
+
+    final GoogleSignInAuthentication gAuth = await gUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: gAuth.accessToken,
+      idToken: gAuth.idToken,
+    );
+
+    try {
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (error) {
+      print("Error signing in with Google: $error");
+      return null;
+    }
   }
 }
