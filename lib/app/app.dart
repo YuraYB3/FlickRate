@@ -1,3 +1,5 @@
+import 'package:flickrate/app/services/iuser_service.dart';
+import 'package:flickrate/app/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -5,17 +7,16 @@ import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
 import 'screens/home/home_factory.dart';
 import 'screens/login/login_factory.dart';
-import '../domain/auth/iauth_service.dart';
 
 class App extends StatefulWidget {
-  final IAuthService _authService;
   final AppRouter _appRouter;
+  final IUserService _userService;
   const App({
     Key? key,
-    required IAuthService authService,
+    required IUserService userService,
     required AppRouter appRouter,
-  })  : _authService = authService,
-        _appRouter = appRouter,
+  })  : _appRouter = appRouter,
+        _userService = userService,
         super(key: key);
 
   @override
@@ -29,8 +30,8 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       navigatorKey: context.read<INavigationUtil>().navigatorKey,
       onGenerateRoute: widget._appRouter.onGenerateRoute,
-      home: StreamBuilder<AuthState>(
-        stream: widget._authService.authState(),
+      home: StreamBuilder<UserState>(
+        stream: widget._userService.userStateStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Scaffold(
@@ -49,9 +50,9 @@ class _AppState extends State<App> {
               );
             }
             switch (snapshot.data) {
-              case AuthState.unauthorized:
+              case UserState.notAuthorized:
                 return LoginFactory.build();
-              case AuthState.authorized:
+              case UserState.readyToWork:
                 return HomeFactory.build();
               default:
                 return const Scaffold(

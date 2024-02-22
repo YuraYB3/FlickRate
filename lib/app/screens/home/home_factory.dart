@@ -14,7 +14,7 @@ class HomeFactory {
       ),
       child: Consumer<HomeViewModel>(
         builder: (context, model, child) =>
-            HomeView(viewModel: model, colorsPalete: ColorsPalete()),
+            HomeView(model: model, colorsPalete: ColorsPalete()),
       ),
     );
   }

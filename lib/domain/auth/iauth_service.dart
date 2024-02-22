@@ -7,7 +7,7 @@ abstract interface class IAuthService {
   FirebaseAuth get firebaseAuth;
   bool isUserLoggedIn();
   Future sentOtp(String number);
-  Future signinWithOtp({required String otp});
+  Future signInWithOtp({required String otp});
   Future logOut();
   Future signInWithGoogle();
 }

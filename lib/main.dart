@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flickrate/app/screens/home/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,10 +25,12 @@ void main() async {
     providers: [
       Provider.value(value: authService),
       Provider.value(value: navigationUtil),
-      Provider.value(value: userService)
+      Provider.value(value: userService),
+      ChangeNotifierProvider(
+          create: (_) => HomeViewModel(userService: userService))
     ],
     child: App(
-      authService: authService,
+      userService: userService,
       appRouter: AppRouter(),
     ),
   ));

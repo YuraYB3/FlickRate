@@ -42,7 +42,7 @@ class LoginWithEmailAndPassword extends StatelessWidget {
           height: 10,
         ),
         MyTextButton(
-            textColor: colorsPalete.flickRateColor,
+            textColor: colorsPalete.secondColor,
             textSize: 16,
             title: 'Sign in with google',
             onButtonPressed: model.onSignInWitchGoogleClicked)

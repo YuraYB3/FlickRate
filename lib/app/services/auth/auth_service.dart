@@ -22,10 +22,9 @@ class AuthService implements IAuthService {
       StreamController.broadcast();
 
   @override
-  Future signinWithOtp({required String otp}) async {
+  Future signInWithOtp({required String otp}) async {
     final cred =
         PhoneAuthProvider.credential(verificationId: _verifyId, smsCode: otp);
-    print('Verify id: ' + _verifyId + 'Smscode: ' + otp);
     await _firebaseAuth.signInWithCredential(cred);
   }
 
