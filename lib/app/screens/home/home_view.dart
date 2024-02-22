@@ -17,7 +17,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    widget.viewModel.loadPhoneNumber();
   }
 
   @override

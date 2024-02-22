@@ -8,7 +8,7 @@ import '../../routing/inavigation_util.dart';
 
 class AuthService implements IAuthService {
   final FirebaseAuth _firebaseAuth;
-  String verifyId = '';
+  String _verifyId = '';
 
   @override
   FirebaseAuth get firebaseAuth => _firebaseAuth;
@@ -24,7 +24,8 @@ class AuthService implements IAuthService {
   @override
   Future signinWithOtp({required String otp}) async {
     final cred =
-        PhoneAuthProvider.credential(verificationId: verifyId, smsCode: otp);
+        PhoneAuthProvider.credential(verificationId: _verifyId, smsCode: otp);
+    print('Verify id: ' + _verifyId + 'Smscode: ' + otp);
     await _firebaseAuth.signInWithCredential(cred);
   }
 
@@ -44,7 +45,7 @@ class AuthService implements IAuthService {
         return;
       },
       codeSent: (verificationId, forceResendingToken) async {
-        verifyId = verificationId;
+        _verifyId = verificationId;
       },
       codeAutoRetrievalTimeout: (verificationId) async {
         return;
@@ -90,7 +91,7 @@ class AuthService implements IAuthService {
     try {
       await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {
-      print("Error signing in with Google: $error");
+      // print("Error signing in with Google: $error");
       return null;
     }
   }

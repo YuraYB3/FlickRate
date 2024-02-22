@@ -4,7 +4,8 @@ import '../../theme/color_palete.dart';
 import 'login_view_model.dart';
 import 'widgets/draw_circle.dart';
 import 'widgets/flickrate_text.dart';
-import 'widgets/login.dart';
+import 'widgets/login_with_email_and_pass.dart';
+import 'widgets/login_with_phone.dart';
 
 class LoginView extends StatelessWidget {
   final LoginViewModel model;
@@ -23,7 +24,11 @@ class LoginView extends StatelessWidget {
             Container(height: 40),
             FlicrRateText(colorsPalete: colorsPalete),
             Container(height: 40),
-            Login(model: model, colorsPalete: colorsPalete)
+            if (!model.isLoginWithNumberClicked)
+              LoginWithEmailAndPassword(
+                  model: model, colorsPalete: colorsPalete),
+            if (model.isLoginWithNumberClicked)
+              LoginWithPhone(model: model, colorsPalete: colorsPalete)
           ],
         ),
       ),
