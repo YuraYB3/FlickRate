@@ -1,3 +1,4 @@
+import 'package:flickrate/app/screens/add_movie/add_movie_factory.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/home/home_factory.dart';
@@ -13,6 +14,9 @@ class AppRouter {
       case routeHome:
         return MaterialPageRoute(
             builder: (_) => _buildHomeSettings(routeSettings));
+      case routeAddMovie:
+        return MaterialPageRoute(
+            builder: (_) => _buildAddMovieSettings(routeSettings));
 
       default:
     }
@@ -25,5 +29,9 @@ class AppRouter {
 
   Widget _buildHomeSettings(RouteSettings settings) {
     return HomeFactory.build();
+  }
+
+  Widget _buildAddMovieSettings(RouteSettings settings) {
+    return AddMovieFactory.build();
   }
 }

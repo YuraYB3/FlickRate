@@ -27,7 +27,8 @@ void main() async {
       Provider.value(value: navigationUtil),
       Provider.value(value: userService),
       ChangeNotifierProvider(
-          create: (_) => HomeViewModel(userService: userService))
+          create: (_) => HomeViewModel(
+              navigationUtil: navigationUtil, userService: userService))
     ],
     child: App(
       userService: userService,

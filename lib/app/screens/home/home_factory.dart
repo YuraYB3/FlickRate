@@ -1,3 +1,4 @@
+import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,7 @@ class HomeFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => HomeViewModel(
+        navigationUtil: context.read<INavigationUtil>(),
         userService: context.read<IUserService>(),
       ),
       child: Consumer<HomeViewModel>(

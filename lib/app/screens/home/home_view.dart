@@ -83,7 +83,7 @@ class _HomeViewState extends State<HomeView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: widget.model.onFloatingButtonClicked,
         backgroundColor: widget.colorsPalete.mainColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
