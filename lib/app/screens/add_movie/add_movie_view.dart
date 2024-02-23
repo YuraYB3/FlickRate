@@ -4,9 +4,10 @@ import 'package:flickrate/app/theme/color_palete.dart';
 import 'package:flutter/material.dart';
 
 class AddMovieView extends StatelessWidget {
-  final ColorsPalete colorsPalete = ColorsPalete();
+  final ColorsPalete colorsPalete;
   final AddMovieViewModel model;
-  AddMovieView({required this.model, super.key});
+  const AddMovieView(
+      {required this.colorsPalete, required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {

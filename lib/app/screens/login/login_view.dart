@@ -9,10 +9,9 @@ import 'widgets/login_with_phone.dart';
 
 class LoginView extends StatelessWidget {
   final LoginViewModel model;
+  final ColorsPalete colorsPalete = ColorsPalete();
 
   LoginView({required this.model, Key? key}) : super(key: key);
-
-  final ColorsPalete colorsPalete = ColorsPalete();
 
   @override
   Widget build(BuildContext context) {
