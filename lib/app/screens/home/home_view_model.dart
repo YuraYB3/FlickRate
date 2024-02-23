@@ -22,7 +22,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void onLogOutButtonPressed(BuildContext context) async {
-    _userService.logout();
+    _userService.logOut();
   }
 
   Future<void> getItems() async {

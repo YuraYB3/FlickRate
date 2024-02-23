@@ -13,17 +13,17 @@ class UserService implements IUserService {
   UserService({required IAuthService authService}) : _authService = authService;
 
   @override
-  void logout() async {
+  void logOut() async {
     await _authService.logOut();
   }
 
   @override
-  void loginWithGoogle() {
+  void signWithGoogle() {
     _authService.signInWithGoogle();
   }
 
   @override
-  Future<void> loginWithOtp(String otp) async {
+  Future<void> signWithOtp(String otp) async {
     await _authService.signInWithOtp(otp: otp);
   }
 

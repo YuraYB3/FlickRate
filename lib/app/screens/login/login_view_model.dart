@@ -45,7 +45,7 @@ class LoginViewModel extends ChangeNotifier {
     bool isValid = _inputValidator.isOtpValid(_otpCode);
     if (isValid) {
       try {
-        await _userService.loginWithOtp(_otpCode);
+        await _userService.signWithOtp(_otpCode);
       } catch (e) {
         showException("Incorect code. Please try again");
       }
