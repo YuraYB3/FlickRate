@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/color_palete.dart';
+import '../../theme/color_palette.dart';
 
 class MyElevatedButton extends StatelessWidget {
   final Function() onButtonPressed;
   final String title;
-  final ColorsPalete colorsPalete = ColorsPalete();
+  final ColorsPalette colorsPalette = ColorsPalette();
   MyElevatedButton(
       {required this.title, required this.onButtonPressed, Key? key})
       : super(key: key);
@@ -18,7 +18,7 @@ class MyElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
             backgroundColor:
-                MaterialStateProperty.all<Color>(colorsPalete.mainColor)),
+                MaterialStateProperty.all<Color>(colorsPalette.mainColor)),
         onPressed: onButtonPressed,
         child: Text(title),
       ),

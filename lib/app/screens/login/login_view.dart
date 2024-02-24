@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/color_palete.dart';
+import '../../theme/color_palette.dart';
 import 'login_view_model.dart';
 import 'widgets/draw_circle.dart';
 import 'widgets/flickrate_text.dart';
@@ -9,7 +9,7 @@ import 'widgets/login_with_phone.dart';
 
 class LoginView extends StatelessWidget {
   final LoginViewModel model;
-  final ColorsPalete colorsPalete = ColorsPalete();
+  final ColorsPalette colorsPalette = ColorsPalette();
 
   LoginView({required this.model, Key? key}) : super(key: key);
 
@@ -19,15 +19,15 @@ class LoginView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            DrawCircle(colorsPalete: colorsPalete),
+            DrawCircle(colorsPalette: colorsPalette),
             Container(height: 40),
-            FlicrRateText(colorsPalete: colorsPalete),
+            FlickRateText(colorsPalette: colorsPalette),
             Container(height: 40),
             if (!model.isLoginWithNumberClicked)
               LoginWithEmailAndPassword(
-                  model: model, colorsPalete: colorsPalete),
+                  model: model, colorsPalette: colorsPalette),
             if (model.isLoginWithNumberClicked)
-              LoginWithPhone(model: model, colorsPalete: colorsPalete)
+              LoginWithPhone(model: model, colorsPalette: colorsPalette)
           ],
         ),
       ),

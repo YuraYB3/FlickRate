@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/color_palete.dart';
+import '../../../theme/color_palette.dart';
 
 class DrawCircle extends StatelessWidget {
   const DrawCircle({
     super.key,
-    required this.colorsPalete,
+    required this.colorsPalette,
   });
 
-  final ColorsPalete colorsPalete;
+  final ColorsPalette colorsPalette;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class DrawCircle extends StatelessWidget {
         height: 200,
         width: 300,
         decoration: BoxDecoration(
-          color: colorsPalete.mainColor,
+          color: colorsPalette.mainColor,
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(0),
             bottomRight: Radius.circular(1000),

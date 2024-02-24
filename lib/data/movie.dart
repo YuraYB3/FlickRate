@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Movie {
+class MovieModel {
   final String name;
   final String genre;
   final String description;
 
-  Movie({required this.name, required this.genre, required this.description});
+  MovieModel(
+      {required this.name, required this.genre, required this.description});
 
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie(
+  factory MovieModel.fromJson(Map<String, dynamic> json) {
+    return MovieModel(
       name: json['name'],
       genre: json['genre'],
       description: json['description'],
@@ -24,13 +25,12 @@ class Movie {
   }
 }
 
-class MovieModel {
-  Stream<List<Movie>> getMovies() => FirebaseFirestore.instance
-      .collection('movies')
-      .snapshots()
-      .map((event) => event.docs.map((e) => Movie.fromJson(e.data())).toList());
+class MovieRepository {
+  Stream<List<MovieModel>> getMovies() =>
+      FirebaseFirestore.instance.collection('movies').snapshots().map((event) =>
+          event.docs.map((e) => MovieModel.fromJson(e.data())).toList());
 
-  Future<void> addMovie(Movie movie) async {
+  Future<void> addMovie(MovieModel movie) async {
     try {
       await FirebaseFirestore.instance.collection('movies').add(movie.toJson());
     } catch (error) {

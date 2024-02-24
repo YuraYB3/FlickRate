@@ -4,32 +4,32 @@ import 'package:flutter/services.dart';
 import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_text_button.dart';
 import '../../../common/widgets/show_notification.dart';
-import '../../../theme/color_palete.dart';
+import '../../../theme/color_palette.dart';
 import '../login_view_model.dart';
 
 class LoginWithPhone extends StatelessWidget {
   final LoginViewModel model;
-  final ColorsPalete colorsPalete;
+  final ColorsPalette colorsPalette;
 
   const LoginWithPhone(
-      {super.key, required this.model, required this.colorsPalete});
+      {super.key, required this.model, required this.colorsPalette});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         if (!model.isOtpSent)
-          EnterPhoneNumberWidget(model: model, colorsPalete: colorsPalete),
+          EnterPhoneNumberWidget(model: model, colorsPalette: colorsPalette),
         if (model.isOtpSent)
-          EnterOtpCodeWidget(model: model, colorsPalete: colorsPalete),
+          EnterOtpCodeWidget(model: model, colorsPalette: colorsPalette),
         const SizedBox(
           height: 20,
         ),
         MyTextButton(
-            textColor: colorsPalete.mainColor,
+            textColor: colorsPalette.mainColor,
             textSize: 18,
             title: 'Sign in with email',
-            onButtonPressed: model.switchAutheticationClicked)
+            onButtonPressed: model.switchAuthenticationClicked)
       ],
     );
   }
@@ -39,11 +39,11 @@ class EnterOtpCodeWidget extends StatelessWidget {
   const EnterOtpCodeWidget({
     super.key,
     required this.model,
-    required this.colorsPalete,
+    required this.colorsPalette,
   });
 
   final LoginViewModel model;
-  final ColorsPalete colorsPalete;
+  final ColorsPalette colorsPalette;
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +57,12 @@ class EnterOtpCodeWidget extends StatelessWidget {
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
-              labelStyle: TextStyle(color: colorsPalete.mainColor),
+              labelStyle: TextStyle(color: colorsPalette.mainColor),
               labelText: 'Code',
               focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: colorsPalete.mainColor)),
+                  borderSide: BorderSide(color: colorsPalette.mainColor)),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colorsPalete.mainColor),
+                borderSide: BorderSide(color: colorsPalette.mainColor),
               ),
               counterText: '',
             ),
@@ -87,11 +87,11 @@ class EnterPhoneNumberWidget extends StatelessWidget {
   const EnterPhoneNumberWidget({
     super.key,
     required this.model,
-    required this.colorsPalete,
+    required this.colorsPalette,
   });
 
   final LoginViewModel model;
-  final ColorsPalete colorsPalete;
+  final ColorsPalette colorsPalette;
 
   @override
   Widget build(BuildContext context) {
@@ -106,12 +106,12 @@ class EnterPhoneNumberWidget extends StatelessWidget {
             keyboardType: TextInputType.phone,
             decoration: InputDecoration(
               prefix: const Text('+380'),
-              labelStyle: TextStyle(color: colorsPalete.mainColor),
+              labelStyle: TextStyle(color: colorsPalette.mainColor),
               labelText: 'Number',
               focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: colorsPalete.mainColor)),
+                  borderSide: BorderSide(color: colorsPalette.mainColor)),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colorsPalete.mainColor),
+                borderSide: BorderSide(color: colorsPalette.mainColor),
               ),
               counterText: '',
             ),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/movie.dart';
-import '../../theme/color_palete.dart';
+import '../../theme/color_palette.dart';
 import 'home_view_model.dart';
 
 class HomeView extends StatefulWidget {
   final HomeViewModel model;
-  final ColorsPalete colorsPalete;
-  const HomeView({required this.colorsPalete, required this.model, super.key});
+  final ColorsPalette colorsPalette;
+  const HomeView({required this.colorsPalette, required this.model, super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -23,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: widget.colorsPalete.mainColor,
+        backgroundColor: widget.colorsPalette.mainColor,
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.logout_rounded),
@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: StreamBuilder<List<Movie>>(
+      body: StreamBuilder<List<MovieModel>>(
         stream: widget.model.movieList,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -44,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
-                color: widget.colorsPalete.mainColor,
+                color: widget.colorsPalette.mainColor,
               ),
             );
           }
@@ -56,7 +56,7 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: widget.colorsPalete.secondColor,
+                      backgroundColor: widget.colorsPalette.secondColor,
                       child: Text(
                         movie.name[0],
                         style: const TextStyle(color: Colors.white),
@@ -84,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: widget.model.onFloatingButtonClicked,
-        backgroundColor: widget.colorsPalete.mainColor,
+        backgroundColor: widget.colorsPalette.mainColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

@@ -1,19 +1,19 @@
 import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
 import 'package:flickrate/app/screens/add_movie/add_movie_view_model.dart';
-import 'package:flickrate/app/theme/color_palete.dart';
+import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
 class AddMovieView extends StatelessWidget {
-  final ColorsPalete colorsPalete;
+  final ColorsPalette colorsPalette;
   final AddMovieViewModel model;
   const AddMovieView(
-      {required this.colorsPalete, required this.model, super.key});
+      {required this.colorsPalette, required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorsPalete.mainColor,
+        backgroundColor: colorsPalette.mainColor,
         title: const Text('New Movie'),
       ),
       body: SingleChildScrollView(

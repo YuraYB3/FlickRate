@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_field.dart';
 import '../../../common/widgets/my_text_button.dart';
-import '../../../theme/color_palete.dart';
+import '../../../theme/color_palette.dart';
 import '../login_view_model.dart';
 
 class LoginWithEmailAndPassword extends StatelessWidget {
   final LoginViewModel model;
-  final ColorsPalete colorsPalete;
+  final ColorsPalette colorsPalette;
 
   const LoginWithEmailAndPassword(
-      {super.key, required this.model, required this.colorsPalete});
+      {super.key, required this.model, required this.colorsPalette});
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +34,15 @@ class LoginWithEmailAndPassword extends StatelessWidget {
           height: 20,
         ),
         MyTextButton(
-            textColor: colorsPalete.mainColor,
+            textColor: colorsPalette.mainColor,
             textSize: 16,
             title: 'Sign in with phone number',
-            onButtonPressed: model.switchAutheticationClicked),
+            onButtonPressed: model.switchAuthenticationClicked),
         const SizedBox(
           height: 10,
         ),
         MyTextButton(
-            textColor: colorsPalete.secondColor,
+            textColor: colorsPalette.secondColor,
             textSize: 16,
             title: 'Sign in with google',
             onButtonPressed: model.onSignInWitchGoogleClicked)

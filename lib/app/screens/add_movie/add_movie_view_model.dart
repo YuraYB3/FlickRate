@@ -20,8 +20,8 @@ class AddMovieViewModel extends ChangeNotifier {
       name.isNotEmpty && genre.isNotEmpty && description.isNotEmpty;
 
   void addMovie() {
-    MovieModel()
-        .addMovie(Movie(name: name, genre: genre, description: description));
+    MovieRepository().addMovie(
+        MovieModel(name: name, genre: genre, description: description));
     _navigationUtil.navigateBack();
   }
 }

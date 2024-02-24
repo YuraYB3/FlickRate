@@ -31,11 +31,11 @@ class LoginViewModel extends ChangeNotifier {
         showException(e.toString());
       }
     } else {
-      showException('Incorect phone number');
+      showException('Incorrect phone number');
     }
   }
 
-  void switchAutheticationClicked() {
+  void switchAuthenticationClicked() {
     isLoginWithNumberClicked = !isLoginWithNumberClicked;
     notifyListeners();
   }
@@ -47,7 +47,7 @@ class LoginViewModel extends ChangeNotifier {
       try {
         await _userService.signWithOtp(_otpCode);
       } catch (e) {
-        showException("Incorect code. Please try again");
+        showException("Incorrect code. Please try again");
       }
     } else {
       showException('Code must have 6 numbers');

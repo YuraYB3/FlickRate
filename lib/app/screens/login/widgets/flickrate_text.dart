@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/color_palete.dart';
+import '../../../theme/color_palette.dart';
 
-class FlicrRateText extends StatelessWidget {
-  const FlicrRateText({
+class FlickRateText extends StatelessWidget {
+  const FlickRateText({
     super.key,
-    required this.colorsPalete,
+    required this.colorsPalette,
   });
 
-  final ColorsPalete colorsPalete;
+  final ColorsPalette colorsPalette;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class FlicrRateText extends StatelessWidget {
       'FlickRate',
       style: TextStyle(
         fontSize: 64,
-        color: colorsPalete.secondColor,
+        color: colorsPalette.secondColor,
         fontStyle: FontStyle.italic,
         fontWeight: FontWeight.bold,
       ),

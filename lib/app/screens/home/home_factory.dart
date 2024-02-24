@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/iuser_service.dart';
-import '../../theme/color_palete.dart';
+import '../../theme/color_palette.dart';
 import 'home_view.dart';
 import 'home_view_model.dart';
 
@@ -16,7 +16,7 @@ class HomeFactory {
       ),
       child: Consumer<HomeViewModel>(
         builder: (context, model, child) =>
-            HomeView(model: model, colorsPalete: ColorsPalete()),
+            HomeView(model: model, colorsPalette: ColorsPalette()),
       ),
     );
   }
