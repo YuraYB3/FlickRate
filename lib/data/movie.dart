@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flickrate/domain/ibase_model.dart';
 
-class MovieModel {
+class MovieModel implements IBaseModel {
   final String name;
   final String genre;
   final String description;
@@ -16,6 +17,7 @@ class MovieModel {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'name': name,
@@ -26,7 +28,7 @@ class MovieModel {
 }
 
 class MovieRepository {
-  Stream<List<MovieModel>> getMovies() =>
+  Stream<List<MovieModel>> fetchMoviesStream() =>
       FirebaseFirestore.instance.collection('movies').snapshots().map((event) =>
           event.docs.map((e) => MovieModel.fromJson(e.data())).toList());
 

@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 class AddMovieView extends StatelessWidget {
   final ColorsPalette colorsPalette;
   final AddMovieViewModel model;
-  const AddMovieView(
-      {required this.colorsPalette, required this.model, super.key});
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController genreController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  AddMovieView({required this.colorsPalette, required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +25,21 @@ class AddMovieView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
-                controller: model.nameController,
+                controller: nameController,
                 decoration: const InputDecoration(
                   labelText: 'Movie Name',
                 ),
               ),
               const SizedBox(height: 16),
               TextField(
-                controller: model.genreController,
+                controller: genreController,
                 decoration: const InputDecoration(
                   labelText: 'Genre',
                 ),
               ),
               const SizedBox(height: 16),
               TextField(
-                controller: model.descriptionController,
+                controller: descriptionController,
                 maxLines: 16,
                 decoration: const InputDecoration(
                   labelText: 'Description',
@@ -47,8 +49,11 @@ class AddMovieView extends StatelessWidget {
               MyElevatedButton(
                   title: 'Add movie',
                   onButtonPressed: () {
-                    if (model.isFormValid) {
-                      model.addMovie();
+                    if (nameController.text.isNotEmpty &&
+                        genreController.text.isNotEmpty &&
+                        descriptionController.text.isNotEmpty) {
+                      model.addMovie(nameController.text, genreController.text,
+                          descriptionController.text);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

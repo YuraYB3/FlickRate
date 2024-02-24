@@ -3,24 +3,16 @@ import 'package:flickrate/data/movie.dart';
 import 'package:flutter/material.dart';
 
 class AddMovieViewModel extends ChangeNotifier {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController genreController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-
   final INavigationUtil _navigationUtil;
+  final MovieRepository _movieRepository;
+  AddMovieViewModel(
+      {required MovieRepository movieRepository,
+      required INavigationUtil navigationUtil})
+      : _navigationUtil = navigationUtil,
+        _movieRepository = movieRepository;
 
-  AddMovieViewModel({required INavigationUtil navigationUtil})
-      : _navigationUtil = navigationUtil;
-
-  String get name => nameController.text;
-  String get genre => genreController.text;
-  String get description => descriptionController.text;
-
-  bool get isFormValid =>
-      name.isNotEmpty && genre.isNotEmpty && description.isNotEmpty;
-
-  void addMovie() {
-    MovieRepository().addMovie(
+  void addMovie(String name, String genre, String description) {
+    _movieRepository.addMovie(
         MovieModel(name: name, genre: genre, description: description));
     _navigationUtil.navigateBack();
   }

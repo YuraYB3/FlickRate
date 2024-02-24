@@ -26,7 +26,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> getItems() async {
-    _movieList = _movieModel.getMovies();
+    _movieList = _movieModel.fetchMoviesStream();
     notifyListeners();
   }
 

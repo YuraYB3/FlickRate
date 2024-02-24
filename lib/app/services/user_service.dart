@@ -29,7 +29,7 @@ class UserService implements IUserService {
 
   @override
   Stream<UserState> userStateStream() {
-    Stream<UserState> stream = _authService.authState().map((event) {
+    Stream<UserState> userStream = _authService.authState().map((event) {
       switch (event) {
         case AuthState.authorized:
           return UserState.readyToWork;
@@ -37,7 +37,7 @@ class UserService implements IUserService {
           return UserState.notAuthorized;
       }
     });
-    stream.listen((event) {
+    userStream.listen((event) {
       _userStateStreamController.add(event);
     });
     return _userStateStreamController.stream;
