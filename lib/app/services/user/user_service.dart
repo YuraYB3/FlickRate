@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../domain/auth/iauth_service.dart';
+import '../auth/iauth_service.dart';
 import 'iuser_service.dart';
 
 enum UserState { readyToWork, notAuthorized }
@@ -41,5 +41,10 @@ class UserService implements IUserService {
       _userStateStreamController.add(event);
     });
     return _userStateStreamController.stream;
+  }
+
+  @override
+  Future sentOtp(String number) async {
+    await _authService.sentOtp(number);
   }
 }

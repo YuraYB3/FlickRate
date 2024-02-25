@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flickrate/domain/auth/iauth_service.dart';
+import 'package:flickrate/app/services/auth/iauth_service.dart';
 
 import '../../routing/inavigation_util.dart';
 

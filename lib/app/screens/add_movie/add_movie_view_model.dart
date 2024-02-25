@@ -1,6 +1,9 @@
 import 'package:flickrate/app/routing/inavigation_util.dart';
-import 'package:flickrate/data/movie.dart';
+import 'package:flickrate/data/movies/movie.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../data/movies/movie_repository.dart';
 
 class AddMovieViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;
@@ -12,8 +15,9 @@ class AddMovieViewModel extends ChangeNotifier {
         _movieRepository = movieRepository;
 
   void addMovie(String name, String genre, String description) {
-    _movieRepository.addMovie(
-        MovieModel(name: name, genre: genre, description: description));
+    String movieId = const Uuid().v4();
+    _movieRepository.createMovie(
+        Movie(id: movieId, name: name, genre: genre, description: description));
     _navigationUtil.navigateBack();
   }
 }

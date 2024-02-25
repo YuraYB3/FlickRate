@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/movie.dart';
+import '../../../domain/movies/imovie.dart';
 import '../../theme/color_palette.dart';
 import 'home_view_model.dart';
 
@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: StreamBuilder<List<MovieModel>>(
+      body: StreamBuilder<List<IMovie>>(
         stream: widget.model.movieList,
         builder: (context, snapshot) {
           if (snapshot.hasError) {

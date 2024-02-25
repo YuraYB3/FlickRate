@@ -1,5 +1,5 @@
-import 'package:flickrate/app/services/iuser_service.dart';
-import 'package:flickrate/app/services/user_service.dart';
+import 'package:flickrate/app/services/user/iuser_service.dart';
+import 'package:flickrate/app/services/user/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
