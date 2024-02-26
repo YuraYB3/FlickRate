@@ -6,8 +6,8 @@ import 'home_view_model.dart';
 
 class HomeView extends StatefulWidget {
   final HomeViewModel model;
-  final ColorsPalette colorsPalette;
-  const HomeView({required this.colorsPalette, required this.model, super.key});
+  final ColorsPalette colorsPalette = ColorsPalette();
+  HomeView({required this.model, super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();

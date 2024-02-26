@@ -3,13 +3,31 @@ import 'package:flickrate/app/screens/add_movie/add_movie_view_model.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
-class AddMovieView extends StatelessWidget {
-  final ColorsPalette colorsPalette;
+class AddMovieView extends StatefulWidget {
   final AddMovieViewModel model;
+
+  const AddMovieView({required this.model, super.key});
+
+  @override
+  State<AddMovieView> createState() => _AddMovieViewState();
+}
+
+class _AddMovieViewState extends State<AddMovieView> {
+  final ColorsPalette colorsPalette = ColorsPalette();
+
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController genreController = TextEditingController();
+
   final TextEditingController descriptionController = TextEditingController();
-  AddMovieView({required this.colorsPalette, required this.model, super.key});
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    genreController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +45,7 @@ class AddMovieView extends StatelessWidget {
               TextField(
                 controller: nameController,
                 decoration: const InputDecoration(
-                  labelText: 'Movie Name',
+                  labelText: 'Movie name',
                 ),
               ),
               const SizedBox(height: 16),
@@ -52,8 +70,8 @@ class AddMovieView extends StatelessWidget {
                     if (nameController.text.isNotEmpty &&
                         genreController.text.isNotEmpty &&
                         descriptionController.text.isNotEmpty) {
-                      model.addMovie(nameController.text, genreController.text,
-                          descriptionController.text);
+                      widget.model.addMovie(nameController.text,
+                          genreController.text, descriptionController.text);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

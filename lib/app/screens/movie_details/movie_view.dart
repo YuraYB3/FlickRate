@@ -20,19 +20,32 @@ class MovieView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(_movie.name), backgroundColor: colorsPalette.mainColor),
-      body: Center(
-        child: Column(
-          children: [
-            Text(_movie.description),
-            const SizedBox(
-              height: 20,
-            ),
-            MyElevatedButton(
-                title: "delete",
-                onButtonPressed: () {
-                  _model.onDeleteButtonPressed(_movie);
-                })
-          ],
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(_movie.description),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(child: SizedBox()),
+              MyElevatedButton(
+                  title: "Delete",
+                  onButtonPressed: () {
+                    _model.onDeleteButtonPressed(_movie);
+                  }),
+              SizedBox(
+                height: 50,
+              )
+            ],
+          ),
         ),
       ),
     );
