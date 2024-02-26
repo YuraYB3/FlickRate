@@ -12,7 +12,7 @@ class HomeViewModel extends ChangeNotifier {
   final MovieRepository _movieRepository;
   late Stream<List<IMovie>> _movieStreamList;
 
-  Stream<List<IMovie>> get movieList => _movieStreamList;
+  Stream<List<IMovie>> get movieStreamList => _movieStreamList;
 
   HomeViewModel(
       {required INavigationUtil navigationUtil,
@@ -38,6 +38,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void onListTileClicked(IMovie movie) async {
-    await _movieRepository.deleteMovie(movie);
+    await _navigationUtil.navigateTo(routeMovie,
+        allowBackNavigation: true, data: movie);
   }
 }

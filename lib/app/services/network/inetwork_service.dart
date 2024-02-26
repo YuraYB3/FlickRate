@@ -7,5 +7,5 @@ abstract interface class INetworkService {
   Future<void> update(IBaseModel model, String collectionName);
   Future<void> delete(IBaseModel model, String collectionName);
   Future<DocumentSnapshot<Map<String, dynamic>>> read(
-      String id, String collectionName);
+      IBaseModel model, String collectionName);
 }

@@ -18,10 +18,11 @@ class MovieRepository implements IMovieRepository {
         (dataList) => dataList.map((data) => Movie.fromJson(data)).toList());
   }
 
-  Future<IMovie?> fetchMovie(String movieId) async {
+  @override
+  Future<IMovie?> fetchMovie(IMovie movie) async {
     try {
       DocumentSnapshot<Map<String, dynamic>> movieDoc =
-          await _networkService.read(movieId, collectionMovies);
+          await _networkService.read(movie, collectionMovies);
 
       return Movie.fromJson(movieDoc.data()!);
     } catch (error) {
@@ -34,10 +35,12 @@ class MovieRepository implements IMovieRepository {
     _networkService.create(movie.toJson(), collectionMovies);
   }
 
+  @override
   Future<void> updateMovie(IMovie movie) async {
     _networkService.update(movie, collectionMovies);
   }
 
+  @override
   Future<void> deleteMovie(IMovie movie) async {
     await _networkService.delete(movie, collectionMovies);
   }

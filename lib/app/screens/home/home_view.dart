@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
       body: StreamBuilder<List<IMovie>>(
-        stream: widget.model.movieList,
+        stream: widget.model.movieStreamList,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(
@@ -85,7 +85,6 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     onTap: () {
                       widget.model.onListTileClicked(movie);
-                      print('clicked');
                     },
                   ),
                 );

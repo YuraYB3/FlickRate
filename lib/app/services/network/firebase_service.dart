@@ -10,8 +10,13 @@ class FirebaseService implements INetworkService {
 
   @override
   Future<DocumentSnapshot<Map<String, dynamic>>> read(
-          String id, String collectionName) async =>
-      await _firebaseFirestore.collection(collectionName).doc(id).get();
+      IBaseModel model, String collectionName) async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firebaseFirestore
+        .collection(collectionName)
+        .where('id', isEqualTo: model.id)
+        .get();
+    return querySnapshot.docs.first;
+  }
 
   @override
   Future<void> update(IBaseModel model, String collectionName) async =>
