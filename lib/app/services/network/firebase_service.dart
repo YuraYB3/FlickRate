@@ -5,9 +5,8 @@ import 'package:flickrate/domain/ibase_model.dart';
 class FirebaseService implements INetworkService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   @override
-  @override
-  Future<void> create(IBaseModel model, String collectionName) async =>
-      await _firebaseFirestore.collection(collectionName).add(model.toJson());
+  Future<void> create(Map<String, dynamic> data, String collectionName) async =>
+      await _firebaseFirestore.collection(collectionName).add(data);
 
   @override
   Future<DocumentSnapshot<Map<String, dynamic>>> read(
@@ -22,8 +21,16 @@ class FirebaseService implements INetworkService {
           .update(model.toJson());
 
   @override
-  Future<void> delete(String id, String collectionName) async =>
-      await _firebaseFirestore.collection(collectionName).doc(id).delete();
+  Future<void> delete(IBaseModel model, String collectionName) async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firebaseFirestore
+        .collection(collectionName)
+        .where('id', isEqualTo: model.id)
+        .get();
+
+    for (var doc in querySnapshot.docs) {
+      await doc.reference.delete();
+    }
+  }
 
   @override
   Stream<List<Map<String, dynamic>>> fetchDataStream(String collectionName) =>

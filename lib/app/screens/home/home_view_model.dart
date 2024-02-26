@@ -36,4 +36,8 @@ class HomeViewModel extends ChangeNotifier {
   void onFloatingButtonClicked() {
     _navigationUtil.navigateTo(routeAddMovie);
   }
+
+  void onListTileClicked(IMovie movie) async {
+    await _movieRepository.deleteMovie(movie);
+  }
 }

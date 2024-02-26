@@ -31,14 +31,14 @@ class MovieRepository implements IMovieRepository {
 
   @override
   Future<void> createMovie(IMovie movie) async {
-    _networkService.create(movie, collectionMovies);
+    _networkService.create(movie.toJson(), collectionMovies);
   }
 
   Future<void> updateMovie(IMovie movie) async {
     _networkService.update(movie, collectionMovies);
   }
 
-  Future<void> deleteMovie(String movieId) async {
-    _networkService.delete(movieId, collectionMovies);
+  Future<void> deleteMovie(IMovie movie) async {
+    await _networkService.delete(movie, collectionMovies);
   }
 }

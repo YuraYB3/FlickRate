@@ -48,6 +48,14 @@ class _HomeViewState extends State<HomeView> {
               ),
             );
           }
+          if (snapshot.data!.isEmpty) {
+            return Center(
+                child: Text(
+              "EMPTY :(",
+              style: TextStyle(
+                  fontSize: 24, color: widget.colorsPalette.mainColor),
+            ));
+          }
           final moviesData = snapshot.data!;
           return ListView.builder(
               itemBuilder: (context, index) {
@@ -75,7 +83,10 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ],
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      widget.model.onListTileClicked(movie);
+                      print('clicked');
+                    },
                   ),
                 );
               },

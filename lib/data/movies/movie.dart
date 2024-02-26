@@ -2,7 +2,7 @@ import 'package:flickrate/domain/movies/imovie.dart';
 
 class Movie implements IMovie {
   @override
-  String id;
+  String id = '';
   @override
   final String name;
   @override
@@ -18,7 +18,7 @@ class Movie implements IMovie {
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-      id: json['id'],
+      id: json['id'] ?? '',
       name: json['name'],
       genre: json['genre'],
       description: json['description'],
