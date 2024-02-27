@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ColorsPalette {
-  Color secondColor = const Color.fromARGB(240, 96, 108, 56);
+  Color secondColor = Colors.grey;
   Color mainColor = const Color.fromARGB(239, 216, 59, 31);
 }

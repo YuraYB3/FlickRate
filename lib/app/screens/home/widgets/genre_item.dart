@@ -1,11 +1,11 @@
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
-class CategoryItem extends StatelessWidget {
+class GenreItem extends StatelessWidget {
   final String title;
   final ColorsPalette colorsPalette = ColorsPalette();
 
-  CategoryItem({
+  GenreItem({
     super.key,
     required this.title,
   });

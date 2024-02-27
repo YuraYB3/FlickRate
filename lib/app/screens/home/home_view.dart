@@ -1,7 +1,7 @@
-import 'package:flickrate/app/screens/home/widgets/category_item.dart';
+import 'package:flickrate/app/screens/home/widgets/genre_item.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/category/movie_categories.dart';
+import '../../../data/genre/movie_genre.dart';
 //import '../../../domain/movies/imovie.dart';
 import '../../theme/color_palette.dart';
 import 'home_view_model.dart';
@@ -110,7 +110,7 @@ class _HomeViewState extends State<HomeView> {
             child: Row(
               children: [
                 Text(
-                  "Categories",
+                  "Genres",
                   style: TextStyle(
                       fontSize: 20, color: widget.colorsPalette.mainColor),
                 ),
@@ -133,8 +133,8 @@ class _HomeViewState extends State<HomeView> {
                   childAspectRatio: 3 / 2,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20),
-              children: movieCategories
-                  .map((e) => CategoryItem(
+              children: movieGenreList
+                  .map((e) => GenreItem(
                         title: e,
                       ))
                   .toList(),

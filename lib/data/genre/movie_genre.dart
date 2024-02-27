@@ -1,4 +1,4 @@
-const List<String> movieCategories = [
+const List<String> movieGenreList = [
   'Favorite',
   'Action',
   'Adventure',
