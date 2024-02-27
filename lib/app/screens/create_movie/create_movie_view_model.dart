@@ -14,7 +14,7 @@ class CreateMovieViewModel extends ChangeNotifier {
       : _navigationUtil = navigationUtil,
         _movieRepository = movieRepository;
 
-  void createMovie(String name, String genre, String description) {
+  void onCreateMovieClicked(String name, String genre, String description) {
     String movieId = const Uuid().v4();
     _movieRepository.createMovie(
         Movie(id: movieId, name: name, genre: genre, description: description));

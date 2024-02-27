@@ -145,7 +145,8 @@ class _HomeViewState extends State<HomeView> {
     ));
   }
 }
-/*
+
+/* Move to other file
 StreamBuilder<List<IMovie>>(
         stream: widget.model.movieStreamList,
         builder: (context, snapshot) { 

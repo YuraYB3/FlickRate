@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flickrate/app/services/network/collection_name.dart';
 import 'package:flickrate/app/services/network/inetwork_service.dart';
 
@@ -19,29 +18,24 @@ class MovieRepository implements IMovieRepository {
   }
 
   @override
-  Future<IMovie?> fetchMovie(IMovie movie) async {
-    try {
-      DocumentSnapshot<Map<String, dynamic>> movieDoc =
-          await _networkService.read(movie, collectionMovies);
-
-      return Movie.fromJson(movieDoc.data()!);
-    } catch (error) {
-      return null;
-    }
-  }
-
-  @override
   Future<void> createMovie(IMovie movie) async {
     _networkService.create(movie.toJson(), collectionMovies);
   }
 
   @override
-  Future<void> updateMovie(IMovie movie) async {
-    _networkService.update(movie, collectionMovies);
+  Future<void> deleteMovie(IMovie movie) async {
+    await _networkService.delete(movie, collectionMovies);
   }
 
   @override
-  Future<void> deleteMovie(IMovie movie) async {
-    await _networkService.delete(movie, collectionMovies);
+  Future<IMovie?> fetchMovie(IMovie movie) {
+    // TODO: implement fetchMovie
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateMovie(IMovie movie) {
+    // TODO: implement updateMovie
+    throw UnimplementedError();
   }
 }

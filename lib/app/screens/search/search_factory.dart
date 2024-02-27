@@ -7,9 +7,10 @@ import 'search_view_model.dart';
 class SearchFactory {
   static Widget build() {
     return ChangeNotifierProvider(
-        create: (context) => SearchViewModel(),
-        child: Consumer<SearchViewModel>(
-          builder: (context, model, child) => const SearchView(),
-        ));
+      create: (context) => SearchViewModel(),
+      child: Consumer<SearchViewModel>(
+        builder: (context, model, child) => const SearchView(),
+      ),
+    );
   }
 }

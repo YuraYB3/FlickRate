@@ -70,7 +70,7 @@ class _CreateMovieViewState extends State<CreateMovieView> {
                     if (nameController.text.isNotEmpty &&
                         genreController.text.isNotEmpty &&
                         descriptionController.text.isNotEmpty) {
-                      widget.model.createMovie(nameController.text,
+                      widget.model.onCreateMovieClicked(nameController.text,
                           genreController.text, descriptionController.text);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flickrate/app/screens/home/home_view_model.dart';
 import 'package:flickrate/app/services/network/firebase_service.dart';
 import 'package:flickrate/app/services/network/inetwork_service.dart';
-import 'package:flickrate/data/movies/movie_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +33,6 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => HomeViewModel(
           navigationUtil: navigationUtil,
-          movieRepository: MovieRepository(networkService: networkService),
         ),
       ),
     ],

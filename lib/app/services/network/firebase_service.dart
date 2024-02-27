@@ -9,23 +9,6 @@ class FirebaseService implements INetworkService {
       await _firebaseFirestore.collection(collectionName).add(data);
 
   @override
-  Future<DocumentSnapshot<Map<String, dynamic>>> read(
-      IBaseModel model, String collectionName) async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firebaseFirestore
-        .collection(collectionName)
-        .where('id', isEqualTo: model.id)
-        .get();
-    return querySnapshot.docs.first;
-  }
-
-  @override
-  Future<void> update(IBaseModel model, String collectionName) async =>
-      await _firebaseFirestore
-          .collection(collectionName)
-          .doc(model.id)
-          .update(model.toJson());
-
-  @override
   Future<void> delete(IBaseModel model, String collectionName) async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firebaseFirestore
         .collection(collectionName)
@@ -43,4 +26,17 @@ class FirebaseService implements INetworkService {
           .collection(collectionName)
           .snapshots()
           .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
+
+  @override
+  Future<DocumentSnapshot<Map<String, dynamic>>> read(
+      IBaseModel model, String collectionName) {
+    // TODO: implement read
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> update(IBaseModel model, String collectionName) {
+    // TODO: implement update
+    throw UnimplementedError();
+  }
 }
