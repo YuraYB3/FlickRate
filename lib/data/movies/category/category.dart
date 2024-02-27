@@ -12,5 +12,5 @@ class Category implements ICategory {
   const Category(
       {required this.id,
       required this.title,
-      this.color = const Color.fromARGB(240, 96, 108, 56)});
+      this.color = const Color.fromARGB(239, 216, 59, 31)});
 }
