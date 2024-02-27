@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../data/movies/movie_repository.dart';
 import '../../../domain/movies/imovie.dart';
-import '../../services/user/iuser_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final IUserService _userService;
   final INavigationUtil _navigationUtil;
   final MovieRepository _movieRepository;
   late Stream<List<IMovie>> _movieStreamList;
@@ -16,16 +14,10 @@ class HomeViewModel extends ChangeNotifier {
 
   HomeViewModel(
       {required INavigationUtil navigationUtil,
-      required IUserService userService,
       required MovieRepository movieRepository})
-      : _userService = userService,
-        _navigationUtil = navigationUtil,
+      : _navigationUtil = navigationUtil,
         _movieRepository = movieRepository {
     getItems();
-  }
-
-  void onLogOutButtonPressed(BuildContext context) async {
-    _userService.logOut();
   }
 
   Future<void> getItems() async {
@@ -33,12 +25,15 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onFloatingButtonClicked() {
-    _navigationUtil.navigateTo(routeAddMovie);
+  void onAddButtonClicked() {
+    _navigationUtil.navigateTo(routeCreateMovie);
   }
 
-  void onListTileClicked(IMovie movie) async {
+  /*void onListTileClicked(IMovie movie) async {
     await _navigationUtil.navigateTo(routeMovie,
         allowBackNavigation: true, data: movie);
-  }
+  }*/
+  /* void onLogOutButtonPressed(BuildContext context) async {
+    _userService.logOut();
+  }*/
 }

@@ -1,18 +1,18 @@
 import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
-import 'package:flickrate/app/screens/add_movie/add_movie_view_model.dart';
+import 'package:flickrate/app/screens/create_movie/create_movie_view_model.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
-class AddMovieView extends StatefulWidget {
-  final AddMovieViewModel model;
+class CreateMovieView extends StatefulWidget {
+  final CreateMovieViewModel model;
 
-  const AddMovieView({required this.model, super.key});
+  const CreateMovieView({required this.model, super.key});
 
   @override
-  State<AddMovieView> createState() => _AddMovieViewState();
+  State<CreateMovieView> createState() => _CreateMovieViewState();
 }
 
-class _AddMovieViewState extends State<AddMovieView> {
+class _CreateMovieViewState extends State<CreateMovieView> {
   final ColorsPalette colorsPalette = ColorsPalette();
 
   final TextEditingController nameController = TextEditingController();
@@ -65,12 +65,12 @@ class _AddMovieViewState extends State<AddMovieView> {
               ),
               const SizedBox(height: 16),
               MyElevatedButton(
-                  title: 'Add movie',
+                  title: 'Create movie',
                   onButtonPressed: () {
                     if (nameController.text.isNotEmpty &&
                         genreController.text.isNotEmpty &&
                         descriptionController.text.isNotEmpty) {
-                      widget.model.addMovie(nameController.text,
+                      widget.model.createMovie(nameController.text,
                           genreController.text, descriptionController.text);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

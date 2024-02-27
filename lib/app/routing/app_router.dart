@@ -1,4 +1,4 @@
-import 'package:flickrate/app/screens/add_movie/add_movie_factory.dart';
+import 'package:flickrate/app/screens/create_movie/create_movie_factory.dart';
 import 'package:flickrate/app/screens/movie_details/movie_factory.dart';
 import 'package:flickrate/domain/movies/imovie.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class AppRouter {
       case routeHome:
         return MaterialPageRoute(
             builder: (_) => _buildHomeSettings(routeSettings));
-      case routeAddMovie:
+      case routeCreateMovie:
         return MaterialPageRoute(
             builder: (_) => _buildAddMovieSettings(routeSettings));
       case routeMovie:
@@ -37,7 +37,7 @@ class AppRouter {
   }
 
   Widget _buildAddMovieSettings(RouteSettings settings) {
-    return AddMovieFactory.build();
+    return CreateMovieFactory.build();
   }
 
   Widget _buildMovieSettings(RouteSettings settings, IMovie movie) {

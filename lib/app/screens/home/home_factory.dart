@@ -4,7 +4,6 @@ import 'package:flickrate/data/movies/movie_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/user/iuser_service.dart';
 import 'home_view.dart';
 import 'home_view_model.dart';
 
@@ -15,7 +14,6 @@ class HomeFactory {
         movieRepository:
             MovieRepository(networkService: context.read<INetworkService>()),
         navigationUtil: context.read<INavigationUtil>(),
-        userService: context.read<IUserService>(),
       ),
       child: Consumer<HomeViewModel>(
         builder: (context, model, child) => HomeView(model: model),

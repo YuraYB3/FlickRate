@@ -32,10 +32,11 @@ void main() async {
       Provider.value(value: userService),
       Provider.value(value: networkService),
       ChangeNotifierProvider(
-          create: (_) => HomeViewModel(
-              navigationUtil: navigationUtil,
-              userService: userService,
-              movieRepository: MovieRepository(networkService: networkService)))
+        create: (_) => HomeViewModel(
+          navigationUtil: navigationUtil,
+          movieRepository: MovieRepository(networkService: networkService),
+        ),
+      ),
     ],
     child: App(
       userService: userService,

@@ -1,5 +1,8 @@
 import 'package:flickrate/app/screens/home/home_factory.dart';
 import 'package:flickrate/app/screens/navigation/navigation_view_model.dart';
+import 'package:flickrate/app/screens/news/news_factory.dart';
+import 'package:flickrate/app/screens/profile/profile_factory.dart';
+import 'package:flickrate/app/screens/search/search_factory.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
@@ -17,21 +20,9 @@ class NavigationView extends StatefulWidget {
 class _NavigationViewState extends State<NavigationView> {
   final List<Widget> _pages = [
     HomeFactory.build(),
-    const Scaffold(
-      body: Center(
-        child: Text('Search'),
-      ),
-    ),
-    const Scaffold(
-      body: Center(
-        child: Text('News'),
-      ),
-    ),
-    const Scaffold(
-      body: Center(
-        child: Text('Profile'),
-      ),
-    ),
+    SearchFactory.build(),
+    NewsFactory.build(),
+    ProfileFactory.build()
   ];
 
   @override

@@ -1,4 +1,4 @@
 const String routeLogin = 'routeLogin';
 const String routeHome = 'routeHome';
-const String routeAddMovie = 'routeAddMovie';
+const String routeCreateMovie = 'routeCreateMovie';
 const String routeMovie = 'routeMovie';

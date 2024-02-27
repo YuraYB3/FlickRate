@@ -1,7 +1,7 @@
 import 'package:flickrate/app/screens/home/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/movies/category/movie_categories.dart';
+import '../../../data/category/movie_categories.dart';
 //import '../../../domain/movies/imovie.dart';
 import '../../theme/color_palette.dart';
 import 'home_view_model.dart';
@@ -87,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             Colors.white)),
-                                onPressed: () {},
+                                onPressed: widget.model.onAddButtonClicked,
                                 child: Text(
                                   "Add",
                                   style: TextStyle(
@@ -134,8 +134,9 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20),
               children: movieCategories
-                  .map((e) =>
-                      CategoryItem(id: e.id, title: e.title, color: e.color))
+                  .map((e) => CategoryItem(
+                        title: e,
+                      ))
                   .toList(),
             ),
           ),
