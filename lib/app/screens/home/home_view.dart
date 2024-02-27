@@ -1,6 +1,8 @@
+//import 'package:flickrate/app/screens/home/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/movies/imovie.dart';
+//import '../../../data/movies/category/movie_categories.dart';
+//import '../../../domain/movies/imovie.dart';
 import '../../theme/color_palette.dart';
 import 'home_view_model.dart';
 
@@ -22,18 +24,106 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: widget.colorsPalette.mainColor,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.logout_rounded),
-            onPressed: () {
-              widget.model.onLogOutButtonPressed(context);
-            },
+        body: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Hi",
+                style: TextStyle(
+                    fontSize: 24, color: widget.colorsPalette.mainColor),
+              ),
+              SizedBox(
+                height: 50,
+                width: 50,
+                child: CircleAvatar(
+                  backgroundColor: widget.colorsPalette.mainColor,
+                ),
+              )
+            ],
           ),
-        ],
-      ),
-      body: StreamBuilder<List<IMovie>>(
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            height: 200,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: widget.colorsPalette.mainColor,
+                borderRadius: BorderRadius.circular(30)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              child: Column(
+                children: [
+                  const Text(
+                    "Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla ",
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
+                  Expanded(child: Container()),
+                  Row(
+                    children: [
+                      Expanded(child: Container()),
+                      SizedBox(
+                          height: 40,
+                          width: 150,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white)),
+                              onPressed: () {},
+                              child: Text(
+                                "Add",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: widget.colorsPalette.mainColor),
+                              )))
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              Text(
+                "Categories",
+                style: TextStyle(
+                    fontSize: 20, color: widget.colorsPalette.mainColor),
+              ),
+              Expanded(child: Container()),
+              const Text(
+                "All",
+                style: TextStyle(fontSize: 20, color: Colors.grey),
+              ),
+            ],
+          ),
+        )
+      ],
+    ));
+  }
+}
+/*
+StreamBuilder<List<IMovie>>(
         stream: widget.model.movieStreamList,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -90,13 +180,22 @@ class _HomeViewState extends State<HomeView> {
                 );
               },
               itemCount: moviesData.length);
-        },
+        },*/
+
+/*
+        GridView(
+        padding: const EdgeInsets.all(25),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
+            childAspectRatio: 3 / 2,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20),
+        children: movieCategories
+            .map((e) => CategoryItem(id: e.id, title: e.title, color: e.color))
+            .toList(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: widget.model.onFloatingButtonClicked,
         backgroundColor: widget.colorsPalette.mainColor,
         child: const Icon(Icons.add, color: Colors.white),
-      ),
-    );
-  }
-}
+      ),*/

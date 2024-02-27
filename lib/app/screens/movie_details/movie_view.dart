@@ -25,7 +25,7 @@ class MovieView extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -35,13 +35,13 @@ class MovieView extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox()),
               MyElevatedButton(
                   title: "Delete",
                   onButtonPressed: () {
                     _model.onDeleteButtonPressed(_movie);
                   }),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],

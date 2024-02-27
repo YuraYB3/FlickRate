@@ -16,7 +16,7 @@ class FlickRateText extends StatelessWidget {
       'FlickRate',
       style: TextStyle(
         fontSize: 64,
-        color: colorsPalette.secondColor,
+        color: colorsPalette.mainColor,
         fontStyle: FontStyle.italic,
         fontWeight: FontWeight.bold,
       ),
