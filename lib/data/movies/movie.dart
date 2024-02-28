@@ -8,10 +8,13 @@ class Movie implements IMovie {
   @override
   final String genre;
   @override
+  final double rating;
+  @override
   final String description;
 
   Movie(
-      {required this.id,
+      {this.id = '',
+      this.rating = 5.0,
       required this.name,
       required this.genre,
       required this.description});
@@ -21,6 +24,7 @@ class Movie implements IMovie {
       id: json['id'],
       name: json['name'],
       genre: json['genre'],
+      rating: json['rating'],
       description: json['description'],
     );
   }
@@ -28,10 +32,10 @@ class Movie implements IMovie {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'genre': genre,
       'description': description,
+      'rating': rating
     };
   }
 }

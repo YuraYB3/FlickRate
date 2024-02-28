@@ -5,8 +5,16 @@ import 'package:flickrate/domain/ibase_model.dart';
 class FirebaseService implements INetworkService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   @override
-  Future<void> create(Map<String, dynamic> data, String collectionName) async =>
-      await _firebaseFirestore.collection(collectionName).add(data);
+  Future<void> create(Map<String, dynamic> data, String collectionName) async {
+    try {
+      DocumentReference docRef =
+          await _firebaseFirestore.collection(collectionName).add(data);
+      String docId = docRef.id;
+      await docRef.update({'id': docId});
+    } catch (e) {
+      //
+    }
+  }
 
   @override
   Future<void> delete(IBaseModel model, String collectionName) async {
