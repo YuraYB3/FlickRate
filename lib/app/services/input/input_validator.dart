@@ -14,4 +14,9 @@ class InputValidator {
   bool isOtpValid(String value) {
     return value.length == 6;
   }
+
+  bool isCreateMovieFormValidate(
+      String name, String genre, String description) {
+    return name.isNotEmpty && genre.isNotEmpty && description.isNotEmpty;
+  }
 }

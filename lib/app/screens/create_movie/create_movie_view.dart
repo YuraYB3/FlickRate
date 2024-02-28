@@ -15,20 +15,6 @@ class CreateMovieView extends StatefulWidget {
 class _CreateMovieViewState extends State<CreateMovieView> {
   final ColorsPalette colorsPalette = ColorsPalette();
 
-  final TextEditingController nameController = TextEditingController();
-
-  final TextEditingController genreController = TextEditingController();
-
-  final TextEditingController descriptionController = TextEditingController();
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    genreController.dispose();
-    descriptionController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,21 +29,27 @@ class _CreateMovieViewState extends State<CreateMovieView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
-                controller: nameController,
+                onChanged: (value) {
+                  widget.model.updateMovieName(value);
+                },
                 decoration: const InputDecoration(
                   labelText: 'Movie name',
                 ),
               ),
               const SizedBox(height: 16),
               TextField(
-                controller: genreController,
+                onChanged: (value) {
+                  widget.model.updateMovieGenre(value);
+                },
                 decoration: const InputDecoration(
                   labelText: 'Genre',
                 ),
               ),
               const SizedBox(height: 16),
               TextField(
-                controller: descriptionController,
+                onChanged: (value) {
+                  widget.model.updateMovieDescription(value);
+                },
                 maxLines: 16,
                 decoration: const InputDecoration(
                   labelText: 'Description',
@@ -67,11 +59,8 @@ class _CreateMovieViewState extends State<CreateMovieView> {
               MyElevatedButton(
                   title: 'Create movie',
                   onButtonPressed: () {
-                    if (nameController.text.isNotEmpty &&
-                        genreController.text.isNotEmpty &&
-                        descriptionController.text.isNotEmpty) {
-                      widget.model.onCreateMovieClicked(nameController.text,
-                          genreController.text, descriptionController.text);
+                    if (widget.model.isFieldsValid()) {
+                      widget.model.onCreateMovieClicked();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

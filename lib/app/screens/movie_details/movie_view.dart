@@ -39,7 +39,38 @@ class MovieView extends StatelessWidget {
               MyElevatedButton(
                   title: "Delete",
                   onButtonPressed: () {
-                    _model.onDeleteButtonPressed(_movie);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Delete movie"),
+                          content: const Text(
+                              "Are you sure you want to delete this movie?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                _model.onDeleteButtonPressed(_movie);
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                "Delete",
+                                style:
+                                    TextStyle(color: colorsPalette.mainColor),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                "Cancel",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   }),
               const SizedBox(
                 height: 50,
