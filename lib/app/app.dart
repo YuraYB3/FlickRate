@@ -1,4 +1,4 @@
-import 'package:flickrate/app/screens/navigation/navigation_factory.dart';
+import 'package:flickrate/app/screens/core_navigation/core_navigation_factory.dart';
 import 'package:flickrate/app/services/user/iuser_service.dart';
 import 'package:flickrate/app/services/user/user_service.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class _AppState extends State<App> {
               case UserState.notAuthorized:
                 return LoginFactory.build();
               case UserState.readyToWork:
-                return NavigationFactory.build();
+                return CoreNavigationFactory.build();
               default:
                 return const Scaffold(
                   body: Center(

@@ -65,8 +65,8 @@ class _HomeViewState extends State<HomeView> {
                 child: Column(
                   children: [
                     const Text(
-                      "Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla Bla bla bla bla bla bla ",
-                      style: TextStyle(color: Colors.white, fontSize: 24),
+                      "Have you watched new movie? ",
+                      style: TextStyle(color: Colors.white, fontSize: 36),
                     ),
                     Expanded(child: Container()),
                     Row(
@@ -97,6 +97,9 @@ class _HomeViewState extends State<HomeView> {
                                 )))
                       ],
                     ),
+                    const SizedBox(
+                      height: 10,
+                    )
                   ],
                 ),
               ),
@@ -115,9 +118,14 @@ class _HomeViewState extends State<HomeView> {
                       fontSize: 20, color: widget.colorsPalette.mainColor),
                 ),
                 Expanded(child: Container()),
-                const Text(
-                  "All",
-                  style: TextStyle(fontSize: 20, color: Colors.grey),
+                GestureDetector(
+                  onTap: () {
+                    widget.model.onShowAllClicked();
+                  },
+                  child: const Text(
+                    "All",
+                    style: TextStyle(fontSize: 20, color: Colors.grey),
+                  ),
                 ),
               ],
             ),
@@ -147,63 +155,6 @@ class _HomeViewState extends State<HomeView> {
 }
 
 /* Move to other file
-StreamBuilder<List<IMovie>>(
-        stream: widget.model.movieStreamList,
-        builder: (context, snapshot) { 
-          if (snapshot.hasError) {
-            return const Center(
-              child: Text('ERROR'),
-            );
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(
-                color: widget.colorsPalette.mainColor,
-              ),
-            );
-          }
-          if (snapshot.data!.isEmpty) {
-            return Center(
-                child: Text(
-              "EMPTY :(",
-              style: TextStyle(
-                  fontSize: 24, color: widget.colorsPalette.mainColor),
-            ));
-          }
-          final moviesData = snapshot.data!;
-          return ListView.builder(
-              itemBuilder: (context, index) {
-                final movie = moviesData[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: widget.colorsPalette.secondColor,
-                      child: Text(
-                        movie.name[0],
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    title: Text(movie.name),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(movie.genre),
-                        const SizedBox(height: 4),
-                        Text(
-                          movie.description,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      widget.model.onListTileClicked(movie);
-                    },
-                  ),
-                );
-              },
-              itemCount: moviesData.length);
-        },*/
+*/
 
 
