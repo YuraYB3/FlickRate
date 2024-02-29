@@ -1,11 +1,12 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
-exports.sayHello = functions.https.onCall((data, context)=>{
+
+exports.sayHello = functions.https.onCall(()=>{
   return "Hi there";
 });
 
-exports.incrementRating = functions.https.onCall(async (data, context) => {
+exports.incrementRating = functions.https.onCall(async (data) => {
   try {
     const movieId = data.movieId;
     console.log("Movie id =" + movieId);
@@ -26,7 +27,7 @@ exports.incrementRating = functions.https.onCall(async (data, context) => {
   }
 });
 
-exports.decrementRating = functions.https.onCall(async (data, context) => {
+exports.decrementRating = functions.https.onCall(async (data) => {
   try {
     const movieId = data.movieId;
     console.log("Movie id =" + movieId);
