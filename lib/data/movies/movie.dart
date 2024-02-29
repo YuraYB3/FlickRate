@@ -8,13 +8,13 @@ class Movie implements IMovie {
   @override
   final String genre;
   @override
-  final double rating;
+  final num rating;
   @override
   final String description;
 
   Movie(
       {this.id = '',
-      this.rating = 5.0,
+      this.rating = 4.9,
       required this.name,
       required this.genre,
       required this.description});

@@ -29,7 +29,8 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
+            padding:
+                const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -48,13 +49,10 @@ class _HomeViewState extends State<HomeView> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
-              height: 200,
+              height: MediaQuery.of(context).size.height * 0.3,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: widget.colorsPalette.mainColor,

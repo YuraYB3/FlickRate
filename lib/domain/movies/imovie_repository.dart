@@ -5,5 +5,5 @@ abstract interface class IMovieRepository {
   Future<void> updateMovie(IMovie movie);
   Future<void> deleteMovie(IMovie movie);
   Stream<List<IMovie>> fetchMoviesStream();
-  Future<IMovie?> fetchMovie(IMovie movie);
+  Stream<IMovie> fetchMovie(String id);
 }

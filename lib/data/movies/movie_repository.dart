@@ -28,9 +28,10 @@ class MovieRepository implements IMovieRepository {
   }
 
   @override
-  Future<IMovie?> fetchMovie(IMovie movie) {
-    // TODO: implement fetchMovie
-    throw UnimplementedError();
+  Stream<IMovie> fetchMovie(String id) {
+    return _networkService
+        .read(id, collectionMovies)
+        .map((event) => Movie.fromJson(event));
   }
 
   @override

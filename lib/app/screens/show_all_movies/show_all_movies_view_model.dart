@@ -17,7 +17,7 @@ class ShowAllMoviesViewModel extends ChangeNotifier {
       required INavigationUtil navigationUtil})
       : _navigationUtil = navigationUtil,
         _movieRepository = movieRepository {
-    getItems();
+    fetchMoviesStream();
   }
 
   void onListTileClicked(IMovie movie) async {
@@ -25,7 +25,7 @@ class ShowAllMoviesViewModel extends ChangeNotifier {
         allowBackNavigation: true, data: movie);
   }
 
-  Future<void> getItems() async {
+  Future<void> fetchMoviesStream() async {
     _movieStreamList = _movieRepository.fetchMoviesStream();
     notifyListeners();
   }

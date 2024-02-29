@@ -3,7 +3,7 @@ import 'package:flickrate/domain/ibase_model.dart';
 abstract interface class IMovie implements IBaseModel {
   final String name;
   final String genre;
-  final double rating;
+  final num rating;
   final String description;
 
   IMovie(

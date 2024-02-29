@@ -36,10 +36,12 @@ class FirebaseService implements INetworkService {
           .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
 
   @override
-  Future<DocumentSnapshot<Map<String, dynamic>>> read(
-      IBaseModel model, String collectionName) {
-    // TODO: implement read
-    throw UnimplementedError();
+  Stream<Map<String, dynamic>> read(String id, String collectionName) {
+    return _firebaseFirestore
+        .collection(collectionName)
+        .doc(id)
+        .snapshots()
+        .map((event) => event.data()!);
   }
 
   @override
