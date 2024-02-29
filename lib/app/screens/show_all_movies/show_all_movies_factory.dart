@@ -1,9 +1,9 @@
-import 'package:flickrate/app/routing/inavigation_util.dart';
-import 'package:flickrate/app/services/network/inetwork_service.dart';
-import 'package:flickrate/data/movies/movie_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/movies/movie_repository.dart';
+import '../../routing/inavigation_util.dart';
+import '../../services/network/inetwork_service.dart';
 import 'show_all_movies_view.dart';
 import 'show_all_movies_view_model.dart';
 

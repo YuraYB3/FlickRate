@@ -1,6 +1,7 @@
-import 'package:flickrate/app/routing/inavigation_util.dart';
-import 'package:flickrate/app/routing/routes.dart';
 import 'package:flutter/material.dart';
+
+import '../../routing/inavigation_util.dart';
+import '../../routing/routes.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;

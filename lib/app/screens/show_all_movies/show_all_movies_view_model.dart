@@ -20,9 +20,9 @@ class ShowAllMoviesViewModel extends ChangeNotifier {
     fetchMoviesStream();
   }
 
-  void onListTileClicked(IMovie movie) async {
+  void onListTileClicked(String movieId) async {
     await _navigationUtil.navigateTo(routeMovie,
-        allowBackNavigation: true, data: movie);
+        allowBackNavigation: true, data: movieId);
   }
 
   Future<void> fetchMoviesStream() async {

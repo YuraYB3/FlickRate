@@ -1,7 +1,7 @@
-import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../routing/inavigation_util.dart';
 import 'home_view.dart';
 import 'home_view_model.dart';
 

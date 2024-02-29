@@ -1,11 +1,10 @@
-import 'package:flickrate/app/screens/create_movie/create_movie_factory.dart';
-import 'package:flickrate/app/screens/movie_details/movie_factory.dart';
-import 'package:flickrate/app/screens/show_all_movies/show_all_movies_factory.dart';
-import 'package:flickrate/domain/movies/imovie.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/create_movie/create_movie_factory.dart';
 import '../screens/home/home_factory.dart';
 import '../screens/login/login_factory.dart';
+import '../screens/movie_details/movie_factory.dart';
+import '../screens/show_all_movies/show_all_movies_factory.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -21,9 +20,9 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => _buildAddMovieSettings(routeSettings));
       case routeMovie:
-        final movie = routeSettings.arguments as IMovie;
+        final movieId = routeSettings.arguments as String;
         return MaterialPageRoute(
-            builder: (_) => _buildMovieSettings(routeSettings, movie));
+            builder: (_) => _buildMovieSettings(routeSettings, movieId));
       case routeShowAllMovies:
         return MaterialPageRoute(
             builder: (_) => _buildLoginSettings(routeSettings));
@@ -44,8 +43,8 @@ class AppRouter {
     return CreateMovieFactory.build();
   }
 
-  Widget _buildMovieSettings(RouteSettings settings, IMovie movie) {
-    return MovieFactory.build(movie);
+  Widget _buildMovieSettings(RouteSettings settings, String movieId) {
+    return MovieFactory.build(movieId);
   }
 
   Widget _buildLoginSettings(RouteSettings settings) {

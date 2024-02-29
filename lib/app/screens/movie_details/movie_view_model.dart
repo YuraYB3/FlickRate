@@ -24,8 +24,8 @@ class MovieViewModel extends ChangeNotifier {
     fetchMovieStream();
   }
 
-  void onDeleteButtonPressed(IMovie movie) {
-    _movieRepository.deleteMovie(movie);
+  void onDeleteButtonPressed(String id) {
+    _movieRepository.deleteMovie(id);
     _navigationUtil.navigateBack();
   }
 
@@ -39,6 +39,5 @@ class MovieViewModel extends ChangeNotifier {
 
   Future<void> fetchMovieStream() async {
     _movieStream = _movieRepository.fetchMovie(_movieId);
-    print(_movieStream);
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flickrate/domain/ibase_model.dart';
+import '../ibase_model.dart';
 
 abstract interface class IMovie implements IBaseModel {
   final String name;

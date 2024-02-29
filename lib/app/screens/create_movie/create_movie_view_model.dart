@@ -1,16 +1,16 @@
-import 'package:flickrate/app/routing/inavigation_util.dart';
-import 'package:flickrate/app/services/input/input_validator.dart';
-import 'package:flickrate/data/movies/movie.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/movies/movie.dart';
 import '../../../data/movies/movie_repository.dart';
+import '../../routing/inavigation_util.dart';
+import '../../services/input/input_validator.dart';
 
 class CreateMovieViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;
   final MovieRepository _movieRepository;
   final InputValidator _inputValidator = InputValidator();
   String _movieName = '';
-  String _movieGenre = '';
+  String _movieGenre = 'Action';
   String _movieDescription = '';
 
   String get movieName => _movieName;

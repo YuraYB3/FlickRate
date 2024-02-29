@@ -1,6 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:flickrate/app/services/functions/endpoints.dart';
-import 'package:flickrate/app/services/functions/ifunction_service.dart';
+
+import 'endpoints.dart';
+import 'ifunction_service.dart';
 
 class FunctionService implements IFunctionService {
   final FirebaseFunctions functions = FirebaseFunctions.instance;

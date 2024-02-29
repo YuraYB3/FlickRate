@@ -1,7 +1,9 @@
-import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
-import 'package:flickrate/app/screens/create_movie/create_movie_view_model.dart';
-import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
+
+import '../../../data/genre/movie_genre.dart';
+import '../../common/widgets/my_elevated_button.dart';
+import '../../theme/color_palette.dart';
+import 'create_movie_view_model.dart';
 
 class CreateMovieView extends StatefulWidget {
   final CreateMovieViewModel model;
@@ -17,42 +19,63 @@ class _CreateMovieViewState extends State<CreateMovieView> {
 
   @override
   Widget build(BuildContext context) {
+    double fieldWidth = MediaQuery.of(context).size.width * 0.85;
+    double screenHeight = MediaQuery.of(context).size.height;
+    //double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorsPalette.mainColor,
         title: const Text('New Movie'),
       ),
-      body: SingleChildScrollView(
+      body: SizedBox(
+        height: screenHeight,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextField(
-                onChanged: (value) {
-                  widget.model.updateMovieName(value);
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Movie name',
+              SizedBox(
+                width: fieldWidth,
+                child: TextField(
+                  onChanged: (value) {
+                    widget.model.updateMovieName(value);
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Movie name',
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
-                onChanged: (value) {
-                  widget.model.updateMovieGenre(value);
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Genre',
-                ),
-              ),
+              SizedBox(
+                  width: fieldWidth,
+                  child: DropdownButton(
+                      hint: const Text('Select genre:'),
+                      value: widget.model.movieGenre,
+                      onChanged: (newValue) {
+                        widget.model.updateMovieGenre(newValue!);
+                      },
+                      items: movieGenreList.map(
+                        (movieGenre) {
+                          return DropdownMenuItem(
+                            value: movieGenre,
+                            child: SizedBox(
+                                width: fieldWidth, child: Text(movieGenre)),
+                          );
+                        },
+                      ).toList())),
               const SizedBox(height: 16),
-              TextField(
-                onChanged: (value) {
-                  widget.model.updateMovieDescription(value);
-                },
-                maxLines: 16,
-                decoration: const InputDecoration(
-                  labelText: 'Description',
+              Expanded(
+                child: SizedBox(
+                  width: fieldWidth,
+                  child: TextField(
+                    maxLines: 20,
+                    onChanged: (value) {
+                      widget.model.updateMovieDescription(value);
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

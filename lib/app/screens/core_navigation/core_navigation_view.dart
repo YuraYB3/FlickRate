@@ -1,6 +1,6 @@
-import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme/color_palette.dart';
 import 'core_navigation_view_model.dart';
 
 class CoreNavigationView extends StatefulWidget {

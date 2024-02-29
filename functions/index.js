@@ -4,6 +4,7 @@ admin.initializeApp();
 exports.sayHello = functions.https.onCall((data, context)=>{
   return "Hi there";
 });
+
 exports.incrementRating = functions.https.onCall(async (data, context) => {
   try {
     const movieId = data.movieId;
@@ -24,6 +25,7 @@ exports.incrementRating = functions.https.onCall(async (data, context) => {
     console.error("Error incrementing rating:", error);
   }
 });
+
 exports.decrementRating = functions.https.onCall(async (data, context) => {
   try {
     const movieId = data.movieId;

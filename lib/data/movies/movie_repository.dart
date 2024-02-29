@@ -1,6 +1,5 @@
-import 'package:flickrate/app/services/network/collection_name.dart';
-import 'package:flickrate/app/services/network/inetwork_service.dart';
-
+import '../../app/services/network/collection_name.dart';
+import '../../app/services/network/inetwork_service.dart';
 import '../../domain/movies/imovie.dart';
 import '../../domain/movies/imovie_repository.dart';
 import 'movie.dart';
@@ -23,8 +22,8 @@ class MovieRepository implements IMovieRepository {
   }
 
   @override
-  Future<void> deleteMovie(IMovie movie) async {
-    await _networkService.delete(movie, collectionMovies);
+  Future<void> deleteMovie(String id) async {
+    await _networkService.delete(id, collectionMovies);
   }
 
   @override
@@ -36,7 +35,7 @@ class MovieRepository implements IMovieRepository {
 
   @override
   Future<void> updateMovie(IMovie movie) {
-    // TODO: implement updateMovie
+    // implement updateMovie
     throw UnimplementedError();
   }
 }

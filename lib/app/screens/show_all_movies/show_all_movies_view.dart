@@ -1,7 +1,7 @@
-import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
+import '../../theme/color_palette.dart';
 import 'show_all_movies_view_model.dart';
 
 class ShowAllMoviesView extends StatefulWidget {
@@ -72,7 +72,7 @@ class _ShowAllMoviesViewState extends State<ShowAllMoviesView> {
                         ],
                       ),
                       onTap: () {
-                        widget._model.onListTileClicked(movie);
+                        widget._model.onListTileClicked(movie.id);
                       },
                     ),
                   );

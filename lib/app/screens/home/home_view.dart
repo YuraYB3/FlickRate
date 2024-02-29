@@ -1,10 +1,9 @@
-import 'package:flickrate/app/screens/home/widgets/genre_item.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/genre/movie_genre.dart';
-//import '../../../domain/movies/imovie.dart';
 import '../../theme/color_palette.dart';
 import 'home_view_model.dart';
+import 'widgets/genre_item.dart';
 
 class HomeView extends StatefulWidget {
   final HomeViewModel model;
@@ -23,9 +22,11 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         body: SizedBox(
-      height: MediaQuery.of(context).size.height,
+      height: screenHeight,
       child: Column(
         children: [
           Padding(
@@ -52,8 +53,8 @@ class _HomeViewState extends State<HomeView> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              width: MediaQuery.of(context).size.width,
+              height: screenHeight * 0.3,
+              width: screenWidth,
               decoration: BoxDecoration(
                   color: widget.colorsPalette.mainColor,
                   borderRadius: BorderRadius.circular(30)),
@@ -140,8 +141,8 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20),
               children: movieGenreList
-                  .map((e) => GenreItem(
-                        title: e,
+                  .map((genreItem) => GenreItem(
+                        title: genreItem,
                       ))
                   .toList(),
             ),
@@ -151,8 +152,3 @@ class _HomeViewState extends State<HomeView> {
     ));
   }
 }
-
-/* Move to other file
-*/
-
-

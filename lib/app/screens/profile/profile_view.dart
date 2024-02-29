@@ -1,6 +1,7 @@
-import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
-import 'package:flickrate/app/screens/profile/profile_view_model.dart';
 import 'package:flutter/material.dart';
+
+import '../../common/widgets/my_elevated_button.dart';
+import 'profile_view_model.dart';
 
 class ProfileView extends StatefulWidget {
   final ProfileViewModel _model;

@@ -1,12 +1,12 @@
-import 'package:flickrate/app/screens/core_navigation/core_navigation_factory.dart';
-import 'package:flickrate/app/services/user/iuser_service.dart';
-import 'package:flickrate/app/services/user/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
+import 'screens/core_navigation/core_navigation_factory.dart';
 import 'screens/login/login_factory.dart';
+import 'services/user/iuser_service.dart';
+import 'services/user/user_service.dart';
 
 class App extends StatefulWidget {
   final AppRouter _appRouter;

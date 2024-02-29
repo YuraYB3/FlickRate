@@ -1,10 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flickrate/app/screens/home/home_view_model.dart';
-import 'package:flickrate/app/services/functions/function_service.dart';
-import 'package:flickrate/app/services/functions/ifunction_service.dart';
-import 'package:flickrate/app/services/network/firebase_service.dart';
-import 'package:flickrate/app/services/network/inetwork_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +7,12 @@ import 'app/app.dart';
 import 'app/routing/app_router.dart';
 import 'app/routing/inavigation_util.dart';
 import 'app/routing/navigation_util.dart';
+import 'app/screens/home/home_view_model.dart';
 import 'app/services/auth/auth_service.dart';
+import 'app/services/functions/function_service.dart';
+import 'app/services/functions/ifunction_service.dart';
+import 'app/services/network/firebase_service.dart';
+import 'app/services/network/inetwork_service.dart';
 import 'app/services/user/iuser_service.dart';
 import 'app/services/user/user_service.dart';
 import 'app/services/auth/iauth_service.dart';

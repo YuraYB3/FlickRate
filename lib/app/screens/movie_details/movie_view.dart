@@ -1,22 +1,22 @@
-import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
-import 'package:flickrate/app/screens/movie_details/movie_view_model.dart';
-import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
+import '../../common/widgets/my_elevated_button.dart';
+import '../../theme/color_palette.dart';
+import 'movie_view_model.dart';
 
 class MovieView extends StatelessWidget {
-  final IMovie _movie;
   final MovieViewModel _model;
   final ColorsPalette colorsPalette = ColorsPalette();
 
-  MovieView({Key? key, required IMovie movie, required MovieViewModel model})
-      : _movie = movie,
-        _model = model,
+  MovieView({Key? key, required MovieViewModel model})
+      : _model = model,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return StreamBuilder<IMovie>(
       stream: _model.movieStream,
       builder: (context, snapshot) {
@@ -52,8 +52,8 @@ class MovieView extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    width: MediaQuery.of(context).size.width,
+                    height: screenHeight * 0.4,
+                    width: screenWidth,
                     color: Colors.grey[800],
                   ),
                   Expanded(
@@ -89,7 +89,8 @@ class MovieView extends StatelessWidget {
                                   actions: [
                                     TextButton(
                                       onPressed: () {
-                                        _model.onDeleteButtonPressed(_movie);
+                                        _model.onDeleteButtonPressed(
+                                            movieData.id);
                                         Navigator.of(context).pop();
                                       },
                                       child: Text(
@@ -134,6 +135,3 @@ class MovieView extends StatelessWidget {
     );
   }
 }
-/*
-
-*/

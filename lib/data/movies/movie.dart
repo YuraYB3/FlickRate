@@ -1,4 +1,4 @@
-import 'package:flickrate/domain/movies/imovie.dart';
+import '../../domain/movies/imovie.dart';
 
 class Movie implements IMovie {
   @override
@@ -14,7 +14,7 @@ class Movie implements IMovie {
 
   Movie(
       {this.id = '',
-      this.rating = 4.9,
+      this.rating = 4,
       required this.name,
       required this.genre,
       required this.description});
