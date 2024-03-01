@@ -7,4 +7,6 @@ abstract interface class IMovieRepository {
   Stream<List<IMovie>> fetchMoviesStream();
   Stream<IMovie> fetchMovie(String id);
   Stream<List<IMovie>> fetchMoviesStreamByGenre(String genre);
+  void increaseRating(String id);
+  void decreaseRating(String id);
 }

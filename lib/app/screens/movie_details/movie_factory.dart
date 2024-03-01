@@ -13,10 +13,11 @@ class MovieFactory {
     return ChangeNotifierProvider(
       create: (context) => MovieViewModel(
           movieId: movieId,
-          functionService: context.read<IFunctionService>(),
           navigationUtil: context.read<INavigationUtil>(),
-          movieRepository:
-              MovieRepository(networkService: context.read<INetworkService>())),
+          movieRepository: MovieRepository(
+            networkService: context.read<INetworkService>(),
+            functionService: context.read<IFunctionService>(),
+          )),
       child: Consumer<MovieViewModel>(
         builder: (context, value, child) => MovieView(model: value),
       ),

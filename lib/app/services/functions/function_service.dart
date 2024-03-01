@@ -7,9 +7,9 @@ import 'ifunction_service.dart';
 class FunctionService implements IFunctionService {
   final FirebaseFunctions functions = FirebaseFunctions.instance;
   @override
-  Future<void> onCall(data, String endPoint) async {
+  Future<void> onCall(data, String functionName) async {
     try {
-      HttpsCallable callable = functions.httpsCallable(endPoint);
+      HttpsCallable callable = functions.httpsCallable(functionName);
       await callable.call(data);
     } on FirebaseFunctionsException catch (e) {
       print(e.message);

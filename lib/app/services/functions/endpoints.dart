@@ -1,2 +1,2 @@
-const String endpointIncreaseRating = 'incrementRating';
-const String endpointDecreaseRating = 'decrementRating';
+const String callableIncreaseRating = 'incrementRating';
+const String callableDecreaseRating = 'decrementRating';

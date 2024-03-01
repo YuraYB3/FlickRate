@@ -1,3 +1,4 @@
+import 'package:flickrate/app/services/functions/ifunction_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class ShowMoviesFactory {
     return ChangeNotifierProvider(
         create: (context) => ShowMoviesViewModel(
             movieRepository: MovieRepository(
+                functionService: context.read<IFunctionService>(),
                 networkService: context.read<INetworkService>()),
             navigationUtil: context.read<INavigationUtil>(),
             genre: genre),

@@ -1,15 +1,13 @@
-import 'package:flickrate/app/services/functions/endpoints.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
 import '../../../domain/movies/imovie_repository.dart';
 import '../../routing/inavigation_util.dart';
-import '../../services/functions/ifunction_service.dart';
 
 class MovieViewModel extends ChangeNotifier {
   final IMovieRepository _movieRepository;
   final INavigationUtil _navigationUtil;
-  final IFunctionService _functionService;
+
   final String _movieId;
   late Stream<IMovie> _movieStream;
   Stream<IMovie> get movieStream => _movieStream;
@@ -17,10 +15,8 @@ class MovieViewModel extends ChangeNotifier {
   MovieViewModel(
       {required INavigationUtil navigationUtil,
       required String movieId,
-      required IFunctionService functionService,
       required IMovieRepository movieRepository})
       : _movieRepository = movieRepository,
-        _functionService = functionService,
         _movieId = movieId,
         _navigationUtil = navigationUtil {
     fetchMovieStream();
@@ -32,11 +28,11 @@ class MovieViewModel extends ChangeNotifier {
   }
 
   void onIncreaseButtonClicked(String id) {
-    _functionService.onCall({"movieId": id}, endpointIncreaseRating);
+    _movieRepository.increaseRating(id);
   }
 
   void onDecreaseButtonClicked(String id) {
-    _functionService.onCall({"movieId": id}, endpointDecreaseRating);
+    _movieRepository.decreaseRating(id);
   }
 
   Future<void> fetchMovieStream() async {

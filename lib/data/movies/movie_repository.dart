@@ -1,3 +1,5 @@
+import '../../app/services/functions/endpoints.dart';
+import '../../app/services/functions/ifunction_service.dart';
 import '../../app/services/network/collection_name.dart';
 import '../../app/services/network/inetwork_service.dart';
 import '../../domain/movies/imovie.dart';
@@ -6,9 +8,13 @@ import 'movie.dart';
 
 class MovieRepository implements IMovieRepository {
   final INetworkService _networkService;
+  final IFunctionService _functionService;
 
-  MovieRepository({required INetworkService networkService})
-      : _networkService = networkService;
+  MovieRepository({
+    required INetworkService networkService,
+    required IFunctionService functionService,
+  })  : _networkService = networkService,
+        _functionService = functionService;
 
   @override
   Stream<List<IMovie>> fetchMoviesStream() {
@@ -46,5 +52,15 @@ class MovieRepository implements IMovieRepository {
             .where((data) => data['genre'] == genre)
             .map((data) => Movie.fromJson(data))
             .toList());
+  }
+
+  @override
+  void decreaseRating(String id) {
+    _functionService.onCall({"movieId": id}, callableDecreaseRating);
+  }
+
+  @override
+  void increaseRating(String id) {
+    _functionService.onCall({"movieId": id}, callableIncreaseRating);
   }
 }
