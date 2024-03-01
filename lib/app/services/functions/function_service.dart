@@ -11,11 +11,9 @@ class FunctionService implements IFunctionService {
   Future<void> decreaseRating(String id) async {
     try {
       HttpsCallable callable = functions.httpsCallable(endpointDecreaseRating);
-      print('id: $id');
       await callable.call({'movieId': id});
-      print('Rating decremented successfully');
     } on FirebaseFunctionsException catch (e) {
-      print('Error decremented rating: ${e.message}');
+      print(e.message);
     }
   }
 
@@ -23,11 +21,9 @@ class FunctionService implements IFunctionService {
   Future<void> increaseRating(String id) async {
     try {
       HttpsCallable callable = functions.httpsCallable(endpointIncreaseRating);
-      print('id: $id');
       await callable.call({'movieId': id});
-      print('Rating incremented successfully');
     } on FirebaseFunctionsException catch (e) {
-      print('Error incrementing rating: ${e.message}');
+      print(e.message);
     }
   }
 }
