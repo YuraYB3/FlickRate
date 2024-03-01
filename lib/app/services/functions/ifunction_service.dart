@@ -1,4 +1,3 @@
 abstract interface class IFunctionService {
-  Future<void> increaseRating(String id);
-  Future<void> decreaseRating(String id);
+  Future<void> onCall(data, String endPoint);
 }

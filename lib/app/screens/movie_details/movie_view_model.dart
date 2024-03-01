@@ -1,3 +1,4 @@
+import 'package:flickrate/app/services/functions/endpoints.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
@@ -31,11 +32,11 @@ class MovieViewModel extends ChangeNotifier {
   }
 
   void onIncreaseButtonClicked(String id) {
-    _functionService.increaseRating(id);
+    _functionService.onCall({"movieId": id}, endpointIncreaseRating);
   }
 
   void onDecreaseButtonClicked(String id) {
-    _functionService.decreaseRating(id);
+    _functionService.onCall({"movieId": id}, endpointDecreaseRating);
   }
 
   Future<void> fetchMovieStream() async {
