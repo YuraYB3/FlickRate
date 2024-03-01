@@ -38,4 +38,13 @@ class MovieRepository implements IMovieRepository {
     // implement updateMovie
     throw UnimplementedError();
   }
+
+  @override
+  Stream<List<IMovie>> fetchMoviesStreamByGenre(String genre) {
+    return _networkService.fetchDataStream(collectionMovies).map((dataList) =>
+        dataList
+            .where((data) => data['genre'] == genre)
+            .map((data) => Movie.fromJson(data))
+            .toList());
+  }
 }

@@ -8,7 +8,7 @@ enum UserState { readyToWork, notAuthorized }
 class UserService implements IUserService {
   final IAuthService _authService;
   final StreamController<UserState> _userStateStreamController =
-      StreamController.broadcast();
+      StreamController();
 
   UserService({required IAuthService authService}) : _authService = authService;
 
@@ -40,6 +40,7 @@ class UserService implements IUserService {
     userStream.listen((event) {
       _userStateStreamController.add(event);
     });
+    //          _userStateStreamController.close();
     return _userStateStreamController.stream;
   }
 

@@ -21,8 +21,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final INavigationUtil navigationUtil = NavigationUtil();
-  final IAuthService authService = AuthService(
-      firebaseAuth: FirebaseAuth.instance, navigationUtil: navigationUtil);
+  final IAuthService authService =
+      AuthService(firebaseAuth: FirebaseAuth.instance);
   final IUserService userService = UserService(authService: authService);
   final INetworkService networkService = FirebaseService();
   final IFunctionService functionService = FunctionService();

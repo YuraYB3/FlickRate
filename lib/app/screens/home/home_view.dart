@@ -143,6 +143,9 @@ class _HomeViewState extends State<HomeView> {
               children: movieGenreList
                   .map((genreItem) => GenreItem(
                         title: genreItem,
+                        onTitleClicked: () {
+                          widget.model.onGenreTileClicked(genreItem);
+                        },
                       ))
                   .toList(),
             ),

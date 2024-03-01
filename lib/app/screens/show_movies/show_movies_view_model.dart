@@ -1,22 +1,25 @@
+import 'package:flickrate/domain/movies/imovie_repository.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/movies/movie_repository.dart';
 import '../../../domain/movies/imovie.dart';
 import '../../routing/inavigation_util.dart';
 import '../../routing/routes.dart';
 
-class ShowAllMoviesViewModel extends ChangeNotifier {
+class ShowMoviesViewModel extends ChangeNotifier {
   late Stream<List<IMovie>> _movieStreamList;
   Stream<List<IMovie>> get movieStreamList => _movieStreamList;
 
   final INavigationUtil _navigationUtil;
-  final MovieRepository _movieRepository;
+  final IMovieRepository _movieRepository;
+  final String _genre;
 
-  ShowAllMoviesViewModel(
-      {required MovieRepository movieRepository,
-      required INavigationUtil navigationUtil})
+  ShowMoviesViewModel(
+      {required IMovieRepository movieRepository,
+      required INavigationUtil navigationUtil,
+      required String genre})
       : _navigationUtil = navigationUtil,
-        _movieRepository = movieRepository {
+        _movieRepository = movieRepository,
+        _genre = genre {
     fetchMoviesStream();
   }
 
@@ -26,7 +29,11 @@ class ShowAllMoviesViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchMoviesStream() async {
-    _movieStreamList = _movieRepository.fetchMoviesStream();
+    if (_genre.isEmpty) {
+      _movieStreamList = _movieRepository.fetchMoviesStream();
+    } else {
+      _movieStreamList = _movieRepository.fetchMoviesStreamByGenre(_genre);
+    }
     notifyListeners();
   }
 }

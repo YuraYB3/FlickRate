@@ -1,10 +1,10 @@
+import 'package:flickrate/app/screens/login/login_factory.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/create_movie/create_movie_factory.dart';
 import '../screens/home/home_factory.dart';
-import '../screens/login/login_factory.dart';
 import '../screens/movie_details/movie_factory.dart';
-import '../screens/show_all_movies/show_all_movies_factory.dart';
+import '../screens/show_movies/show_movies_factory.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -12,26 +12,27 @@ class AppRouter {
     switch (routeSettings.name) {
       case routeLogin:
         return MaterialPageRoute(
-            builder: (_) => _buildShowAllMoviesSettings(routeSettings));
+            builder: (_) => _buildLoginSettings(routeSettings));
       case routeHome:
         return MaterialPageRoute(
             builder: (_) => _buildHomeSettings(routeSettings));
       case routeCreateMovie:
         return MaterialPageRoute(
-            builder: (_) => _buildAddMovieSettings(routeSettings));
+            builder: (_) => _buildCreateMovieSettings(routeSettings));
       case routeMovie:
         final movieId = routeSettings.arguments as String;
         return MaterialPageRoute(
             builder: (_) => _buildMovieSettings(routeSettings, movieId));
-      case routeShowAllMovies:
+      case routeShowMovies:
+        final genre = routeSettings.arguments as String;
         return MaterialPageRoute(
-            builder: (_) => _buildLoginSettings(routeSettings));
+            builder: (_) => _buildShowMoviesSettings(routeSettings, genre));
       default:
     }
     return null;
   }
 
-  Widget _buildShowAllMoviesSettings(RouteSettings settings) {
+  Widget _buildLoginSettings(RouteSettings settings) {
     return LoginFactory.build();
   }
 
@@ -39,7 +40,7 @@ class AppRouter {
     return HomeFactory.build();
   }
 
-  Widget _buildAddMovieSettings(RouteSettings settings) {
+  Widget _buildCreateMovieSettings(RouteSettings settings) {
     return CreateMovieFactory.build();
   }
 
@@ -47,7 +48,7 @@ class AppRouter {
     return MovieFactory.build(movieId);
   }
 
-  Widget _buildLoginSettings(RouteSettings settings) {
-    return ShowAllMoviesFactory.build();
+  Widget _buildShowMoviesSettings(RouteSettings settings, String genre) {
+    return ShowMoviesFactory.build(genre);
   }
 }

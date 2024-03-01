@@ -1,8 +1,9 @@
-import 'package:flickrate/app/routing/inavigation_util.dart';
-import 'package:flickrate/app/services/functions/ifunction_service.dart';
-import 'package:flickrate/domain/movies/imovie.dart';
-import 'package:flickrate/domain/movies/imovie_repository.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/movies/imovie.dart';
+import '../../../domain/movies/imovie_repository.dart';
+import '../../routing/inavigation_util.dart';
+import '../../services/functions/ifunction_service.dart';
 
 class MovieViewModel extends ChangeNotifier {
   final IMovieRepository _movieRepository;
