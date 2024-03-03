@@ -19,7 +19,7 @@ class _CreateMovieViewState extends State<CreateMovieView> {
 
   @override
   Widget build(BuildContext context) {
-    double fieldWidth = MediaQuery.of(context).size.width * 0.85;
+    double fieldWidth = MediaQuery.of(context).size.width * 0.8;
     double screenHeight = MediaQuery.of(context).size.height;
     //double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(

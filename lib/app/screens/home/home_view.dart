@@ -65,14 +65,13 @@ class _HomeViewState extends State<HomeView> {
                   children: [
                     const Text(
                       "Have you watched new movie? ",
-                      style: TextStyle(color: Colors.white, fontSize: 36),
+                      style: TextStyle(color: Colors.white, fontSize: 34),
                     ),
                     Expanded(child: Container()),
                     Row(
                       children: [
                         Expanded(child: Container()),
                         SizedBox(
-                            height: 40,
                             width: 150,
                             child: ElevatedButton(
                                 style: ButtonStyle(

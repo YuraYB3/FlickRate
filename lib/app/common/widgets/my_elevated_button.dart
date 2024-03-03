@@ -20,7 +20,10 @@ class MyElevatedButton extends StatelessWidget {
             backgroundColor:
                 MaterialStateProperty.all<Color>(colorsPalette.mainColor)),
         onPressed: onButtonPressed,
-        child: Text(title),
+        child: Text(
+          title,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
