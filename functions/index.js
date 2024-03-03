@@ -48,3 +48,28 @@ exports.decrementRating = functions.https.onCall(async (data) => {
   }
 });
 
+exports.onMovieCreated = functions.firestore.document("movies/{movieID}")
+    .onCreate((snapshot) =>{
+      const newDocument = snapshot.data();
+      const documentId = snapshot.id;
+      console.log("New document created with ID:", documentId);
+      console.log("Document data:", newDocument);
+    });
+
+exports.onMovieUpdated = functions.firestore.document("movies/{movieID}")
+    .onUpdate((change) => {
+      const updatedDocument = change.after.data();
+      const documentId = change.after.id;
+      const previousDocument = change.before.data();
+      console.log("Document updated with ID:", documentId);
+      console.log("Previous document data:", previousDocument);
+      console.log("Updated document data:", updatedDocument);
+    });
+
+exports.onMovieDeleted = functions.firestore.document("movies/{movieID}")
+    .onDelete((snapshot) => {
+      const deletedDocument = snapshot.data();
+      const documentId = snapshot.id;
+      console.log("Document deleted with ID:", documentId);
+      console.log("Deleted document data:", deletedDocument);
+    });
