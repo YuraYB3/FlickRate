@@ -73,3 +73,17 @@ exports.onMovieDeleted = functions.firestore.document("movies/{movieID}")
       console.log("Document deleted with ID:", documentId);
       console.log("Deleted document data:", deletedDocument);
     });
+
+exports.countNumberOfMovies = functions.pubsub.schedule("every 5 minutes")
+    .onRun(async () =>{
+      try {
+        const snapshot = await admin.firestore().collection("movies").get();
+        const numberOfDocuments = snapshot.size;
+        console.log("Number of documents in the movie collection: ",
+            numberOfDocuments);
+        return null;
+      } catch (error) {
+        console.error("Error while getting the number of documents: ", error);
+        return null;
+      }
+    });
