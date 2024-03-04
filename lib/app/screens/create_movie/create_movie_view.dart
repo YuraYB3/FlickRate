@@ -34,66 +34,81 @@ class _CreateMovieViewState extends State<CreateMovieView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(
-                width: fieldWidth,
-                child: TextField(
-                  onChanged: (value) {
-                    widget.model.updateMovieName(value);
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Movie name',
-                  ),
-                ),
-              ),
+              movieNameField(fieldWidth),
               const SizedBox(height: 16),
-              SizedBox(
-                  width: fieldWidth,
-                  child: DropdownButton(
-                      hint: const Text('Select genre:'),
-                      value: widget.model.movieGenre,
-                      onChanged: (newValue) {
-                        widget.model.updateMovieGenre(newValue!);
-                      },
-                      items: movieGenreList.map(
-                        (movieGenre) {
-                          return DropdownMenuItem(
-                            value: movieGenre,
-                            child: SizedBox(
-                                width: fieldWidth, child: Text(movieGenre)),
-                          );
-                        },
-                      ).toList())),
+              selectGenreField(fieldWidth),
               const SizedBox(height: 16),
               Expanded(
-                child: SizedBox(
-                  width: fieldWidth,
-                  child: TextField(
-                    maxLines: 20,
-                    onChanged: (value) {
-                      widget.model.updateMovieDescription(value);
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Description',
-                    ),
-                  ),
-                ),
+                child: descriptionField(fieldWidth),
               ),
               const SizedBox(height: 16),
-              MyElevatedButton(
-                  title: 'Create movie',
-                  onButtonPressed: () {
-                    if (widget.model.isFieldsValid()) {
-                      widget.model.onCreateMovieClicked();
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Please, fill all the fields'),
-                        ),
-                      );
-                    }
-                  })
+              createMovieButton(context)
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  MyElevatedButton createMovieButton(BuildContext context) {
+    return MyElevatedButton(
+        title: 'Create movie',
+        onButtonPressed: () {
+          if (widget.model.isFieldsValid()) {
+            widget.model.onCreateMovieClicked();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Please, fill all the fields'),
+              ),
+            );
+          }
+        });
+  }
+
+  SizedBox descriptionField(double fieldWidth) {
+    return SizedBox(
+      width: fieldWidth,
+      child: TextField(
+        maxLines: 20,
+        onChanged: (value) {
+          widget.model.updateMovieDescription(value);
+        },
+        decoration: const InputDecoration(
+          labelText: 'Description',
+        ),
+      ),
+    );
+  }
+
+  SizedBox selectGenreField(double fieldWidth) {
+    return SizedBox(
+        width: fieldWidth,
+        child: DropdownButton(
+            hint: const Text('Select genre:'),
+            value: widget.model.movieGenre,
+            onChanged: (newValue) {
+              widget.model.updateMovieGenre(newValue!);
+            },
+            items: movieGenreList.map(
+              (movieGenre) {
+                return DropdownMenuItem(
+                  value: movieGenre,
+                  child: SizedBox(width: fieldWidth, child: Text(movieGenre)),
+                );
+              },
+            ).toList()));
+  }
+
+  SizedBox movieNameField(double fieldWidth) {
+    return SizedBox(
+      width: fieldWidth,
+      child: TextField(
+        onChanged: (value) {
+          widget.model.updateMovieName(value);
+        },
+        decoration: const InputDecoration(
+          labelText: 'Movie name',
         ),
       ),
     );
