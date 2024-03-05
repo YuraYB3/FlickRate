@@ -40,7 +40,6 @@ class UserService implements IUserService {
     userStream.listen((event) {
       _userStateStreamController.add(event);
     });
-    //          _userStateStreamController.close();
     return _userStateStreamController.stream;
   }
 

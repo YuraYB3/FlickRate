@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/movies/movie.dart';
-import '../../../data/movies/movie_repository.dart';
+import '../../../domain/movies/imovie_repository.dart';
 import '../../routing/inavigation_util.dart';
 import '../../services/input/input_validator.dart';
 
 class CreateMovieViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;
-  final MovieRepository _movieRepository;
+  final IMovieRepository _movieRepository;
   final InputValidator _inputValidator = InputValidator();
   String _movieName = '';
   String _movieGenre = 'Action';
@@ -18,7 +18,7 @@ class CreateMovieViewModel extends ChangeNotifier {
   String get movieDescription => _movieDescription;
 
   CreateMovieViewModel(
-      {required MovieRepository movieRepository,
+      {required IMovieRepository movieRepository,
       required INavigationUtil navigationUtil})
       : _navigationUtil = navigationUtil,
         _movieRepository = movieRepository;

@@ -41,8 +41,8 @@ dependencies:
   firebase_auth: ^4.16.0
   shared_preferences: ^2.2.2
   google_sign_in: ^6.1.6
-  uuid: ^4.2.2
   cloud_functions: ^4.6.0
+  get_it: ^7.6.7
 
 dev_dependencies:
   flutter_test:
