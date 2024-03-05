@@ -4,15 +4,15 @@ import '../../../theme/color_palette.dart';
 
 class GenreItem extends StatelessWidget {
   final String title;
-  final Function() onTitleClicked;
+  final Function() onTileClicked;
   final ColorsPalette colorsPalette = ColorsPalette();
 
-  GenreItem({super.key, required this.title, required this.onTitleClicked});
+  GenreItem({super.key, required this.title, required this.onTileClicked});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTitleClicked,
+      onTap: onTileClicked,
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),
       child: Container(

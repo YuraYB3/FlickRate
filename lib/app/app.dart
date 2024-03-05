@@ -1,3 +1,5 @@
+import 'package:flickrate/app/common/widgets/my_error_widget.dart';
+import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,20 +36,10 @@ class _AppState extends State<App> {
         stream: widget._userService.userStateStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.red,
-                ),
-              ),
-            );
+            return Scaffold(body: MyLoadingWidget());
           } else {
             if (snapshot.hasError) {
-              return Scaffold(
-                body: Center(
-                  child: Text('Error: ${snapshot.error}'),
-                ),
-              );
+              return const Scaffold(body: MyErrorWidget());
             }
             switch (snapshot.data) {
               case UserState.notAuthorized:

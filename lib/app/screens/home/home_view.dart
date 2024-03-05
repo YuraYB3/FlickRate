@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../data/genre/movie_genre.dart';
 import '../../theme/color_palette.dart';
 import 'home_view_model.dart';
+import 'widgets/add_movie_container.dart';
+import 'widgets/custom_genre_filter_row.dart';
 import 'widgets/genre_item.dart';
+import 'widgets/home_app_bar.dart';
 
 class HomeView extends StatefulWidget {
   final HomeViewModel model;
@@ -29,24 +32,27 @@ class _HomeViewState extends State<HomeView> {
       height: screenHeight,
       child: Column(
         children: [
-          topBar(),
-          addMovieContainer(screenHeight, screenWidth),
+          HomeAppBar(),
+          AddMovieContainer(
+              screenHeight: screenHeight,
+              screenWidth: screenWidth,
+              onButtonClicked: widget.model.onAddButtonClicked),
           const SizedBox(
             height: 30,
           ),
-          chooseGenresWidget(),
+          CustomGenreFilterRow(onButtonClicked: widget.model.onShowAllClicked),
           const SizedBox(
             height: 10,
           ),
           Expanded(
-            child: genreGridWidget(),
+            child: customGridView(),
           ),
         ],
       ),
     ));
   }
 
-  GridView genreGridWidget() {
+  GridView customGridView() {
     return GridView(
       padding: const EdgeInsets.all(25),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -57,112 +63,11 @@ class _HomeViewState extends State<HomeView> {
       children: movieGenreList
           .map((genreItem) => GenreItem(
                 title: genreItem,
-                onTitleClicked: () {
+                onTileClicked: () {
                   widget.model.onGenreTileClicked(genreItem);
                 },
               ))
           .toList(),
-    );
-  }
-
-  Padding chooseGenresWidget() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          Text(
-            "Genres",
-            style:
-                TextStyle(fontSize: 20, color: widget.colorsPalette.mainColor),
-          ),
-          Expanded(child: Container()),
-          GestureDetector(
-            onTap: () {
-              widget.model.onShowAllClicked();
-            },
-            child: const Text(
-              "All",
-              style: TextStyle(fontSize: 20, color: Colors.grey),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget addMovieContainer(double screenHeight, double screenWidth) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        height: screenHeight * 0.3,
-        width: screenWidth,
-        decoration: BoxDecoration(
-            color: widget.colorsPalette.mainColor,
-            borderRadius: BorderRadius.circular(30)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          child: Column(
-            children: [
-              const Text(
-                "Have you watched new movie? ",
-                style: TextStyle(color: Colors.white, fontSize: 34),
-              ),
-              Expanded(child: Container()),
-              Row(
-                children: [
-                  Expanded(child: Container()),
-                  SizedBox(
-                      width: 150,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white)),
-                          onPressed: widget.model.onAddButtonClicked,
-                          child: Text(
-                            "Add",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: widget.colorsPalette.mainColor),
-                          )))
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget topBar() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            "Hi",
-            style:
-                TextStyle(fontSize: 24, color: widget.colorsPalette.mainColor),
-          ),
-          SizedBox(
-            height: 50,
-            width: 50,
-            child: CircleAvatar(
-              backgroundColor: widget.colorsPalette.mainColor,
-            ),
-          )
-        ],
-      ),
     );
   }
 }
