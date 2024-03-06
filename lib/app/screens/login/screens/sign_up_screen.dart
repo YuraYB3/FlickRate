@@ -3,14 +3,15 @@ import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
 import '../login_view_model.dart';
-import 'draw_circle.dart';
-import 'flickrate_text.dart';
+import '../widgets/draw_circle.dart';
+import '../widgets/flickrate_text.dart';
 
-class SignUpWidget extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   final LoginViewModel model;
+  final Function() onRegisterNewUserClicked;
   final ColorsPalette colorsPalette = ColorsPalette();
 
-  SignUpWidget({super.key, required this.model});
+  SignUpScreen({required this.onRegisterNewUserClicked, super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +63,8 @@ class SignUpWidget extends StatelessWidget {
         ),
         MyElevatedButton(
             title: "Sign Up",
-            onButtonPressed: () {
-              model.onRegisterNewUserClicked();
-            })
+            onButtonPressed: onRegisterNewUserClicked
+            )
       ],
     );
   }

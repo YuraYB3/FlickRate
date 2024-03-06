@@ -31,7 +31,7 @@ class AddMovieContainer extends StatelessWidget {
             children: [
               const Text(
                 "Have you watched new movie? ",
-                style: TextStyle(color: Colors.white, fontSize: 34),
+                style: TextStyle(color: Colors.white, fontSize: 32),
               ),
               Expanded(child: Container()),
               Row(

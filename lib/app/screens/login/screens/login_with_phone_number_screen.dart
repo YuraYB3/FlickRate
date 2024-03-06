@@ -6,14 +6,14 @@ import '../../../common/widgets/my_text_button.dart';
 import '../../../common/widgets/show_notification.dart';
 import '../../../theme/color_palette.dart';
 import '../login_view_model.dart';
-import 'draw_circle.dart';
-import 'flickrate_text.dart';
+import '../widgets/draw_circle.dart';
+import '../widgets/flickrate_text.dart';
 
-class LoginWithPhone extends StatelessWidget {
+class LoginWithPhoneNumberScreen extends StatelessWidget {
   final LoginViewModel model;
   final ColorsPalette colorsPalette = ColorsPalette();
 
-  LoginWithPhone({super.key, required this.model});
+  LoginWithPhoneNumberScreen({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +41,16 @@ class LoginWithPhone extends StatelessWidget {
 }
 
 class EnterPhoneNumberWidget extends StatelessWidget {
-  const EnterPhoneNumberWidget({
+  final Function(String value) updatePhoneNumber;
+  final Function(Function(String message) showException) sentOtpClicked;
+   EnterPhoneNumberWidget({
+    required this.sentOtpClicked,
+    required this.updatePhoneNumber,
     super.key,
-    required this.model,
-    required this.colorsPalette,
+   
   });
 
-  final LoginViewModel model;
-  final ColorsPalette colorsPalette;
+  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class EnterPhoneNumberWidget extends StatelessWidget {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.6,
           child: TextFormField(
-            onChanged: (value) => model.updatePhoneNumber(value),
+            onChanged: (value) => updatePhoneNumber(value),
             maxLength: 9,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.phone,
@@ -80,8 +82,8 @@ class EnterPhoneNumberWidget extends StatelessWidget {
         MyElevatedButton(
             title: 'Sent',
             onButtonPressed: () {
-              model.sentOtpClicked(
-                  showException: (message) =>
+              sentOtpClicked(
+                  (message) =>
                       showNotification(context, message));
             })
       ],
