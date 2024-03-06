@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class DrawCircle extends StatelessWidget {
-  const DrawCircle({
+  DrawCircle({
     super.key,
-    required this.colorsPalette,
   });
 
-  final ColorsPalette colorsPalette;
+  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {

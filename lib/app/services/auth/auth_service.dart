@@ -19,19 +19,19 @@ class AuthService implements IAuthService {
       StreamController.broadcast();
 
   @override
-  Future signInWithOtp({required String otp}) async {
+  Future<void> signInWithOtp({required String otp}) async {
     final cred =
         PhoneAuthProvider.credential(verificationId: _verifyId, smsCode: otp);
     await _firebaseAuth.signInWithCredential(cred);
   }
 
   @override
-  Future logOut() async {
+  Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
 
   @override
-  Future sentOtp(String number) async {
+  Future<void> sentOtp(String number) async {
     _firebaseAuth.verifyPhoneNumber(
       phoneNumber: "+380$number",
       verificationCompleted: (phoneAuthCredential) async {
@@ -71,14 +71,10 @@ class AuthService implements IAuthService {
   }
 
   @override
-  Future signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 
-    if (gUser == null) {
-      return null;
-    }
-
-    final GoogleSignInAuthentication gAuth = await gUser.authentication;
+    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: gAuth.accessToken,
       idToken: gAuth.idToken,
@@ -88,7 +84,34 @@ class AuthService implements IAuthService {
       await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {
       print("Error signing in with Google: $error");
-      return null;
+    }
+  }
+
+  @override
+  Future<void> signUpWithEmailAndPassword(String email, String password) async {
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
+
+  @override
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
     }
   }
 }

@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class FlickRateText extends StatelessWidget {
-  const FlickRateText({
+  FlickRateText({
     super.key,
-    required this.colorsPalette,
   });
 
-  final ColorsPalette colorsPalette;
+  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {

@@ -3,16 +3,26 @@ import 'package:flutter/material.dart';
 import '../../services/input/input_validator.dart';
 import '../../services/user/iuser_service.dart';
 
+enum LoginState {
+  loginWithPhoneNumber,
+  loginWithEmailAndPassword,
+  registerNewAccount
+}
+
 class LoginViewModel extends ChangeNotifier {
   final InputValidator _inputValidator = InputValidator();
   final IUserService _userService;
   String _phoneNumber = '';
   String _otpCode = '';
+  String _email = '';
+  String _password = '';
   bool isOtpSent = false;
-  bool isLoginWithNumberClicked = false;
+  LoginState loginMethod = LoginState.loginWithEmailAndPassword;
 
   String get phoneNumber => _phoneNumber;
   String get otpCode => _otpCode;
+  String get email => _email;
+  String get password => _password;
   LoginViewModel({required IUserService userService})
       : _userService = userService;
 
@@ -31,12 +41,25 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  void switchAuthenticationClicked() {
-    isLoginWithNumberClicked = !isLoginWithNumberClicked;
+  void onSwitchToPhoneNumberClicked() {
+    loginMethod = LoginState.loginWithPhoneNumber;
     notifyListeners();
+    _clearFields();
   }
 
-  void onApplyButtonClicked(
+  void onSwitchToSignUpClicked() {
+    loginMethod = LoginState.registerNewAccount;
+    notifyListeners();
+    _clearFields();
+  }
+
+  void onSwitchToEmailAndPasswordClicked() {
+    loginMethod = LoginState.loginWithEmailAndPassword;
+    notifyListeners();
+    _clearFields();
+  }
+
+  void onApplyOtpCodeButtonClicked(
       {required Function(String message) showException}) async {
     bool isValid = _inputValidator.isOtpValid(_otpCode);
     if (isValid) {
@@ -50,6 +73,10 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
+  void onRegisterNewUserClicked() {
+    _userService.register(email, password);
+  }
+
   void updatePhoneNumber(String value) {
     _phoneNumber = value;
     notifyListeners();
@@ -60,7 +87,28 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onSignInWitchGoogleClicked() {
+  void updatePassword(String value) {
+    _password = value;
+    notifyListeners();
+  }
+
+  void updateEmail(String value) {
+    _email = value;
+    notifyListeners();
+  }
+
+  void onSignInWithGoogleClicked() {
     _userService.signWithGoogle();
+  }
+
+  void onSignInWithEmailAndPasswordClicked() {
+    _userService.signInWithEmailAndPassword(email, password);
+  }
+
+  void _clearFields() {
+    _email = '';
+    _password = '';
+    _otpCode = '';
+    _phoneNumber = '';
   }
 }

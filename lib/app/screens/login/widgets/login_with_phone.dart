@@ -6,18 +6,23 @@ import '../../../common/widgets/my_text_button.dart';
 import '../../../common/widgets/show_notification.dart';
 import '../../../theme/color_palette.dart';
 import '../login_view_model.dart';
+import 'draw_circle.dart';
+import 'flickrate_text.dart';
 
 class LoginWithPhone extends StatelessWidget {
   final LoginViewModel model;
-  final ColorsPalette colorsPalette;
+  final ColorsPalette colorsPalette = ColorsPalette();
 
-  const LoginWithPhone(
-      {super.key, required this.model, required this.colorsPalette});
+  LoginWithPhone({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        DrawCircle(),
+        Container(height: 40),
+        FlickRateText(),
+        Container(height: 40),
         if (!model.isOtpSent)
           EnterPhoneNumberWidget(model: model, colorsPalette: colorsPalette),
         if (model.isOtpSent)
@@ -29,7 +34,7 @@ class LoginWithPhone extends StatelessWidget {
             textColor: colorsPalette.mainColor,
             textSize: 18,
             title: 'Sign in with email',
-            onButtonPressed: model.switchAuthenticationClicked)
+            onButtonPressed: model.onSwitchToEmailAndPasswordClicked)
       ],
     );
   }
@@ -123,7 +128,7 @@ class EnterOtpCodeWidget extends StatelessWidget {
         MyElevatedButton(
             title: 'Apply',
             onButtonPressed: () {
-              model.onApplyButtonClicked(
+              model.onApplyOtpCodeButtonClicked(
                   showException: (message) =>
                       showNotification(context, message));
             })

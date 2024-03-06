@@ -6,8 +6,10 @@ abstract interface class IAuthService {
   Stream<AuthState> authState();
   FirebaseAuth get firebaseAuth;
   bool isUserLoggedIn();
-  Future sentOtp(String number);
-  Future signInWithOtp({required String otp});
-  Future logOut();
-  Future signInWithGoogle();
+  Future<void> sentOtp(String number);
+  Future<void> signInWithOtp({required String otp});
+  Future<void> signOut();
+  Future<void> signInWithGoogle();
+  Future<void> signUpWithEmailAndPassword(String email, String password);
+  Future<void> signInWithEmailAndPassword(String email, String password);
 }

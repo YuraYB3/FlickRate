@@ -14,7 +14,7 @@ class UserService implements IUserService {
 
   @override
   void logOut() async {
-    await _authService.logOut();
+    await _authService.signOut();
   }
 
   @override
@@ -46,5 +46,15 @@ class UserService implements IUserService {
   @override
   Future sentOtp(String number) async {
     await _authService.sentOtp(number);
+  }
+
+  @override
+  Future<void> register(String email, String password) async {
+    await _authService.signUpWithEmailAndPassword(email, password);
+  }
+
+  @override
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    await _authService.signInWithEmailAndPassword(email, password);
   }
 }
