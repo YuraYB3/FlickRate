@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/input/input_validator.dart';
@@ -41,6 +42,48 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
+  void onApplyOtpCodeButtonClicked(
+      {required Function(String message) showException}) async {
+    bool isValid = _inputValidator.isOtpValid(_otpCode);
+    if (isValid) {
+      try {
+        await _userService.signWithOtp(_otpCode);
+      } catch (e) {
+        showException("Incorrect code. Please try again");
+      }
+    } else {
+      showException('Code must have 6 numbers');
+    }
+  }
+
+  void onRegisterNewUserClicked(
+      {required Function(String message) showException}) async {
+    try {
+      await _userService.register(_email, _password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        showException('Incorrect email');
+      } else if (e.code == 'weak-password') {
+        showException('Your password looks weak :(');
+      }
+      print(e.code);
+    }
+  }
+
+  void onSignInWithEmailAndPasswordClicked(
+      {required Function(String message) showException}) async {
+    try {
+      await _userService.signInWithEmailAndPassword(_email, _password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        showException('Incorrect email');
+      } else if (e.code == 'channel-error') {
+        showException('Fill in all fields!');
+      }
+      print(e.code);
+    }
+  }
+
   void onSwitchToPhoneNumberClicked() {
     loginMethod = LoginState.loginWithPhoneNumber;
     notifyListeners();
@@ -57,24 +100,6 @@ class LoginViewModel extends ChangeNotifier {
     loginMethod = LoginState.loginWithEmailAndPassword;
     notifyListeners();
     _clearFields();
-  }
-
-  void onApplyOtpCodeButtonClicked(
-      {required Function(String message) showException}) async {
-    bool isValid = _inputValidator.isOtpValid(_otpCode);
-    if (isValid) {
-      try {
-        await _userService.signWithOtp(_otpCode);
-      } catch (e) {
-        showException("Incorrect code. Please try again");
-      }
-    } else {
-      showException('Code must have 6 numbers');
-    }
-  }
-
-  void onRegisterNewUserClicked() {
-    _userService.register(email, password);
   }
 
   void updatePhoneNumber(String value) {
@@ -99,10 +124,6 @@ class LoginViewModel extends ChangeNotifier {
 
   void onSignInWithGoogleClicked() {
     _userService.signWithGoogle();
-  }
-
-  void onSignInWithEmailAndPasswordClicked() {
-    _userService.signInWithEmailAndPassword(email, password);
   }
 
   void _clearFields() {

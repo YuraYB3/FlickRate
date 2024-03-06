@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_text_button.dart';
+import '../../../common/widgets/show_notification.dart';
 import '../../../theme/color_palette.dart';
 import '../widgets/draw_circle.dart';
 import '../widgets/flickrate_text.dart';
@@ -11,13 +12,21 @@ import '../widgets/my_password_field.dart';
 class LoginWithEmailAndPasswordScreen extends StatelessWidget {
   final Function(String value) updateEmail;
   final Function(String value) updatePassword;
-  final Function() onSignInWithEmailAndPasswordClicked;
+  final Function(Function(String message)) onSignInWithEmailAndPasswordClicked;
   final Function() onSwitchToPhoneNumberClicked;
   final Function() onSignInWithGoogleClicked;
-  final Function()  onSwitchToSignUpClicked;
+  final Function() onSwitchToSignUpClicked;
   final ColorsPalette colorsPalette = ColorsPalette();
 
-  LoginWithEmailAndPasswordScreen({ required this.updateEmail, super.key, required this.updatePassword, required this.onSignInWithEmailAndPasswordClicked, required this.onSwitchToPhoneNumberClicked, required this.onSignInWithGoogleClicked, required this.onSwitchToSignUpClicked,});
+  LoginWithEmailAndPasswordScreen({
+    required this.updateEmail,
+    super.key,
+    required this.updatePassword,
+    required this.onSignInWithEmailAndPasswordClicked,
+    required this.onSwitchToPhoneNumberClicked,
+    required this.onSignInWithGoogleClicked,
+    required this.onSwitchToSignUpClicked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,8 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
         MyElevatedButton(
             title: "Sign In",
             onButtonPressed: () {
-              onSignInWithEmailAndPasswordClicked();
+              onSignInWithEmailAndPasswordClicked(
+                  (message) => showNotification(context, message));
             }),
         const SizedBox(
           height: 10,
@@ -62,7 +72,7 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
                   onButtonPressed: onSignInWithGoogleClicked),
               Expanded(child: Container()),
               MyTextButton(
-                  textColor: Colors.green,
+                  textColor: colorsPalette.mainColor,
                   textSize: 16,
                   title: 'Sign Up',
                   onButtonPressed: onSwitchToSignUpClicked)
@@ -73,7 +83,3 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-

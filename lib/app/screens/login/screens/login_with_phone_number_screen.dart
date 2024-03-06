@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_text_button.dart';
 import '../../../common/widgets/show_notification.dart';
 import '../../../theme/color_palette.dart';
-import '../login_view_model.dart';
 import '../widgets/draw_circle.dart';
 import '../widgets/flickrate_text.dart';
+import '../widgets/my_otp_field.dart';
+import '../widgets/my_phone_number_field.dart';
 
 class LoginWithPhoneNumberScreen extends StatelessWidget {
-  final LoginViewModel model;
   final ColorsPalette colorsPalette = ColorsPalette();
-
-  LoginWithPhoneNumberScreen({super.key, required this.model});
+  final bool isOtpSent;
+  final Function(String value) updatePhoneNumber;
+  final Function() onSwitchToEmailAndPasswordClicked;
+  final Function(Function(String message)) onApplyOtpCodeButtonClicked;
+  final Function(String value) updateOtpCode;
+  final Function(Function(String message)) sentOtpClicked;
+  LoginWithPhoneNumberScreen({
+    super.key,
+    required this.updatePhoneNumber,
+    required this.sentOtpClicked,
+    required this.isOtpSent,
+    required this.onSwitchToEmailAndPasswordClicked,
+    required this.updateOtpCode,
+    required this.onApplyOtpCodeButtonClicked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +35,36 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
         Container(height: 40),
         FlickRateText(),
         Container(height: 40),
-        if (!model.isOtpSent)
-          EnterPhoneNumberWidget(model: model, colorsPalette: colorsPalette),
-        if (model.isOtpSent)
-          EnterOtpCodeWidget(model: model, colorsPalette: colorsPalette),
+        if (!isOtpSent)
+          Column(
+            children: [
+              MyPhoneNumberField(updatePhoneNumber: updatePhoneNumber),
+              const SizedBox(
+                height: 20,
+              ),
+              MyElevatedButton(
+                  title: 'Sent',
+                  onButtonPressed: () {
+                    sentOtpClicked(
+                        (message) => showNotification(context, message));
+                  }),
+            ],
+          ),
+        if (isOtpSent)
+          Column(
+            children: [
+              MyOtpField(updateOtpCode: updateOtpCode),
+              const SizedBox(
+                height: 20,
+              ),
+              MyElevatedButton(
+                  title: 'Apply',
+                  onButtonPressed: () {
+                    onApplyOtpCodeButtonClicked(
+                        (message) => showNotification(context, message));
+                  })
+            ],
+          ),
         const SizedBox(
           height: 20,
         ),
@@ -34,106 +72,7 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
             textColor: colorsPalette.mainColor,
             textSize: 18,
             title: 'Sign in with email',
-            onButtonPressed: model.onSwitchToEmailAndPasswordClicked)
-      ],
-    );
-  }
-}
-
-class EnterPhoneNumberWidget extends StatelessWidget {
-  final Function(String value) updatePhoneNumber;
-  final Function(Function(String message) showException) sentOtpClicked;
-   EnterPhoneNumberWidget({
-    required this.sentOtpClicked,
-    required this.updatePhoneNumber,
-    super.key,
-   
-  });
-
-  final ColorsPalette colorsPalette = ColorsPalette();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.6,
-          child: TextFormField(
-            onChanged: (value) => updatePhoneNumber(value),
-            maxLength: 9,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            keyboardType: TextInputType.phone,
-            decoration: InputDecoration(
-              prefix: const Text('+380'),
-              labelStyle: TextStyle(color: colorsPalette.mainColor),
-              labelText: 'Number',
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: colorsPalette.mainColor)),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colorsPalette.mainColor),
-              ),
-              counterText: '',
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        MyElevatedButton(
-            title: 'Sent',
-            onButtonPressed: () {
-              sentOtpClicked(
-                  (message) =>
-                      showNotification(context, message));
-            })
-      ],
-    );
-  }
-}
-
-class EnterOtpCodeWidget extends StatelessWidget {
-  const EnterOtpCodeWidget({
-    super.key,
-    required this.model,
-    required this.colorsPalette,
-  });
-
-  final LoginViewModel model;
-  final ColorsPalette colorsPalette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.6,
-          child: TextFormField(
-            onChanged: (value) => model.updateOtpCode(value),
-            maxLength: 6,
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            decoration: InputDecoration(
-              labelStyle: TextStyle(color: colorsPalette.mainColor),
-              labelText: 'Code',
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: colorsPalette.mainColor)),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colorsPalette.mainColor),
-              ),
-              counterText: '',
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        MyElevatedButton(
-            title: 'Apply',
-            onButtonPressed: () {
-              model.onApplyOtpCodeButtonClicked(
-                  showException: (message) =>
-                      showNotification(context, message));
-            })
+            onButtonPressed: onSwitchToEmailAndPasswordClicked)
       ],
     );
   }

@@ -15,19 +15,49 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
           child: switch (model.loginMethod) {
-        LoginState.loginWithPhoneNumber => LoginWithPhoneNumberScreen(model: model),
-        LoginState.loginWithEmailAndPassword =>
-          LoginWithEmailAndPasswordScreen(
-           updateEmail: (value) {
-           model.updateEmail(value);},
-           updatePassword: ( value) { model.updatePassword(value); },
-           onSignInWithEmailAndPasswordClicked: model.onSignInWithEmailAndPasswordClicked,
-           onSwitchToPhoneNumberClicked: model.onSwitchToPhoneNumberClicked,
-           onSignInWithGoogleClicked: model.onSignInWithGoogleClicked,
-           onSwitchToSignUpClicked: model.onSwitchToSignUpClicked,),
+        LoginState.loginWithPhoneNumber => LoginWithPhoneNumberScreen(
+            isOtpSent: model.isOtpSent,
+            updateOtpCode: (value) {
+              model.updateOtpCode(value);
+            },
+            sentOtpClicked: (p0) {
+              model.sentOtpClicked(showException: p0);
+            },
+            updatePhoneNumber: (value) {
+              model.updatePhoneNumber(value);
+            },
+            onSwitchToEmailAndPasswordClicked:
+                model.onSwitchToEmailAndPasswordClicked,
+            onApplyOtpCodeButtonClicked: (p0) {
+              model.onApplyOtpCodeButtonClicked(showException: p0);
+            },
+          ),
+        LoginState.loginWithEmailAndPassword => LoginWithEmailAndPasswordScreen(
+            updateEmail: (value) {
+              model.updateEmail(value);
+            },
+            updatePassword: (value) {
+              model.updatePassword(value);
+            },
+            onSignInWithEmailAndPasswordClicked: (p0) {
+              model.onSignInWithEmailAndPasswordClicked(showException: p0);
+            },
+            onSwitchToPhoneNumberClicked: model.onSwitchToPhoneNumberClicked,
+            onSignInWithGoogleClicked: model.onSignInWithGoogleClicked,
+            onSwitchToSignUpClicked: model.onSwitchToSignUpClicked,
+          ),
         LoginState.registerNewAccount => SignUpScreen(
-            model: model,
-            onRegisterNewUserClicked: model.onRegisterNewUserClicked,
+            updateEmail: (value) {
+              model.updateEmail(value);
+            },
+            updatePassword: (value) {
+              model.updatePassword(value);
+            },
+            onRegisterNewUserClicked: (p0) {
+              model.onRegisterNewUserClicked(showException: p0);
+            },
+            onSwitchToEmailAndPasswordClicked:
+                model.onSwitchToEmailAndPasswordClicked,
           )
       }),
     );
