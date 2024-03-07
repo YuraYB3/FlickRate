@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/genre/movie_genre.dart';
-import '../../common/widgets/my_elevated_button.dart';
 import '../../theme/color_palette.dart';
 import 'create_movie_view_model.dart';
+import 'widgets/create_movie_button.dart';
+import 'widgets/my_descriptions_field.dart';
+import 'widgets/my_movie_name_field.dart';
+import 'widgets/select_genre_field.dart';
 
 class CreateMovieView extends StatefulWidget {
   final CreateMovieViewModel model;
@@ -34,81 +36,36 @@ class _CreateMovieViewState extends State<CreateMovieView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              movieNameField(fieldWidth),
+              MyMovieNameField(
+                fieldWidth: fieldWidth,
+                updateMovieName: (value) {
+                  widget.model.updateMovieName(value);
+                },
+              ),
               const SizedBox(height: 16),
-              selectGenreField(fieldWidth),
+              SelectGenreField(
+                fieldWidth: fieldWidth,
+                movieGenre: widget.model.movieGenre,
+                updateMovieGenre: (value) {
+                  widget.model.updateMovieGenre(value);
+                },
+              ),
               const SizedBox(height: 16),
               Expanded(
-                child: descriptionField(fieldWidth),
+                child: MyDescriptionField(
+                  fieldWidth: fieldWidth,
+                  updateMovieDescription: (value) {
+                    widget.model.updateMovieDescription(value);
+                  },
+                ),
               ),
               const SizedBox(height: 16),
-              createMovieButton(context)
+              CreateMovieButton(
+                isFieldsValid: widget.model.isFieldsValid,
+                onCreateMovieClicked: widget.model.onCreateMovieClicked,
+              )
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  MyElevatedButton createMovieButton(BuildContext context) {
-    return MyElevatedButton(
-        title: 'Create movie',
-        onButtonPressed: () {
-          if (widget.model.isFieldsValid()) {
-            widget.model.onCreateMovieClicked();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Please, fill all the fields'),
-              ),
-            );
-          }
-        });
-  }
-
-  SizedBox descriptionField(double fieldWidth) {
-    return SizedBox(
-      width: fieldWidth,
-      child: TextField(
-        maxLines: 20,
-        onChanged: (value) {
-          widget.model.updateMovieDescription(value);
-        },
-        decoration: const InputDecoration(
-          labelText: 'Description',
-        ),
-      ),
-    );
-  }
-
-  SizedBox selectGenreField(double fieldWidth) {
-    return SizedBox(
-        width: fieldWidth,
-        child: DropdownButton(
-            hint: const Text('Select genre:'),
-            value: widget.model.movieGenre,
-            onChanged: (newValue) {
-              widget.model.updateMovieGenre(newValue!);
-            },
-            items: movieGenreList.map(
-              (movieGenre) {
-                return DropdownMenuItem(
-                  value: movieGenre,
-                  child: SizedBox(width: fieldWidth, child: Text(movieGenre)),
-                );
-              },
-            ).toList()));
-  }
-
-  SizedBox movieNameField(double fieldWidth) {
-    return SizedBox(
-      width: fieldWidth,
-      child: TextField(
-        onChanged: (value) {
-          widget.model.updateMovieName(value);
-        },
-        decoration: const InputDecoration(
-          labelText: 'Movie name',
         ),
       ),
     );

@@ -1,9 +1,9 @@
-import 'package:flickrate/app/screens/login/screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'login_view_model.dart';
 import 'screens/login_with_email_and_pass_screen.dart';
 import 'screens/login_with_phone_number_screen.dart';
+import 'screens/sign_up_screen.dart';
 
 class LoginView extends StatelessWidget {
   final LoginViewModel model;

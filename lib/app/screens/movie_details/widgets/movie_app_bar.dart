@@ -1,5 +1,6 @@
-import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
+
+import '../../../theme/color_palette.dart';
 
 class MovieAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ColorsPalette colorsPalette = ColorsPalette();

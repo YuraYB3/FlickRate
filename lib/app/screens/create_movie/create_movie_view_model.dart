@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../data/movies/movie.dart';
 import '../../../domain/movies/imovie_repository.dart';
 import '../../routing/inavigation_util.dart';
-import '../../services/input/input_validator.dart';
+import '../../common/input_validator.dart';
 
 class CreateMovieViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;

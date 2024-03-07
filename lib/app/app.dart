@@ -1,8 +1,8 @@
-import 'package:flickrate/app/common/widgets/my_error_widget.dart';
-import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'common/widgets/my_error_widget.dart';
+import 'common/widgets/my_loading_widget.dart';
 import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
 import 'screens/core_navigation/core_navigation_factory.dart';

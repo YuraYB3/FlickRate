@@ -1,8 +1,8 @@
-import 'package:flickrate/app/screens/login/login_factory.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/create_movie/create_movie_factory.dart';
 import '../screens/home/home_factory.dart';
+import '../screens/login/login_factory.dart';
 import '../screens/movie_details/movie_factory.dart';
 import '../screens/show_movies/show_movies_factory.dart';
 import 'routes.dart';

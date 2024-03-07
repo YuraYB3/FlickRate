@@ -1,13 +1,13 @@
-import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
-import 'package:flickrate/app/common/widgets/show_notification.dart';
-import 'package:flickrate/app/screens/login/widgets/my_email_field.dart';
-import 'package:flickrate/app/screens/login/widgets/my_password_field.dart';
-import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_text_button.dart';
+import '../../../common/widgets/show_notification.dart';
+import '../../../theme/color_palette.dart';
 import '../widgets/draw_circle.dart';
 import '../widgets/flickrate_text.dart';
+import '../widgets/my_email_field.dart';
+import '../widgets/my_password_field.dart';
 
 class SignUpScreen extends StatelessWidget {
   final Function(Function(String message)) onRegisterNewUserClicked;

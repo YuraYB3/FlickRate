@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../domain/movies/imovie_repository.dart';
 import '../../../locator.dart';
 import '../../routing/inavigation_util.dart';
-
 import 'create_movie_view.dart';
 import 'create_movie_view_model.dart';
 

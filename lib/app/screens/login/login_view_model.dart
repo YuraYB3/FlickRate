@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../services/input/input_validator.dart';
+import '../../common/input_validator.dart';
 import '../../services/user/iuser_service.dart';
 
 enum LoginState {
@@ -65,8 +65,9 @@ class LoginViewModel extends ChangeNotifier {
         showException('Incorrect email');
       } else if (e.code == 'weak-password') {
         showException('Your password looks weak :(');
+      } else {
+        showException("Something went wrong!");
       }
-      print(e.code);
     }
   }
 
@@ -79,8 +80,9 @@ class LoginViewModel extends ChangeNotifier {
         showException('Incorrect email');
       } else if (e.code == 'channel-error') {
         showException('Fill in all fields!');
+      } else {
+        showException("Something went wrong!");
       }
-      print(e.code);
     }
   }
 

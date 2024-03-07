@@ -1,7 +1,7 @@
-import 'package:flickrate/domain/movies/imovie_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
+import '../../../domain/movies/imovie_repository.dart';
 import '../../routing/inavigation_util.dart';
 import '../../routing/routes.dart';
 
@@ -24,8 +24,7 @@ class ShowMoviesViewModel extends ChangeNotifier {
   }
 
   void onListTileClicked(String movieId) async {
-    await _navigationUtil.navigateTo(routeMovie,
-        allowBackNavigation: true, data: movieId);
+    await _navigationUtil.navigateTo(routeMovie, data: movieId);
   }
 
   Future<void> fetchMoviesStream() async {

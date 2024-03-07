@@ -1,9 +1,9 @@
-import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
 import '../../common/widgets/my_empty_screen.dart';
 import '../../common/widgets/my_error_widget.dart';
+import '../../common/widgets/my_loading_widget.dart';
 import '../../theme/color_palette.dart';
 import 'show_movies_view_model.dart';
 import 'widgets/movie_tile.dart';
@@ -44,7 +44,9 @@ class _ShowMoviesViewState extends State<ShowMoviesView> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: MovieTile(
-                    movie: movie,
+                    movieDescription: movie.description,
+                    movieGenre: movie.genre,
+                    movieName: movie.name,
                     onTileClicked: () {
                       widget._model.onListTileClicked(movie.id);
                     },

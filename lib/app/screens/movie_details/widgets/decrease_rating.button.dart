@@ -12,7 +12,7 @@ class DecreaseRatingButton extends StatelessWidget {
     return IconButton(
         onPressed: onButtonClicked,
         icon: const Icon(
-          Icons.arrow_upward_sharp,
+          Icons.arrow_downward,
           color: Colors.grey,
         ));
   }
