@@ -11,7 +11,7 @@ class FirebaseService implements INetworkService {
       DocumentReference docRef =
           await _firebaseFirestore.collection(collectionName).add(data);
       String docId = docRef.id;
-      await docRef.update({'id': docId});
+      await docRef.update({'documentId': docId});
     } catch (e) {
       //
     }

@@ -1,3 +1,5 @@
+import 'package:flickrate/domain/user/i_my_user_repository.dart';
+import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,8 +11,8 @@ class LoginFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => LoginViewModel(
-        userService: context.read<IUserService>(),
-      ),
+          userService: context.read<IUserService>(),
+          myUserRepository: locator<IMyUserRepository>()),
       child: Consumer<LoginViewModel>(
         builder: (context, value, child) => LoginView(model: value),
       ),

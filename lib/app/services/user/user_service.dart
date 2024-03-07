@@ -57,4 +57,9 @@ class UserService implements IUserService {
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     await _authService.signInWithEmailAndPassword(email, password);
   }
+
+  @override
+  Future<String?> getCurrentUserId() async {
+    return await _authService.getUserId();
+  }
 }

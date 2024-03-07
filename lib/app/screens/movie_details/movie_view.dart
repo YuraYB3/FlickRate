@@ -54,14 +54,14 @@ class MovieView extends StatelessWidget {
                     children: [
                       DecreaseRatingButton(
                         onButtonClicked: () {
-                          _model.onDecreaseButtonClicked(movieData.id);
+                          _model.onDecreaseButtonClicked(movieData.documentId);
                         },
                       ),
                       DeleteMovieButton(onDeleteButtonPressed: () {
-                        _model.onDeleteButtonPressed(movieData.id);
+                        _model.onDeleteButtonPressed(movieData.documentId);
                       }),
                       IncreaseRatingButton(onButtonClicked: () {
-                        _model.onIncreaseButtonClicked(movieData.id);
+                        _model.onIncreaseButtonClicked(movieData.documentId);
                       }),
                     ],
                   ),

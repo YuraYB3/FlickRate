@@ -8,4 +8,5 @@ abstract interface class IUserService {
   Future<void> sentOtp(String number);
   Future<void> register(String email, String password);
   Future<void> signInWithEmailAndPassword(String email, String password);
+  Future<String?> getCurrentUserId();
 }

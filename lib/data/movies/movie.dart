@@ -2,7 +2,7 @@ import '../../domain/movies/imovie.dart';
 
 class Movie implements IMovie {
   @override
-  String id;
+  String documentId;
   @override
   final String name;
   @override
@@ -13,7 +13,7 @@ class Movie implements IMovie {
   final String description;
 
   Movie(
-      {this.id = '',
+      {this.documentId = '',
       this.rating = 4,
       required this.name,
       required this.genre,
@@ -21,7 +21,7 @@ class Movie implements IMovie {
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-      id: json['id'],
+      documentId: json['documentId'],
       name: json['name'],
       genre: json['genre'],
       rating: json['rating'],

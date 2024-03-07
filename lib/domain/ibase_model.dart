@@ -1,7 +1,7 @@
 abstract interface class IBaseModel {
-  String id;
+  String documentId;
 
-  IBaseModel({required this.id});
+  IBaseModel({required this.documentId});
 
   Map<String, dynamic> toJson();
 }

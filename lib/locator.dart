@@ -1,3 +1,5 @@
+import 'package:flickrate/data/user/my_user_repository.dart';
+import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:get_it/get_it.dart';
 
 import 'app/services/functions/function_service.dart';
@@ -26,5 +28,9 @@ void initRepos() {
     () => MovieRepository(
         networkService: locator.get<INetworkService>(),
         functionService: locator.get<IFunctionService>()),
+  );
+
+  locator.registerFactory<IMyUserRepository>(
+    () => MyUserRepository(networkService: locator.get<INetworkService>()),
   );
 }

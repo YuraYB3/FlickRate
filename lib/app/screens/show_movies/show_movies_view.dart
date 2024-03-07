@@ -48,7 +48,7 @@ class _ShowMoviesViewState extends State<ShowMoviesView> {
                     movieGenre: movie.genre,
                     movieName: movie.name,
                     onTileClicked: () {
-                      widget._model.onListTileClicked(movie.id);
+                      widget._model.onListTileClicked(movie.documentId);
                     },
                   ),
                 );

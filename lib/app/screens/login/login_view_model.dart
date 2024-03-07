@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flickrate/data/user/my_user.dart';
+import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/input_validator.dart';
@@ -13,6 +15,7 @@ enum LoginState {
 class LoginViewModel extends ChangeNotifier {
   final InputValidator _inputValidator = InputValidator();
   final IUserService _userService;
+  final IMyUserRepository _myUserRepository;
   String _phoneNumber = '';
   String _otpCode = '';
   String _email = '';
@@ -24,8 +27,11 @@ class LoginViewModel extends ChangeNotifier {
   String get otpCode => _otpCode;
   String get email => _email;
   String get password => _password;
-  LoginViewModel({required IUserService userService})
-      : _userService = userService;
+  LoginViewModel(
+      {required IMyUserRepository myUserRepository,
+      required IUserService userService})
+      : _userService = userService,
+        _myUserRepository = myUserRepository;
 
   void sentOtpClicked({required Function(String message) showException}) async {
     bool isValid = _inputValidator.isNumberValid(_phoneNumber);
@@ -60,6 +66,8 @@ class LoginViewModel extends ChangeNotifier {
       {required Function(String message) showException}) async {
     try {
       await _userService.register(_email, _password);
+      String? userId = await _userService.getCurrentUserId();
+      _myUserRepository.createUser(MyUser(email: _email, userId: userId!));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         showException('Incorrect email');

@@ -7,8 +7,8 @@ import 'package:flickrate/app/services/auth/iauth_service.dart';
 
 class AuthService implements IAuthService {
   final FirebaseAuth _firebaseAuth;
-  String _verifyId = '';
 
+  String _verifyId = '';
   @override
   FirebaseAuth get firebaseAuth => _firebaseAuth;
 
@@ -68,6 +68,16 @@ class AuthService implements IAuthService {
       _streamController.add(authState);
     });
     return _streamController.stream;
+  }
+
+  @override
+  Future<String?> getUserId() async {
+    User? user = _firebaseAuth.currentUser;
+    if (user != null) {
+      return user.uid;
+    } else {
+      return null;
+    }
   }
 
   @override
