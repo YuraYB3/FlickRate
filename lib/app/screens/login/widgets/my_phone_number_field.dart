@@ -23,12 +23,12 @@ class MyPhoneNumberField extends StatelessWidget {
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           prefix: const Text('+380'),
-          labelStyle: TextStyle(color: colorsPalette.mainColor),
+          labelStyle: TextStyle(color: colorsPalette.secondColor),
           labelText: 'Number',
           focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: colorsPalette.mainColor)),
+              borderSide: BorderSide(color: colorsPalette.secondColor)),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorsPalette.mainColor),
+            borderSide: BorderSide(color: colorsPalette.secondColor),
           ),
           counterText: '',
         ),

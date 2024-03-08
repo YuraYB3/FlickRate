@@ -22,12 +22,12 @@ class MyOtpField extends StatelessWidget {
         keyboardType: TextInputType.number,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: colorsPalette.mainColor),
+          labelStyle: TextStyle(color: colorsPalette.secondColor),
           labelText: 'Code',
           focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: colorsPalette.mainColor)),
+              borderSide: BorderSide(color: colorsPalette.secondColor)),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorsPalette.mainColor),
+            borderSide: BorderSide(color: colorsPalette.secondColor),
           ),
           counterText: '',
         ),

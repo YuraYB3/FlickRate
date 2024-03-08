@@ -4,7 +4,6 @@ import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_text_button.dart';
 import '../../../common/widgets/show_notification.dart';
 import '../../../theme/color_palette.dart';
-import '../widgets/draw_circle.dart';
 import '../widgets/flickrate_text.dart';
 import '../widgets/my_email_field.dart';
 import '../widgets/my_password_field.dart';
@@ -30,56 +29,105 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DrawCircle(),
-        Container(height: 40),
-        FlickRateText(),
-        Container(height: 40),
-        MyEmailField(updateEmail: updateEmail),
-        const SizedBox(
-          height: 10,
-        ),
-        MyPasswordField(updatePassword: updatePassword),
-        const SizedBox(
-          height: 10,
-        ),
-        MyElevatedButton(
-            title: "Sign In",
-            onButtonPressed: () {
-              onSignInWithEmailAndPasswordClicked(
-                  (message) => showNotification(context, message));
-            }),
-        const SizedBox(
-          height: 10,
-        ),
-        MyTextButton(
-            textColor: colorsPalette.mainColor,
-            textSize: 16,
-            title: 'Sign in with phone number',
-            onButtonPressed: onSwitchToPhoneNumberClicked),
-        const SizedBox(
-          height: 10,
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.6,
-          child: Row(
-            children: [
-              MyTextButton(
-                  textColor: colorsPalette.secondColor,
-                  textSize: 16,
-                  title: 'Google',
-                  onButtonPressed: onSignInWithGoogleClicked),
-              Expanded(child: Container()),
-              MyTextButton(
-                  textColor: colorsPalette.mainColor,
-                  textSize: 16,
-                  title: 'Sign Up',
-                  onButtonPressed: onSwitchToSignUpClicked)
-            ],
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.2,
           ),
-        )
-      ],
+          FlickRateText(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Row(
+              children: [
+                Text(
+                  'Login to your Account',
+                  style:
+                      TextStyle(color: colorsPalette.secondColor, fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          MyEmailField(updateEmail: updateEmail),
+          const SizedBox(
+            height: 10,
+          ),
+          MyPasswordField(label: 'Password', updatePassword: updatePassword),
+          const SizedBox(
+            height: 10,
+          ),
+          MyElevatedButton(
+              title: "Sign In",
+              onButtonPressed: () {
+                onSignInWithEmailAndPasswordClicked(
+                    (message) => showNotification(context, message));
+              }),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.1,
+          ),
+          Text(
+            'Or sign in with:',
+            style: TextStyle(color: colorsPalette.secondColor, fontSize: 16),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: 60,
+                  width: 80,
+                  child: IconButton(
+                      onPressed: onSwitchToPhoneNumberClicked,
+                      icon: Icon(
+                        Icons.phone_android,
+                        color: colorsPalette.mainColor,
+                      )),
+                ),
+                SizedBox(
+                  height: 60,
+                  width: 80,
+                  child: IconButton(
+                      onPressed: onSignInWithGoogleClicked,
+                      icon: Text(
+                        "G",
+                        style: TextStyle(
+                            fontSize: 24, color: colorsPalette.mainColor),
+                      )),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Don\'t have an account yet?',
+                  style:
+                      TextStyle(color: colorsPalette.secondColor, fontSize: 16),
+                ),
+                MyTextButton(
+                    textColor: colorsPalette.mainColor,
+                    textSize: 16,
+                    title: 'Sign Up',
+                    onButtonPressed: onSwitchToSignUpClicked)
+              ],
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+        ],
+      ),
     );
   }
 }

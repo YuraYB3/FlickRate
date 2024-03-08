@@ -20,6 +20,7 @@ class LoginViewModel extends ChangeNotifier {
   String _otpCode = '';
   String _email = '';
   String _password = '';
+  String _repeatedPassword = '';
   bool isOtpSent = false;
   LoginState loginMethod = LoginState.loginWithEmailAndPassword;
 
@@ -64,18 +65,22 @@ class LoginViewModel extends ChangeNotifier {
 
   void onRegisterNewUserClicked(
       {required Function(String message) showException}) async {
-    try {
-      await _userService.register(_email, _password);
-      String? userId = await _userService.getCurrentUserId();
-      _myUserRepository.createUser(MyUser(email: _email, userId: userId!));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-email') {
-        showException('Incorrect email');
-      } else if (e.code == 'weak-password') {
-        showException('Your password looks weak :(');
-      } else {
-        showException("Something went wrong!");
+    if (_password == _repeatedPassword) {
+      try {
+        await _userService.register(_email, _password);
+        String? userId = await _userService.getCurrentUserId();
+        _myUserRepository.createUser(MyUser(email: _email, userId: userId!));
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'invalid-email') {
+          showException('Incorrect email');
+        } else if (e.code == 'weak-password') {
+          showException('Your password looks weak :(');
+        } else {
+          showException("Something went wrong!");
+        }
       }
+    } else {
+      showException("Passwords do not match. Check it!");
     }
   }
 
@@ -92,6 +97,10 @@ class LoginViewModel extends ChangeNotifier {
         showException("Something went wrong!");
       }
     }
+  }
+
+  void onSignInWithGoogleClicked() {
+    _userService.signWithGoogle();
   }
 
   void onSwitchToPhoneNumberClicked() {
@@ -127,13 +136,14 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateEmail(String value) {
-    _email = value;
+  void updateRepeatedPassword(String value) {
+    _repeatedPassword = value;
     notifyListeners();
   }
 
-  void onSignInWithGoogleClicked() {
-    _userService.signWithGoogle();
+  void updateEmail(String value) {
+    _email = value;
+    notifyListeners();
   }
 
   void _clearFields() {
@@ -141,5 +151,6 @@ class LoginViewModel extends ChangeNotifier {
     _password = '';
     _otpCode = '';
     _phoneNumber = '';
+    _repeatedPassword = '';
   }
 }

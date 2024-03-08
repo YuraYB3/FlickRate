@@ -69,9 +69,9 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
           height: 20,
         ),
         MyTextButton(
-            textColor: colorsPalette.mainColor,
-            textSize: 18,
-            title: 'Sign in with email and password',
+            textColor: colorsPalette.secondColor,
+            textSize: 16,
+            title: 'Back',
             onButtonPressed: onSwitchToEmailAndPasswordClicked)
       ],
     );

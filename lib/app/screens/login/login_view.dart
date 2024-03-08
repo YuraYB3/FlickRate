@@ -47,6 +47,9 @@ class LoginView extends StatelessWidget {
             onSwitchToSignUpClicked: model.onSwitchToSignUpClicked,
           ),
         LoginState.registerNewAccount => SignUpScreen(
+            updateRepeatedPassword: (value) {
+              model.updateRepeatedPassword(value);
+            },
             updateEmail: (value) {
               model.updateEmail(value);
             },

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class MyEmailField extends StatelessWidget {
-   MyEmailField({
+  MyEmailField({
     super.key,
     required this.updateEmail,
   });
@@ -19,12 +19,12 @@ class MyEmailField extends StatelessWidget {
         onChanged: (value) => updateEmail(value),
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: colorsPalette.mainColor),
+          labelStyle: TextStyle(color: colorsPalette.secondColor),
           labelText: 'Email',
           focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: colorsPalette.mainColor)),
+              borderSide: BorderSide(color: colorsPalette.secondColor)),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorsPalette.mainColor),
+            borderSide: BorderSide(color: colorsPalette.secondColor),
           ),
           counterText: '',
         ),

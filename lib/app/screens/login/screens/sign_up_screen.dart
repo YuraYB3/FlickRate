@@ -14,6 +14,7 @@ class SignUpScreen extends StatelessWidget {
   final Function() onSwitchToEmailAndPasswordClicked;
   final Function(String value) updateEmail;
   final Function(String value) updatePassword;
+  final Function(String value) updateRepeatedPassword;
   final ColorsPalette colorsPalette = ColorsPalette();
 
   SignUpScreen(
@@ -21,7 +22,8 @@ class SignUpScreen extends StatelessWidget {
       super.key,
       required this.updateEmail,
       required this.updatePassword,
-      required this.onSwitchToEmailAndPasswordClicked});
+      required this.onSwitchToEmailAndPasswordClicked,
+      required this.updateRepeatedPassword});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,12 @@ class SignUpScreen extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        MyPasswordField(updatePassword: updatePassword),
+        MyPasswordField(label: 'Password', updatePassword: updatePassword),
+        const SizedBox(
+          height: 10,
+        ),
+        MyPasswordField(
+            label: 'Repeat Password', updatePassword: updateRepeatedPassword),
         const SizedBox(
           height: 10,
         ),
@@ -49,9 +56,9 @@ class SignUpScreen extends StatelessWidget {
           height: 10,
         ),
         MyTextButton(
-            textColor: colorsPalette.mainColor,
-            textSize: 18,
-            title: 'Sign in with email and password',
+            textColor: colorsPalette.secondColor,
+            textSize: 16,
+            title: 'I already have an account',
             onButtonPressed: onSwitchToEmailAndPasswordClicked)
       ],
     );
