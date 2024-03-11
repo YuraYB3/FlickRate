@@ -4,7 +4,7 @@ enum AuthState { unauthorized, authorized }
 
 abstract interface class IAuthService {
   Stream<AuthState> authState();
-  Future<String?> getUserId();
+  String getUserId();
   FirebaseAuth get firebaseAuth;
   bool isUserLoggedIn();
   Future<void> sentOtp(String number);

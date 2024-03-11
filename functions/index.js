@@ -74,16 +74,18 @@ exports.onMovieDeleted = functions.firestore.document("movies/{movieID}")
       console.log("Deleted document data:", deletedDocument);
     });
 
-exports.countNumberOfMovies = functions.pubsub.schedule("every 5 minutes")
-    .onRun(async () =>{
-      try {
-        const snapshot = await admin.firestore().collection("movies").get();
-        const numberOfDocuments = snapshot.size;
-        console.log("Number of documents in the movie collection: ",
-            numberOfDocuments);
-        return null;
-      } catch (error) {
-        console.error("Error while getting the number of documents: ", error);
-        return null;
-      }
-    });
+exports.onNewAuth = functions.auth.user().onCreate((user) => {
+  const userId = user.uid;
+  const documentId = admin.firestore().collection("users").doc().id;
+  const userProfileRef = admin.firestore().collection("users").doc(documentId);
+  const defaultProfileImage = "https://firebasestorage.googleapis.com/v0/b/flickrate-b668e.appspot.com/o/default%2Fimage_default.png?alt=media&token=ac38e584-5776-4308-ae87-27009e002fe5";
+
+  const userProfileData = {
+    documentId: documentId,
+    userId: userId,
+    userProfileImage: defaultProfileImage,
+  };
+
+  return userProfileRef.set(userProfileData);
+});
+

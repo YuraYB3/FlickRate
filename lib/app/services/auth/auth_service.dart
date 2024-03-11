@@ -71,12 +71,12 @@ class AuthService implements IAuthService {
   }
 
   @override
-  Future<String?> getUserId() async {
+  String getUserId() {
     User? user = _firebaseAuth.currentUser;
     if (user != null) {
       return user.uid;
     } else {
-      return null;
+      return '';
     }
   }
 

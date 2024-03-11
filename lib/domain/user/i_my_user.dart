@@ -1,7 +1,7 @@
 import '../ibase_model.dart';
 
 abstract interface class IMyUser implements IBaseModel {
-  final String email;
+  final String userProfileImage;
   final String userId;
-  IMyUser(this.email, this.userId);
+  IMyUser(this.userId, this.userProfileImage);
 }

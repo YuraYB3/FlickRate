@@ -19,6 +19,7 @@ void main() async {
 
   initFunctionService();
   initNetworkService();
+  initStorageService();
   initRepos();
 
   final INavigationUtil navigationUtil = NavigationUtil();

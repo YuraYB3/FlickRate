@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 
 import '../auth/iauth_service.dart';
@@ -59,7 +61,10 @@ class UserService implements IUserService {
   }
 
   @override
-  Future<String?> getCurrentUserId() async {
-    return await _authService.getUserId();
+  String getCurrentUserId() {
+    print('Getting current user ID');
+    String userId = _authService.getUserId();
+    print('Current user ID: $userId');
+    return userId;
   }
 }

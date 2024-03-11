@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../domain/ibase_model.dart';
 import 'inetwork_service.dart';
 
 class FirebaseService implements INetworkService {
@@ -39,8 +37,16 @@ class FirebaseService implements INetworkService {
   }
 
   @override
-  Future<void> update(IBaseModel model, String collectionName) {
-    // implement update
-    throw UnimplementedError();
+  Future<void> update(Map<String, dynamic> data, String collectionName,
+      String documentId) async {
+    try {
+      await _firebaseFirestore
+          .collection(collectionName)
+          .doc(documentId)
+          .update(data);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
   }
 }

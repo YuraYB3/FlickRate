@@ -19,7 +19,7 @@ class MovieViewModel extends ChangeNotifier {
       : _movieRepository = movieRepository,
         _movieId = movieId,
         _navigationUtil = navigationUtil {
-    fetchMovieStream();
+    _fetchMovieStream();
   }
 
   void onDeleteButtonPressed(String id) {
@@ -35,7 +35,7 @@ class MovieViewModel extends ChangeNotifier {
     _movieRepository.decreaseRating(id);
   }
 
-  Future<void> fetchMovieStream() async {
+  Future<void> _fetchMovieStream() async {
     _movieStream = _movieRepository.fetchMovie(_movieId);
   }
 }
