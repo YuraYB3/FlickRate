@@ -38,7 +38,7 @@ class MyUserRepository implements IMyUserRepository {
     if (image != null) {
       String imgURL =
           await _storageService.uploadImage(directoryUserProfile, image);
-      updateProfilePhoto(imgURL, documentId);
+      updateProfileImage(imgURL, documentId);
     }
   }
 
@@ -48,7 +48,7 @@ class MyUserRepository implements IMyUserRepository {
     return pickedFile;
   }
 
-  Future<void> updateProfilePhoto(String imgURl, String documentId) async {
+  Future<void> updateProfileImage(String imgURl, String documentId) async {
     await _networkService
         .update({"userProfileImage": imgURl}, collectionUsers, documentId);
   }
