@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
+import '../../common/widgets/custom_snackbar.dart';
 import '../../common/widgets/my_error_widget.dart';
 import '../../common/widgets/my_loading_widget.dart';
 import '../../theme/color_palette.dart';
@@ -54,14 +55,26 @@ class MovieView extends StatelessWidget {
                     children: [
                       DecreaseRatingButton(
                         onButtonClicked: () {
-                          _model.onDecreaseButtonClicked(movieData.documentId);
+                          _model.onDecreaseButtonClicked(
+                            movieId: movieData.documentId,
+                            showException: (message) =>
+                                showCustomSnackBar(context, message),
+                          );
                         },
                       ),
                       DeleteMovieButton(onDeleteButtonPressed: () {
-                        _model.onDeleteButtonPressed(movieData.documentId);
+                        _model.onDeleteButtonPressed(
+                          movieId: movieData.documentId,
+                          showException: (message) =>
+                              showCustomSnackBar(context, message),
+                        );
                       }),
                       IncreaseRatingButton(onButtonClicked: () {
-                        _model.onIncreaseButtonClicked(movieData.documentId);
+                        _model.onIncreaseButtonClicked(
+                          movieId: movieData.documentId,
+                          showException: (message) =>
+                              showCustomSnackBar(context, message),
+                        );
                       }),
                     ],
                   ),

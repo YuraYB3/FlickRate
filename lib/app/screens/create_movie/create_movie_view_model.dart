@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flickrate/app/services/user/iuser_service.dart';
 import 'package:flutter/material.dart';
 
@@ -28,15 +30,24 @@ class CreateMovieViewModel extends ChangeNotifier {
         _userService = userService,
         _movieRepository = movieRepository;
 
-  void onCreateMovieClicked() {
-    _userId = _userService.getCurrentUserId();
-    _movieRepository.createMovie(Movie(
-      userId: _userId,
-      name: _movieName,
-      genre: _movieGenre,
-      description: _movieDescription,
-    ));
-    _navigationUtil.navigateBack();
+  void onCreateMovieClicked({required Function(String message) showException}) {
+    if (isFieldsValid()) {
+      try {
+        _userId = _userService.getCurrentUserId();
+        _movieRepository.createMovie(Movie(
+          userId: _userId,
+          name: _movieName,
+          genre: _movieGenre,
+          description: _movieDescription,
+        ));
+        _navigationUtil.navigateBack();
+      } catch (e) {
+        print(e.toString());
+        showException("Can't create mew movie");
+        _navigationUtil.navigateBack();
+      }
+    }
+    showException("Please, fill all the fields");
   }
 
   void updateMovieName(String value) {

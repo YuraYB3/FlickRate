@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -91,8 +93,14 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  void onSignInWithGoogleClicked() {
-    _userService.signWithGoogle();
+  void onSignInWithGoogleClicked(
+      {required Function(String message) showException}) {
+    try {
+      _userService.signWithGoogle();
+    } catch (e) {
+      showException("Something went wrong");
+      print(e.toString());
+    }
   }
 
   void onSwitchToPhoneNumberClicked() {

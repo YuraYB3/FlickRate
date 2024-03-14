@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
@@ -33,13 +35,17 @@ class ShowMoviesViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchMoviesStream() async {
-    _userId = _userService.getCurrentUserId();
-    if (_genre.isEmpty) {
-      _movieStreamList = _movieRepository.fetchMoviesStream(_userId);
-    } else {
-      _movieStreamList =
-          _movieRepository.fetchMoviesStreamByGenre(_genre, _userId);
+    try {
+      _userId = _userService.getCurrentUserId();
+      if (_genre.isEmpty) {
+        _movieStreamList = _movieRepository.fetchMoviesStream(_userId);
+      } else {
+        _movieStreamList =
+            _movieRepository.fetchMoviesStreamByGenre(_genre, _userId);
+      }
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
     }
-    notifyListeners();
   }
 }

@@ -43,7 +43,9 @@ class LoginView extends StatelessWidget {
               model.onSignInWithEmailAndPasswordClicked(showException: p0);
             },
             onSwitchToPhoneNumberClicked: model.onSwitchToPhoneNumberClicked,
-            onSignInWithGoogleClicked: model.onSignInWithGoogleClicked,
+            onSignInWithGoogleClicked: (p0) {
+              model.onSignInWithGoogleClicked(showException: p0);
+            },
             onSwitchToSignUpClicked: model.onSwitchToSignUpClicked,
           ),
         LoginState.registerNewAccount => SignUpScreen(

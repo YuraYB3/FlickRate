@@ -13,7 +13,7 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
   final Function(String value) updatePassword;
   final Function(Function(String message)) onSignInWithEmailAndPasswordClicked;
   final Function() onSwitchToPhoneNumberClicked;
-  final Function() onSignInWithGoogleClicked;
+  final Function(Function(String message)) onSignInWithGoogleClicked;
   final Function() onSwitchToSignUpClicked;
   final ColorsPalette colorsPalette = ColorsPalette();
 
@@ -95,7 +95,11 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
                   height: 60,
                   width: 80,
                   child: IconButton(
-                      onPressed: onSignInWithGoogleClicked,
+                      onPressed: () {
+                        onSignInWithGoogleClicked(
+                          (message) => showCustomSnackBar(context, message),
+                        );
+                      },
                       icon: Text(
                         "G",
                         style: TextStyle(

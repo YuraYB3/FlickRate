@@ -1,3 +1,4 @@
+import 'package:flickrate/app/common/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/color_palette.dart';
@@ -60,10 +61,11 @@ class _CreateMovieViewState extends State<CreateMovieView> {
                 ),
               ),
               const SizedBox(height: 16),
-              CreateMovieButton(
-                isFieldsValid: widget.model.isFieldsValid,
-                onCreateMovieClicked: widget.model.onCreateMovieClicked,
-              )
+              CreateMovieButton(onCreateMovieClicked: () {
+                widget.model.onCreateMovieClicked(
+                    showException: (message) =>
+                        showCustomSnackBar(context, message));
+              }),
             ],
           ),
         ),

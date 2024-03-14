@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
@@ -22,20 +24,45 @@ class MovieViewModel extends ChangeNotifier {
     _fetchMovieStream();
   }
 
-  void onDeleteButtonPressed(String id) {
-    _movieRepository.deleteMovie(id);
-    _navigationUtil.navigateBack();
+  void onDeleteButtonPressed(
+      {required Function(String message) showException,
+      required String movieId}) {
+    try {
+      _movieRepository.deleteMovie(movieId);
+      _navigationUtil.navigateBack();
+    } catch (e) {
+      print(e.toString());
+      showException("Can't delete movie");
+    }
   }
 
-  void onIncreaseButtonClicked(String id) {
-    _movieRepository.increaseRating(id);
+  void onIncreaseButtonClicked(
+      {required Function(String message) showException,
+      required String movieId}) {
+    try {
+      _movieRepository.increaseRating(movieId);
+    } catch (e) {
+      print(e.toString());
+      showException("Can't increase rating");
+    }
   }
 
-  void onDecreaseButtonClicked(String id) {
-    _movieRepository.decreaseRating(id);
+  void onDecreaseButtonClicked(
+      {required Function(String message) showException,
+      required String movieId}) {
+    try {
+      _movieRepository.decreaseRating(movieId);
+    } catch (e) {
+      print(e.toString());
+      showException("Can't decrease rating");
+    }
   }
 
   Future<void> _fetchMovieStream() async {
-    _movieStream = _movieRepository.fetchMovie(_movieId);
+    try {
+      _movieStream = _movieRepository.fetchMovie(_movieId);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

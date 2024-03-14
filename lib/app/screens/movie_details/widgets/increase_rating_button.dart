@@ -13,7 +13,7 @@ class IncreaseRatingButton extends StatelessWidget {
         onPressed: onButtonClicked,
         icon: const Icon(
           Icons.arrow_upward_sharp,
-          color: Colors.red,
+          color: Colors.green,
         ));
   }
 }

@@ -16,7 +16,9 @@ class MovieFactory {
           navigationUtil: context.read<INavigationUtil>(),
           movieRepository: locator<IMovieRepository>()),
       child: Consumer<MovieViewModel>(
-        builder: (context, value, child) => MovieView(model: value),
+        builder: (context, value, child) => MovieView(
+          model: value,
+        ),
       ),
     );
   }
