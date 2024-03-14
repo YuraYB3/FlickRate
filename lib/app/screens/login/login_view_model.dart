@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/input_validator.dart';
+import '../../../utils/input_validator.dart';
 import '../../services/user/iuser_service.dart';
 
 enum LoginState {

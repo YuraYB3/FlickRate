@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_text_button.dart';
-import '../../../common/widgets/show_notification.dart';
+import '../../../common/widgets/custom_snackbar.dart';
 import '../../../theme/color_palette.dart';
 import '../widgets/flickrate_text.dart';
 import '../widgets/my_email_field.dart';
@@ -67,7 +67,7 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
               title: "Sign In",
               onButtonPressed: () {
                 onSignInWithEmailAndPasswordClicked(
-                    (message) => showNotification(context, message));
+                    (message) => showCustomSnackBar(context, message));
               }),
           Container(
             height: MediaQuery.of(context).size.height * 0.1,
@@ -106,9 +106,9 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.6,
+            width: MediaQuery.of(context).size.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
                   'Don\'t have an account yet?',

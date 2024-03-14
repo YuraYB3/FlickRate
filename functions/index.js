@@ -48,14 +48,6 @@ exports.decrementRating = functions.https.onCall(async (data) => {
   }
 });
 
-exports.onMovieCreated = functions.firestore.document("movies/{movieID}")
-    .onCreate((snapshot) =>{
-      const newDocument = snapshot.data();
-      const documentId = snapshot.id;
-      console.log("New document created with ID:", documentId);
-      console.log("Document data:", newDocument);
-    });
-
 exports.onMovieUpdated = functions.firestore.document("movies/{movieID}")
     .onUpdate((change) => {
       const updatedDocument = change.after.data();
@@ -80,12 +72,21 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
   const userProfileRef = admin.firestore().collection("users").doc(documentId);
   const defaultProfileImage = "https://firebasestorage.googleapis.com/v0/b/flickrate-b668e.appspot.com/o/default%2Fimage_default.png?alt=media&token=ac38e584-5776-4308-ae87-27009e002fe5";
 
+  let userProfileImage = defaultProfileImage;
+
+  const googleProvider = user.providerData.
+      find((provider) => provider.providerId === "google.com");
+  if (googleProvider) {
+    userProfileImage = googleProvider.photoURL;
+  }
+
   const userProfileData = {
     documentId: documentId,
     userId: userId,
-    userProfileImage: defaultProfileImage,
+    userProfileImage: userProfileImage,
   };
 
   return userProfileRef.set(userProfileData);
 });
+
 

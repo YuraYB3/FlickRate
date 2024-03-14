@@ -1,6 +1,7 @@
 import 'package:flickrate/app/services/storage/istorage_service.dart';
 import 'package:flickrate/data/user/my_user_repository.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
+import 'package:flickrate/utils/permission_handler.dart';
 import 'package:get_it/get_it.dart';
 
 import 'app/services/functions/function_service.dart';
@@ -16,6 +17,12 @@ final locator = GetIt.instance;
 void initFunctionService() {
   locator.registerFactory<IFunctionService>(
     () => FunctionService(),
+  );
+}
+
+void initPermissionHandler() {
+  locator.registerFactory<PermissionHandler>(
+    () => PermissionHandler(),
   );
 }
 

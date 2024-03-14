@@ -1,3 +1,4 @@
+import 'package:flickrate/app/services/user/iuser_service.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ class ShowMoviesFactory {
   static Widget build(String genre) {
     return ChangeNotifierProvider(
         create: (context) => ShowMoviesViewModel(
+            userService: context.read<IUserService>(),
             movieRepository: locator<IMovieRepository>(),
             navigationUtil: context.read<INavigationUtil>(),
             genre: genre),

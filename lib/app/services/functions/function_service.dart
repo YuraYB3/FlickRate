@@ -8,11 +8,7 @@ class FunctionService implements IFunctionService {
   final FirebaseFunctions functions = FirebaseFunctions.instance;
   @override
   Future<void> onCall(data, String functionName) async {
-    try {
-      HttpsCallable callable = functions.httpsCallable(functionName);
-      await callable.call(data);
-    } on FirebaseFunctionsException catch (e) {
-      print(e.message);
-    }
+    HttpsCallable callable = functions.httpsCallable(functionName);
+    await callable.call(data);
   }
 }

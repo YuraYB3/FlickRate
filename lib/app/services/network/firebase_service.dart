@@ -5,14 +5,10 @@ class FirebaseService implements INetworkService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   @override
   Future<void> create(Map<String, dynamic> data, String collectionName) async {
-    try {
-      DocumentReference docRef =
-          await _firebaseFirestore.collection(collectionName).add(data);
-      String docId = docRef.id;
-      await docRef.update({'documentId': docId});
-    } catch (e) {
-      //
-    }
+    DocumentReference docRef =
+        await _firebaseFirestore.collection(collectionName).add(data);
+    String docId = docRef.id;
+    await docRef.update({'documentId': docId});
   }
 
   @override
@@ -39,14 +35,9 @@ class FirebaseService implements INetworkService {
   @override
   Future<void> update(Map<String, dynamic> data, String collectionName,
       String documentId) async {
-    try {
-      await _firebaseFirestore
-          .collection(collectionName)
-          .doc(documentId)
-          .update(data);
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
+    await _firebaseFirestore
+        .collection(collectionName)
+        .doc(documentId)
+        .update(data);
   }
 }

@@ -1,17 +1,20 @@
+import 'package:flickrate/app/services/user/iuser_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/movies/movie.dart';
 import '../../../domain/movies/imovie_repository.dart';
 import '../../routing/inavigation_util.dart';
-import '../../common/input_validator.dart';
+import '../../../utils/input_validator.dart';
 
 class CreateMovieViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;
   final IMovieRepository _movieRepository;
+  final IUserService _userService;
   final InputValidator _inputValidator = InputValidator();
   String _movieName = '';
   String _movieGenre = 'Action';
   String _movieDescription = '';
+  late String _userId;
 
   String get movieName => _movieName;
   String get movieGenre => _movieGenre;
@@ -19,12 +22,16 @@ class CreateMovieViewModel extends ChangeNotifier {
 
   CreateMovieViewModel(
       {required IMovieRepository movieRepository,
+      required IUserService userService,
       required INavigationUtil navigationUtil})
       : _navigationUtil = navigationUtil,
+        _userService = userService,
         _movieRepository = movieRepository;
 
   void onCreateMovieClicked() {
+    _userId = _userService.getCurrentUserId();
     _movieRepository.createMovie(Movie(
+      userId: _userId,
       name: _movieName,
       genre: _movieGenre,
       description: _movieDescription,

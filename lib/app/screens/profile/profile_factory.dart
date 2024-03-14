@@ -1,5 +1,6 @@
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/locator.dart';
+import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,7 @@ class ProfileFactory {
   static Widget build() {
     return ChangeNotifierProvider(
         create: (context) => ProfileViewModel(
+            permissionHandler: locator<PermissionHandler>(),
             userService: context.read<IUserService>(),
             myUserRepository: locator<IMyUserRepository>()),
         child: Consumer<ProfileViewModel>(

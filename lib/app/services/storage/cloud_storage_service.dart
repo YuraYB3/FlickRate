@@ -14,12 +14,8 @@ class CloudStorageService implements IStorageService {
     String uniqueFileName = DateTime.now().microsecondsSinceEpoch.toString();
     uniqueFileName += image.name;
     Reference referenceImageToUpload = imageRef.child(uniqueFileName);
-    try {
-      await referenceImageToUpload.putFile(File(image.path));
-      String imgURL = await referenceImageToUpload.getDownloadURL();
-      return imgURL;
-    } catch (e) {
-      return '';
-    }
+    await referenceImageToUpload.putFile(File(image.path));
+    String imgURL = await referenceImageToUpload.getDownloadURL();
+    return imgURL;
   }
 }

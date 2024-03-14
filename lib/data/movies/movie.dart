@@ -4,6 +4,8 @@ class Movie implements IMovie {
   @override
   String documentId;
   @override
+  String userId;
+  @override
   final String name;
   @override
   final String genre;
@@ -14,6 +16,7 @@ class Movie implements IMovie {
 
   Movie(
       {this.documentId = '',
+      required this.userId,
       this.rating = 4,
       required this.name,
       required this.genre,
@@ -21,12 +24,12 @@ class Movie implements IMovie {
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-      documentId: json['documentId'],
-      name: json['name'],
-      genre: json['genre'],
-      rating: json['rating'],
-      description: json['description'],
-    );
+        documentId: json['documentId'],
+        name: json['name'],
+        genre: json['genre'],
+        rating: json['rating'],
+        description: json['description'],
+        userId: json['userId']);
   }
 
   @override
@@ -35,7 +38,8 @@ class Movie implements IMovie {
       'name': name,
       'genre': genre,
       'description': description,
-      'rating': rating
+      'rating': rating,
+      'userId': userId
     };
   }
 }

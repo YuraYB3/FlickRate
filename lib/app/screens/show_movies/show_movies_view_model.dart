@@ -4,6 +4,7 @@ import '../../../domain/movies/imovie.dart';
 import '../../../domain/movies/imovie_repository.dart';
 import '../../routing/inavigation_util.dart';
 import '../../routing/routes.dart';
+import '../../services/user/iuser_service.dart';
 
 class ShowMoviesViewModel extends ChangeNotifier {
   late Stream<List<IMovie>> _movieStreamList;
@@ -11,13 +12,17 @@ class ShowMoviesViewModel extends ChangeNotifier {
 
   final INavigationUtil _navigationUtil;
   final IMovieRepository _movieRepository;
+  final IUserService _userService;
   final String _genre;
+  late String _userId;
 
   ShowMoviesViewModel(
       {required IMovieRepository movieRepository,
+      required IUserService userService,
       required INavigationUtil navigationUtil,
       required String genre})
       : _navigationUtil = navigationUtil,
+        _userService = userService,
         _movieRepository = movieRepository,
         _genre = genre {
     fetchMoviesStream();
@@ -28,10 +33,12 @@ class ShowMoviesViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchMoviesStream() async {
+    _userId = _userService.getCurrentUserId();
     if (_genre.isEmpty) {
-      _movieStreamList = _movieRepository.fetchMoviesStream();
+      _movieStreamList = _movieRepository.fetchMoviesStream(_userId);
     } else {
-      _movieStreamList = _movieRepository.fetchMoviesStreamByGenre(_genre);
+      _movieStreamList =
+          _movieRepository.fetchMoviesStreamByGenre(_genre, _userId);
     }
     notifyListeners();
   }

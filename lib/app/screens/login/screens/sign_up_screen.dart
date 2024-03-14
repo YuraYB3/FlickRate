@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_text_button.dart';
-import '../../../common/widgets/show_notification.dart';
+import '../../../common/widgets/custom_snackbar.dart';
 import '../../../theme/color_palette.dart';
 import '../widgets/draw_circle.dart';
 import '../widgets/flickrate_text.dart';
@@ -50,7 +50,7 @@ class SignUpScreen extends StatelessWidget {
             title: "Sign Up",
             onButtonPressed: () {
               onRegisterNewUserClicked(
-                  (message) => showNotification(context, message));
+                  (message) => showCustomSnackBar(context, message));
             }),
         const SizedBox(
           height: 10,

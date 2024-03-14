@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,11 +88,7 @@ class AuthService implements IAuthService {
       idToken: gAuth.idToken,
     );
 
-    try {
-      await FirebaseAuth.instance.signInWithCredential(credential);
-    } catch (error) {
-      print("Error signing in with Google: $error");
-    }
+    await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override

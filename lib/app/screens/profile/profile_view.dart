@@ -41,7 +41,9 @@ class ProfileView extends StatelessWidget {
                       bottom: -10,
                       left: 60,
                       child: IconButton(
-                          onPressed: _model.onChangePhotoClicked,
+                          onPressed: () {
+                            _model.onChangePhotoClicked(context);
+                          },
                           icon: const Icon(Icons.add_a_photo)))
                 ],
               ),

@@ -1,1 +1,1 @@
-const String directoryUserProfile = 'userProfileImage"';
+const String directoryUserProfile = 'userProfileImage';

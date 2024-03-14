@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/widgets/my_elevated_button.dart';
 import '../../../common/widgets/my_text_button.dart';
-import '../../../common/widgets/show_notification.dart';
+import '../../../common/widgets/custom_snackbar.dart';
 import '../../../theme/color_palette.dart';
 import '../widgets/draw_circle.dart';
 import '../widgets/flickrate_text.dart';
@@ -46,7 +46,7 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
                   title: 'Sent',
                   onButtonPressed: () {
                     sentOtpClicked(
-                        (message) => showNotification(context, message));
+                        (message) => showCustomSnackBar(context, message));
                   }),
             ],
           ),
@@ -61,7 +61,7 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
                   title: 'Apply',
                   onButtonPressed: () {
                     onApplyOtpCodeButtonClicked(
-                        (message) => showNotification(context, message));
+                        (message) => showCustomSnackBar(context, message));
                   })
             ],
           ),
