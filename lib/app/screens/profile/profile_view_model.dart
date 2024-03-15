@@ -56,7 +56,7 @@ class ProfileViewModel extends ChangeNotifier {
         case PermissionState.granted:
           _myUserRepository.changeProfilePhoto(_myUser.documentId);
           break;
-        case PermissionState.notAllowed:
+        case PermissionState.denied:
           showCustomSnackBar(context, "Permission not allowed");
           break;
         default:

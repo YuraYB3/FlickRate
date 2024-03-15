@@ -2,30 +2,51 @@
 
 import 'package:permission_handler/permission_handler.dart';
 
-enum PermissionState { granted, notAllowed, restricted }
+enum PermissionState { granted, denied, restricted }
 
 class PermissionHandler {
   final Permission _permissionStorage = Permission.storage;
+  final Permission _permissionNotification = Permission.notification;
 
   Future<PermissionState> isGalleryPermissionGranted() async {
-    try {
-      final status = await _permissionStorage.status;
-      if (status.isGranted) {
-        return PermissionState.granted;
-      } else if (status.isDenied) {
-        final result = await _permissionStorage.request();
-        if (result.isGranted) {
+    final status = await _permissionStorage.status;
+    if (status.isGranted) {
+      return PermissionState.granted;
+    } else {
+      final result = await _permissionStorage.request();
+      switch (result) {
+        case PermissionStatus.granted:
           return PermissionState.granted;
-        } else if (result.isDenied) {
-          return PermissionState.notAllowed;
-        } else if (result.isPermanentlyDenied) {
+        case PermissionStatus.denied:
+          return PermissionState.denied;
+        case PermissionStatus.restricted:
           return PermissionState.restricted;
-        }
+        default:
+          return PermissionState.denied;
       }
-      return PermissionState.restricted;
-    } catch (e) {
-      print('Error: $e');
-      return PermissionState.restricted;
     }
+  }
+
+  Future<PermissionState> isNotificationPermissionGranted() async {
+    final status = await _permissionNotification.status;
+    if (status.isGranted) {
+      return PermissionState.granted;
+    } else {
+      final result = await _permissionStorage.request();
+      switch (result) {
+        case PermissionStatus.granted:
+          return PermissionState.granted;
+        case PermissionStatus.denied:
+          return PermissionState.denied;
+        case PermissionStatus.restricted:
+          return PermissionState.restricted;
+        default:
+          return PermissionState.denied;
+      }
+    }
+  }
+
+  Future<void> askCorePermissions() async {
+    await isNotificationPermissionGranted();
   }
 }
