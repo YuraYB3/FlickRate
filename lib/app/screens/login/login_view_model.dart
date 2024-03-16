@@ -63,7 +63,7 @@ class LoginViewModel extends ChangeNotifier {
       {required Function(String message) showException}) async {
     if (_password == _repeatedPassword) {
       try {
-        await _userService.register(_email, _password);
+        await _userService.register(email: _email, password: _password);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'invalid-email') {
           showException('Incorrect email');
@@ -81,7 +81,8 @@ class LoginViewModel extends ChangeNotifier {
   void onSignInWithEmailAndPasswordClicked(
       {required Function(String message) showException}) async {
     try {
-      await _userService.signInWithEmailAndPassword(_email, _password);
+      await _userService.signInWithEmailAndPassword(
+          email: _email, password: _password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
         showException('Incorrect email');
@@ -94,9 +95,11 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   void onSignInWithGoogleClicked(
-      {required Function(String message) showException}) {
+      {required Function(String message) showException}) async {
     try {
-      _userService.signWithGoogle();
+      await _userService.signWithGoogle(
+        showException: showException,
+      );
     } catch (e) {
       showException("Something went wrong");
       print(e.toString());

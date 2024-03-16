@@ -1,4 +1,5 @@
 import 'package:flickrate/app/common/widgets/custom_snackbar.dart';
+import 'package:flickrate/data/genre/movie_genre.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/color_palette.dart';
@@ -47,7 +48,7 @@ class _CreateMovieViewState extends State<CreateMovieView> {
               SelectGenreField(
                 fieldWidth: fieldWidth,
                 movieGenre: widget.model.movieGenre,
-                updateMovieGenre: (value) {
+                updateMovieGenre: (MovieGenre value) {
                   widget.model.updateMovieGenre(value);
                 },
               ),

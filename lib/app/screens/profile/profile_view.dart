@@ -1,6 +1,7 @@
 import 'package:flickrate/domain/user/i_my_user.dart';
 import 'package:flutter/material.dart';
 
+import '../../common/widgets/custom_snackbar.dart';
 import '../../common/widgets/my_elevated_button.dart';
 import '../../common/widgets/my_error_widget.dart';
 import '../../common/widgets/my_loading_widget.dart';
@@ -42,7 +43,10 @@ class ProfileView extends StatelessWidget {
                       left: 60,
                       child: IconButton(
                           onPressed: () {
-                            _model.onChangePhotoClicked(context);
+                            _model.onChangePhotoClicked(
+                              showException: (message) =>
+                                  showCustomSnackBar(context, message),
+                            );
                           },
                           icon: const Icon(Icons.add_a_photo)))
                 ],

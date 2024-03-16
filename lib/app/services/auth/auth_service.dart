@@ -10,8 +10,9 @@ class AuthService implements IAuthService {
   @override
   FirebaseAuth get firebaseAuth => _firebaseAuth;
 
-  AuthService({required FirebaseAuth firebaseAuth})
-      : _firebaseAuth = firebaseAuth;
+  AuthService({
+    required FirebaseAuth firebaseAuth,
+  }) : _firebaseAuth = firebaseAuth;
 
   final StreamController<AuthState> _streamController =
       StreamController.broadcast();
@@ -79,26 +80,40 @@ class AuthService implements IAuthService {
   }
 
   @override
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle(
+      {required Function(String message) showException}) async {
+    if (await GoogleSignIn().isSignedIn()) {
+      await GoogleSignIn().signOut();
+    }
+
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 
-    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: gAuth.accessToken,
-      idToken: gAuth.idToken,
-    );
-
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    if (gUser != null) {
+      try {
+        final GoogleSignInAuthentication gAuth = await gUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: gAuth.accessToken,
+          idToken: gAuth.idToken,
+        );
+        await FirebaseAuth.instance.signInWithCredential(credential);
+      } catch (e) {
+        showException("Error signing in with Google: $e");
+      }
+    } else {
+      showException("User cancelled Google sign in.");
+    }
   }
 
   @override
-  Future<void> signUpWithEmailAndPassword(String email, String password) async {
+  Future<void> signUpWithEmailAndPassword(
+      {required String email, required String password}) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
+  Future<void> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
   }

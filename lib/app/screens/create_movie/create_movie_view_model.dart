@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flickrate/app/services/user/iuser_service.dart';
+import 'package:flickrate/data/genre/movie_genre.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/movies/movie.dart';
@@ -14,12 +15,12 @@ class CreateMovieViewModel extends ChangeNotifier {
   final IUserService _userService;
   final InputValidator _inputValidator = InputValidator();
   String _movieName = '';
-  String _movieGenre = 'Action';
+  MovieGenre _movieGenre = MovieGenre.Action;
   String _movieDescription = '';
   late String _userId;
 
   String get movieName => _movieName;
-  String get movieGenre => _movieGenre;
+  MovieGenre get movieGenre => _movieGenre;
   String get movieDescription => _movieDescription;
 
   CreateMovieViewModel(
@@ -37,7 +38,7 @@ class CreateMovieViewModel extends ChangeNotifier {
         _movieRepository.createMovie(Movie(
           userId: _userId,
           name: _movieName,
-          genre: _movieGenre,
+          genre: _movieGenre.name,
           description: _movieDescription,
         ));
         _navigationUtil.navigateBack();
@@ -55,7 +56,7 @@ class CreateMovieViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateMovieGenre(String value) {
+  void updateMovieGenre(MovieGenre value) {
     _movieGenre = value;
     notifyListeners();
   }
@@ -67,6 +68,6 @@ class CreateMovieViewModel extends ChangeNotifier {
 
   bool isFieldsValid() {
     return _inputValidator.isCreateMovieFormValidate(
-        _movieName, _movieGenre, _movieDescription);
+        _movieName, _movieGenre.name, _movieDescription);
   }
 }

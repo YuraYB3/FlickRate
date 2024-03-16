@@ -1,19 +1,26 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
 import 'package:permission_handler/permission_handler.dart';
+import 'package:device_info/device_info.dart';
 
 enum PermissionState { granted, denied, restricted }
 
 class PermissionHandler {
-  final Permission _permissionStorage = Permission.storage;
-  final Permission _permissionNotification = Permission.notification;
+  late bool isAndroidAbove13;
 
+  PermissionHandler() {
+    _isAndroidVersionAbove13();
+  }
   Future<PermissionState> isGalleryPermissionGranted() async {
-    final status = await _permissionStorage.status;
+    final Permission permissionStorage =
+        isAndroidAbove13 ? Permission.photos : Permission.storage;
+    final status = await permissionStorage.status;
     if (status.isGranted) {
       return PermissionState.granted;
     } else {
-      final result = await _permissionStorage.request();
+      final result = await permissionStorage.request();
       switch (result) {
         case PermissionStatus.granted:
           return PermissionState.granted;
@@ -28,11 +35,13 @@ class PermissionHandler {
   }
 
   Future<PermissionState> isNotificationPermissionGranted() async {
-    final status = await _permissionNotification.status;
+    const Permission permissionNotification = Permission.notification;
+    final status = await permissionNotification.status;
     if (status.isGranted) {
+      await permissionNotification.request();
       return PermissionState.granted;
     } else {
-      final result = await _permissionStorage.request();
+      final result = await permissionNotification.request();
       switch (result) {
         case PermissionStatus.granted:
           return PermissionState.granted;
@@ -48,5 +57,14 @@ class PermissionHandler {
 
   Future<void> askCorePermissions() async {
     await isNotificationPermissionGranted();
+  }
+
+  Future<bool> _isAndroidVersionAbove13() async {
+    if (Platform.isAndroid) {
+      final AndroidDeviceInfo androidInfo =
+          await DeviceInfoPlugin().androidInfo;
+      isAndroidAbove13 = androidInfo.version.sdkInt >= 13;
+    }
+    return false;
   }
 }

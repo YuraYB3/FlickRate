@@ -19,10 +19,11 @@ class MyTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: onButtonPressed,
-        child: Text(
-          title,
-          style: TextStyle(color: textColor, fontSize: textSize),
-        ));
+      onTap: onButtonPressed,
+      child: Text(
+        title,
+        style: TextStyle(color: textColor, fontSize: textSize),
+      ),
+    );
   }
 }

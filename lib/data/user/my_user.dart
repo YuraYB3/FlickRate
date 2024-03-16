@@ -7,13 +7,19 @@ class MyUser implements IMyUser {
   @override
   final String userId;
   @override
+  final String userName;
+  @override
   String userProfileImage;
 
   MyUser(
-      {this.userProfileImage = '', this.documentId = '', required this.userId});
+      {this.userProfileImage = '',
+      this.documentId = '',
+      required this.userId,
+      required this.userName});
 
   factory MyUser.fromJson(Map<String, dynamic> json) {
     return MyUser(
+        userName: json['userName'],
         documentId: json['documentId'],
         userId: json['userId'],
         userProfileImage: json['userProfileImage']);
@@ -21,6 +27,10 @@ class MyUser implements IMyUser {
 
   @override
   Map<String, dynamic> toJson() {
-    return {'userId': userId, 'userProfileImage': userProfileImage};
+    return {
+      'userId': userId,
+      'userProfileImage': userProfileImage,
+      'userName': userName
+    };
   }
 }

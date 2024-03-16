@@ -11,13 +11,14 @@ import 'create_movie_view_model.dart';
 class CreateMovieFactory {
   static Widget build() {
     return ChangeNotifierProvider(
-        create: (context) => CreateMovieViewModel(
-              userService: context.read<IUserService>(),
-              movieRepository: locator<IMovieRepository>(),
-              navigationUtil: context.read<INavigationUtil>(),
-            ),
-        child: Consumer<CreateMovieViewModel>(
-          builder: (context, model, child) => CreateMovieView(model: model),
-        ));
+      create: (context) => CreateMovieViewModel(
+        userService: context.read<IUserService>(),
+        movieRepository: locator<IMovieRepository>(),
+        navigationUtil: context.read<INavigationUtil>(),
+      ),
+      child: Consumer<CreateMovieViewModel>(
+        builder: (context, model, child) => CreateMovieView(model: model),
+      ),
+    );
   }
 }

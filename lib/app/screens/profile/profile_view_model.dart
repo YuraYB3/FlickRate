@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_print
-
-import 'package:flickrate/app/common/widgets/custom_snackbar.dart';
 import 'package:flickrate/domain/user/i_my_user.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
@@ -48,7 +46,8 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
-  void onChangePhotoClicked(BuildContext context) async {
+  void onChangePhotoClicked(
+      {required Function(String message) showException}) async {
     try {
       PermissionState state =
           await _permissionHandler.isGalleryPermissionGranted();
@@ -57,9 +56,10 @@ class ProfileViewModel extends ChangeNotifier {
           _myUserRepository.changeProfilePhoto(_myUser.documentId);
           break;
         case PermissionState.denied:
-          showCustomSnackBar(context, "Permission not allowed");
+          showException("Permission not allowed");
           break;
         default:
+          showException("Permission restricted! Allow it in settings!");
       }
     } catch (e) {
       print(e.toString());

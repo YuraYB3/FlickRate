@@ -22,18 +22,18 @@ class _CoreNavigationViewState extends State<CoreNavigationView> {
       body: widget._navigationViewModel
           .pages[widget._navigationViewModel.selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-          iconSize: 32,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_rounded), label: ''),
-          ],
-          currentIndex: widget._navigationViewModel.selectedIndex,
-          selectedItemColor: widget.colorsPalette.mainColor,
-          unselectedItemColor: Colors.grey,
-          onTap: (index) {
-            widget._navigationViewModel.updateSelectedIndex(index);
-          }),
+        iconSize: 32,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: ''),
+        ],
+        currentIndex: widget._navigationViewModel.selectedIndex,
+        selectedItemColor: widget.colorsPalette.mainColor,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          widget._navigationViewModel.updateSelectedIndex(index);
+        },
+      ),
     );
   }
 }

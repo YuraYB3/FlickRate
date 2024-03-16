@@ -2,9 +2,6 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
 
-exports.sayHello = functions.https.onCall(()=>{
-  return "Hi there";
-});
 
 exports.incrementRating = functions.https.onCall(async (data) => {
   try {
@@ -48,24 +45,6 @@ exports.decrementRating = functions.https.onCall(async (data) => {
   }
 });
 
-exports.onMovieUpdated = functions.firestore.document("movies/{movieID}")
-    .onUpdate((change) => {
-      const updatedDocument = change.after.data();
-      const documentId = change.after.id;
-      const previousDocument = change.before.data();
-      console.log("Document updated with ID:", documentId);
-      console.log("Previous document data:", previousDocument);
-      console.log("Updated document data:", updatedDocument);
-    });
-
-exports.onMovieDeleted = functions.firestore.document("movies/{movieID}")
-    .onDelete((snapshot) => {
-      const deletedDocument = snapshot.data();
-      const documentId = snapshot.id;
-      console.log("Document deleted with ID:", documentId);
-      console.log("Deleted document data:", deletedDocument);
-    });
-
 exports.onNewAuth = functions.auth.user().onCreate((user) => {
   const userId = user.uid;
   const documentId = admin.firestore().collection("users").doc().id;
@@ -73,17 +52,20 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
   const defaultProfileImage = "https://firebasestorage.googleapis.com/v0/b/flickrate-b668e.appspot.com/o/default%2Fimage_default.png?alt=media&token=ac38e584-5776-4308-ae87-27009e002fe5";
 
   let userProfileImage = defaultProfileImage;
+  let userName = "name";
 
   const googleProvider = user.providerData.
       find((provider) => provider.providerId === "google.com");
   if (googleProvider) {
     userProfileImage = googleProvider.photoURL;
+    userName = googleProvider.displayName;
   }
 
   const userProfileData = {
     documentId: documentId,
     userId: userId,
     userProfileImage: userProfileImage,
+    userName: userName,
   };
 
   return userProfileRef.set(userProfileData);

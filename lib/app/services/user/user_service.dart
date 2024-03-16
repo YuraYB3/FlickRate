@@ -18,8 +18,9 @@ class UserService implements IUserService {
   }
 
   @override
-  void signWithGoogle() {
-    _authService.signInWithGoogle();
+  Future<void> signWithGoogle(
+      {required Function(String message) showException}) async {
+    await _authService.signInWithGoogle(showException: showException);
   }
 
   @override
@@ -49,13 +50,17 @@ class UserService implements IUserService {
   }
 
   @override
-  Future<void> register(String email, String password) async {
-    await _authService.signUpWithEmailAndPassword(email, password);
+  Future<void> register(
+      {required String email, required String password}) async {
+    await _authService.signUpWithEmailAndPassword(
+        email: email, password: password);
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
-    await _authService.signInWithEmailAndPassword(email, password);
+  Future<void> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
+    await _authService.signInWithEmailAndPassword(
+        email: email, password: password);
   }
 
   @override

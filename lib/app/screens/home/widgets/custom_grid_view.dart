@@ -19,11 +19,11 @@ class CustomGridView extends StatelessWidget {
           childAspectRatio: 3 / 2,
           crossAxisSpacing: 20,
           mainAxisSpacing: 20),
-      children: movieGenreList
+      children: MovieGenre.values
           .map((genreItem) => GenreItem(
-                title: genreItem,
+                title: genreItem.name,
                 onTileClicked: () {
-                  onGenreTileClicked(genreItem);
+                  onGenreTileClicked(genreItem.name);
                 },
               ))
           .toList(),
