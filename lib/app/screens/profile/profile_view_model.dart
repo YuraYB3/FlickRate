@@ -51,6 +51,7 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       PermissionState state =
           await _permissionHandler.isGalleryPermissionGranted();
+      print(state);
       switch (state) {
         case PermissionState.granted:
           _myUserRepository.changeProfilePhoto(_myUser.documentId);

@@ -21,6 +21,7 @@ void main() async {
   initPermissionHandler();
   initNetworkService();
   initStorageService();
+  initNotificationService();
   initRepos();
 
   final INavigationUtil navigationUtil = NavigationUtil();

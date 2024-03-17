@@ -1,3 +1,5 @@
+import 'package:flickrate/app/services/notification/inotification_service.dart';
+import 'package:flickrate/app/services/notification/notification_service.dart';
 import 'package:flickrate/app/services/storage/istorage_service.dart';
 import 'package:flickrate/data/user/my_user_repository.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
@@ -35,6 +37,12 @@ void initNetworkService() {
 void initStorageService() {
   locator.registerFactory<IStorageService>(
     () => CloudStorageService(),
+  );
+}
+
+void initNotificationService() {
+  locator.registerSingleton<INotificationService>(
+    NotificationService(),
   );
 }
 
