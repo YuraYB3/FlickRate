@@ -1,5 +1,6 @@
 import 'package:flickrate/app/services/notification/inotification_service.dart';
 import 'package:flickrate/locator.dart';
+import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,7 @@ class CoreNavigationFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => CoreNavigationViewModel(
+        permissionHandler: locator<PermissionHandler>(),
         notificationService: locator<INotificationService>(),
       ),
       child: Consumer<CoreNavigationViewModel>(

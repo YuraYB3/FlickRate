@@ -54,7 +54,8 @@ class ProfileViewModel extends ChangeNotifier {
       print(state);
       switch (state) {
         case PermissionState.granted:
-          _myUserRepository.changeProfilePhoto(_myUser.documentId);
+          String imageName = "profile_image${_myUser.userId}.jpg";
+          _myUserRepository.changeProfilePhoto(_myUser.documentId, imageName);
           break;
         case PermissionState.denied:
           showException("Permission not allowed");

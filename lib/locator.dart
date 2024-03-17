@@ -23,9 +23,7 @@ void initFunctionService() {
 }
 
 void initPermissionHandler() {
-  locator.registerFactory<PermissionHandler>(
-    () => PermissionHandler(),
-  );
+  locator.registerSingleton<PermissionHandler>(PermissionHandler());
 }
 
 void initNetworkService() {

@@ -8,14 +8,11 @@ import 'package:device_info/device_info.dart';
 enum PermissionState { granted, denied, restricted }
 
 class PermissionHandler {
-  late bool _isAndroidAbove13;
-
   Future<PermissionState> isGalleryPermissionGranted() async {
-    _isAndroidAbove13 = await _isAndroidVersionAbove13();
-    final Permission permissionStorage =
-        _isAndroidAbove13 ? Permission.photos : Permission.storage;
-    final status = await permissionStorage.status;
-    if (status.isGranted) {
+    final Permission permissionStorage = await _isAndroidVersionAbove13()
+        ? Permission.photos
+        : Permission.storage;
+    if (await permissionStorage.status.isGranted) {
       return PermissionState.granted;
     } else {
       switch (await permissionStorage.request()) {
@@ -35,11 +32,9 @@ class PermissionHandler {
     const Permission permissionNotification = Permission.notification;
     final status = await permissionNotification.status;
     if (status.isGranted) {
-      await permissionNotification.request();
       return PermissionState.granted;
     } else {
-      final result = await permissionNotification.request();
-      switch (result) {
+      switch (await permissionNotification.request()) {
         case PermissionStatus.granted:
           return PermissionState.granted;
         case PermissionStatus.denied:
@@ -53,6 +48,7 @@ class PermissionHandler {
   }
 
   Future<void> askCorePermissions() async {
+    print('ask');
     await isNotificationPermissionGranted();
   }
 
@@ -65,7 +61,6 @@ class PermissionHandler {
       var model = androidInfo.model;
       print('Android $release (SDK $sdkInt), $manufacturer $model');
       if (int.parse(release) >= 13) {
-        print(_isAndroidAbove13);
         return true;
       }
     }
