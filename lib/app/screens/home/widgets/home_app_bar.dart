@@ -4,9 +4,8 @@ import '../../../theme/color_palette.dart';
 
 class HomeAppBar extends StatelessWidget {
   final ColorsPalette colorsPalette = ColorsPalette();
-  HomeAppBar({
-    super.key,
-  });
+  final String imgURL;
+  HomeAppBar({super.key, required this.imgURL});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class HomeAppBar extends StatelessWidget {
             height: 50,
             width: 50,
             child: CircleAvatar(
-              backgroundColor: colorsPalette.mainColor,
+              backgroundImage: NetworkImage(imgURL),
             ),
           )
         ],

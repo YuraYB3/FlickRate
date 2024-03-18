@@ -71,4 +71,3 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
   return userProfileRef.set(userProfileData);
 });
 
-

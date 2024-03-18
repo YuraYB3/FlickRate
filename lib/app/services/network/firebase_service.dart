@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'inetwork_service.dart';
+import '../../../domain/network/inetwork_service.dart';
 
 class FirebaseService implements INetworkService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;

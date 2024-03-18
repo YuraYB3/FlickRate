@@ -1,3 +1,4 @@
+import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flickrate/utils/permission_handler.dart';
@@ -12,6 +13,7 @@ class ProfileFactory {
   static Widget build() {
     return ChangeNotifierProvider(
         create: (context) => ProfileViewModel(
+            localStorage: locator<ILocalStorage>(),
             permissionHandler: locator<PermissionHandler>(),
             userService: context.read<IUserService>(),
             myUserRepository: locator<IMyUserRepository>()),

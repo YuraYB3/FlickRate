@@ -1,3 +1,5 @@
+import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
+import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +11,7 @@ class HomeFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => HomeViewModel(
+        localStorage: locator<ILocalStorage>(),
         navigationUtil: context.read<INavigationUtil>(),
       ),
       child: Consumer<HomeViewModel>(

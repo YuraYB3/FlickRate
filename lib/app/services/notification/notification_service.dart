@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'inotification_service.dart';
+import '../../../domain/notification/inotification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class NotificationService implements INotificationService {

@@ -1,7 +1,7 @@
 import '../../app/services/functions/endpoints.dart';
-import '../../app/services/functions/ifunction_service.dart';
+import '../../domain/functions/ifunction_service.dart';
 import '../../app/services/network/collection_name.dart';
-import '../../app/services/network/inetwork_service.dart';
+import '../../domain/network/inetwork_service.dart';
 import '../../domain/movies/imovie.dart';
 import '../../domain/movies/imovie_repository.dart';
 import 'movie.dart';

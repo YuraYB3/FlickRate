@@ -1,4 +1,4 @@
-import 'package:flickrate/app/services/notification/inotification_service.dart';
+import 'package:flickrate/domain/notification/inotification_service.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
 

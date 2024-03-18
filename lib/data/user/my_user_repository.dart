@@ -1,22 +1,27 @@
 import 'package:flickrate/app/services/storage/istorage_service.dart';
 import 'package:flickrate/data/user/my_user.dart';
+import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
 import 'package:flickrate/domain/user/i_my_user.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../app/services/local_storage/keys.dart';
 import '../../app/services/network/collection_name.dart';
-import '../../app/services/network/inetwork_service.dart';
+import '../../domain/network/inetwork_service.dart';
 import '../../app/services/storage/directory_names.dart';
 
 class MyUserRepository implements IMyUserRepository {
   final IStorageService _storageService;
   final INetworkService _networkService;
+  final ILocalStorage _localStorage;
 
   MyUserRepository(
       {required INetworkService networkService,
-      required IStorageService storageService})
+      required IStorageService storageService,
+      required ILocalStorage localStorage})
       : _networkService = networkService,
-        _storageService = storageService;
+        _storageService = storageService,
+        _localStorage = localStorage;
 
   @override
   Future<void> createUser(IMyUser user) async {
@@ -51,5 +56,25 @@ class MyUserRepository implements IMyUserRepository {
   Future<void> updateProfileImage(String imgURl, String documentId) async {
     await _networkService
         .update({"userProfileImage": imgURl}, collectionUsers, documentId);
+    _localStorage.save(keyProfileImage, imgURl);
+  }
+
+  @override
+  Future<void> saveUserToLocalStorage(String id) async {
+    var t = fetchCurrentUser(id);
+    IMyUser user = await t.first;
+    _saveInfo(user);
+  }
+
+  void _saveInfo(IMyUser user) {
+    _localStorage.save(keyProfileImage, user.userProfileImage);
+    _localStorage.save(keyProfileName, user.userName);
+    _localStorage.save(keyUserID, user.userId);
+    _localStorage.save(keyProfileDocumentID, user.documentId);
+  }
+
+  @override
+  Future<void> deleteInfoFromLocalStorage() async {
+    await _localStorage.deleteAll();
   }
 }

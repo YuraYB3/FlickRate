@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ import 'app/routing/navigation_util.dart';
 import 'app/services/auth/auth_service.dart';
 import 'app/services/user/iuser_service.dart';
 import 'app/services/user/user_service.dart';
-import 'app/services/auth/iauth_service.dart';
+import 'domain/auth/iauth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,11 +24,13 @@ void main() async {
   initStorageService();
   initNotificationService();
   initRepos();
+  initLocalStorage();
 
   final INavigationUtil navigationUtil = NavigationUtil();
   final IAuthService authService =
       AuthService(firebaseAuth: FirebaseAuth.instance);
-  final IUserService userService = UserService(authService: authService);
+  final IUserService userService = UserService(
+      authService: authService, userRepository: locator<IMyUserRepository>());
 
   runApp(MultiProvider(
     providers: [
