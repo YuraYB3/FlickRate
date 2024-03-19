@@ -48,7 +48,6 @@ class PermissionHandler {
   }
 
   Future<void> askCorePermissions() async {
-    print('ask');
     await isNotificationPermissionGranted();
   }
 
@@ -62,6 +61,8 @@ class PermissionHandler {
       print('Android $release (SDK $sdkInt), $manufacturer $model');
       if (int.parse(release) >= 13) {
         return true;
+      } else {
+        return false;
       }
     }
     return false;

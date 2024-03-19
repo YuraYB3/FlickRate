@@ -8,7 +8,6 @@ class NotificationService implements INotificationService {
 
   @override
   Future<void> initialize() async {
-    print('we here');
     _requestNotificationPermissions();
     final fcmToken = await _firebaseMessaging.getToken();
     print('Token: $fcmToken');
