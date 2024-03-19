@@ -31,7 +31,9 @@ class CreateMovieViewModel extends ChangeNotifier {
         _userService = userService,
         _movieRepository = movieRepository;
 
-  void onCreateMovieClicked({required Function(String message) showException}) {
+  void onCreateMovieClicked(
+      {required Function(String message) showError,
+      required Function(String message) showSuccess}) {
     if (isFieldsValid()) {
       try {
         _userId = _userService.getCurrentUserId();
@@ -41,14 +43,16 @@ class CreateMovieViewModel extends ChangeNotifier {
           genre: _movieGenre.name,
           description: _movieDescription,
         ));
+        showSuccess('Movie created');
         _navigationUtil.navigateBack();
       } catch (e) {
         print(e.toString());
-        showException("Can't create mew movie");
+        showError("Can't create mew movie");
         _navigationUtil.navigateBack();
       }
+    } else {
+      showError("Please, fill all the fields");
     }
-    showException("Please, fill all the fields");
   }
 
   void updateMovieName(String value) {

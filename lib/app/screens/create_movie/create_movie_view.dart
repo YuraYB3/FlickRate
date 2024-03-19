@@ -64,8 +64,10 @@ class _CreateMovieViewState extends State<CreateMovieView> {
               const SizedBox(height: 16),
               CreateMovieButton(onCreateMovieClicked: () {
                 widget.model.onCreateMovieClicked(
-                    showException: (message) =>
-                        showCustomSnackBar(context, message));
+                  showError: (message) => showCustomSnackBar(context, message),
+                  showSuccess: (message) => showCustomSnackBar(context, message,
+                      backgroundColor: Colors.green),
+                );
               }),
             ],
           ),
