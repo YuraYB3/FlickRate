@@ -1,7 +1,7 @@
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/cached_image.dart';
+import '../../../common/widgets/cached_image.dart';
 import '../home_view_model.dart';
 import 'add_movie_container.dart';
 import 'custom_genre_filter_row.dart';
@@ -40,7 +40,10 @@ class HomeScreen extends StatelessWidget {
                     width: 50,
                     child: model.imgURL != ''
                         ? CachedImageWidget(
-                            imageUrl: model.imgURL, imageSize: 50)
+                            imageUrl: model.imgURL,
+                            imageSize: 50,
+                            shape: BoxShape.circle,
+                          )
                         : const CircularProgressIndicator())
               ],
             )),

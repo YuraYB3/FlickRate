@@ -1,7 +1,10 @@
-import 'package:flickrate/app/services/local_storage/keys.dart';
-import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
+// ignore_for_file: avoid_print
+
+import 'package:flickrate/app/services/user/iuser_service.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/user/i_my_user.dart';
+import '../../../domain/user/i_my_user_repository.dart';
 import '../../routing/inavigation_util.dart';
 import '../../routing/routes.dart';
 
@@ -9,17 +12,41 @@ enum HomeViewState { readyToWork, loadingInfo }
 
 class HomeViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;
-  final ILocalStorage _localStorage;
+  final IUserService _userService;
+  final IMyUserRepository _myUserRepository;
+  late Stream<IMyUser> _userStream;
+  late IMyUser _myUser;
   late String imgURL = '';
   late String userName = '';
   HomeViewState homeState = HomeViewState.loadingInfo;
 
   HomeViewModel({
+    required IUserService userService,
     required INavigationUtil navigationUtil,
-    required ILocalStorage localStorage,
+    required IMyUserRepository myUserRepository,
   })  : _navigationUtil = navigationUtil,
-        _localStorage = localStorage {
+        _userService = userService,
+        _myUserRepository = myUserRepository {
     _init();
+  }
+
+  void _init() {
+    String userId = _userService.getCurrentUserId();
+    _fetchUserStream(userId);
+  }
+
+  void _fetchUserStream(String userId) async {
+    try {
+      _userStream = _myUserRepository.fetchCurrentUser(userId);
+      _myUser = await _userStream.first;
+      imgURL = _myUser.userProfileImage;
+      userName = _myUser.userName;
+      homeState = HomeViewState.readyToWork;
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+      _init();
+    }
   }
 
   void onAddButtonClicked() {
@@ -32,22 +59,5 @@ class HomeViewModel extends ChangeNotifier {
 
   void onGenreTileClicked(String genreName) {
     _navigationUtil.navigateTo(routeShowMovies, data: genreName);
-  }
-
-  Future<void> _init() async {
-    try {
-      imgURL = await _localStorage.read(keyProfileImage);
-      userName = await _localStorage.read(keyProfileName);
-      notifyListeners();
-      await _changeIsInfoLoadedState();
-    } catch (e) {
-      print('Exception');
-      print(e.toString());
-    }
-  }
-
-  Future<void> _changeIsInfoLoadedState() async {
-    homeState = HomeViewState.readyToWork;
-    notifyListeners();
   }
 }

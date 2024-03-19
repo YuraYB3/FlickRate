@@ -1,40 +1,49 @@
 // ignore_for_file: avoid_print
-import 'package:flickrate/app/services/local_storage/keys.dart';
-import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/user/i_my_user.dart';
 import '../../services/user/iuser_service.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   final IUserService _userService;
   final IMyUserRepository _myUserRepository;
   final PermissionHandler _permissionHandler;
-  final ILocalStorage _localStorage;
-  late String userId;
-  late String _documentID;
-  String imgURL = '';
+  late Stream<IMyUser> _userStream;
+  late String imgURL = '';
+  late IMyUser _myUser;
+  Stream<IMyUser> get userStream => _userStream;
 
-  ProfileViewModel(
-      {required PermissionHandler permissionHandler,
-      required IMyUserRepository myUserRepository,
-      required IUserService userService,
-      required ILocalStorage localStorage})
-      : _userService = userService,
+  ProfileViewModel({
+    required PermissionHandler permissionHandler,
+    required IMyUserRepository myUserRepository,
+    required IUserService userService,
+  })  : _userService = userService,
         _permissionHandler = permissionHandler,
-        _myUserRepository = myUserRepository,
-        _localStorage = localStorage {
+        _myUserRepository = myUserRepository {
     _init();
   }
 
   void _init() async {
-    await _readUserInfo();
+    String userId = _userService.getCurrentUserId();
+    await _fetchUserStream(userId);
   }
 
   void onLogOutButtonPressed() async {
     try {
       _userService.logOut();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _fetchUserStream(String userId) async {
+    try {
+      _userStream = _myUserRepository.fetchCurrentUser(userId);
+      _myUser = await _userStream.first;
+      imgURL = _myUser.userProfileImage;
+      notifyListeners();
     } catch (e) {
       print(e.toString());
     }
@@ -48,9 +57,11 @@ class ProfileViewModel extends ChangeNotifier {
       print(state);
       switch (state) {
         case PermissionState.granted:
+          String userId = _myUser.userId;
           String imageName = "profile_image$userId.jpg";
-          _myUserRepository.changeProfilePhoto(_documentID, imageName);
-          await _readUserInfo();
+          await _myUserRepository
+              .changeProfilePhoto(_myUser.documentId, imageName)
+              .then((value) => _init());
           break;
         case PermissionState.denied:
           showException("Permission not allowed");
@@ -61,12 +72,5 @@ class ProfileViewModel extends ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
-  }
-
-  Future<void> _readUserInfo() async {
-    userId = await _localStorage.read(keyUserID);
-    imgURL = await _localStorage.read(keyProfileImage);
-    _documentID = await _localStorage.read(keyProfileDocumentID);
-    notifyListeners();
   }
 }

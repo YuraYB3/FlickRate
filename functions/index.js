@@ -44,7 +44,6 @@ exports.decrementRating = functions.https.onCall(async (data) => {
     console.error("Error decrementing rating:", error);
   }
 });
-
 exports.onNewAuth = functions.auth.user().onCreate((user) => {
   const userId = user.uid;
   const documentId = admin.firestore().collection("users").doc().id;
@@ -70,4 +69,5 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
 
   return userProfileRef.set(userProfileData);
 });
+
 

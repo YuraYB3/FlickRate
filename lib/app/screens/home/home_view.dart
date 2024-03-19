@@ -13,15 +13,16 @@ class HomeView extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SizedBox(
-        height: screenHeight,
-        child: model.homeState == HomeViewState.loadingInfo
-            ? MyLoadingWidget()
-            : HomeScreen(
-                model: model,
-                screenHeight: screenHeight,
-                screenWidth: screenWidth),
-      ),
-    );
+        body: model.imgURL.isNotEmpty
+            ? SizedBox(
+                height: screenHeight,
+                child: model.homeState == HomeViewState.loadingInfo
+                    ? MyLoadingWidget()
+                    : HomeScreen(
+                        model: model,
+                        screenHeight: screenHeight,
+                        screenWidth: screenWidth),
+              )
+            : MyLoadingWidget());
   }
 }

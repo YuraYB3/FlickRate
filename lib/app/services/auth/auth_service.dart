@@ -107,8 +107,9 @@ class AuthService implements IAuthService {
   @override
   Future<void> signUpWithEmailAndPassword(
       {required String email, required String password}) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
+    await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) => Future.delayed(const Duration(seconds: 10)));
   }
 
   @override

@@ -1,5 +1,3 @@
-import 'package:flickrate/app/services/local_storage/local_storage.dart';
-import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
 import 'package:flickrate/domain/notification/inotification_service.dart';
 import 'package:flickrate/app/services/notification/notification_service.dart';
 import 'package:flickrate/app/services/storage/istorage_service.dart';
@@ -46,12 +44,6 @@ void initNotificationService() {
   );
 }
 
-void initLocalStorage() {
-  locator.registerSingleton<ILocalStorage>(
-    LocalStorage(),
-  );
-}
-
 void initRepos() {
   locator.registerFactory<IMovieRepository>(
     () => MovieRepository(
@@ -61,8 +53,8 @@ void initRepos() {
 
   locator.registerFactory<IMyUserRepository>(
     () => MyUserRepository(
-        networkService: locator.get<INetworkService>(),
-        storageService: locator.get<IStorageService>(),
-        localStorage: locator.get<ILocalStorage>()),
+      networkService: locator.get<INetworkService>(),
+      storageService: locator.get<IStorageService>(),
+    ),
   );
 }

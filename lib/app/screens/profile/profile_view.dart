@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../common/cached_image.dart';
+import '../../common/widgets/cached_image.dart';
 import '../../common/widgets/custom_snackbar.dart';
 import '../../common/widgets/my_elevated_button.dart';
 import 'profile_view_model.dart';
@@ -22,16 +22,16 @@ class ProfileView extends StatelessWidget {
         children: [
           Stack(
             children: [
-              SizedBox(
-                  height: 130,
-                  width: 130,
-                  child: _model.imgURL != ''
-                      ? CachedImageWidget(
-                          imageUrl: _model.imgURL, imageSize: 130)
-                      : const CircularProgressIndicator()),
+              _model.imgURL != ''
+                  ? CachedImageWidget(
+                      imageUrl: _model.imgURL,
+                      imageSize: 130,
+                      shape: BoxShape.circle,
+                    )
+                  : const CircularProgressIndicator(),
               Positioned(
                   bottom: -10,
-                  left: 80,
+                  left: 90,
                   child: IconButton(
                       onPressed: () {
                         _model.onChangePhotoClicked(

@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flickrate/domain/user/i_my_user_repository.dart';
-
 import '../../../domain/auth/iauth_service.dart';
 import 'iuser_service.dart';
 
@@ -9,20 +7,16 @@ enum UserState { readyToWork, notAuthorized }
 
 class UserService implements IUserService {
   final IAuthService _authService;
-  final IMyUserRepository _myUserRepository;
   final StreamController<UserState> _userStateStreamController =
       StreamController();
 
   UserService({
     required IAuthService authService,
-    required IMyUserRepository userRepository,
-  })  : _authService = authService,
-        _myUserRepository = userRepository;
+  }) : _authService = authService;
 
   @override
   void logOut() async {
     await _authService.signOut();
-    await _myUserRepository.deleteInfoFromLocalStorage();
   }
 
   @override
@@ -30,16 +24,13 @@ class UserService implements IUserService {
       {required String email, required String password}) async {
     await _authService
         .signUpWithEmailAndPassword(email: email, password: password)
-        .then((value) =>
-            _myUserRepository.saveUserToLocalStorage(getCurrentUserId()));
+        .then((value) => Future.delayed(const Duration(seconds: 10)));
   }
 
   @override
   Future<void> signWithGoogle(
       {required Function(String message) showException}) async {
-    await _authService.signInWithGoogle(showException: showException).then(
-        (value) =>
-            _myUserRepository.saveUserToLocalStorage(getCurrentUserId()));
+    await _authService.signInWithGoogle(showException: showException);
   }
 
   @override
@@ -49,17 +40,14 @@ class UserService implements IUserService {
 
   @override
   Future<void> signWithOtp(String otp) async {
-    await _authService.signInWithOtp(otp: otp).then((value) =>
-        _myUserRepository.saveUserToLocalStorage(getCurrentUserId()));
+    await _authService.signInWithOtp(otp: otp);
   }
 
   @override
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async {
-    await _authService
-        .signInWithEmailAndPassword(email: email, password: password)
-        .then((value) =>
-            _myUserRepository.saveUserToLocalStorage(getCurrentUserId()));
+    await _authService.signInWithEmailAndPassword(
+        email: email, password: password);
   }
 
   @override
