@@ -44,6 +44,7 @@ exports.decrementRating = functions.https.onCall(async (data) => {
     console.error("Error decrementing rating:", error);
   }
 });
+
 exports.onNewAuth = functions.auth.user().onCreate((user) => {
   const userId = user.uid;
   const documentId = admin.firestore().collection("users").doc().id;
@@ -51,7 +52,7 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
   const defaultProfileImage = "https://firebasestorage.googleapis.com/v0/b/flickrate-b668e.appspot.com/o/default%2Fimage_default.png?alt=media&token=ac38e584-5776-4308-ae87-27009e002fe5";
 
   let userProfileImage = defaultProfileImage;
-  let userName = "name";
+  let userName = "user";
 
   const googleProvider = user.providerData.
       find((provider) => provider.providerId === "google.com");
@@ -68,6 +69,7 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
   };
 
   return userProfileRef.set(userProfileData);
-});
+},
+);
 
 

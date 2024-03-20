@@ -7,6 +7,7 @@ enum UserState { readyToWork, notAuthorized }
 
 class UserService implements IUserService {
   final IAuthService _authService;
+
   final StreamController<UserState> _userStateStreamController =
       StreamController();
 
@@ -22,9 +23,8 @@ class UserService implements IUserService {
   @override
   Future<void> register(
       {required String email, required String password}) async {
-    await _authService
-        .signUpWithEmailAndPassword(email: email, password: password)
-        .then((value) => Future.delayed(const Duration(seconds: 10)));
+    await _authService.signUpWithEmailAndPassword(
+        email: email, password: password);
   }
 
   @override

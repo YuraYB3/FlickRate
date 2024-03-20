@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,9 +12,8 @@ class AuthService implements IAuthService {
   @override
   FirebaseAuth get firebaseAuth => _firebaseAuth;
 
-  AuthService({
-    required FirebaseAuth firebaseAuth,
-  }) : _firebaseAuth = firebaseAuth;
+  AuthService({required FirebaseAuth firebaseAuth})
+      : _firebaseAuth = firebaseAuth;
 
   final StreamController<AuthState> _streamController =
       StreamController.broadcast();
@@ -107,9 +108,8 @@ class AuthService implements IAuthService {
   @override
   Future<void> signUpWithEmailAndPassword(
       {required String email, required String password}) async {
-    await _firebaseAuth
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) => Future.delayed(const Duration(seconds: 10)));
+    await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
   }
 
   @override

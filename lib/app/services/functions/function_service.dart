@@ -9,6 +9,12 @@ class FunctionService implements IFunctionService {
   @override
   Future<dynamic> onCall(data, String functionName) async {
     HttpsCallable callable = functions.httpsCallable(functionName);
-    await callable.call(data);
+    try {
+      var result = await callable.call(data);
+      return result.data;
+    } catch (e) {
+      print("Error: $e");
+      return null;
+    }
   }
 }

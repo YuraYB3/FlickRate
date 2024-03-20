@@ -6,14 +6,17 @@ import 'package:flutter/material.dart';
 import '../../../domain/user/i_my_user.dart';
 import '../../services/user/iuser_service.dart';
 
+enum ProfileViewState { readyToWork, loadingInfo }
+
 class ProfileViewModel extends ChangeNotifier {
   final IUserService _userService;
   final IMyUserRepository _myUserRepository;
   final PermissionHandler _permissionHandler;
   late Stream<IMyUser> _userStream;
-  late String imgURL = '';
   late IMyUser _myUser;
   Stream<IMyUser> get userStream => _userStream;
+  ProfileViewState _profileViewState = ProfileViewState.loadingInfo;
+  ProfileViewState get profileViewState => _profileViewState;
 
   ProfileViewModel({
     required PermissionHandler permissionHandler,
@@ -42,9 +45,11 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       _userStream = _myUserRepository.fetchCurrentUser(userId);
       _myUser = await _userStream.first;
-      imgURL = _myUser.userProfileImage;
+      _profileViewState = ProfileViewState.readyToWork;
       notifyListeners();
     } catch (e) {
+      _profileViewState = ProfileViewState.loadingInfo;
+      notifyListeners();
       print(e.toString());
     }
   }
@@ -59,9 +64,8 @@ class ProfileViewModel extends ChangeNotifier {
         case PermissionState.granted:
           String userId = _myUser.userId;
           String imageName = "profile_image$userId.jpg";
-          await _myUserRepository
-              .changeProfilePhoto(_myUser.documentId, imageName)
-              .then((value) => _init());
+          await _myUserRepository.changeProfilePhoto(
+              _myUser.documentId, imageName);
           break;
         case PermissionState.denied:
           showException("Permission not allowed");

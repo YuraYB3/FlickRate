@@ -15,10 +15,9 @@ class HomeViewModel extends ChangeNotifier {
   final IUserService _userService;
   final IMyUserRepository _myUserRepository;
   late Stream<IMyUser> _userStream;
-  late IMyUser _myUser;
-  late String imgURL = '';
-  late String userName = '';
-  HomeViewState homeState = HomeViewState.loadingInfo;
+  HomeViewState _homeState = HomeViewState.loadingInfo;
+  Stream<IMyUser> get userStream => _userStream;
+  HomeViewState get homeState => _homeState;
 
   HomeViewModel({
     required IUserService userService,
@@ -38,14 +37,12 @@ class HomeViewModel extends ChangeNotifier {
   void _fetchUserStream(String userId) async {
     try {
       _userStream = _myUserRepository.fetchCurrentUser(userId);
-      _myUser = await _userStream.first;
-      imgURL = _myUser.userProfileImage;
-      userName = _myUser.userName;
-      homeState = HomeViewState.readyToWork;
+      _homeState = HomeViewState.readyToWork;
       notifyListeners();
     } catch (e) {
       print(e.toString());
-      _init();
+      _homeState = HomeViewState.loadingInfo;
+      notifyListeners();
     }
   }
 
