@@ -13,7 +13,7 @@ class ProfileFactory {
     return ChangeNotifierProvider(
         create: (context) => ProfileViewModel(
             permissionHandler: locator<PermissionHandler>(),
-            userService: context.read<IUserService>(),
+            userService: locator<IUserService>(),
             myUserRepository: locator<IMyUserRepository>()),
         child: Consumer<ProfileViewModel>(
           builder: (context, model, child) => ProfileView(model: model),

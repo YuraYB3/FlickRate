@@ -12,7 +12,7 @@ class CreateMovieFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => CreateMovieViewModel(
-        userService: context.read<IUserService>(),
+        userService: locator<IUserService>(),
         movieRepository: locator<IMovieRepository>(),
         navigationUtil: context.read<INavigationUtil>(),
       ),

@@ -12,7 +12,7 @@ class HomeFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => HomeViewModel(
-          userService: context.read<IUserService>(),
+          userService: locator<IUserService>(),
           navigationUtil: context.read<INavigationUtil>(),
           myUserRepository: locator<IMyUserRepository>()),
       child: Consumer<HomeViewModel>(

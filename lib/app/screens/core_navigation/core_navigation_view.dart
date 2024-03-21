@@ -19,21 +19,49 @@ class _CoreNavigationViewState extends State<CoreNavigationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: widget._navigationViewModel
           .pages[widget._navigationViewModel.selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize: 32,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: ''),
-        ],
-        currentIndex: widget._navigationViewModel.selectedIndex,
-        selectedItemColor: widget.colorsPalette.mainColor,
-        unselectedItemColor: Colors.grey,
-        onTap: (index) {
-          widget._navigationViewModel.updateSelectedIndex(index);
-        },
+      bottomNavigationBar: BottomAppBar(
+        height: 60,
+        shape: const CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            IconButton(
+                onPressed: () {
+                  widget._navigationViewModel.updateSelectedIndex(0);
+                },
+                icon: Icon(
+                  Icons.home,
+                  size: widget._navigationViewModel.iconSize,
+                  color: widget._navigationViewModel.selectedIndex == 0
+                      ? widget.colorsPalette.mainColor
+                      : widget.colorsPalette.secondColor,
+                )),
+            IconButton(
+                onPressed: () {
+                  widget._navigationViewModel.updateSelectedIndex(1);
+                },
+                icon: Icon(
+                  Icons.person_rounded,
+                  size: widget._navigationViewModel.iconSize,
+                  color: widget._navigationViewModel.selectedIndex == 1
+                      ? widget.colorsPalette.mainColor
+                      : widget.colorsPalette.secondColor,
+                )),
+          ],
+        ),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: widget._navigationViewModel.onFloatingButtonClicked,
+          backgroundColor: Colors.white,
+          child: Icon(
+            Icons.add,
+            color: widget.colorsPalette.mainColor,
+          )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
