@@ -11,7 +11,7 @@ class PermissionHandler {
   final DeviceInfo deviceInfo = DeviceInfo();
   Future<PermissionState> isGalleryPermissionGranted() async {
     final Permission permissionStorage =
-        await deviceInfo.isAndroidVersionAbove12()
+        await deviceInfo.isAndroidVersionAbove13()
             ? Permission.photos
             : Permission.storage;
     if (await permissionStorage.status.isGranted) {

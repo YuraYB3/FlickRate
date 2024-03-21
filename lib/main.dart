@@ -1,9 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
-
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flickrate/domain/notification/inotification_service.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
@@ -34,35 +31,6 @@ void main() async {
   ));
 }
 
-Future<void> _initNotifications(
-    INotificationService notificationService) async {
-  await notificationService.init();
-  await notificationService.localNotificationsInit();
-
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    if (message.notification != null) {
-      print("Background Notification Tapped");
-    }
-  });
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    String payloadData = jsonEncode(message.data);
-    print("Got a message in foreground");
-    if (message.notification != null) {
-      notificationService.showSimpleNotification(
-          title: message.notification!.title!,
-          body: message.notification!.body!,
-          payload: payloadData);
-    }
-  });
-  final RemoteMessage? message =
-      await FirebaseMessaging.instance.getInitialMessage();
-  if (message != null) {
-    print("Launched from terminated state");
-    await Future.delayed(const Duration(seconds: 1), () {});
-  }
-}
-
 void _initServices() {
   initFunctionService();
   initPermissionHandler();
@@ -74,8 +42,9 @@ void _initServices() {
   initUserService();
 }
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Title ${message.notification?.title}');
-  print('Body ${message.notification?.body}');
-  print('Payload ${message.data}');
+Future<void> _initNotifications(
+    INotificationService notificationService) async {
+  await notificationService.init();
+  await notificationService.localNotificationsInit();
+  await notificationService.setNotificationsHandlers();
 }
