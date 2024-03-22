@@ -19,7 +19,8 @@ void main() async {
   final INavigationUtil navigationUtil = NavigationUtil();
   final INotificationService notificationService =
       locator<INotificationService>();
-  await _initNotifications(notificationService);
+  await notificationService.init();
+
   runApp(MultiProvider(
     providers: [
       Provider.value(value: navigationUtil),
@@ -40,11 +41,4 @@ void _initServices() {
   initRepos();
   initAuthService();
   initUserService();
-}
-
-Future<void> _initNotifications(
-    INotificationService notificationService) async {
-  await notificationService.init();
-  await notificationService.localNotificationsInit();
-  await notificationService.setNotificationsHandlers();
 }

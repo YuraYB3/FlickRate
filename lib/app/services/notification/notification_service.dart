@@ -23,9 +23,10 @@ class NotificationService implements INotificationService {
   Future<void> init() async {
     final fcmToken = await _firebaseMessaging.getToken();
     print('Token: $fcmToken');
+    await localNotificationsInit();
+    await setNotificationsHandlers();
   }
 
-  @override
   Future<void> setNotificationsHandlers() async {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       if (message.notification != null) {
@@ -51,7 +52,6 @@ class NotificationService implements INotificationService {
     }
   }
 
-  @override
   Future<void> localNotificationsInit() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@drawable/ic_launcher');
@@ -60,7 +60,6 @@ class NotificationService implements INotificationService {
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  @override
   Future<void> showNotification(
       {required String title,
       required String body,
@@ -70,7 +69,7 @@ class NotificationService implements INotificationService {
     final androidNotificationDetails = AndroidNotificationDetails(
         _androidChannel.id, _androidChannel.name,
         channelDescription: _androidChannel.description,
-        importance: Importance.max,
+        importance: Importance.high,
         priority: Priority.high,
         progress: currentProgress,
         maxProgress: maxProgress,
@@ -83,7 +82,25 @@ class NotificationService implements INotificationService {
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Title ${message.notification?.title}');
-  print('Body ${message.notification?.body}');
-  print('Payload ${message.data}');
+  if (message.notification != null) {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    String payloadData = jsonEncode(message.data);
+    const AndroidNotificationChannel androidChannel =
+        AndroidNotificationChannel('high_importance_channel', 'High',
+            importance: Importance.max);
+    final androidNotificationDetails = AndroidNotificationDetails(
+        androidChannel.id, androidChannel.name,
+        channelDescription: androidChannel.description,
+        importance: Importance.high,
+        priority: Priority.high,
+        progress: 0,
+        maxProgress: 10,
+        showProgress: true);
+    final notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+    await flutterLocalNotificationsPlugin.show(0, message.notification!.title,
+        message.notification!.body, notificationDetails,
+        payload: payloadData);
+  }
 }
