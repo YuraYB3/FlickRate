@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
 import 'package:flickrate/domain/notification/inotification_service.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,11 @@ void main() async {
   await Firebase.initializeApp();
   _initServices();
   final INavigationUtil navigationUtil = NavigationUtil();
+  final ILocalNotificationService localNotificationService =
+      locator<ILocalNotificationService>();
   final INotificationService notificationService =
       locator<INotificationService>();
+  await localNotificationService.init();
   await notificationService.init();
 
   runApp(MultiProvider(
@@ -37,6 +41,7 @@ void _initServices() {
   initPermissionHandler();
   initNetworkService();
   initStorageService();
+  initLocalNotificationService();
   initNotificationService();
   initRepos();
   initAuthService();

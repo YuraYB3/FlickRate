@@ -12,6 +12,6 @@ class CreateMovieButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyElevatedButton(
-        title: 'Create movie', onButtonPressed: onCreateMovieClicked);
+        title: 'Create review', onButtonPressed: onCreateMovieClicked);
   }
 }

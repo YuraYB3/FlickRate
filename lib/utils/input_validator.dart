@@ -15,8 +15,7 @@ class InputValidator {
     return value.length == 6;
   }
 
-  bool isCreateMovieFormValidate(
-      String name, String genre, String description) {
-    return name.isNotEmpty && genre.isNotEmpty && description.isNotEmpty;
+  bool isCreateMovieFormValidate(String name, String description) {
+    return name.isNotEmpty && description.isNotEmpty;
   }
 }

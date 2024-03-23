@@ -4,42 +4,43 @@ class Movie implements IMovie {
   @override
   String documentId;
   @override
-  String userId;
+  final String movieName;
   @override
-  final String name;
+  final String movieImg;
   @override
-  final String genre;
+  final String movieGenre;
   @override
-  final num rating;
+  final num movieRating;
   @override
-  final String description;
+  final String movieDescription;
 
   Movie(
-      {this.documentId = '',
-      required this.userId,
-      this.rating = 4,
-      required this.name,
-      required this.genre,
-      required this.description});
+      {required this.movieName,
+      required this.documentId,
+      required this.movieImg,
+      required this.movieRating,
+      required this.movieGenre,
+      required this.movieDescription});
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
         documentId: json['documentId'],
-        name: json['name'],
-        genre: json['genre'],
-        rating: json['rating'],
-        description: json['description'],
-        userId: json['userId']);
+        movieName: json['movieName'],
+        movieGenre: json['movieGenre'],
+        movieRating: json['movieRating'],
+        movieDescription: json['movieDescription'],
+        movieImg: json['movieImg']);
   }
 
   @override
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'genre': genre,
-      'description': description,
-      'rating': rating,
-      'userId': userId
+      'movieName': movieName,
+      'movieGenre': movieGenre,
+      'movieDescription': movieDescription,
+      'movieRating': movieRating,
+      'movieImg': movieImg,
+      'documentId': documentId
     };
   }
 }

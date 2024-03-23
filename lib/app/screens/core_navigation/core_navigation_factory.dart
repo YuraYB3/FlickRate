@@ -16,7 +16,7 @@ class CoreNavigationFactory {
       ),
       child: Consumer<CoreNavigationViewModel>(
         builder: (context, model, child) =>
-            CoreNavigationView(navigationViewModel: model),
+            CoreNavigationView(viewModel: model),
       ),
     );
   }

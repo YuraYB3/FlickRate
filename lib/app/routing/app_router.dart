@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screens/create_movie/create_movie_factory.dart';
+import '../screens/create_review/create_movie_factory.dart';
 import '../screens/home/home_factory.dart';
 import '../screens/login/login_factory.dart';
 import '../screens/movie_details/movie_factory.dart';
@@ -41,7 +41,7 @@ class AppRouter {
   }
 
   Widget _buildCreateMovieSettings(RouteSettings settings) {
-    return CreateMovieFactory.build();
+    return CreateReviewFactory.build();
   }
 
   Widget _buildMovieSettings(RouteSettings settings, String movieId) {

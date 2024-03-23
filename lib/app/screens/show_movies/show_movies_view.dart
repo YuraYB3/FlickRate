@@ -44,9 +44,9 @@ class _ShowMoviesViewState extends State<ShowMoviesView> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: MovieTile(
-                    movieDescription: movie.description,
-                    movieGenre: movie.genre,
-                    movieName: movie.name,
+                    movieDescription: movie.movieDescription,
+                    movieGenre: movie.movieGenre,
+                    movieName: movie.movieName,
                     onTileClicked: () {
                       widget._model.onListTileClicked(movie.documentId);
                     },

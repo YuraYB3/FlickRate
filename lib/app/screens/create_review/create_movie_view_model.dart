@@ -1,48 +1,44 @@
 // ignore_for_file: avoid_print
 
 import 'package:flickrate/app/services/user/iuser_service.dart';
-import 'package:flickrate/data/genre/movie_genre.dart';
+import 'package:flickrate/data/review/review.dart';
+import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flutter/material.dart';
-
-import '../../../data/movies/movie.dart';
-import '../../../domain/movies/imovie_repository.dart';
 import '../../routing/inavigation_util.dart';
 import '../../../utils/input_validator.dart';
 
-class CreateMovieViewModel extends ChangeNotifier {
+class CreateReviewViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;
-  final IMovieRepository _movieRepository;
+  final IReviewRepository _reviewRepository;
   final IUserService _userService;
   final InputValidator _inputValidator = InputValidator();
   String _movieName = '';
-  MovieGenre _movieGenre = MovieGenre.Action;
-  String _movieDescription = '';
+  String _reviewText = '';
   late String _userId;
 
   String get movieName => _movieName;
-  MovieGenre get movieGenre => _movieGenre;
-  String get movieDescription => _movieDescription;
+  String get movieDescription => _reviewText;
 
-  CreateMovieViewModel(
-      {required IMovieRepository movieRepository,
+  CreateReviewViewModel(
+      {required IReviewRepository reviewRepository,
       required IUserService userService,
       required INavigationUtil navigationUtil})
       : _navigationUtil = navigationUtil,
         _userService = userService,
-        _movieRepository = movieRepository;
+        _reviewRepository = reviewRepository;
 
-  void onCreateMovieClicked(
+  void onCreateReviewClicked(
       {required Function(String message) showError,
       required Function(String message) showSuccess}) {
     if (isFieldsValid()) {
       try {
         _userId = _userService.getCurrentUserId();
-        _movieRepository.createMovie(Movie(
-          userId: _userId,
-          name: _movieName,
-          genre: _movieGenre.name,
-          description: _movieDescription,
-        ));
+        _reviewRepository.createReview(Review(
+            userId: _userId,
+            movieId: '',
+            rating: 5,
+            reviewText: '',
+            documentId: ''));
         showSuccess('Movie created');
         _navigationUtil.navigateBack();
       } catch (e) {
@@ -60,18 +56,12 @@ class CreateMovieViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateMovieGenre(MovieGenre value) {
-    _movieGenre = value;
-    notifyListeners();
-  }
-
   void updateMovieDescription(String value) {
-    _movieDescription = value;
+    _reviewText = value;
     notifyListeners();
   }
 
   bool isFieldsValid() {
-    return _inputValidator.isCreateMovieFormValidate(
-        _movieName, _movieGenre.name, _movieDescription);
+    return _inputValidator.isCreateMovieFormValidate(_movieName, _reviewText);
   }
 }

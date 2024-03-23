@@ -19,7 +19,7 @@ class MyDescriptionField extends StatelessWidget {
           updateMovieDescription(value);
         },
         decoration: const InputDecoration(
-          labelText: 'Description',
+          labelText: 'Review',
         ),
       ),
     );

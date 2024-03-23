@@ -4,27 +4,22 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/movies/imovie.dart';
 import '../../../domain/movies/imovie_repository.dart';
-import '../../routing/inavigation_util.dart';
 
 class MovieViewModel extends ChangeNotifier {
   final IMovieRepository _movieRepository;
-  final INavigationUtil _navigationUtil;
 
   final String _movieId;
   late Stream<IMovie> _movieStream;
   Stream<IMovie> get movieStream => _movieStream;
 
   MovieViewModel(
-      {required INavigationUtil navigationUtil,
-      required String movieId,
-      required IMovieRepository movieRepository})
+      {required String movieId, required IMovieRepository movieRepository})
       : _movieRepository = movieRepository,
-        _movieId = movieId,
-        _navigationUtil = navigationUtil {
+        _movieId = movieId {
     _fetchMovieStream();
   }
 
-  void onDeleteButtonPressed(
+/*  void onDeleteButtonPressed(
       {required Function(String message) showException,
       required String movieId}) {
     try {
@@ -34,9 +29,9 @@ class MovieViewModel extends ChangeNotifier {
       print(e.toString());
       showException("Can't delete movie");
     }
-  }
+  }*/
 
-  void onIncreaseButtonClicked(
+  /* void onIncreaseButtonClicked(
       {required Function(String message) showException,
       required String movieId}) {
     try {
@@ -46,8 +41,8 @@ class MovieViewModel extends ChangeNotifier {
       showException("Can't increase rating");
     }
   }
-
-  void onDecreaseButtonClicked(
+*/
+  /* void onDecreaseButtonClicked(
       {required Function(String message) showException,
       required String movieId}) {
     try {
@@ -57,7 +52,7 @@ class MovieViewModel extends ChangeNotifier {
       showException("Can't decrease rating");
     }
   }
-
+*/
   Future<void> _fetchMovieStream() async {
     try {
       _movieStream = _movieRepository.fetchMovie(_movieId);
