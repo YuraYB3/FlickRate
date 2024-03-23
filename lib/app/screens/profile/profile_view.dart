@@ -1,4 +1,4 @@
-import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
+import 'package:flickrate/app/common/screens/my_loading_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/widgets/cached_image.dart';
@@ -18,15 +18,15 @@ class ProfileView extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: _model.profileViewState == ProfileViewState.loadingInfo
-          ? MyLoadingWidget()
+          ? MyLoadingScreen()
           : StreamBuilder(
               stream: _model.userStream,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return MyLoadingWidget();
+                  return MyLoadingScreen();
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return MyLoadingWidget();
+                  return MyLoadingScreen();
                 }
                 final userData = snapshot.data!;
                 return Column(
@@ -57,6 +57,7 @@ class ProfileView extends StatelessWidget {
                       height: 20,
                     ),
                     MyElevatedButton(
+                        width: MediaQuery.of(context).size.width * 0.6,
                         title: 'Log out',
                         onButtonPressed: () {
                           _model.onLogOutButtonPressed();

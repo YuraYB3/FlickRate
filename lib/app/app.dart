@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'common/widgets/my_error_widget.dart';
-import 'common/widgets/my_loading_widget.dart';
+import 'common/screens/my_error_widget.dart';
+import 'common/screens/my_loading_widget.dart';
 import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
 import 'screens/core_navigation/core_navigation_factory.dart';
@@ -36,10 +36,10 @@ class _AppState extends State<App> {
         stream: widget._userService.userStateStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(body: MyLoadingWidget());
+            return Scaffold(body: MyLoadingScreen());
           } else {
             if (snapshot.hasError) {
-              return const Scaffold(body: MyErrorWidget());
+              return const Scaffold(body: MyErrorScreen());
             }
             switch (snapshot.data) {
               case UserState.notAuthorized:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/color_palette.dart';
+import '../../../../theme/color_palette.dart';
 
 class MovieTile extends StatelessWidget {
   final Function() onTileClicked;

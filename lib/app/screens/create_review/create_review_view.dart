@@ -1,9 +1,9 @@
 import 'package:flickrate/app/common/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 
+import '../../common/widgets/my_elevated_button.dart';
 import '../../theme/color_palette.dart';
-import 'create_movie_view_model.dart';
-import 'widgets/create_review_button.dart';
+import 'create_review_view_model.dart';
 import 'widgets/my_descriptions_field.dart';
 import 'widgets/my_movie_name_field.dart';
 
@@ -51,13 +51,19 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                 ),
               ),
               const SizedBox(height: 16),
-              CreateMovieButton(onCreateMovieClicked: () {
-                widget.model.onCreateReviewClicked(
-                  showError: (message) => showCustomSnackBar(context, message),
-                  showSuccess: (message) => showCustomSnackBar(context, message,
-                      backgroundColor: Colors.green),
-                );
-              }),
+              MyElevatedButton(
+                width: fieldWidth,
+                title: 'Create review',
+                onButtonPressed: () {
+                  widget.model.onCreateReviewClicked(
+                    showError: (message) =>
+                        showCustomSnackBar(context, message),
+                    showSuccess: (message) => showCustomSnackBar(
+                        context, message,
+                        backgroundColor: Colors.green),
+                  );
+                },
+              ),
             ],
           ),
         ),

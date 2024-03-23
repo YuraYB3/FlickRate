@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/movies/imovie.dart';
-import '../../common/widgets/my_empty_screen.dart';
-import '../../common/widgets/my_error_widget.dart';
-import '../../common/widgets/my_loading_widget.dart';
-import '../../theme/color_palette.dart';
+import '../../../../domain/movies/imovie.dart';
+import '../../../common/screens/my_empty_screen.dart';
+import '../../../common/screens/my_error_widget.dart';
+import '../../../common/screens/my_loading_widget.dart';
+import '../../../theme/color_palette.dart';
 import 'show_movies_view_model.dart';
 import 'widgets/movie_tile.dart';
 
@@ -29,10 +29,10 @@ class _ShowMoviesViewState extends State<ShowMoviesView> {
         stream: widget._model.movieStreamList,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: MyErrorWidget());
+            return const Center(child: MyErrorScreen());
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: MyLoadingWidget());
+            return Center(child: MyLoadingScreen());
           }
           if (snapshot.data!.isEmpty) {
             return Center(child: MyEmptyScreen());

@@ -43,6 +43,7 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
                 height: 20,
               ),
               MyElevatedButton(
+                  width: MediaQuery.of(context).size.width * 0.6,
                   title: 'Sent',
                   onButtonPressed: () {
                     sentOtpClicked(
@@ -58,6 +59,7 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
                 height: 20,
               ),
               MyElevatedButton(
+                  width: MediaQuery.of(context).size.width * 0.6,
                   title: 'Apply',
                   onButtonPressed: () {
                     onApplyOtpCodeButtonClicked(

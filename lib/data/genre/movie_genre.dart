@@ -3,8 +3,10 @@
 enum MovieGenre {
   Action,
   Anime,
+  Cartoon,
   Comedy,
   Drama,
+  Detective,
   Horror,
   Science,
   Fantasy,

@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../domain/movies/imovie.dart';
-import '../../../domain/movies/imovie_repository.dart';
-import '../../routing/inavigation_util.dart';
-import '../../routing/routes.dart';
-import '../../services/user/iuser_service.dart';
+import '../../../../domain/movies/imovie.dart';
+import '../../../../domain/movies/imovie_repository.dart';
+import '../../../routing/inavigation_util.dart';
+import '../../../routing/routes.dart';
+import '../../../services/user/iuser_service.dart';
 
 class ShowMoviesViewModel extends ChangeNotifier {
   late Stream<List<IMovie>> _movieStreamList;

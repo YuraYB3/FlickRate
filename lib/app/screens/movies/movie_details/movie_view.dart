@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/movies/imovie.dart';
-import '../../common/widgets/my_error_widget.dart';
-import '../../common/widgets/my_loading_widget.dart';
-import '../../theme/color_palette.dart';
+import '../../../../domain/movies/imovie.dart';
+import '../../../common/screens/my_error_widget.dart';
+import '../../../common/screens/my_loading_widget.dart';
+import '../../../theme/color_palette.dart';
 import 'movie_view_model.dart';
 import 'widgets/movie_app_bar.dart';
 import 'widgets/movie_description.dart';
@@ -25,10 +25,10 @@ class MovieView extends StatelessWidget {
       stream: _model.movieStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const MyErrorWidget();
+          return const MyErrorScreen();
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return MyLoadingWidget();
+          return MyLoadingScreen();
         }
         final movieData = snapshot.data!;
         return Scaffold(

@@ -34,11 +34,11 @@ class CreateReviewViewModel extends ChangeNotifier {
       try {
         _userId = _userService.getCurrentUserId();
         _reviewRepository.createReview(Review(
-            userId: _userId,
-            movieId: '',
-            rating: 5,
-            reviewText: '',
-            documentId: ''));
+          userId: _userId,
+          movieId: 'GFWqjPxplsjOsdWOGIDM',
+          rating: 5,
+          reviewText: _reviewText,
+        ));
         showSuccess('Movie created');
         _navigationUtil.navigateBack();
       } catch (e) {

@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../../locator.dart';
 import '../../routing/inavigation_util.dart';
-import 'create_movie_view.dart';
-import 'create_movie_view_model.dart';
+import 'create_review_view.dart';
+import 'create_review_view_model.dart';
 
 class CreateReviewFactory {
   static Widget build() {

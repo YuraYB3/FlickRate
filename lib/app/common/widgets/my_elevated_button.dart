@@ -5,16 +5,20 @@ import '../../theme/color_palette.dart';
 class MyElevatedButton extends StatelessWidget {
   final Function() onButtonPressed;
   final String title;
+  final double width;
   final ColorsPalette colorsPalette = ColorsPalette();
   MyElevatedButton(
-      {required this.title, required this.onButtonPressed, Key? key})
+      {required this.title,
+      required this.width,
+      required this.onButtonPressed,
+      Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      width: MediaQuery.of(context).size.width * 0.6,
+      width: width,
       child: ElevatedButton(
         style: ButtonStyle(
             backgroundColor:

@@ -1,6 +1,6 @@
 import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/app/screens/news/news_factory.dart';
-import 'package:flickrate/app/screens/show_movies/show_movies_factory.dart';
+import 'package:flickrate/app/screens/movies/show_movies/show_movies_factory.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
 

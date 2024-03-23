@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../screens/create_review/create_movie_factory.dart';
+import '../screens/create_review/create_review_factory.dart';
 import '../screens/home/home_factory.dart';
 import '../screens/login/login_factory.dart';
-import '../screens/movie_details/movie_factory.dart';
-import '../screens/show_movies/show_movies_factory.dart';
+import '../screens/movies/movie_details/movie_factory.dart';
+import '../screens/movies/show_movies/show_movies_factory.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -18,7 +18,7 @@ class AppRouter {
             builder: (_) => _buildHomeSettings(routeSettings));
       case routeCreateMovie:
         return MaterialPageRoute(
-            builder: (_) => _buildCreateMovieSettings(routeSettings));
+            builder: (_) => _buildCreateReviewSettings(routeSettings));
       case routeMovie:
         final movieId = routeSettings.arguments as String;
         return MaterialPageRoute(
@@ -40,7 +40,7 @@ class AppRouter {
     return HomeFactory.build();
   }
 
-  Widget _buildCreateMovieSettings(RouteSettings settings) {
+  Widget _buildCreateReviewSettings(RouteSettings settings) {
     return CreateReviewFactory.build();
   }
 

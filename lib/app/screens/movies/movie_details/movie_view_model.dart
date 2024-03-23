@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../domain/movies/imovie.dart';
-import '../../../domain/movies/imovie_repository.dart';
+import '../../../../domain/movies/imovie.dart';
+import '../../../../domain/movies/imovie_repository.dart';
 
 class MovieViewModel extends ChangeNotifier {
   final IMovieRepository _movieRepository;
