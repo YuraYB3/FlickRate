@@ -71,5 +71,22 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
   return userProfileRef.set(userProfileData);
 },
 );
+exports.updateReviewGenre = functions.firestore.
+    document("reviews/{reviewId}").onCreate(async (snapshot) => {
+      const reviewData = snapshot.data();
+      const movieId = reviewData.movieId;
 
+      const movieRef = admin.firestore().collection("movies").doc(movieId);
+      const movieSnapshot = await movieRef.get();
+
+      if (movieSnapshot.exists) {
+        const movieData = movieSnapshot.data();
+        const movieGenre = movieData.movieGenre;
+
+        return snapshot.ref.update({movieGenre: movieGenre});
+      } else {
+        console.log("Movie not found");
+        return null;
+      }
+    });
 
