@@ -17,10 +17,10 @@ class NotificationService implements INotificationService {
   Future<void> init() async {
     final fcmToken = await _firebaseMessaging.getToken();
     print('Token: $fcmToken');
-    await setNotificationsHandlers();
+    await _setNotificationsHandlers();
   }
 
-  Future<void> setNotificationsHandlers() async {
+  Future<void> _setNotificationsHandlers() async {
     //terminated
     FirebaseMessaging.instance.getInitialMessage().then((value) {});
 
@@ -29,11 +29,13 @@ class NotificationService implements INotificationService {
       _localNotificationService.showNotification(message: message);
     });
     //background
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      if (message.notification != null) {
-        print("Background Notification Tapped");
-      }
-    });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (RemoteMessage message) {
+        if (message.notification != null) {
+          print("Background Notification Tapped");
+        }
+      },
+    );
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 }

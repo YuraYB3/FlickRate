@@ -51,7 +51,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void onShowAllClicked() {
-    _navigationUtil.navigateTo(routeShowMovies, data: '');
+    _navigationUtil.navigateTo(routeShowReviews);
   }
 
   void onGenreTileClicked(String genreName) {

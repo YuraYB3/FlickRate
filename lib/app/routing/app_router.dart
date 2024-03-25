@@ -1,3 +1,4 @@
+import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_factory.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/create_review/create_review_factory.dart';
@@ -11,44 +12,46 @@ class AppRouter {
   Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case routeLogin:
-        return MaterialPageRoute(
-            builder: (_) => _buildLoginSettings(routeSettings));
+        return MaterialPageRoute(builder: (_) => _buildLoginSettings());
       case routeHome:
-        return MaterialPageRoute(
-            builder: (_) => _buildHomeSettings(routeSettings));
+        return MaterialPageRoute(builder: (_) => _buildHomeSettings());
       case routeCreateMovie:
-        return MaterialPageRoute(
-            builder: (_) => _buildCreateReviewSettings(routeSettings));
+        return MaterialPageRoute(builder: (_) => _buildCreateReviewSettings());
       case routeMovie:
         final movieId = routeSettings.arguments as String;
-        return MaterialPageRoute(
-            builder: (_) => _buildMovieSettings(routeSettings, movieId));
+        return MaterialPageRoute(builder: (_) => _buildMovieSettings(movieId));
       case routeShowMovies:
         final genre = routeSettings.arguments as String;
         return MaterialPageRoute(
-            builder: (_) => _buildShowMoviesSettings(routeSettings, genre));
+            builder: (_) => _buildShowMoviesSettings(genre));
+      case routeShowReviews:
+        return MaterialPageRoute(builder: (_) => _buildShowReviewsSetting());
       default:
     }
     return null;
   }
 
-  Widget _buildLoginSettings(RouteSettings settings) {
+  Widget _buildLoginSettings() {
     return LoginFactory.build();
   }
 
-  Widget _buildHomeSettings(RouteSettings settings) {
+  Widget _buildHomeSettings() {
     return HomeFactory.build();
   }
 
-  Widget _buildCreateReviewSettings(RouteSettings settings) {
+  Widget _buildCreateReviewSettings() {
     return CreateReviewFactory.build();
   }
 
-  Widget _buildMovieSettings(RouteSettings settings, String movieId) {
+  Widget _buildMovieSettings(String movieId) {
     return MovieFactory.build(movieId);
   }
 
-  Widget _buildShowMoviesSettings(RouteSettings settings, String genre) {
+  Widget _buildShowMoviesSettings(String genre) {
     return ShowMoviesFactory.build(genre);
+  }
+
+  Widget _buildShowReviewsSetting() {
+    return ShowReviewsFactory.build();
   }
 }

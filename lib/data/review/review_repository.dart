@@ -28,10 +28,16 @@ class ReviewRepository implements IReviewRepository {
   }
 
   @override
-  Stream<List<IReview>> fetchReviewsStream(String userId) {
+  Stream<List<IReview>> fetchReviewsStream() {
     return _networkService.fetchDataStream(collectionReviews).map(
           (dataList) => dataList.map((data) => Review.fromJson(data)).toList(),
         );
+  }
+
+  @override
+  Stream<List<IReview>> fetchReviewsStreamByUserId(String userId) {
+    return fetchReviewsStream().map(
+        (movies) => movies.where((review) => review.userId == userId).toList());
   }
 
   @override
