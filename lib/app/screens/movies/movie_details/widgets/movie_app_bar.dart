@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../theme/color_palette.dart';
 
-class MovieAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MovieAppBar extends StatelessWidget {
   final ColorsPalette colorsPalette = ColorsPalette();
   final String movieName;
   final String movieRating;
@@ -13,21 +13,29 @@ class MovieAppBar extends StatelessWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-
-  @override
   Widget build(BuildContext context) {
-    return AppBar(
-        title: Text(movieName),
-        backgroundColor: colorsPalette.mainColor,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              movieRating,
-              style: const TextStyle(fontSize: 24),
-            ),
-          )
-        ]);
+    return Container(
+      color: colorsPalette.mainColor,
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+        Text(
+          movieName.toUpperCase(),
+          style: const TextStyle(color: Colors.white, fontSize: 24),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Text(
+            movieRating,
+            style: const TextStyle(color: Colors.white, fontSize: 24),
+          ),
+        )
+      ]),
+    );
   }
 }

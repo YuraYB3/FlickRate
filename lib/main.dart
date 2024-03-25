@@ -47,3 +47,7 @@ void _initServices() {
   initAuthService();
   initUserService();
 }
+
+//TODO: Create likes and reviews count +
+//TODO: Create reviews page
+//TODO: Implement choose movie

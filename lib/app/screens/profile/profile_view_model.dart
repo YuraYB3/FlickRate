@@ -14,8 +14,11 @@ class ProfileViewModel extends ChangeNotifier {
   final PermissionHandler _permissionHandler;
   late Stream<IMyUser> _userStream;
   late IMyUser _myUser;
-  Stream<IMyUser> get userStream => _userStream;
+  String _userNickName = '';
   ProfileViewState _profileViewState = ProfileViewState.loadingInfo;
+  bool _isEditInfoClicked = false;
+  Stream<IMyUser> get userStream => _userStream;
+  bool get isEditInfoClicked => _isEditInfoClicked;
   ProfileViewState get profileViewState => _profileViewState;
 
   ProfileViewModel({
@@ -75,6 +78,26 @@ class ProfileViewModel extends ChangeNotifier {
       }
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  void onEditInfoButtonClicked() {
+    _isEditInfoClicked = !_isEditInfoClicked;
+    notifyListeners();
+  }
+
+  void updateUserNickName(String value) {
+    _userNickName = value;
+    notifyListeners();
+  }
+
+  void onChangeUserNickNameClicked(
+      {required Function(String message) showException}) {
+    if (_userNickName.isNotEmpty) {
+      _myUserRepository.updateUserNickName(_userNickName, _myUser.documentId);
+      onEditInfoButtonClicked();
+    } else {
+      showException("Empty field");
     }
   }
 }

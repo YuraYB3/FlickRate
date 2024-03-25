@@ -53,6 +53,8 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
 
   let userProfileImage = defaultProfileImage;
   let userName = "user";
+  const reviewCount = 0;
+  const userLikes = 0;
 
   const googleProvider = user.providerData.
       find((provider) => provider.providerId === "google.com");
@@ -66,15 +68,18 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
     userId: userId,
     userProfileImage: userProfileImage,
     userName: userName,
+    userLikes: userLikes,
+    reviewCount: reviewCount,
   };
 
   return userProfileRef.set(userProfileData);
 },
 );
-exports.updateReviewGenre = functions.firestore.
+exports.onReviewCreate = functions.firestore.
     document("reviews/{reviewId}").onCreate(async (snapshot) => {
       const reviewData = snapshot.data();
       const movieId = reviewData.movieId;
+      const userId = reviewData.userId;
 
       const movieRef = admin.firestore().collection("movies").doc(movieId);
       const movieSnapshot = await movieRef.get();
@@ -82,8 +87,20 @@ exports.updateReviewGenre = functions.firestore.
       if (movieSnapshot.exists) {
         const movieData = movieSnapshot.data();
         const movieGenre = movieData.movieGenre;
+        const movieName = movieData.movieName;
 
-        return snapshot.ref.update({movieGenre: movieGenre});
+        await snapshot.ref.update({movieGenre: movieGenre,
+          movieName: movieName});
+        const userQuerySnapshot = await admin.firestore().
+            collection("users").where("userId", "==", userId).get();
+        if (!userQuerySnapshot.empty) {
+          const userDocRef = userQuerySnapshot.docs[0].ref;
+          return userDocRef.update({reviewCount: admin.firestore.
+              FieldValue.increment(1)});
+        } else {
+          console.log("User not found");
+          return null;
+        }
       } else {
         console.log("Movie not found");
         return null;

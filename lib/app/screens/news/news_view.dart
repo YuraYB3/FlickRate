@@ -7,7 +7,7 @@ class NewsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("There is not news now"),
+        child: Text("There are no news now"),
       ),
     );
   }

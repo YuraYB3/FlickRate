@@ -11,20 +11,25 @@ class Review implements IReview {
   final num rating;
   @override
   final String movieGenre;
+  @override
+  final String movieName;
 
   @override
   String documentId;
 
-  Review(
-      {this.documentId = '',
-      required this.movieId,
-      required this.reviewText,
-      required this.userId,
-      required this.rating,
-      this.movieGenre = ''});
+  Review({
+    this.documentId = '',
+    this.movieName = '',
+    this.movieGenre = '',
+    required this.movieId,
+    required this.reviewText,
+    required this.userId,
+    required this.rating,
+  });
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
+        movieName: json['movieName'],
         rating: json['rating'],
         movieId: json['movieId'],
         reviewText: json['reviewText'],

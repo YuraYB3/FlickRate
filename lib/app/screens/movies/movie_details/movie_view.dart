@@ -32,7 +32,7 @@ class MovieView extends StatelessWidget {
         }
         final movieData = snapshot.data!;
         return Scaffold(
-          appBar: MovieAppBar(
+          bottomNavigationBar: MovieAppBar(
             movieName: movieData.movieName,
             movieRating: movieData.movieRating.toString(),
           ),

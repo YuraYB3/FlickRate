@@ -4,5 +4,8 @@ abstract interface class IMyUser implements IBaseModel {
   final String userProfileImage;
   final String userName;
   final String userId;
-  IMyUser(this.userId, this.userProfileImage, this.userName);
+  final int userLikes;
+  final int reviewCount;
+  IMyUser(this.userId, this.userProfileImage, this.userName, this.reviewCount,
+      this.userLikes);
 }

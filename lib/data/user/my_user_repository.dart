@@ -52,4 +52,10 @@ class MyUserRepository implements IMyUserRepository {
     await _networkService
         .update({"userProfileImage": imgURl}, collectionUsers, documentId);
   }
+
+  @override
+  Future<void> updateUserNickName(String nickName, String documentId) async {
+    await _networkService
+        .update({"userName": nickName}, collectionUsers, documentId);
+  }
 }

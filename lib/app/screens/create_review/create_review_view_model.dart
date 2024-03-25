@@ -39,11 +39,11 @@ class CreateReviewViewModel extends ChangeNotifier {
           rating: 5,
           reviewText: _reviewText,
         ));
-        showSuccess('Movie created');
+        showSuccess('Review created');
         _navigationUtil.navigateBack();
       } catch (e) {
         print(e.toString());
-        showError("Can't create mew movie");
+        showError("Can't create review");
         _navigationUtil.navigateBack();
       }
     } else {

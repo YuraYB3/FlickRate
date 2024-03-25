@@ -4,4 +4,5 @@ abstract interface class IMyUserRepository {
   Future<void> createUser(IMyUser user);
   Stream<IMyUser> fetchCurrentUser(String id);
   Future<void> changeProfilePhoto(String documentId, String imageName);
+  Future<void> updateUserNickName(String nickName, String documentId);
 }

@@ -24,6 +24,37 @@ class _ShowMoviesViewState extends State<ShowMoviesView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: widget.colorsPalette.mainColor,
+        toolbarHeight: 80,
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+            ),
+            child: TextFormField(
+              onChanged: (text) {},
+              maxLength: 20,
+              decoration: InputDecoration(
+                counterText: '',
+                labelStyle: TextStyle(color: widget.colorsPalette.mainColor),
+                prefix: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                hintText: 'Enter movie name here',
+                focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: widget.colorsPalette.mainColor)),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: widget.colorsPalette.mainColor),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
       body: StreamBuilder<List<IMovie>>(
         stream: widget._model.movieStreamList,
