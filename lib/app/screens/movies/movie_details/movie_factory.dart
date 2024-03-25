@@ -1,3 +1,4 @@
+import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,9 @@ class MovieFactory {
   static Widget build(String movieId) {
     return ChangeNotifierProvider(
       create: (context) => MovieViewModel(
-          movieId: movieId, movieRepository: locator<IMovieRepository>()),
+          navigationUtil: context.read<INavigationUtil>(),
+          movieId: movieId,
+          movieRepository: locator<IMovieRepository>()),
       child: Consumer<MovieViewModel>(
         builder: (context, value, child) => MovieView(
           model: value,

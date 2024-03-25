@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/movies/imovie.dart';
@@ -7,14 +8,18 @@ import '../../../../domain/movies/imovie_repository.dart';
 
 class MovieViewModel extends ChangeNotifier {
   final IMovieRepository _movieRepository;
+  final INavigationUtil _navigationUtil;
 
   final String _movieId;
   late Stream<IMovie> _movieStream;
   Stream<IMovie> get movieStream => _movieStream;
 
   MovieViewModel(
-      {required String movieId, required IMovieRepository movieRepository})
+      {required String movieId,
+      required IMovieRepository movieRepository,
+      required INavigationUtil navigationUtil})
       : _movieRepository = movieRepository,
+        _navigationUtil = navigationUtil,
         _movieId = movieId {
     _fetchMovieStream();
   }
@@ -59,5 +64,9 @@ class MovieViewModel extends ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  void onBackButtonClicked() {
+    _navigationUtil.navigateBack();
   }
 }

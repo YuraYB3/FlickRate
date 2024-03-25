@@ -33,6 +33,7 @@ class MovieView extends StatelessWidget {
         final movieData = snapshot.data!;
         return Scaffold(
           bottomNavigationBar: MovieAppBar(
+            navigateBack: _model.onBackButtonClicked,
             movieName: movieData.movieName,
             movieRating: movieData.movieRating.toString(),
           ),

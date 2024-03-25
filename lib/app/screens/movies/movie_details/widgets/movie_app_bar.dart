@@ -6,10 +6,12 @@ class MovieAppBar extends StatelessWidget {
   final ColorsPalette colorsPalette = ColorsPalette();
   final String movieName;
   final String movieRating;
+  final Function() navigateBack;
   MovieAppBar({
     Key? key,
     required this.movieName,
     required this.movieRating,
+    required this.navigateBack,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class MovieAppBar extends StatelessWidget {
       color: colorsPalette.mainColor,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         IconButton(
-          onPressed: () {},
+          onPressed: navigateBack,
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,

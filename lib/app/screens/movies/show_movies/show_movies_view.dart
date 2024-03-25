@@ -35,7 +35,9 @@ class _ShowMoviesViewState extends State<ShowMoviesView> {
               color: Colors.white,
             ),
             child: TextFormField(
-              onChanged: (text) {},
+              onChanged: (value) {
+                widget._model.updateSearchQuery(value);
+              },
               maxLength: 20,
               decoration: InputDecoration(
                 counterText: '',

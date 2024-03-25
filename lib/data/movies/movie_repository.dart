@@ -12,7 +12,7 @@ class MovieRepository implements IMovieRepository {
   }) : _networkService = networkService;
 
   @override
-  Stream<List<IMovie>> fetchMoviesStream(String userId) {
+  Stream<List<IMovie>> fetchMoviesStream() {
     return _networkService.fetchDataStream(collectionMovies).map(
           (dataList) => dataList.map((data) => Movie.fromJson(data)).toList(),
         );
@@ -26,8 +26,19 @@ class MovieRepository implements IMovieRepository {
   }
 
   @override
-  Stream<List<IMovie>> fetchMoviesStreamByGenre(String genre, String userId) {
-    return fetchMoviesStream(userId).map((movies) =>
+  Stream<List<IMovie>> fetchMoviesStreamByGenre(String genre) {
+    return fetchMoviesStream().map((movies) =>
         movies.where((movie) => movie.movieGenre == genre).toList());
+  }
+
+  @override
+  Stream<List<IMovie>> fetchMoviesByName(String movieName) {
+    return fetchMoviesStream().map((movies) => movies
+        .where(
+          (movie) => movie.movieName.toLowerCase().contains(
+                movieName.toLowerCase(),
+              ),
+        )
+        .toList());
   }
 }
