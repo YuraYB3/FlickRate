@@ -15,6 +15,7 @@ class DeleteMovieButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyElevatedButton(
+      buttonColor: colorsPalette.mainColor,
       width: MediaQuery.of(context).size.width * 0.6,
       title: "Delete",
       onButtonPressed: () {

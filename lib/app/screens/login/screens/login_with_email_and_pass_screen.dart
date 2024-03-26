@@ -65,6 +65,7 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
           ),
           MyElevatedButton(
               title: "Sign In",
+              buttonColor: colorsPalette.mainColor,
               width: MediaQuery.of(context).size.width * 0.6,
               onButtonPressed: () {
                 onSignInWithEmailAndPasswordClicked(

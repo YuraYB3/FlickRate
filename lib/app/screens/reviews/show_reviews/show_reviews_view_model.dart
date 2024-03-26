@@ -13,7 +13,7 @@ class ShowReviewsViewModel extends ChangeNotifier {
   final IReviewRepository _reviewRepository;
   final IUserService _userService;
   late Stream<List<IReview>> _reviewStreamList;
-  Stream<List<IReview>> get movieStreamList => _reviewStreamList;
+  Stream<List<IReview>> get reviewStreamList => _reviewStreamList;
 
   ShowReviewsViewModel(
       {required INavigationUtil navigationUtil,
@@ -33,6 +33,7 @@ class ShowReviewsViewModel extends ChangeNotifier {
     try {
       String userID = _userService.getCurrentUserId();
       _reviewStreamList = _reviewRepository.fetchReviewsStreamByUserId(userID);
+
       notifyListeners();
     } catch (e) {
       print(e.toString());

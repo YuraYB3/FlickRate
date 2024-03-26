@@ -1,7 +1,6 @@
 import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_factory.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/create_review/create_review_factory.dart';
 import '../screens/home/home_factory.dart';
 import '../screens/login/login_factory.dart';
 import '../screens/movies/movie_details/movie_factory.dart';
@@ -15,8 +14,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => _buildLoginSettings());
       case routeHome:
         return MaterialPageRoute(builder: (_) => _buildHomeSettings());
-      case routeCreateMovie:
-        return MaterialPageRoute(builder: (_) => _buildCreateReviewSettings());
       case routeMovie:
         final movieId = routeSettings.arguments as String;
         return MaterialPageRoute(builder: (_) => _buildMovieSettings(movieId));
@@ -37,10 +34,6 @@ class AppRouter {
 
   Widget _buildHomeSettings() {
     return HomeFactory.build();
-  }
-
-  Widget _buildCreateReviewSettings() {
-    return CreateReviewFactory.build();
   }
 
   Widget _buildMovieSettings(String movieId) {

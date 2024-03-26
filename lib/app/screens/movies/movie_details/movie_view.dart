@@ -1,65 +1,137 @@
+import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
+import 'package:flickrate/app/screens/movies/movie_details/screens/create_review_form.dart';
+import 'package:flickrate/app/screens/movies/movie_details/screens/movie_details.dart';
+import 'package:flickrate/app/screens/movies/movie_details/screens/movie_reviews.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/movies/imovie.dart';
+import '../../../../domain/review/ireview.dart';
+import '../../../common/screens/my_empty_screen.dart';
 import '../../../common/screens/my_error_widget.dart';
 import '../../../common/screens/my_loading_widget.dart';
+import '../../../common/widgets/custom_snackbar.dart';
 import '../../../theme/color_palette.dart';
 import 'movie_view_model.dart';
 import 'widgets/movie_app_bar.dart';
-import 'widgets/movie_description.dart';
-import 'widgets/movie_image.dart';
 
-class MovieView extends StatelessWidget {
+class MovieView extends StatefulWidget {
   final MovieViewModel _model;
-  final ColorsPalette colorsPalette = ColorsPalette();
 
-  MovieView({Key? key, required MovieViewModel model})
+  const MovieView({Key? key, required MovieViewModel model})
       : _model = model,
         super(key: key);
+
+  @override
+  State<MovieView> createState() => _MovieViewState();
+}
+
+class _MovieViewState extends State<MovieView> {
+  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
     return StreamBuilder<IMovie>(
-      stream: _model.movieStream,
+      stream: widget._model.movieStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const MyErrorScreen();
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return MyLoadingScreen();
+          return Scaffold(body: MyLoadingScreen());
         }
         final movieData = snapshot.data!;
-        return Scaffold(
-          bottomNavigationBar: MovieAppBar(
-            navigateBack: _model.onBackButtonClicked,
-            movieName: movieData.movieName,
-            movieRating: movieData.movieRating.toString(),
-          ),
-          body: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Center(
-              child: Column(
-                children: [
-                  MovieImage(
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
-                      imgUrl: movieData.movieImg),
-                  Expanded(
-                      child: MovieDescription(
-                          description: movieData.movieDescription)),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  )
-                ],
+        return StreamBuilder<List<IReview>>(
+          stream: widget._model.reviewStreamList,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Scaffold(body: Center(child: MyLoadingScreen()));
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Scaffold(body: Center(child: MyLoadingScreen()));
+            }
+            final reviewData = snapshot.data!;
+            return Scaffold(
+              bottomNavigationBar: widget._model.currentPageIndex == 0
+                  ? MovieAppBar(
+                      navigateBack: widget._model.onBackButtonClicked,
+                      movieName: movieData.movieName,
+                      movieRating: movieData.movieRating.toString(),
+                    )
+                  : MyElevatedButton(
+                      buttonColor: widget._model.isShowCreateReviewFormClicked
+                          ? colorsPalette.secondColor
+                          : colorsPalette.mainColor,
+                      title: widget._model.isShowCreateReviewFormClicked
+                          ? "Cancel"
+                          : "Write review",
+                      width: double.infinity,
+                      onButtonPressed:
+                          widget._model.onShowCreateReviewFormClicked),
+              body: GestureDetector(
+                onHorizontalDragEnd: (details) {
+                  if (details.primaryVelocity! > 0 &&
+                      widget._model.currentPageIndex > 0) {
+                    widget._model.pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                    widget._model.moveToPreviousPage();
+                  } else if (details.primaryVelocity! < 0 &&
+                      widget._model.currentPageIndex < 1) {
+                    widget._model.pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                    widget._model.moveToNextPage();
+                  }
+                },
+                child: PageView(
+                  controller: widget._model.pageController,
+                  onPageChanged: (int index) {
+                    widget._model.setCurrentPageIndex(index);
+                  },
+                  children: [
+                    MovieDetails(
+                        movieData: movieData,
+                        screenHeight: screenHeight,
+                        screenWidth: screenWidth,
+                        pageController: widget._model.pageController,
+                        moveToNextPage: widget._model.moveToNextPage),
+                    widget._model.isShowCreateReviewFormClicked
+                        ? CreateReviewForm(
+                            movieName: movieData.movieName,
+                            rating: widget._model.movieRating,
+                            updateRating: (value) {
+                              widget._model.updateMovieRating(value);
+                            },
+                            updateReview: (value) {
+                              widget._model.updateMovieReview(value);
+                            },
+                            onCrateReviewClicked: () {
+                              widget._model.onCreateReviewClicked(
+                                showError: (message) =>
+                                    showCustomSnackBar(context, message),
+                                showSuccess: (message) => showCustomSnackBar(
+                                    context, message,
+                                    backgroundColor: Colors.green),
+                              );
+                            })
+                        : reviewData.isEmpty
+                            ? MyEmptyScreen()
+                            : MovieReviews(
+                                reviewData: reviewData,
+                                moveToPreviousPage:
+                                    widget._model.moveToPreviousPage,
+                                pageController: widget._model.pageController,
+                              )
+                  ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

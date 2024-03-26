@@ -28,13 +28,13 @@ class MovieAppBar extends StatelessWidget {
         ),
         Text(
           movieName.toUpperCase(),
-          style: const TextStyle(color: Colors.white, fontSize: 24),
+          style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
             movieRating,
-            style: const TextStyle(color: Colors.white, fontSize: 24),
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
         )
       ]),

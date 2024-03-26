@@ -56,20 +56,9 @@ class _CoreNavigationViewState extends State<CoreNavigationView> {
                     widget._viewModel.updateSelectedIndex(2);
                   },
                   icon: Icon(
-                    Icons.newspaper,
-                    size: widget._viewModel.iconSize,
-                    color: widget._viewModel.selectedIndex == 2
-                        ? widget.colorsPalette.mainColor
-                        : widget.colorsPalette.secondColor,
-                  )),
-              IconButton(
-                  onPressed: () {
-                    widget._viewModel.updateSelectedIndex(3);
-                  },
-                  icon: Icon(
                     Icons.person_rounded,
                     size: widget._viewModel.iconSize,
-                    color: widget._viewModel.selectedIndex == 3
+                    color: widget._viewModel.selectedIndex == 2
                         ? widget.colorsPalette.mainColor
                         : widget.colorsPalette.secondColor,
                   )),
@@ -77,14 +66,6 @@ class _CoreNavigationViewState extends State<CoreNavigationView> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: widget._viewModel.onFloatingButtonClicked,
-          backgroundColor: Colors.white,
-          child: Icon(
-            Icons.add,
-            color: widget.colorsPalette.mainColor,
-          )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

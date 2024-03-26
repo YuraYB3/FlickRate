@@ -80,7 +80,6 @@ exports.onReviewCreate = functions.firestore.
       const reviewData = snapshot.data();
       const movieId = reviewData.movieId;
       const userId = reviewData.userId;
-
       const movieRef = admin.firestore().collection("movies").doc(movieId);
       const movieSnapshot = await movieRef.get();
 
@@ -88,15 +87,22 @@ exports.onReviewCreate = functions.firestore.
         const movieData = movieSnapshot.data();
         const movieGenre = movieData.movieGenre;
         const movieName = movieData.movieName;
-
         await snapshot.ref.update({movieGenre: movieGenre,
           movieName: movieName});
+
         const userQuerySnapshot = await admin.firestore().
             collection("users").where("userId", "==", userId).get();
         if (!userQuerySnapshot.empty) {
-          const userDocRef = userQuerySnapshot.docs[0].ref;
-          return userDocRef.update({reviewCount: admin.firestore.
-              FieldValue.increment(1)});
+          const userData = userQuerySnapshot.docs[0].data();
+          const userName = userData.userName;
+          const userProfileImage = userData.userProfileImage;
+
+          await userQuerySnapshot.docs[0].ref.
+              update({reviewCount: admin.firestore.FieldValue.increment(1)});
+          return snapshot.ref.update({
+            userName: userName,
+            userImage: userProfileImage,
+          });
         } else {
           console.log("User not found");
           return null;

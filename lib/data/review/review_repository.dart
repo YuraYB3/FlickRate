@@ -42,4 +42,10 @@ class ReviewRepository implements IReviewRepository {
 
   @override
   Future<void> updateReview(IReview review) async {}
+
+  @override
+  Stream<List<IReview>> fetchReviewsStreamByMovieId(String movieId) {
+    return fetchReviewsStream().map((movies) =>
+        movies.where((review) => review.movieId == movieId).toList());
+  }
 }

@@ -46,9 +46,7 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  void onAddButtonClicked() {
-    _navigationUtil.navigateTo(routeCreateMovie);
-  }
+  void onAddButtonClicked() {}
 
   void onShowAllClicked() {
     _navigationUtil.navigateTo(routeShowReviews);

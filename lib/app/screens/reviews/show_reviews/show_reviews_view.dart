@@ -3,7 +3,6 @@ import 'package:flickrate/domain/review/ireview.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/screens/my_empty_screen.dart';
-import '../../../common/screens/my_error_widget.dart';
 import '../../../common/screens/my_loading_widget.dart';
 import '../../../theme/color_palette.dart';
 import '../../movies/show_movies/widgets/movie_tile.dart';
@@ -25,10 +24,10 @@ class _ShowMoviesViewState extends State<ShowReviewsView> {
         backgroundColor: widget.colorsPalette.mainColor,
       ),
       body: StreamBuilder<List<IReview>>(
-        stream: widget.model.movieStreamList,
+        stream: widget.model.reviewStreamList,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: MyErrorScreen());
+            return Center(child: MyLoadingScreen());
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: MyLoadingScreen());

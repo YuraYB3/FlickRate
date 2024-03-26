@@ -6,13 +6,16 @@ class MyElevatedButton extends StatelessWidget {
   final Function() onButtonPressed;
   final String title;
   final double width;
-  final ColorsPalette colorsPalette = ColorsPalette();
+  final Color buttonColor;
   MyElevatedButton(
       {required this.title,
+      required this.buttonColor,
       required this.width,
       required this.onButtonPressed,
       Key? key})
       : super(key: key);
+
+  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +24,7 @@ class MyElevatedButton extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(colorsPalette.mainColor)),
+            backgroundColor: MaterialStateProperty.all<Color>(buttonColor)),
         onPressed: onButtonPressed,
         child: Text(
           title,

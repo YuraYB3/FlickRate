@@ -17,7 +17,7 @@ class CustomGenreFilterRow extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            "Genres",
+            "My Reviews",
             style: TextStyle(fontSize: 20, color: colorsPalette.mainColor),
           ),
           Expanded(child: Container()),
