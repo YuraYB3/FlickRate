@@ -1,3 +1,1 @@
-abstract interface class INotificationService {
-  Future<void> init();
-}
+abstract interface class INotificationService {}

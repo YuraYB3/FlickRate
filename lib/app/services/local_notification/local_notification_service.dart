@@ -11,8 +11,12 @@ class LocalNotificationService implements ILocalNotificationService {
   static const String channelDescription = 'Channel';
   static final FlutterLocalNotificationsPlugin
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  @override
-  Future<void> init() async {
+
+  LocalNotificationService() {
+    _init();
+  }
+
+  Future<void> _init() async {
     const InitializationSettings initializationSettings =
         InitializationSettings(
       android: AndroidInitializationSettings("@drawable/ic_launcher"),
@@ -33,26 +37,14 @@ class LocalNotificationService implements ILocalNotificationService {
           priority: Priority.high,
         ),
       );
+
       await _flutterLocalNotificationsPlugin.show(
           id,
-          message.notification!.title,
-          message.notification!.body,
+          message.notification?.title ?? "",
+          message.notification?.body ?? "",
           notificationDetails);
     } on Exception catch (e) {
       print(e);
     }
   }
 }
-/*
- final androidNotificationDetails = AndroidNotificationDetails(
-        _androidChannel.id, _androidChannel.name,
-        channelDescription: _androidChannel.description,
-        importance: Importance.high,
-        priority: Priority.high,
-        progress: currentProgress,
-        maxProgress: maxProgress,
-        showProgress: true);
-    final notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
-    await _flutterLocalNotificationsPlugin
-        .show(0, title, body, notificationDetails, payload: payload);*/

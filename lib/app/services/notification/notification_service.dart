@@ -11,10 +11,11 @@ class NotificationService implements INotificationService {
 
   NotificationService(
       {required ILocalNotificationService localNotificationService})
-      : _localNotificationService = localNotificationService;
+      : _localNotificationService = localNotificationService {
+    _init();
+  }
 
-  @override
-  Future<void> init() async {
+  Future<void> _init() async {
     final fcmToken = await _firebaseMessaging.getToken();
     print('Token: $fcmToken');
     await _setNotificationsHandlers();
@@ -36,8 +37,10 @@ class NotificationService implements INotificationService {
         }
       },
     );
+
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 }
 
+@pragma("vm:entry-point")
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
