@@ -1,8 +1,8 @@
+import 'package:flickrate/app/common/widgets/cached_image.dart';
+import 'package:flickrate/app/screens/movies/movie_details/widgets/movie_bottom_navigation.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flickrate/domain/review/ireview.dart';
 import 'package:flutter/material.dart';
-
-import '../../show_movies/widgets/movie_tile.dart';
 
 class MovieReviews extends StatefulWidget {
   final ColorsPalette colorsPalette = ColorsPalette();
@@ -34,53 +34,30 @@ class _MovieReviewsState extends State<MovieReviews> {
                     final review = widget.reviewData[index];
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: MovieTile(
-                        movieDescription: '',
-                        movieGenre: review.movieGenre,
-                        movieName: review.movieName,
-                        onTileClicked: () {},
+                      child: ListTile(
+                        leading: CachedImageWidget(
+                            imageUrl: review.userImage,
+                            height: 50,
+                            shape: BoxShape.circle,
+                            width: 50),
+                        title: Text(review.userName),
+                        subtitle: Text(
+                          maxLines: 50,
+                          review.reviewText,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        trailing: Text(review.rating.toStringAsFixed(1)),
                       ),
                     );
                   },
                   itemCount: widget.reviewData.length),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    widget.pageController.previousPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                    widget.moveToPreviousPage();
-                  },
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.colorsPalette.secondColor,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.colorsPalette.mainColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            MovieBottomNavigation(
+                pageController: widget.pageController,
+                activeColor: widget.colorsPalette.secondColor,
+                notActiveColor: widget.colorsPalette.mainColor,
+                moveToNextPage: () {},
+                moveToPreviousPage: widget.moveToPreviousPage),
             const SizedBox(
               height: 5,
             )

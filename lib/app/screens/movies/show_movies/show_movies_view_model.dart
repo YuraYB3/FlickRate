@@ -54,6 +54,3 @@ class ShowMoviesViewModel extends ChangeNotifier {
     }
   }
 }
-/*
- _movieStreamList =
-            _movieRepository.fetchMoviesStreamByGenre(_genre, _userId);*/

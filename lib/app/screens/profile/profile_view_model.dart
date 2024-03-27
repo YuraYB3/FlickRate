@@ -86,7 +86,7 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateUserNickName(String value) {
+  void updateUserNickNameField(String value) {
     _userNickName = value;
     notifyListeners();
   }

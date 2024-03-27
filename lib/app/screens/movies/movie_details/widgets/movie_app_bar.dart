@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../theme/color_palette.dart';
 
-class MovieAppBar extends StatelessWidget {
+class MovieBar extends StatelessWidget {
   final ColorsPalette colorsPalette = ColorsPalette();
   final String movieName;
   final String movieRating;
   final Function() navigateBack;
-  MovieAppBar({
+  MovieBar({
     Key? key,
     required this.movieName,
     required this.movieRating,

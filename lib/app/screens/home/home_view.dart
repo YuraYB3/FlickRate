@@ -51,7 +51,8 @@ class HomeView extends StatelessWidget {
                                   width: 50,
                                   child: CachedImageWidget(
                                     imageUrl: userData.userProfileImage,
-                                    imageSize: 50,
+                                    height: 50,
+                                    width: 50,
                                     shape: BoxShape.circle,
                                   ))
                             ],

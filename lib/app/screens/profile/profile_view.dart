@@ -60,7 +60,8 @@ class _ProfileViewState extends State<ProfileView> {
                           children: [
                             CachedImageWidget(
                               imageUrl: userData.userProfileImage,
-                              imageSize: 80,
+                              height: 80,
+                              width: 80,
                               shape: BoxShape.circle,
                             ),
                             const SizedBox(
@@ -90,7 +91,8 @@ class _ProfileViewState extends State<ProfileView> {
                               children: [
                                 CachedImageWidget(
                                   imageUrl: userData.userProfileImage,
-                                  imageSize: 80,
+                                  height: 80,
+                                  width: 80,
                                   shape: BoxShape.circle,
                                 ),
                                 Positioned(
@@ -134,7 +136,8 @@ class _ProfileViewState extends State<ProfileView> {
                                           child: TextField(
                                               onChanged: (value) {
                                                 widget._model
-                                                    .updateUserNickName(value);
+                                                    .updateUserNickNameField(
+                                                        value);
                                               },
                                               maxLength: 13,
                                               decoration: InputDecoration(

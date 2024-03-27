@@ -1,9 +1,10 @@
+import 'package:flickrate/app/common/widgets/cached_image.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flickrate/domain/movies/imovie.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/movie_bottom_navigation.dart';
 import '../widgets/movie_description.dart';
-import '../widgets/movie_image.dart';
 
 class MovieDetails extends StatefulWidget {
   final IMovie movieData;
@@ -34,47 +35,21 @@ class _MovieDetailsState extends State<MovieDetails> {
       child: Center(
         child: Column(
           children: [
-            MovieImage(
-                screenHeight: widget.screenHeight,
-                screenWidth: widget.screenWidth,
-                imgUrl: widget.movieData.movieImg),
+            CachedImageWidget(
+                imageUrl: widget.movieData.movieImg,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.7,
+                shape: BoxShape.rectangle),
             Expanded(
               child: MovieDescription(
                   description: widget.movieData.movieDescription),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: colorsPalette.mainColor,
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    widget.pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                    widget.moveToNextPage();
-                  },
-                  child: Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: colorsPalette.secondColor,
-                    ),
-                  ),
-                ),
-              ],
+            MovieBottomNavigation(
+              activeColor: colorsPalette.mainColor,
+              notActiveColor: colorsPalette.secondColor,
+              pageController: widget.pageController,
+              moveToNextPage: widget.moveToNextPage,
+              moveToPreviousPage: () {},
             ),
             const SizedBox(
               height: 5,

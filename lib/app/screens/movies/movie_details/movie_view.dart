@@ -55,7 +55,7 @@ class _MovieViewState extends State<MovieView> {
             final reviewData = snapshot.data!;
             return Scaffold(
               bottomNavigationBar: widget._model.currentPageIndex == 0
-                  ? MovieAppBar(
+                  ? MovieBar(
                       navigateBack: widget._model.onBackButtonClicked,
                       movieName: movieData.movieName,
                       movieRating: movieData.movieRating.toString(),

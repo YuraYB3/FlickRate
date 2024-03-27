@@ -6,6 +6,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../../../domain/local_notification/ilocal_notification_service.dart';
 
 class LocalNotificationService implements ILocalNotificationService {
+  static const String channelId = 'easyaproach';
+  static const String channelName = 'easyapproach channel';
+  static const String channelDescription = 'Channel';
   static final FlutterLocalNotificationsPlugin
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   @override
@@ -23,9 +26,9 @@ class LocalNotificationService implements ILocalNotificationService {
       final id = DateTime.now().microsecond ~/ 1000;
       const NotificationDetails notificationDetails = NotificationDetails(
         android: AndroidNotificationDetails(
-          "easyaproach",
-          "easyapproach channel",
-          channelDescription: "Channel",
+          channelId,
+          channelName,
+          channelDescription: channelDescription,
           importance: Importance.max,
           priority: Priority.high,
         ),

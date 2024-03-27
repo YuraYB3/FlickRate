@@ -5,23 +5,25 @@ import 'package:flutter/material.dart';
 
 class CachedImageWidget extends StatelessWidget {
   final String imageUrl;
-  final double imageSize;
+  final double height;
+  final double width;
   final ColorsPalette colorsPalette = ColorsPalette();
   final BoxShape shape;
 
   CachedImageWidget(
       {super.key,
       required this.imageUrl,
-      required this.imageSize,
-      required this.shape});
+      required this.height,
+      required this.shape,
+      required this.width});
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       imageBuilder: (context, imageProvider) => Container(
-        width: imageSize,
-        height: imageSize,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
             shape: shape,
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover)),
