@@ -28,8 +28,10 @@ class CachedImageWidget extends StatelessWidget {
             shape: shape,
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover)),
       ),
-      placeholder: (context, url) => CircularProgressIndicator(
-        color: colorsPalette.mainColor,
+      placeholder: (context, url) => Center(
+        child: CircularProgressIndicator(
+          color: colorsPalette.mainColor,
+        ),
       ),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );

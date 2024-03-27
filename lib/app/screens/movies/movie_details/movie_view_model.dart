@@ -91,12 +91,12 @@ class MovieViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateMovieRating(double value) {
+  void updateMovieRatingField(double value) {
     _movieRating = value;
     notifyListeners();
   }
 
-  void updateMovieReview(String value) {
+  void updateMovieReviewField(String value) {
     _movieReview = value;
     notifyListeners();
   }

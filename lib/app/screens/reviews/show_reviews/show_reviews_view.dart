@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../../common/screens/my_empty_screen.dart';
 import '../../../common/screens/my_loading_widget.dart';
 import '../../../theme/color_palette.dart';
-import '../../movies/show_movies/widgets/movie_tile.dart';
 
 class ShowReviewsView extends StatefulWidget {
   final ColorsPalette colorsPalette = ColorsPalette();
@@ -41,13 +40,30 @@ class _ShowMoviesViewState extends State<ShowReviewsView> {
                 final review = reviewData[index];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: MovieTile(
-                    movieDescription: '',
-                    movieGenre: review.movieGenre,
-                    movieName: review.movieName,
-                    onTileClicked: () {
-                      widget.model.onListTileClicked(review.movieId);
-                    },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: widget.colorsPalette.mainColor.withOpacity(0.7),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    child: ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          review.movieName,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      trailing: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          review.rating.toStringAsFixed(1),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ),
                 );
               },

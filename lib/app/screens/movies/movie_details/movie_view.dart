@@ -105,10 +105,10 @@ class _MovieViewState extends State<MovieView> {
                             movieName: movieData.movieName,
                             rating: widget._model.movieRating,
                             updateRating: (value) {
-                              widget._model.updateMovieRating(value);
+                              widget._model.updateMovieRatingField(value);
                             },
                             updateReview: (value) {
-                              widget._model.updateMovieReview(value);
+                              widget._model.updateMovieReviewField(value);
                             },
                             onCrateReviewClicked: () {
                               widget._model.onCreateReviewClicked(

@@ -2,9 +2,11 @@ import 'package:flickrate/app/common/screens/my_loading_widget.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/widgets/cached_image.dart';
-import '../../common/widgets/custom_snackbar.dart';
 import 'profile_view_model.dart';
+import 'widgets/actions_info_widget.dart';
+import 'widgets/log_out_button.dart';
+import 'widgets/update_info_widget.dart';
+import 'widgets/user_info_widget.dart';
 
 class ProfileView extends StatefulWidget {
   final ProfileViewModel _model;
@@ -52,211 +54,36 @@ class _ProfileViewState extends State<ProfileView> {
                       color: Colors.grey,
                     ),
                     if (!widget._model.isEditInfoClicked)
-                      Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CachedImageWidget(
-                              imageUrl: userData.userProfileImage,
-                              height: 80,
-                              width: 80,
-                              shape: BoxShape.circle,
-                            ),
-                            const SizedBox(
-                              width: 40,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  userData.userName,
-                                  style: const TextStyle(fontSize: 24),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
+                      UserInfoWidget(userData: userData)
                     else
-                      Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Stack(
-                              children: [
-                                CachedImageWidget(
-                                  imageUrl: userData.userProfileImage,
-                                  height: 80,
-                                  width: 80,
-                                  shape: BoxShape.circle,
-                                ),
-                                Positioned(
-                                  bottom: -10,
-                                  left: 45,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      widget._model.onChangePhotoClicked(
-                                        showException: (message) =>
-                                            showCustomSnackBar(
-                                                context, message),
-                                      );
-                                    },
-                                    icon: const Icon(Icons.add_a_photo),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 40,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: Colors.white,
-                                          ),
-                                          child: TextField(
-                                              onChanged: (value) {
-                                                widget._model
-                                                    .updateUserNickNameField(
-                                                        value);
-                                              },
-                                              maxLength: 13,
-                                              decoration: InputDecoration(
-                                                labelStyle: TextStyle(
-                                                    color: colorsPalette
-                                                        .mainColor),
-                                                hintText: 'Enter nickname',
-                                                focusedBorder:
-                                                    UnderlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color: colorsPalette
-                                                                .mainColor)),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: colorsPalette
-                                                          .mainColor),
-                                                ),
-                                                counterText: '',
-                                              )),
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          widget._model
-                                              .onChangeUserNickNameClicked(
-                                            showException: (message) {
-                                              showCustomSnackBar(
-                                                  context, message);
-                                            },
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          Icons.done,
-                                          color: Colors.green,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                      UpdateInfoWidget(
+                        userData: userData,
+                        updateUserNickNameField: (value) {
+                          widget._model.updateUserNickNameField(value);
+                        },
+                        onChangePhotoClicked: (p0) {
+                          widget._model.onChangePhotoClicked(showException: p0);
+                        },
+                        onChangeUserNickNameClicked: (p0) {
+                          widget._model
+                              .onChangeUserNickNameClicked(showException: p0);
+                        },
                       ),
                     const Divider(
                       color: Colors.grey,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                userData.reviewCount.toString(),
-                                style: TextStyle(
-                                    color: colorsPalette.mainColor,
-                                    fontSize: 18),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text('Reviews',
-                                  style: TextStyle(
-                                      color: colorsPalette.secondColor)),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                userData.userLikes.toString(),
-                                style: TextStyle(
-                                    color: colorsPalette.mainColor,
-                                    fontSize: 18),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Likes',
-                                style:
-                                    TextStyle(color: colorsPalette.secondColor),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                      child: ActionsInfoWidget(
+                          reviewCount: userData.reviewCount.toString(),
+                          userLikes: userData.userLikes.toString()),
                     ),
                     const Divider(
                       color: Colors.grey,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: GestureDetector(
-                        onTap: () {
-                          widget._model.onLogOutButtonPressed();
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.exit_to_app,
-                              color: Colors.red,
-                              size: 18,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Log out',
-                              style: TextStyle(color: Colors.red, fontSize: 18),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    LogOutButton(
+                        onLogOutButtonPressed:
+                            widget._model.onLogOutButtonPressed),
                     const Divider(
                       color: Colors.grey,
                     ),
