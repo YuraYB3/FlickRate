@@ -29,6 +29,12 @@ class _MovieViewState extends State<MovieView> {
   final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
+  void dispose() {
+    widget._model.pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;

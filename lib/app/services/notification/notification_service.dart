@@ -23,6 +23,7 @@ class NotificationService implements INotificationService {
 
   Future<void> _setNotificationsHandlers() async {
     //terminated
+
     FirebaseMessaging.instance.getInitialMessage().then((value) {});
 
     ///foreground
@@ -37,10 +38,5 @@ class NotificationService implements INotificationService {
         }
       },
     );
-
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 }
-
-@pragma("vm:entry-point")
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {}

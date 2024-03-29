@@ -24,6 +24,7 @@ class _MovieReviewsState extends State<MovieReviews> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       child: Center(
         child: Column(
           children: [
@@ -35,15 +36,19 @@ class _MovieReviewsState extends State<MovieReviews> {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        leading: CachedImageWidget(
-                            imageUrl: review.userImage,
-                            height: 50,
-                            shape: BoxShape.circle,
-                            width: 50),
+                        leading: SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: CachedImageWidget(
+                              imageUrl: review.userImage,
+                              height: 50,
+                              shape: BoxShape.circle,
+                              width: 50),
+                        ),
                         title: Text(review.userName),
                         subtitle: Text(
-                          maxLines: 50,
                           review.reviewText,
+                          maxLines: 50,
                           overflow: TextOverflow.ellipsis,
                         ),
                         trailing: Text(review.rating.toStringAsFixed(1)),

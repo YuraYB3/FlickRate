@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flickrate/app/common/screens/my_loading_widget.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 
 import 'package:flutter/material.dart';
@@ -28,11 +29,7 @@ class CachedImageWidget extends StatelessWidget {
             shape: shape,
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover)),
       ),
-      placeholder: (context, url) => Center(
-        child: CircularProgressIndicator(
-          color: colorsPalette.mainColor,
-        ),
-      ),
+      placeholder: (context, url) => MyLoadingScreen(),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }

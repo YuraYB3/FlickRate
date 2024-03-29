@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:math';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -27,7 +29,8 @@ class LocalNotificationService implements ILocalNotificationService {
   @override
   Future<void> showNotification({required RemoteMessage message}) async {
     try {
-      final id = DateTime.now().microsecond ~/ 1000;
+      Random random = Random();
+      final id = random.nextInt(1000);
       const NotificationDetails notificationDetails = NotificationDetails(
         android: AndroidNotificationDetails(
           channelId,
@@ -38,11 +41,13 @@ class LocalNotificationService implements ILocalNotificationService {
         ),
       );
 
-      await _flutterLocalNotificationsPlugin.show(
-          id,
-          message.notification?.title ?? "",
-          message.notification?.body ?? "",
-          notificationDetails);
+      if (message.notification != null) {
+        await _flutterLocalNotificationsPlugin.show(
+            id,
+            message.notification!.title ?? "",
+            message.notification!.body ?? "",
+            notificationDetails);
+      }
     } on Exception catch (e) {
       print(e);
     }
