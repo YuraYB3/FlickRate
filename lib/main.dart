@@ -13,8 +13,8 @@ import 'app/services/user/iuser_service.dart';
 @pragma("vm:entry-point")
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  if (message.notification != null) {}
-  return;
+  /*  if (message.notification != null) {}
+  return;*/
 }
 
 void main() async {
