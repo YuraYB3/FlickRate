@@ -43,20 +43,20 @@ class _MovieViewState extends State<MovieView> {
       stream: widget._model.movieStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const MyErrorScreen();
+          return showErrorScreen();
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(body: MyLoadingScreen());
+          return showLoadingScreen();
         }
         final movieData = snapshot.data!;
         return StreamBuilder<List<IReview>>(
           stream: widget._model.reviewStreamList,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Scaffold(body: Center(child: MyLoadingScreen()));
+              return showLoadingScreen();
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Scaffold(body: Center(child: MyLoadingScreen()));
+              return showLoadingScreen();
             }
             final reviewData = snapshot.data!;
             return Scaffold(
@@ -126,7 +126,7 @@ class _MovieViewState extends State<MovieView> {
                               );
                             })
                         : reviewData.isEmpty
-                            ? MyEmptyScreen()
+                            ? showEmptyScreen()
                             : MovieReviews(
                                 reviewData: reviewData,
                                 moveToPreviousPage:
@@ -142,4 +142,10 @@ class _MovieViewState extends State<MovieView> {
       },
     );
   }
+
+  MyEmptyScreen showEmptyScreen() => MyEmptyScreen();
+
+  MyErrorScreen showErrorScreen() => const MyErrorScreen();
+
+  Scaffold showLoadingScreen() => Scaffold(body: MyLoadingScreen());
 }

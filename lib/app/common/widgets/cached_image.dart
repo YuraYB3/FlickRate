@@ -26,10 +26,17 @@ class CachedImageWidget extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-            shape: shape,
-            image: DecorationImage(image: imageProvider, fit: BoxFit.cover)),
+          shape: shape,
+          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+        ),
       ),
-      placeholder: (context, url) => MyLoadingScreen(),
+      placeholder: (context, url) => SizedBox(
+        width: width,
+        height: height,
+        child: Center(
+          child: MyLoadingScreen(),
+        ),
+      ),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
