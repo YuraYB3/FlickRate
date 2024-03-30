@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flickrate/app/routing/inavigation_util.dart';
+import 'package:flickrate/app/routing/navigation_util.dart';
 import 'package:flickrate/app/services/auth/auth_service.dart';
 import 'package:flickrate/app/services/local_notification/local_notification_service.dart';
 import 'package:flickrate/app/services/user/iuser_service.dart';
@@ -59,6 +61,12 @@ void initUserService() {
   );
 }
 
+void initNavigationService() {
+  locator.registerSingleton<INavigationUtil>(
+    NavigationUtil(),
+  );
+}
+
 void initLocalNotificationService() {
   locator.registerSingleton<ILocalNotificationService>(
     LocalNotificationService(),
@@ -68,6 +76,7 @@ void initLocalNotificationService() {
 void initNotificationService() {
   locator.registerSingleton<INotificationService>(
     NotificationService(
+        navigationUtil: locator<INavigationUtil>(),
         localNotificationService: locator<ILocalNotificationService>()),
   );
 }
