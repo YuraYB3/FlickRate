@@ -24,6 +24,7 @@ class ShowMoviesViewModel extends ChangeNotifier {
   }
 
   void onListTileClicked(String movieId) async {
+    print(movieId);
     await _navigationUtil.navigateTo(routeMovie, data: movieId);
   }
 

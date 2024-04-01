@@ -1,0 +1,14 @@
+[
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.example.flickrate",
+        "sha256_cert_fingerprints": [
+          "EA:FC:49:AA:3D:91:B7:4D:AF:10:17:51:54:1A:40:6B:19:98:20:AD:85:2F:F7:C5:4A:CE:69:42:D3:D9:A9:90"
+        ]
+      }
+    }
+  ]

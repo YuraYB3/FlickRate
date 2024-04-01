@@ -7,18 +7,22 @@ import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
 import 'screens/core_navigation/core_navigation_factory.dart';
 import 'screens/login/login_factory.dart';
+import 'services/uni_services.dart';
 import 'services/user/iuser_service.dart';
 import 'services/user/user_service.dart';
 
 class App extends StatefulWidget {
   final AppRouter _appRouter;
   final IUserService _userService;
-  const App({
-    Key? key,
-    required IUserService userService,
-    required AppRouter appRouter,
-  })  : _appRouter = appRouter,
+  final UniService _uniService;
+  const App(
+      {Key? key,
+      required IUserService userService,
+      required AppRouter appRouter,
+      required UniService uniService})
+      : _appRouter = appRouter,
         _userService = userService,
+        _uniService = uniService,
         super(key: key);
 
   @override
@@ -26,6 +30,12 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  @override
+  void didChangeDependencies() {
+    widget._uniService.init();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

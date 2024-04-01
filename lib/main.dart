@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flickrate/app/services/uni_services.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ void main() async {
     ],
     child: App(
       userService: locator<IUserService>(),
+      uniService: locator<UniService>(),
       appRouter: AppRouter(),
     ),
   ));
@@ -32,6 +34,7 @@ void _initServices() {
   initNavigationService();
   initLocalNotificationService();
   initNotificationService();
+  initDeepLinkService();
   initRepos();
   initAuthService();
   initUserService();
