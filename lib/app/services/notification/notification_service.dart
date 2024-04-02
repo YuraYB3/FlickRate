@@ -34,7 +34,7 @@ class NotificationService implements INotificationService {
         .getInitialMessage()
         .then((RemoteMessage? message) {
       if (message?.notification != null) {
-        _navigationUtil.navigateTo(routeShowReviews);
+        _onNotificationTapped();
       }
     });
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -48,10 +48,14 @@ class NotificationService implements INotificationService {
       (RemoteMessage message) {
         if (message.notification != null) {
           print("Background Notification Tapped");
-          _navigationUtil.navigateTo(routeShowReviews);
+          _onNotificationTapped();
         }
       },
     );
+  }
+
+  Future<void> _onNotificationTapped() async {
+    await _navigationUtil.navigateTo(routeDefaultNotificationPage);
   }
 }
 

@@ -1,4 +1,6 @@
 import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_factory.dart';
+import 'package:flickrate/temporary/default_notification_screen/default_notification_screen_factory.dart';
+import 'package:flickrate/temporary/default_url_screen/default_url_screen_factory.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/home/home_factory.dart';
@@ -23,6 +25,11 @@ class AppRouter {
             builder: (_) => _buildShowMoviesSettings(genre));
       case routeShowReviews:
         return MaterialPageRoute(builder: (_) => _buildShowReviewsSetting());
+      case routeDefaultURLPage:
+        return MaterialPageRoute(builder: (_) => _buildDefaultUrlPage());
+      case routeDefaultNotificationPage:
+        return MaterialPageRoute(
+            builder: (_) => _buildDefaultNotificationPage());
       default:
     }
     return null;
@@ -46,5 +53,13 @@ class AppRouter {
 
   Widget _buildShowReviewsSetting() {
     return ShowReviewsFactory.build();
+  }
+
+  Widget _buildDefaultNotificationPage() {
+    return DefaultNotificationScreenFactory.build();
+  }
+
+  Widget _buildDefaultUrlPage() {
+    return DefaultUrlScreenFactory.build();
   }
 }

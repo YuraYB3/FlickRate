@@ -7,7 +7,7 @@ import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
 import 'screens/core_navigation/core_navigation_factory.dart';
 import 'screens/login/login_factory.dart';
-import 'services/uni_services.dart';
+import 'services/deep_linkinng/uni_services.dart';
 import 'services/user/iuser_service.dart';
 import 'services/user/user_service.dart';
 

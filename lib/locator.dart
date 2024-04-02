@@ -3,7 +3,7 @@ import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/app/routing/navigation_util.dart';
 import 'package:flickrate/app/services/auth/auth_service.dart';
 import 'package:flickrate/app/services/local_notification/local_notification_service.dart';
-import 'package:flickrate/app/services/uni_services.dart';
+import 'package:flickrate/app/services/deep_linkinng/uni_services.dart';
 import 'package:flickrate/app/services/user/iuser_service.dart';
 import 'package:flickrate/app/services/user/user_service.dart';
 import 'package:flickrate/data/review/review_repository.dart';
@@ -83,7 +83,8 @@ void initNotificationService() {
 }
 
 void initDeepLinkService() {
-  locator.registerSingleton<UniService>(UniService());
+  locator.registerSingleton<UniService>(
+      UniService(navigationUtil: locator<INavigationUtil>()));
 }
 
 void initRepos() {

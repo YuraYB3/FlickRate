@@ -7,6 +7,17 @@ class MyErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('ERROR'));
+    return Scaffold(
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: const Center(
+          child: Text(
+            'ERRORKA',
+            style: TextStyle(color: Colors.red, fontSize: 48),
+          ),
+        ),
+      ),
+    );
   }
 }

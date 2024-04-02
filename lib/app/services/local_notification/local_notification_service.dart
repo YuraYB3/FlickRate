@@ -60,8 +60,8 @@ class LocalNotificationService implements ILocalNotificationService {
 
   static void onNotificationTap(
       NotificationResponse notificationResponse) async {
-    var navigatorKey = locator<INavigationUtil>();
-    navigatorKey.navigateTo(routeShowReviews);
+    INavigationUtil navigationUtil = locator<INavigationUtil>();
+    navigationUtil.navigateTo(routeDefaultNotificationPage);
     print('clicked');
   }
 }
