@@ -5,6 +5,7 @@ abstract interface class IUserService {
   Future<void> signWithGoogle(
       {required Function(String message) showException});
   void logOut();
+  void closeUserStreamController();
   Stream<UserState> userStateStream();
   Future<void> sentOtp(String number);
   Future<void> register({required String email, required String password});

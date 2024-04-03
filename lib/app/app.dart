@@ -7,7 +7,7 @@ import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
 import 'screens/core_navigation/core_navigation_factory.dart';
 import 'screens/login/login_factory.dart';
-import 'services/deep_linkinng/uni_services.dart';
+import 'services/deep_linking/uni_services.dart';
 import 'services/user/iuser_service.dart';
 import 'services/user/user_service.dart';
 
@@ -31,9 +31,15 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   @override
-  void didChangeDependencies() {
+  void initState() {
     widget._uniService.init();
-    super.didChangeDependencies();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget._userService.closeUserStreamController();
+    super.dispose();
   }
 
   @override

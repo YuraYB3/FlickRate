@@ -107,15 +107,20 @@ class MovieViewModel extends ChangeNotifier {
     if (_movieReview.trim().isNotEmpty) {
       try {
         String userId = _userService.getCurrentUserId();
-        _reviewRepository.createReview(Review(
-          userId: userId,
-          movieId: _movieId,
-          rating: _movieRating,
-          reviewText: _movieReview,
-        ));
-        showSuccess('Review created');
-        _restoreDefaultValues();
-        notifyListeners();
+
+        if (userId.isNotEmpty) {
+          _reviewRepository.createReview(Review(
+            userId: userId,
+            movieId: _movieId,
+            rating: _movieRating,
+            reviewText: _movieReview,
+          ));
+          showSuccess('Review created');
+          _restoreDefaultValues();
+          notifyListeners();
+        } else {
+          showError("You are not logged in!");
+        }
       } catch (e) {
         print(e.toString());
         showError("Can't create review");

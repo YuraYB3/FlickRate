@@ -3,12 +3,9 @@
 import 'dart:math';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flickrate/app/routing/inavigation_util.dart';
-import 'package:flickrate/locator.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../../domain/local_notification/ilocal_notification_service.dart';
-import '../../routing/routes.dart';
 
 class LocalNotificationService implements ILocalNotificationService {
   static const String channelId = 'easyaproach';
@@ -60,8 +57,8 @@ class LocalNotificationService implements ILocalNotificationService {
 
   static void onNotificationTap(
       NotificationResponse notificationResponse) async {
-    INavigationUtil navigationUtil = locator<INavigationUtil>();
-    navigationUtil.navigateTo(routeDefaultNotificationPage);
+    //   INavigationUtil navigationUtil = locator<INavigationUtil>();
+    //   navigationUtil.navigateTo(routeDefaultNotificationPage);
     print('clicked');
   }
 }

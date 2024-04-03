@@ -1,24 +1,18 @@
 // ignore_for_file: avoid_print
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flickrate/app/routing/routes.dart';
 import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
 
 import '../../../domain/notification/inotification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-import '../../routing/inavigation_util.dart';
-
 class NotificationService implements INotificationService {
   final ILocalNotificationService _localNotificationService;
-  final INavigationUtil _navigationUtil;
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  NotificationService(
-      {required ILocalNotificationService localNotificationService,
-      required INavigationUtil navigationUtil})
-      : _localNotificationService = localNotificationService,
-        _navigationUtil = navigationUtil {
+  NotificationService({
+    required ILocalNotificationService localNotificationService,
+  }) : _localNotificationService = localNotificationService {
     _init();
   }
 
@@ -55,7 +49,7 @@ class NotificationService implements INotificationService {
   }
 
   Future<void> _onNotificationTapped() async {
-    await _navigationUtil.navigateTo(routeDefaultNotificationPage);
+    // await _navigationUtil.navigateTo(routeDefaultNotificationPage);
   }
 }
 

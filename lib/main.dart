@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flickrate/app/services/deep_linkinng/uni_services.dart';
+import 'package:flickrate/app/services/deep_linking/uni_services.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

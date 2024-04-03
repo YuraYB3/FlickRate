@@ -38,11 +38,11 @@ class UniService {
         await _navigationUtil.navigateTo(routeMovie, data: receivedMovieId);
       } else {
         print('Navigate to default page');
-        await _navigationUtil.navigateTo(routeDefaultURLPage);
+        //   await _navigationUtil.navigateTo(routeDefaultURLPage);
       }
     } catch (e) {
       print('Exception handling deep link: $e');
-      await _navigationUtil.navigateTo(routeDefaultURLPage);
+      //  await _navigationUtil.navigateTo(routeDefaultURLPage);
     }
   }
 }

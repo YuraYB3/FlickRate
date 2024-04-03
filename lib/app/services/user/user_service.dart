@@ -63,6 +63,7 @@ class UserService implements IUserService {
     userStream.listen((event) {
       _userStateStreamController.add(event);
     });
+
     return _userStateStreamController.stream;
   }
 
@@ -70,5 +71,10 @@ class UserService implements IUserService {
   String getCurrentUserId() {
     String userId = _authService.getUserId();
     return userId;
+  }
+
+  @override
+  void closeUserStreamController() {
+    _userStateStreamController.close();
   }
 }
