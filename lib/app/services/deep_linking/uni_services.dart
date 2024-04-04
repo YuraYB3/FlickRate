@@ -10,21 +10,21 @@ class UniService {
   UniService({required INavigationUtil navigationUtil})
       : _navigationUtil = navigationUtil;
 
-  Future<void> init() async {
+  Future<void> getInitialLink() async {
     try {
       final Uri? uri = await getInitialUri();
-      _uniHandler(uri);
+      _handleUri(uri);
     } catch (e) {
       print('Error initializing deep link: $e');
     }
     uriLinkStream.listen((Uri? uri) async {
-      _uniHandler(uri);
+      _handleUri(uri);
     }, onError: (error) {
       print('Error listening to URI links: $error');
     });
   }
 
-  Future<void> _uniHandler(Uri? uri) async {
+  Future<void> _handleUri(Uri? uri) async {
     if (uri == null || uri.queryParameters.isEmpty) return;
 
     try {

@@ -32,7 +32,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   void initState() {
-    widget._uniService.init();
+    widget._uniService.getInitialLink();
     super.initState();
   }
 
