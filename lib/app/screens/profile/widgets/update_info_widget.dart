@@ -9,12 +9,14 @@ class UpdateInfoWidget extends StatelessWidget {
   UpdateInfoWidget(
       {super.key,
       required this.userData,
-      required this.onChangePhotoClicked,
+      required this.onChangePhotoByGalleryClicked,
+      required this.onChangePhotoByCameraClicked,
       required this.updateUserNickNameField,
       required this.onChangeUserNickNameClicked});
 
   final IMyUser userData;
-  final Function(Function(String message)) onChangePhotoClicked;
+  final Function(Function(String message)) onChangePhotoByGalleryClicked;
+  final Function(Function(String message)) onChangePhotoByCameraClicked;
   final Function(String value) updateUserNickNameField;
   final Function(Function(String message)) onChangeUserNickNameClicked;
   final ColorsPalette colorsPalette = ColorsPalette();
@@ -40,8 +42,8 @@ class UpdateInfoWidget extends StatelessWidget {
                 left: 45,
                 child: IconButton(
                   onPressed: () {
-                    onChangePhotoClicked(
-                        (message) => showCustomSnackBar(context, message));
+                    /**/
+                        showCustomModelSnackBar(context, colorsPalette, onChangePhotoByGalleryClicked, onChangePhotoByCameraClicked);
                   },
                   icon: const Icon(Icons.add_a_photo),
                 ),
@@ -109,4 +111,53 @@ class UpdateInfoWidget extends StatelessWidget {
       ),
     );
   }
+}
+void showCustomModelSnackBar(BuildContext context, ColorsPalette colorsPalette, Function(Function(String message)) onChangePhotoFromGalleryClicked, Function(Function(String message)) onChangePhotoByCameraClicked ){
+  showModalBottomSheet(context: context, builder: (context) {
+    return Card(
+
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height/5.2,
+        margin: const EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(child: 
+            InkWell(
+              child:  Column(
+                children: [
+                  Icon(Icons.image, size: 60,color: colorsPalette.mainColor),
+                  const SizedBox(height: 12,),
+                  Text("Gallery", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: colorsPalette.secondColor),),
+                ],
+              ),
+              onTap: () {
+               onChangePhotoFromGalleryClicked(
+                        (message) => showCustomSnackBar(context, message));
+              },
+            ),
+            
+            ),
+             Expanded(child: 
+            InkWell(
+              child:  Column(
+                children: [
+                  Icon(Icons.camera, size: 60, color: colorsPalette.mainColor),
+                  const SizedBox(height: 12,),
+                  Text("Camera", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: colorsPalette.secondColor),),
+                ],
+              ),
+              onTap: () {
+                 onChangePhotoByCameraClicked(
+                        (message) => showCustomSnackBar(context, message));
+              },
+            ),
+            )
+          ],
+        ),
+      ),
+    );
+  },);
 }

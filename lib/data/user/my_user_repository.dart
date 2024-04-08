@@ -33,16 +33,14 @@ class MyUserRepository implements IMyUserRepository {
   }
 
   @override
-  Future<void> changeProfilePhoto(String documentId, String imageName) async {
-    XFile? image = await _pickImageFromGallery();
-    if (image != null) {
-      String imgURL = await _storageService.uploadImage(
+  Future<void> changeProfilePhoto(String documentId, String imageName, XFile image) async {
+  String imgURL = await _storageService.uploadImage(
           directoryUserProfile, image, imageName);
       updateProfileImage(imgURL, documentId);
-    }
+    
   }
-
-  Future<XFile?> _pickImageFromGallery() async {
+  @override
+  Future<XFile?> pickImageFromGallery() async {
     XFile? pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     return pickedFile;

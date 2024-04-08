@@ -13,8 +13,7 @@ class MyTextButton extends StatelessWidget {
       required this.textSize,
       required this.title,
       required this.onButtonPressed,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {

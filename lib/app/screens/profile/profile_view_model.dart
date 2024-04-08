@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
+import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../domain/user/i_my_user.dart';
 import '../../services/user/iuser_service.dart';
@@ -12,6 +14,7 @@ class ProfileViewModel extends ChangeNotifier {
   final IUserService _userService;
   final IMyUserRepository _myUserRepository;
   final PermissionHandler _permissionHandler;
+  final INavigationUtil _navigationUtil;
   late Stream<IMyUser> _userStream;
   late IMyUser _myUser;
   String _userNickName = '';
@@ -25,9 +28,10 @@ class ProfileViewModel extends ChangeNotifier {
     required PermissionHandler permissionHandler,
     required IMyUserRepository myUserRepository,
     required IUserService userService,
+    required INavigationUtil navigationUtil,
   })  : _userService = userService,
         _permissionHandler = permissionHandler,
-        _myUserRepository = myUserRepository {
+        _myUserRepository = myUserRepository, _navigationUtil = navigationUtil {
     _init();
   }
 
@@ -57,7 +61,7 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
-  void onChangePhotoClicked(
+  void onChoosePhotoFromGalleryClicked(
       {required Function(String message) showException}) async {
     try {
       PermissionState state =
@@ -67,8 +71,39 @@ class ProfileViewModel extends ChangeNotifier {
         case PermissionState.granted:
           String userId = _myUser.userId;
           String imageName = "profile_image$userId.jpg";
-          await _myUserRepository.changeProfilePhoto(
-              _myUser.documentId, imageName);
+          XFile? image = await _myUserRepository.pickImageFromGallery();
+          if(image!=null) {
+            await _myUserRepository.changeProfilePhoto(
+              _myUser.documentId, imageName, image);
+              _navigationUtil.navigateBack();
+          }
+          else{
+            _navigationUtil.navigateBack();
+          }
+          break;
+        case PermissionState.denied:
+          showException("Permission not allowed");
+          break;
+        default:
+          showException("Permission restricted! Allow it in settings!");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void onMadePhotoByCameraClicked(
+      {required Function(String message) showException}) async {
+    try {
+      PermissionState state =
+          await _permissionHandler.isCameraPermissionGranted();
+      print(state);
+      switch (state) {
+        case PermissionState.granted:
+        /*  String userId = _myUser.userId;
+          String imageName = "profile_image$userId.jpg";
+            // implement call camera here*/
+           _navigationUtil.navigateBack();
           break;
         case PermissionState.denied:
           showException("Permission not allowed");

@@ -30,10 +30,10 @@ class _ProfileViewState extends State<ProfileView> {
           widget._model.isEditInfoClicked
               ? IconButton(
                   onPressed: widget._model.onEditInfoButtonClicked,
-                  icon: const Icon(Icons.person_4))
+                  icon: const Icon(Icons.person_4, color: Colors.white,))
               : IconButton(
                   onPressed: widget._model.onEditInfoButtonClicked,
-                  icon: const Icon(Icons.edit))
+                  icon: const Icon(Icons.edit, color: Colors.white, ))
         ],
       ),
       body: widget._model.profileViewState == ProfileViewState.loadingInfo
@@ -61,12 +61,15 @@ class _ProfileViewState extends State<ProfileView> {
                         updateUserNickNameField: (value) {
                           widget._model.updateUserNickNameField(value);
                         },
-                        onChangePhotoClicked: (p0) {
-                          widget._model.onChangePhotoClicked(showException: p0);
+                        onChangePhotoByGalleryClicked: (p0) {
+                          widget._model.onChoosePhotoFromGalleryClicked(showException: p0);
                         },
                         onChangeUserNickNameClicked: (p0) {
                           widget._model
                               .onChangeUserNickNameClicked(showException: p0);
+                        },
+                        onChangePhotoByCameraClicked: (p0) {
+                          widget._model.onMadePhotoByCameraClicked(showException: p0);
                         },
                       ),
                     const Divider(

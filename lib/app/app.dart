@@ -16,14 +16,13 @@ class App extends StatefulWidget {
   final IUserService _userService;
   final UniService _uniService;
   const App(
-      {Key? key,
+      {super.key,
       required IUserService userService,
       required AppRouter appRouter,
       required UniService uniService})
       : _appRouter = appRouter,
         _userService = userService,
-        _uniService = uniService,
-        super(key: key);
+        _uniService = uniService;
 
   @override
   State<App> createState() => _AppState();

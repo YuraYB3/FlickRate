@@ -6,8 +6,7 @@ class MyField extends StatelessWidget {
   final String label;
   final Function(String text) onChanged;
   final ColorsPalette colorsPalette = ColorsPalette();
-  MyField({required this.label, required this.onChanged, Key? key})
-      : super(key: key);
+  MyField({required this.label, required this.onChanged, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -54,7 +54,7 @@ class AddMovieContainer extends StatelessWidget {
                             width: 200,
                             child: ElevatedButton(
                                 style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<
+                                    shape: WidgetStateProperty.all<
                                         RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                         borderRadius:
@@ -62,7 +62,7 @@ class AddMovieContainer extends StatelessWidget {
                                       ),
                                     ),
                                     backgroundColor:
-                                        MaterialStateProperty.all<Color>(
+                                        WidgetStateProperty.all<Color>(
                                             Colors.white)),
                                 onPressed: onButtonClicked,
                                 child: Text(

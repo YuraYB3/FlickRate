@@ -30,6 +30,24 @@ class PermissionHandler {
     }
   }
 
+  Future<PermissionState> isCameraPermissionGranted() async {
+    const Permission permissionStorage =   Permission.camera;  
+    if (await permissionStorage.status.isGranted) {
+      return PermissionState.granted;
+    } else {
+      switch (await permissionStorage.request()) {
+        case PermissionStatus.granted:
+          return PermissionState.granted;
+        case PermissionStatus.denied:
+          return PermissionState.denied;
+        case PermissionStatus.restricted:
+          return PermissionState.restricted;
+        default:
+          return PermissionState.denied;
+      }
+    }
+  }
+
   Future<PermissionState> isNotificationPermissionGranted() async {
     const Permission permissionNotification = Permission.notification;
     final status = await permissionNotification.status;

@@ -8,11 +8,11 @@ class MovieBar extends StatelessWidget {
   final String movieRating;
   final Function() navigateBack;
   MovieBar({
-    Key? key,
+    super.key,
     required this.movieName,
     required this.movieRating,
     required this.navigateBack,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

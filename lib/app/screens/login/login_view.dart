@@ -8,7 +8,7 @@ import 'screens/sign_up_screen.dart';
 class LoginView extends StatelessWidget {
   final LoginViewModel model;
 
-  const LoginView({required this.model, Key? key}) : super(key: key);
+  const LoginView({required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {

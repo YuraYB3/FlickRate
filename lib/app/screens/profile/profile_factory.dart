@@ -1,3 +1,4 @@
+import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/locator.dart';
 import 'package:flickrate/utils/permission_handler.dart';
@@ -14,7 +15,8 @@ class ProfileFactory {
         create: (context) => ProfileViewModel(
             permissionHandler: locator<PermissionHandler>(),
             userService: locator<IUserService>(),
-            myUserRepository: locator<IMyUserRepository>()),
+            myUserRepository: locator<IMyUserRepository>(), 
+            navigationUtil: context.read<INavigationUtil>()),
         child: Consumer<ProfileViewModel>(
           builder: (context, model, child) => ProfileView(model: model),
         ));
