@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/user/i_my_user.dart';
 import '../../../common/widgets/cached_image.dart';
-import '../../../common/widgets/custom_snackbar.dart';
 import '../../../theme/color_palette.dart';
 
 class UpdateInfoWidget extends StatelessWidget {
@@ -16,9 +15,9 @@ class UpdateInfoWidget extends StatelessWidget {
 
   final IMyUser userData;
   final Function() onChangePhotoByGalleryClicked;
-  final Function(Function(String message)) onChangePhotoByCameraClicked;
+  final Function() onChangePhotoByCameraClicked;
   final Function(String value) updateUserNickNameField;
-  final Function(Function(String message)) onChangeUserNickNameClicked;
+  final Function() onChangeUserNickNameClicked;
   final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
@@ -91,9 +90,7 @@ class UpdateInfoWidget extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         onChangeUserNickNameClicked(
-                          (message) {
-                            showCustomSnackBar(context, message);
-                          },
+                         
                         );
                       },
                       icon: const Icon(
@@ -111,7 +108,7 @@ class UpdateInfoWidget extends StatelessWidget {
     );
   }
 }
-void showCustomModelSnackBar(BuildContext context, ColorsPalette colorsPalette, Function() onChangePhotoFromGalleryClicked, Function(Function(String message)) onChangePhotoByCameraClicked ){
+void showCustomModelSnackBar(BuildContext context, ColorsPalette colorsPalette, Function() onChangePhotoFromGalleryClicked, Function() onChangePhotoByCameraClicked ){
   showModalBottomSheet(context: context, builder: (context) {
     return Card(
 
@@ -150,7 +147,7 @@ void showCustomModelSnackBar(BuildContext context, ColorsPalette colorsPalette, 
               ),
               onTap: () {
                  onChangePhotoByCameraClicked(
-                        (message) => showCustomSnackBar(context, message));
+                        );
               },
             ),
             )

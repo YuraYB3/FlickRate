@@ -66,13 +66,9 @@ class _ProfileViewState extends State<ProfileView> {
                           widget._model.onChoosePhotoFromGalleryClicked(
                             showException: (message) => showCustomSnackBar(context,message),
                             showSuccess: (message) => showCustomSnackBar(context,message,backgroundColor: Colors.green),),
-                        onChangeUserNickNameClicked: (p0) {
-                          widget._model
-                              .onChangeUserNickNameClicked(showException: p0);
-                        },
-                        onChangePhotoByCameraClicked: (p0) {
-                          widget._model.onMadePhotoByCameraClicked(showException: p0);
-                        },
+                        onChangeUserNickNameClicked: () => widget._model.onChangeUserNickNameClicked(showException: (message) => showCustomSnackBar(context, message),),
+                        onChangePhotoByCameraClicked: () => widget._model.onChoosePhotoFromGalleryClicked( showException: (message) => showCustomSnackBar(context,message),
+                            showSuccess: (message) => showCustomSnackBar(context,message,backgroundColor: Colors.green),),
                       ),
                     const Divider(
                       color: Colors.grey,
