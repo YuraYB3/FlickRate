@@ -2,6 +2,7 @@ import 'package:flickrate/app/common/screens/my_loading_widget.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
+import '../../common/widgets/custom_snackbar.dart';
 import 'profile_view_model.dart';
 import 'widgets/actions_info_widget.dart';
 import 'widgets/log_out_button.dart';
@@ -61,9 +62,10 @@ class _ProfileViewState extends State<ProfileView> {
                         updateUserNickNameField: (value) {
                           widget._model.updateUserNickNameField(value);
                         },
-                        onChangePhotoByGalleryClicked: (p0) {
-                          widget._model.onChoosePhotoFromGalleryClicked(showException: p0);
-                        },
+                        onChangePhotoByGalleryClicked: () => 
+                          widget._model.onChoosePhotoFromGalleryClicked(
+                            showException: (message) => showCustomSnackBar(context,message),
+                            showSuccess: (message) => showCustomSnackBar(context,message,backgroundColor: Colors.green),),
                         onChangeUserNickNameClicked: (p0) {
                           widget._model
                               .onChangeUserNickNameClicked(showException: p0);

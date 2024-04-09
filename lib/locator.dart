@@ -2,6 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/app/routing/navigation_util.dart';
 import 'package:flickrate/app/services/auth/auth_service.dart';
+import 'package:flickrate/app/services/camera/camera_config.dart';
+import 'package:flickrate/app/services/camera/camera_core.dart';
+import 'package:flickrate/app/services/camera/camera_service.dart';
+import 'package:flickrate/domain/camera/icamera_config.dart';
+import 'package:flickrate/domain/camera/icamera_core.dart';
+import 'package:flickrate/domain/camera/icamera_service.dart';
 import 'package:flickrate/app/services/local_notification/local_notification_service.dart';
 import 'package:flickrate/app/services/deep_linking/uni_services.dart';
 import 'package:flickrate/app/services/user/iuser_service.dart';
@@ -27,6 +33,23 @@ import 'data/movies/movie_repository.dart';
 import 'domain/movies/imovie_repository.dart';
 
 final locator = GetIt.instance;
+
+void initServices() {
+  initFunctionService();
+  initPermissionHandler();
+  initNetworkService();
+  initStorageService();
+  initNavigationService();
+  initLocalNotificationService();
+  initNotificationService();
+  initDeepLinkService();
+  initRepos();
+  initAuthService();
+  initUserService();
+  initCameraCore();
+  initCameraConfig();
+  initCameraService();
+}
 
 void initFunctionService() {
   locator.registerSingleton<IFunctionService>(
@@ -92,7 +115,6 @@ void initRepos() {
       networkService: locator.get<INetworkService>(),
     ),
   );
-
   locator.registerFactory<IMyUserRepository>(
     () => MyUserRepository(
       networkService: locator.get<INetworkService>(),
@@ -100,7 +122,23 @@ void initRepos() {
     ),
   );
 
-  locator.registerFactory<IReviewRepository>(
+locator.registerFactory<IReviewRepository>(
     () => ReviewRepository(networkService: locator.get<INetworkService>()),
   );
 }
+void initCameraCore() {
+  locator.registerSingleton<ICameraCore>(CameraCore());
+}
+
+void initCameraConfig() {
+  locator.registerSingleton<ICameraConfig>(CameraConfig(
+    cameraResolutionPreset: cameraResolutionPreset
+  ));
+}
+
+void initCameraService() {
+  locator.registerFactory<ICameraService>(()=> CameraService(cameraConfig: locator.get<ICameraConfig>(), cameraCore: locator.get<ICameraCore>(),),);
+}
+
+
+

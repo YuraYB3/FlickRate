@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 import 'package:flickrate/app/routing/inavigation_util.dart';
+import 'package:flickrate/app/routing/routes.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   void onChoosePhotoFromGalleryClicked(
-      {required Function(String message) showException}) async {
+      {required Function(String message) showException, required Function(String message) showSuccess}) async {
     try {
       PermissionState state =
           await _permissionHandler.isGalleryPermissionGranted();
@@ -76,6 +77,9 @@ class ProfileViewModel extends ChangeNotifier {
             await _myUserRepository.changeProfilePhoto(
               _myUser.documentId, imageName, image);
               _navigationUtil.navigateBack();
+              onEditInfoButtonClicked();
+              showSuccess("Photo successfully updated! Please wait");
+
           }
           else{
             _navigationUtil.navigateBack();
@@ -83,8 +87,10 @@ class ProfileViewModel extends ChangeNotifier {
           break;
         case PermissionState.denied:
           showException("Permission not allowed");
+          _navigationUtil.navigateBack();
           break;
         default:
+          _navigationUtil.navigateBack();
           showException("Permission restricted! Allow it in settings!");
       }
     } catch (e) {
@@ -94,21 +100,27 @@ class ProfileViewModel extends ChangeNotifier {
 
   void onMadePhotoByCameraClicked(
       {required Function(String message) showException}) async {
+        
     try {
       PermissionState state =
           await _permissionHandler.isCameraPermissionGranted();
       print(state);
       switch (state) {
         case PermissionState.granted:
-        /*  String userId = _myUser.userId;
-          String imageName = "profile_image$userId.jpg";
-            // implement call camera here*/
-           _navigationUtil.navigateBack();
+        String userId = _myUser.userId;
+        String imageName = "profile_image$userId.jpg";
+         _navigationUtil.navigateTo(routeCamera, data: {
+          "imageName": imageName,
+          "documentId":_myUser.documentId
+         });
+         onEditInfoButtonClicked();
           break;
         case PermissionState.denied:
           showException("Permission not allowed");
+          _navigationUtil.navigateBack();
           break;
         default:
+        _navigationUtil.navigateBack();
           showException("Permission restricted! Allow it in settings!");
       }
     } catch (e) {

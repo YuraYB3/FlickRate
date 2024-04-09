@@ -15,7 +15,7 @@ class UpdateInfoWidget extends StatelessWidget {
       required this.onChangeUserNickNameClicked});
 
   final IMyUser userData;
-  final Function(Function(String message)) onChangePhotoByGalleryClicked;
+  final Function() onChangePhotoByGalleryClicked;
   final Function(Function(String message)) onChangePhotoByCameraClicked;
   final Function(String value) updateUserNickNameField;
   final Function(Function(String message)) onChangeUserNickNameClicked;
@@ -42,7 +42,6 @@ class UpdateInfoWidget extends StatelessWidget {
                 left: 45,
                 child: IconButton(
                   onPressed: () {
-                    /**/
                         showCustomModelSnackBar(context, colorsPalette, onChangePhotoByGalleryClicked, onChangePhotoByCameraClicked);
                   },
                   icon: const Icon(Icons.add_a_photo),
@@ -112,7 +111,7 @@ class UpdateInfoWidget extends StatelessWidget {
     );
   }
 }
-void showCustomModelSnackBar(BuildContext context, ColorsPalette colorsPalette, Function(Function(String message)) onChangePhotoFromGalleryClicked, Function(Function(String message)) onChangePhotoByCameraClicked ){
+void showCustomModelSnackBar(BuildContext context, ColorsPalette colorsPalette, Function() onChangePhotoFromGalleryClicked, Function(Function(String message)) onChangePhotoByCameraClicked ){
   showModalBottomSheet(context: context, builder: (context) {
     return Card(
 
@@ -135,7 +134,7 @@ void showCustomModelSnackBar(BuildContext context, ColorsPalette colorsPalette, 
               ),
               onTap: () {
                onChangePhotoFromGalleryClicked(
-                        (message) => showCustomSnackBar(context, message));
+                       );
               },
             ),
             

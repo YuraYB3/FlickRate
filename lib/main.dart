@@ -12,7 +12,7 @@ import 'app/services/user/iuser_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  _initServices();
+  initServices();
   final INavigationUtil navigationUtil = locator<INavigationUtil>();
   runApp(MultiProvider(
     providers: [
@@ -26,21 +26,4 @@ void main() async {
   ));
 }
 
-void _initServices() {
-  initFunctionService();
-  initPermissionHandler();
-  initNetworkService();
-  initStorageService();
-  initNavigationService();
-  initLocalNotificationService();
-  initNotificationService();
-  initDeepLinkService();
-  initRepos();
-  initAuthService();
-  initUserService();
-}
-
-//TODO: Create likes and reviews count +
-//TODO: Create reviews page
-//TODO: Implement choose movie
 
