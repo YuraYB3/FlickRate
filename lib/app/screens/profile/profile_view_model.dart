@@ -113,8 +113,8 @@ class ProfileViewModel extends ChangeNotifier {
           "imageName": imageName,
           "documentId":_myUser.documentId
          });
-         onEditInfoButtonClicked();
-          break;
+        onEditInfoButtonClicked();
+        break;
         case PermissionState.denied:
           showException("Permission not allowed");
           _navigationUtil.navigateBack();

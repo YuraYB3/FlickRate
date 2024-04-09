@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flickrate/app/common/device_info.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -9,11 +11,18 @@ enum PermissionState { granted, denied, restricted }
 class PermissionHandler {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final DeviceInfo deviceInfo = DeviceInfo();
+
   Future<PermissionState> isGalleryPermissionGranted() async {
-    final Permission permissionStorage =
-        await deviceInfo.isAndroidVersionAbove13()
+     Permission permissionStorage;
+     if (Platform.isIOS) {
+       permissionStorage = Permission.photos;
+     }
+     else
+     {
+      permissionStorage =  await deviceInfo.isAndroidVersionAbove13()
             ? Permission.photos
             : Permission.storage;
+     }
     if (await permissionStorage.status.isGranted) {
       return PermissionState.granted;
     } else {
@@ -31,11 +40,11 @@ class PermissionHandler {
   }
 
   Future<PermissionState> isCameraPermissionGranted() async {
-    const Permission permissionStorage =   Permission.camera;  
-    if (await permissionStorage.status.isGranted) {
+    const Permission permissionCamera =   Permission.camera;  
+    if (await permissionCamera.status.isGranted) {
       return PermissionState.granted;
     } else {
-      switch (await permissionStorage.request()) {
+      switch (await permissionCamera.request()) {
         case PermissionStatus.granted:
           return PermissionState.granted;
         case PermissionStatus.denied:
