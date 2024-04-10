@@ -25,7 +25,7 @@ class _PreviewWidgetState extends State<PreviewWidget> {
                 padding: const EdgeInsets.all(5),
                 child: Center(
                   child: AspectRatio(
-                  aspectRatio: 9.0 / 16.0,
+                  aspectRatio: 9/ 16,
                   child: widget.cameraPreview),
           ),
         ),

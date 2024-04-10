@@ -15,6 +15,7 @@ class CameraViewModel extends ChangeNotifier {
   XFile? file;
   String imageName;
   String documentId;
+  bool isTakePictureClicked = false;
   CameraViewModel({
     required ICameraService cameraService,
     required INavigationUtil navigationUtil,
@@ -44,10 +45,12 @@ class CameraViewModel extends ChangeNotifier {
   }
 
   Future<void> onTakePhotoClicked({required Function(String message) showException, required Function() showPicture}) async {
+    _swapIsTakePictureClickedState();
     file = await _cameraService.takePicture();
     if (file!=null) {
       imagePath = file!.path;
       showPicture();
+       _swapIsTakePictureClickedState();
     }
     else{
       showException("Something went wrong");
@@ -61,5 +64,10 @@ class CameraViewModel extends ChangeNotifier {
     _myUserRepository.changeProfilePhoto(documentId, imageName, file!);
     showSuccess("Photo successfully updated! Please wait");
     _navigationUtil.navigateBackToStart();
+  }
+
+  void _swapIsTakePictureClickedState(){
+    isTakePictureClicked=!isTakePictureClicked;
+    notifyListeners();
   }
 }
