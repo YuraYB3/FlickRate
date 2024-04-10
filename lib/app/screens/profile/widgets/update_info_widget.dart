@@ -41,7 +41,11 @@ class UpdateInfoWidget extends StatelessWidget {
                 left: 45,
                 child: IconButton(
                   onPressed: () {
-                        showCustomModelSnackBar(context, colorsPalette, onChangePhotoByGalleryClicked, onChangePhotoByCameraClicked);
+                    showCustomModelSnackBar(
+                        context,
+                        colorsPalette,
+                        onChangePhotoByGalleryClicked,
+                        onChangePhotoByCameraClicked);
                   },
                   icon: const Icon(Icons.add_a_photo),
                 ),
@@ -89,9 +93,7 @@ class UpdateInfoWidget extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        onChangeUserNickNameClicked(
-                         
-                        );
+                        onChangeUserNickNameClicked();
                       },
                       icon: const Icon(
                         Icons.done,
@@ -108,52 +110,72 @@ class UpdateInfoWidget extends StatelessWidget {
     );
   }
 }
-void showCustomModelSnackBar(BuildContext context, ColorsPalette colorsPalette, Function() onChangePhotoFromGalleryClicked, Function() onChangePhotoByCameraClicked ){
-  showModalBottomSheet(context: context, builder: (context) {
-    return Card(
 
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height/5.2,
-        margin: const EdgeInsets.only(top: 8.0),
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(child: 
-            InkWell(
-              child:  Column(
-                children: [
-                  Icon(Icons.image, size: 60,color: colorsPalette.mainColor),
-                  const SizedBox(height: 12,),
-                  Text("Gallery", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: colorsPalette.secondColor),),
-                ],
+void showCustomModelSnackBar(
+    BuildContext context,
+    ColorsPalette colorsPalette,
+    Function() onChangePhotoFromGalleryClicked,
+    Function() onChangePhotoByCameraClicked) {
+  showModalBottomSheet(
+    context: context,
+    builder: (context) {
+      return Card(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 5.2,
+          margin: const EdgeInsets.only(top: 8.0),
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: InkWell(
+                  child: Column(
+                    children: [
+                      Icon(Icons.image,
+                          size: 60, color: colorsPalette.mainColor),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "Gallery",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, color: colorsPalette.secondColor),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    onChangePhotoFromGalleryClicked();
+                  },
+                ),
               ),
-              onTap: () {
-               onChangePhotoFromGalleryClicked(
-                       );
-              },
-            ),
-            
-            ),
-             Expanded(child: 
-            InkWell(
-              child:  Column(
-                children: [
-                  Icon(Icons.camera, size: 60, color: colorsPalette.mainColor),
-                  const SizedBox(height: 12,),
-                  Text("Camera", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: colorsPalette.secondColor),),
-                ],
-              ),
-              onTap: () {
-                 onChangePhotoByCameraClicked(
-                        );
-              },
-            ),
-            )
-          ],
+              Expanded(
+                child: InkWell(
+                  child: Column(
+                    children: [
+                      Icon(Icons.camera,
+                          size: 60, color: colorsPalette.mainColor),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "Camera",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16, color: colorsPalette.secondColor),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    onChangePhotoByCameraClicked();
+                  },
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-    );
-  },);
+      );
+    },
+  );
 }

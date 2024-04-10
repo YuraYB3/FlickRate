@@ -13,16 +13,14 @@ class PermissionHandler {
   final DeviceInfo deviceInfo = DeviceInfo();
 
   Future<PermissionState> isGalleryPermissionGranted() async {
-     Permission permissionStorage;
-     if (Platform.isIOS) {
-       permissionStorage = Permission.photos;
-     }
-     else
-     {
-      permissionStorage =  await deviceInfo.isAndroidVersionAbove13()
-            ? Permission.photos
-            : Permission.storage;
-     }
+    Permission permissionStorage;
+    if (Platform.isIOS) {
+      permissionStorage = Permission.photos;
+    } else {
+      permissionStorage = await deviceInfo.isAndroidVersionAbove13()
+          ? Permission.photos
+          : Permission.storage;
+    }
     if (await permissionStorage.status.isGranted) {
       return PermissionState.granted;
     } else {
@@ -40,7 +38,7 @@ class PermissionHandler {
   }
 
   Future<PermissionState> isCameraPermissionGranted() async {
-    const Permission permissionCamera =   Permission.camera;  
+    const Permission permissionCamera = Permission.camera;
     if (await permissionCamera.status.isGranted) {
       return PermissionState.granted;
     } else {

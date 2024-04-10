@@ -3,16 +3,15 @@ import 'package:flickrate/domain/camera/icamera_config.dart';
 import 'package:flickrate/domain/camera/icamera_core.dart';
 import 'package:flutter/material.dart';
 
-enum CameraState{init, ready, error}
-abstract class ICameraService {
+enum CameraState { init, ready, error }
 
+abstract class ICameraService {
   final ICameraCore cameraCore;
   final ICameraConfig cameraConfig;
 
- CameraState get cameraState;
+  CameraState get cameraState;
 
- void initCamera();
-
+  void initCamera();
 
   Widget get cameraPreview;
 
@@ -20,10 +19,7 @@ abstract class ICameraService {
 
   CameraController get cameraController;
 
-  ICameraService ({
-    required this.cameraConfig,
-    required this.cameraCore
-  });
+  ICameraService({required this.cameraConfig, required this.cameraCore});
 
   Future<void> reset();
 
@@ -33,6 +29,5 @@ abstract class ICameraService {
 
   Stream<CameraState> get cameraStateStream;
 
- Future<XFile?> takePicture();
-
+  Future<XFile?> takePicture();
 }

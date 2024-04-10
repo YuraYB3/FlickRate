@@ -10,12 +10,13 @@ import 'show_movies_view_model.dart';
 class ShowMoviesFactory {
   static Widget build(String genre) {
     return ChangeNotifierProvider(
-        create: (context) => ShowMoviesViewModel(
-              movieRepository: locator<IMovieRepository>(),
-              navigationUtil: context.read<INavigationUtil>(),
-            ),
-        child: Consumer<ShowMoviesViewModel>(
-          builder: (context, model, child) => ShowMoviesView(model: model),
-        ));
+      create: (context) => ShowMoviesViewModel(
+        movieRepository: locator<IMovieRepository>(),
+        navigationUtil: context.read<INavigationUtil>(),
+      ),
+      child: Consumer<ShowMoviesViewModel>(
+        builder: (context, model, child) => ShowMoviesView(model: model),
+      ),
+    );
   }
 }

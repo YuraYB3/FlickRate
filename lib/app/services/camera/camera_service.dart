@@ -9,7 +9,9 @@ import '../../../domain/camera/icamera_config.dart';
 import '../../../domain/camera/icamera_core.dart';
 import '../../../domain/camera/icamera_service.dart';
 
-class CameraService extends ChangeNotifier with WidgetsBindingObserver implements ICameraService {
+class CameraService extends ChangeNotifier
+    with WidgetsBindingObserver
+    implements ICameraService {
   @override
   final ICameraCore cameraCore;
 
@@ -46,7 +48,8 @@ class CameraService extends ChangeNotifier with WidgetsBindingObserver implement
   Stream<CameraState> get cameraStateStream => _cameraStateController.stream;
 
   @override
-  Size get previewSize => _cameraController?.value.previewSize ?? const Size(0, 0);
+  Size get previewSize =>
+      _cameraController?.value.previewSize ?? const Size(0, 0);
 
   @override
   void initCamera() {
@@ -69,7 +72,9 @@ class CameraService extends ChangeNotifier with WidgetsBindingObserver implement
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print('did');
-    if (_cameraController == null || !_cameraController!.value.isInitialized) return;
+    if (_cameraController == null || !_cameraController!.value.isInitialized) {
+      return;
+    }
 
     if (state == AppLifecycleState.inactive) {
       _disposeCameraController();
@@ -131,7 +136,6 @@ class CameraService extends ChangeNotifier with WidgetsBindingObserver implement
     print("dispose controller");
     await _cameraController?.dispose();
     _cameraController = null;
-    
   }
 
   @override
@@ -139,14 +143,13 @@ class CameraService extends ChangeNotifier with WidgetsBindingObserver implement
     print('take');
     try {
       _cameraController!.setFlashMode(FlashMode.off);
-      XFile xFile =  await _cameraController!.takePicture();
+      XFile xFile = await _cameraController!.takePicture();
       return xFile;
     } on CameraException catch (e) {
       _updateCameraState(CameraState.error);
       print(e.toString());
       return null;
     }
-
   }
 }
 

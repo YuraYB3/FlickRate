@@ -12,18 +12,23 @@ class AppRouter {
   Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case routeLogin:
-        return MaterialPageRoute(builder: (_) => _buildLoginSettings(routeSettings));
+        return MaterialPageRoute(
+            builder: (_) => _buildLoginSettings(routeSettings));
       case routeHome:
-        return MaterialPageRoute(builder: (_) => _buildHomeSettings(routeSettings));
+        return MaterialPageRoute(
+            builder: (_) => _buildHomeSettings(routeSettings));
       case routeMovie:
-        return MaterialPageRoute(builder: (_) => _buildMovieSettings(routeSettings));
+        return MaterialPageRoute(
+            builder: (_) => _buildMovieSettings(routeSettings));
       case routeShowMovies:
         return MaterialPageRoute(
             builder: (_) => _buildShowMoviesSettings(routeSettings));
       case routeShowReviews:
-        return MaterialPageRoute(builder: (_) => _buildShowReviewsSetting(routeSettings));
+        return MaterialPageRoute(
+            builder: (_) => _buildShowReviewsSetting(routeSettings));
       case routeCamera:
-      return MaterialPageRoute(builder: (_) => _buildCameraSettings(routeSettings));
+        return MaterialPageRoute(
+            builder: (_) => _buildCameraSettings(routeSettings));
       default:
     }
     return MaterialPageRoute(builder: (_) => const Placeholder());
@@ -51,14 +56,11 @@ class AppRouter {
     return ShowReviewsFactory.build();
   }
 
-Widget _buildCameraSettings(RouteSettings settings){
-  final Map<String, dynamic> argsMap = settings.arguments as Map<String, dynamic>;
-  final String imageName = argsMap['imageName'] ?? ''; 
-  final String documentId = argsMap['documentId'] ?? ''; 
-  print(imageName);
-  print(documentId);
-  return CameraFactory.build(imageName: imageName,documentId: documentId);
-}
-
-
+  Widget _buildCameraSettings(RouteSettings settings) {
+    final Map<String, dynamic> argsMap =
+        settings.arguments as Map<String, dynamic>;
+    final String imageName = argsMap['imageName'] ?? '';
+    final String documentId = argsMap['documentId'] ?? '';
+    return CameraFactory.build(imageName: imageName, documentId: documentId);
+  }
 }

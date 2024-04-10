@@ -12,13 +12,14 @@ import 'profile_view_model.dart';
 class ProfileFactory {
   static Widget build() {
     return ChangeNotifierProvider(
-        create: (context) => ProfileViewModel(
-            permissionHandler: locator<PermissionHandler>(),
-            userService: locator<IUserService>(),
-            myUserRepository: locator<IMyUserRepository>(), 
-            navigationUtil: context.read<INavigationUtil>()),
-        child: Consumer<ProfileViewModel>(
-          builder: (context, model, child) => ProfileView(model: model),
-        ));
+      create: (context) => ProfileViewModel(
+          permissionHandler: locator<PermissionHandler>(),
+          userService: locator<IUserService>(),
+          myUserRepository: locator<IMyUserRepository>(),
+          navigationUtil: context.read<INavigationUtil>()),
+      child: Consumer<ProfileViewModel>(
+        builder: (context, model, child) => ProfileView(model: model),
+      ),
+    );
   }
 }

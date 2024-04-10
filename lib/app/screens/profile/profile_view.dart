@@ -31,10 +31,16 @@ class _ProfileViewState extends State<ProfileView> {
           widget._model.isEditInfoClicked
               ? IconButton(
                   onPressed: widget._model.onEditInfoButtonClicked,
-                  icon: const Icon(Icons.person_4, color: Colors.white,))
+                  icon: const Icon(
+                    Icons.person_4,
+                    color: Colors.white,
+                  ))
               : IconButton(
                   onPressed: widget._model.onEditInfoButtonClicked,
-                  icon: const Icon(Icons.edit, color: Colors.white, ))
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.white,
+                  ))
         ],
       ),
       body: widget._model.profileViewState == ProfileViewState.loadingInfo
@@ -62,13 +68,24 @@ class _ProfileViewState extends State<ProfileView> {
                         updateUserNickNameField: (value) {
                           widget._model.updateUserNickNameField(value);
                         },
-                        onChangePhotoByGalleryClicked: () => 
-                          widget._model.onChoosePhotoFromGalleryClicked(
-                            showException: (message) => showCustomSnackBar(context,message),
-                            showSuccess: (message) => showCustomSnackBar(context,message,backgroundColor: Colors.green),),
-                        onChangeUserNickNameClicked: () => widget._model.onChangeUserNickNameClicked(showException: (message) => showCustomSnackBar(context, message),),
-                        onChangePhotoByCameraClicked: () => widget._model.onChoosePhotoFromGalleryClicked( showException: (message) => showCustomSnackBar(context,message),
-                            showSuccess: (message) => showCustomSnackBar(context,message,backgroundColor: Colors.green),),
+                        onChangePhotoByGalleryClicked: () =>
+                            widget._model.onChoosePhotoFromGalleryClicked(
+                          showException: (message) =>
+                              showCustomSnackBar(context, message),
+                          showSuccess: (message) => showCustomSnackBar(
+                              context, message,
+                              backgroundColor: Colors.green),
+                        ),
+                        onChangeUserNickNameClicked: () =>
+                            widget._model.onChangeUserNickNameClicked(
+                          showException: (message) =>
+                              showCustomSnackBar(context, message),
+                        ),
+                        onChangePhotoByCameraClicked: () =>
+                            widget._model.onMadePhotoByCameraClicked(
+                          showException: (message) =>
+                              showCustomSnackBar(context, message),
+                        ),
                       ),
                     const Divider(
                       color: Colors.grey,

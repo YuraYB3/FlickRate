@@ -17,8 +17,7 @@ import 'widgets/movie_app_bar.dart';
 class MovieView extends StatefulWidget {
   final MovieViewModel _model;
 
-  const MovieView({super.key, required MovieViewModel model})
-      : _model = model;
+  const MovieView({super.key, required MovieViewModel model}) : _model = model;
 
   @override
   State<MovieView> createState() => _MovieViewState();

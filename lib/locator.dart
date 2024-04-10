@@ -122,23 +122,25 @@ void initRepos() {
     ),
   );
 
-locator.registerFactory<IReviewRepository>(
+  locator.registerFactory<IReviewRepository>(
     () => ReviewRepository(networkService: locator.get<INetworkService>()),
   );
 }
+
 void initCameraCore() {
   locator.registerSingleton<ICameraCore>(CameraCore());
 }
 
 void initCameraConfig() {
-  locator.registerSingleton<ICameraConfig>(CameraConfig(
-    cameraResolutionPreset: cameraResolutionPreset
-  ));
+  locator.registerSingleton<ICameraConfig>(
+      CameraConfig(cameraResolutionPreset: cameraResolutionPreset));
 }
 
 void initCameraService() {
-  locator.registerFactory<ICameraService>(()=> CameraService(cameraConfig: locator.get<ICameraConfig>(), cameraCore: locator.get<ICameraCore>(),),);
+  locator.registerFactory<ICameraService>(
+    () => CameraService(
+      cameraConfig: locator.get<ICameraConfig>(),
+      cameraCore: locator.get<ICameraCore>(),
+    ),
+  );
 }
-
-
-

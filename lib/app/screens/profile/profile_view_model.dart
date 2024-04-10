@@ -32,7 +32,8 @@ class ProfileViewModel extends ChangeNotifier {
     required INavigationUtil navigationUtil,
   })  : _userService = userService,
         _permissionHandler = permissionHandler,
-        _myUserRepository = myUserRepository, _navigationUtil = navigationUtil {
+        _myUserRepository = myUserRepository,
+        _navigationUtil = navigationUtil {
     _init();
   }
 
@@ -63,7 +64,8 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   void onChoosePhotoFromGalleryClicked(
-      {required Function(String message) showException, required Function(String message) showSuccess}) async {
+      {required Function(String message) showException,
+      required Function(String message) showSuccess}) async {
     try {
       PermissionState state =
           await _permissionHandler.isGalleryPermissionGranted();
@@ -73,15 +75,13 @@ class ProfileViewModel extends ChangeNotifier {
           String userId = _myUser.userId;
           String imageName = "profile_image$userId.jpg";
           XFile? image = await _myUserRepository.pickImageFromGallery();
-          if(image!=null) {
+          if (image != null) {
             await _myUserRepository.changeProfilePhoto(
-              _myUser.documentId, imageName, image);
-              _navigationUtil.navigateBack();
-              onEditInfoButtonClicked();
-              showSuccess("Photo successfully updated! Please wait");
-
-          }
-          else{
+                _myUser.documentId, imageName, image);
+            _navigationUtil.navigateBack();
+            onEditInfoButtonClicked();
+            showSuccess("Photo successfully updated! Please wait");
+          } else {
             _navigationUtil.navigateBack();
           }
           break;
@@ -100,27 +100,24 @@ class ProfileViewModel extends ChangeNotifier {
 
   void onMadePhotoByCameraClicked(
       {required Function(String message) showException}) async {
-        
     try {
       PermissionState state =
           await _permissionHandler.isCameraPermissionGranted();
       print(state);
       switch (state) {
         case PermissionState.granted:
-        String userId = _myUser.userId;
-        String imageName = "profile_image$userId.jpg";
-         _navigationUtil.navigateTo(routeCamera, data: {
-          "imageName": imageName,
-          "documentId":_myUser.documentId
-         });
-        onEditInfoButtonClicked();
-        break;
+          String userId = _myUser.userId;
+          String imageName = "profile_image$userId.jpg";
+          _navigationUtil.navigateTo(routeCamera,
+              data: {"imageName": imageName, "documentId": _myUser.documentId});
+          onEditInfoButtonClicked();
+          break;
         case PermissionState.denied:
           showException("Permission not allowed");
           _navigationUtil.navigateBack();
           break;
         default:
-        _navigationUtil.navigateBack();
+          _navigationUtil.navigateBack();
           showException("Permission restricted! Allow it in settings!");
       }
     } catch (e) {
