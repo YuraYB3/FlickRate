@@ -112,28 +112,5 @@ exports.onReviewCreate = functions.firestore.
         return null;
       }
     });
-    exports.processVideoUpload = functions.storage.object().onFinalize(async (object) => {
-      const filePath = object.name;
-      const fileName = filePath.split('/').pop();
-      
-      // Check if file is uploaded to the 'videos' directory
-      if (!filePath.startsWith('videos/')) {
-        console.log('File is not uploaded to the videos directory. Exiting function.');
-        return null;
-      }
-    
-      // Get download URL
-      const downloadURL = object.mediaLink;
-    
-      // Save download URL to Firestore
-      const firestore = admin.firestore();
-      const videosCollection = firestore.collection('videos');
-      await videosCollection.add({
-        name: fileName,
-        url: downloadURL,
-        uploadedAt: admin.firestore.FieldValue.serverTimestamp()
-      });
-    
-      console.log('Video URL saved to Firestore:', downloadURL);
-      return null;
-    });
+
+

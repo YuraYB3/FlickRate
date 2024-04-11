@@ -5,6 +5,7 @@ import 'package:flickrate/app/services/auth/auth_service.dart';
 import 'package:flickrate/app/services/camera/camera_config.dart';
 import 'package:flickrate/app/services/camera/camera_core.dart';
 import 'package:flickrate/app/services/camera/camera_service.dart';
+import 'package:flickrate/data/video/video_repository.dart';
 import 'package:flickrate/domain/camera/icamera_config.dart';
 import 'package:flickrate/domain/camera/icamera_core.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
@@ -20,6 +21,7 @@ import 'package:flickrate/app/services/storage/istorage_service.dart';
 import 'package:flickrate/data/user/my_user_repository.dart';
 import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
+import 'package:flickrate/domain/video/ivideo_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:get_it/get_it.dart';
 
@@ -124,6 +126,12 @@ void initRepos() {
 
   locator.registerFactory<IReviewRepository>(
     () => ReviewRepository(networkService: locator.get<INetworkService>()),
+  );
+
+  locator.registerFactory<IVideoRepository>(
+    () => VideoRepository(
+        networkService: locator.get<INetworkService>(),
+        storageService: locator.get<IStorageService>()),
   );
 }
 

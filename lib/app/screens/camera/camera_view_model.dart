@@ -5,10 +5,9 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flickrate/app/routing/inavigation_util.dart';
-import 'package:flickrate/app/services/storage/directory_names.dart';
-import 'package:flickrate/app/services/storage/istorage_service.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
+import 'package:flickrate/domain/video/ivideo_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -18,9 +17,9 @@ enum ActiveOption { camera, video }
 
 class CameraViewModel extends ChangeNotifier {
   final ICameraService _cameraService;
-  final IStorageService _storageService;
   final INavigationUtil _navigationUtil;
   final IMyUserRepository _myUserRepository;
+  final IVideoRepository _videoRepository;
   final CameraTask cameraTask;
   String? imagePath = '';
   XFile? file;
@@ -38,11 +37,11 @@ class CameraViewModel extends ChangeNotifier {
       required this.documentId,
       required this.cameraTask,
       required IMyUserRepository myUserRepository,
-      required IStorageService storageService})
+      required IVideoRepository videoRepository})
       : _cameraService = cameraService,
         _navigationUtil = navigationUtil,
         _myUserRepository = myUserRepository,
-        _storageService = storageService;
+        _videoRepository = videoRepository;
 
   Widget get cameraPreview => _cameraService.cameraPreview;
 
@@ -137,7 +136,7 @@ class CameraViewModel extends ChangeNotifier {
       try {
         showSuccess("Video successfully added! Please wait");
         _navigationUtil.navigateBackToStart();
-        await _storageService.uploadVideo(directoryVideos, file!);
+        await _videoRepository.uploadVideo(file!);
       } catch (e) {
         print(e.toString());
       }

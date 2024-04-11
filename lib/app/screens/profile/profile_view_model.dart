@@ -158,4 +158,8 @@ class ProfileViewModel extends ChangeNotifier {
       data: {"cameraTask": CameraTask.test},
     );
   }
+
+  void onShowVideosClicked(){
+    _navigationUtil.navigateTo(routeShowVideos);
+  }
 }

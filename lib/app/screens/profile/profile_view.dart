@@ -29,7 +29,7 @@ class _ProfileViewState extends State<ProfileView> {
         backgroundColor: colorsPalette.mainColor,
         actions: [
           IconButton(
-            onPressed: (){},
+            onPressed: widget._model.onShowVideosClicked,
             icon: const Icon(
               Icons.video_library,
               color: Colors.white,

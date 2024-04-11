@@ -1,6 +1,7 @@
 import 'package:flickrate/app/screens/camera/camera_factory.dart';
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
 import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_factory.dart';
+import 'package:flickrate/app/screens/videos/show_videos_factory.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/home/home_factory.dart';
@@ -30,6 +31,9 @@ class AppRouter {
       case routeCamera:
         return MaterialPageRoute(
             builder: (_) => _buildCameraSettings(routeSettings));
+      case routeShowVideos:
+        return MaterialPageRoute(
+            builder: (_) => _buildShowVideosSettings(routeSettings));
       default:
     }
     return MaterialPageRoute(builder: (_) => const Placeholder());
@@ -57,12 +61,17 @@ class AppRouter {
     return ShowReviewsFactory.build();
   }
 
+  Widget _buildShowVideosSettings(RouteSettings settings) {
+    return ShowVideosFactory.build();
+  }
+
   Widget _buildCameraSettings(RouteSettings settings) {
     final Map<String, dynamic> argsMap =
         settings.arguments as Map<String, dynamic>;
     final String imageName = argsMap['imageName'] ?? '';
     final String documentId = argsMap['documentId'] ?? '';
     final CameraTask cameraTask = argsMap['cameraTask'] ?? CameraTask.test;
-    return CameraFactory.build(imageName: imageName, documentId: documentId, cameraTask: cameraTask);
+    return CameraFactory.build(
+        imageName: imageName, documentId: documentId, cameraTask: cameraTask);
   }
 }

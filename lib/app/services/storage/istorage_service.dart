@@ -1,10 +1,7 @@
 import 'package:image_picker/image_picker.dart';
 
 abstract interface class IStorageService {
-  Future<String> uploadImage(
+  Future<String> uploadFile(
       String directoryName, XFile image, String imageName);
-  Future<void> uploadVideo(
-    String directoryName,
-    XFile video,
-  );
+ 
 }
