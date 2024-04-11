@@ -1,4 +1,5 @@
 import 'package:flickrate/app/screens/camera/camera_factory.dart';
+import 'package:flickrate/app/screens/camera/camera_view_model.dart';
 import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_factory.dart';
 import 'package:flutter/material.dart';
 
@@ -61,6 +62,7 @@ class AppRouter {
         settings.arguments as Map<String, dynamic>;
     final String imageName = argsMap['imageName'] ?? '';
     final String documentId = argsMap['documentId'] ?? '';
-    return CameraFactory.build(imageName: imageName, documentId: documentId);
+    final CameraTask cameraTask = argsMap['cameraTask'] ?? CameraTask.test;
+    return CameraFactory.build(imageName: imageName, documentId: documentId, cameraTask: cameraTask);
   }
 }

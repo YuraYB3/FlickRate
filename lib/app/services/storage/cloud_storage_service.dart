@@ -17,4 +17,14 @@ class CloudStorageService implements IStorageService {
     String imgURL = await referenceImageToUpload.getDownloadURL();
     return imgURL;
   }
+  @override
+  Future<void> uploadVideo(
+      String directoryName, XFile video,) async {
+      String videoName = "video${DateTime.now()}.mp4";
+    Reference directoryRef = storage.child(directoryName);
+    Reference referenceVideoToUpload = directoryRef.child(videoName);
+    await referenceVideoToUpload.putFile(File(video.path));
+
+  }
+
 }

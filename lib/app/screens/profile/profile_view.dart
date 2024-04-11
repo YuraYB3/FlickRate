@@ -28,19 +28,35 @@ class _ProfileViewState extends State<ProfileView> {
       appBar: AppBar(
         backgroundColor: colorsPalette.mainColor,
         actions: [
+          IconButton(
+            onPressed: (){},
+            icon: const Icon(
+              Icons.video_library,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: widget._model.onVideoCameraClicked,
+            icon: const Icon(
+              Icons.videocam,
+              color: Colors.white,
+            ),
+          ),
           widget._model.isEditInfoClicked
               ? IconButton(
                   onPressed: widget._model.onEditInfoButtonClicked,
                   icon: const Icon(
                     Icons.person_4,
                     color: Colors.white,
-                  ))
+                  ),
+                )
               : IconButton(
                   onPressed: widget._model.onEditInfoButtonClicked,
                   icon: const Icon(
                     Icons.edit,
                     color: Colors.white,
-                  ))
+                  ),
+                ),
         ],
       ),
       body: widget._model.profileViewState == ProfileViewState.loadingInfo

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/app/routing/routes.dart';
+import 'package:flickrate/app/screens/camera/camera_view_model.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
@@ -108,8 +109,14 @@ class ProfileViewModel extends ChangeNotifier {
         case PermissionState.granted:
           String userId = _myUser.userId;
           String imageName = "profile_image$userId.jpg";
-          _navigationUtil.navigateTo(routeCamera,
-              data: {"imageName": imageName, "documentId": _myUser.documentId});
+          _navigationUtil.navigateTo(
+            routeCamera,
+            data: {
+              "imageName": imageName,
+              "documentId": _myUser.documentId,
+              "cameraTask": CameraTask.updateProfileImage
+            },
+          );
           onEditInfoButtonClicked();
           break;
         case PermissionState.denied:
@@ -143,5 +150,12 @@ class ProfileViewModel extends ChangeNotifier {
     } else {
       showException("Empty field");
     }
+  }
+
+  void onVideoCameraClicked() {
+    _navigationUtil.navigateTo(
+      routeCamera,
+      data: {"cameraTask": CameraTask.test},
+    );
   }
 }
