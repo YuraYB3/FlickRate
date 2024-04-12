@@ -3,7 +3,7 @@ import 'package:flickrate/domain/camera/icamera_config.dart';
 import 'package:flickrate/domain/camera/icamera_core.dart';
 import 'package:flutter/material.dart';
 
-enum CameraState { init, ready, error }
+enum CameraState { init, ready, error, inactive }
 
 abstract class ICameraService {
   final ICameraCore cameraCore;

@@ -28,7 +28,8 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   String imageName;
   String documentId;
   bool isTakePictureClicked = false;
-  bool isRecording = false;
+  bool _isRecording = false;
+  bool get isRecording => _isRecording;
   late VideoPlayerController _videoPlayerController;
   VideoPlayerController get videoPlayerController => _videoPlayerController;
   ActiveOption currentOption = ActiveOption.camera;
@@ -50,12 +51,6 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
         _myUserRepository = myUserRepository,
         _videoRepository = videoRepository;
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive) {
-      _navigationUtil.navigateBack();
-    }
-  }
   Future<void> initCamera() async {
     _cameraService.initCamera();
   }
@@ -70,8 +65,6 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     await _videoPlayerController.setLooping(true);
     await _videoPlayerController.play();
   }
-
-  
 
   void disposeVideoController() {
     _videoPlayerController.dispose();
@@ -107,7 +100,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
       } else {
         // start recording
         await _cameraService.startVideoRecording();
-        isRecording = !isRecording;
+        _isRecording = !_isRecording;
         notifyListeners();
       }
     } catch (e) {
@@ -164,13 +157,18 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     } else {
       currentOption = ActiveOption.camera;
     }
-    isRecording = false;
+    _isRecording = false;
     notifyListeners();
   }
 
   Future<void> _stopVideoRecording() async {
     file = await _cameraService.stopVideoRecording();
-    isRecording = !isRecording;
+    _isRecording = !_isRecording;
     notifyListeners();
+  }
+
+  void setDefaultValues() {
+    isTakePictureClicked = false;
+    _isRecording = false;
   }
 }

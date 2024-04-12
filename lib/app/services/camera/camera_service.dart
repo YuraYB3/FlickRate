@@ -51,6 +51,8 @@ class CameraService extends ChangeNotifier
   Size get previewSize =>
       _cameraController?.value.previewSize ?? const Size(0, 0);
 
+  bool _isCameraControllerDisposed = false;
+
   @override
   void initCamera() {
     print('init');
@@ -75,11 +77,16 @@ class CameraService extends ChangeNotifier
       return;
     }
     if (state == AppLifecycleState.inactive) {
-      await _disposeCameraController();
+      if (!_isCameraControllerDisposed) {
+        await _disposeCameraController();
+        _updateCameraState(CameraState.inactive);
+      }
     } else if (state == AppLifecycleState.resumed) {
-      await reset();
-      await _create();
+      if (!_isCameraControllerDisposed) {
+        await reset();
+      }
     }
+    await _create();
   }
 
   Future<void> _create() async {
@@ -135,6 +142,7 @@ class CameraService extends ChangeNotifier
     print("dispose controller");
     await _cameraController?.dispose();
     _cameraController = null;
+    _isCameraControllerDisposed = true;
   }
 
   @override
