@@ -36,7 +36,9 @@ class _ProfileViewState extends State<ProfileView> {
             ),
           ),
           IconButton(
-            onPressed: widget._model.onVideoCameraClicked,
+            onPressed: () => widget._model.onVideoCameraClicked(
+              showException: (message) => showCustomSnackBar(context, message),
+            ),
             icon: const Icon(
               Icons.videocam,
               color: Colors.white,

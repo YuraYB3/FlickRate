@@ -33,6 +33,8 @@ class _CameraViewState extends State<CameraView> {
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +86,7 @@ class _CameraViewState extends State<CameraView> {
                           _showVideo(context);
                         },
                       ),
-                      isRecordVideoClicked: widget.model.isRecordVideoClicked,
+                      isRecordVideoClicked: widget.model.isRecording,
                       cameraTask: widget.model.cameraTask,
                     ),
                   ),
@@ -168,7 +170,7 @@ class _CameraViewState extends State<CameraView> {
       builder: (context) {
         return PopScope(
           onPopInvoked: (didPop) {
-          widget.model.disposeVideoController();
+            widget.model.disposeVideoController();
           },
           child: AlertDialog(
             content: FutureBuilder(
@@ -186,9 +188,9 @@ class _CameraViewState extends State<CameraView> {
                   );
                 } else {
                   return SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: VideoPlayer(widget.model.videoPlayerController));
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: VideoPlayer(widget.model.videoPlayerController));
                 }
               },
             ),

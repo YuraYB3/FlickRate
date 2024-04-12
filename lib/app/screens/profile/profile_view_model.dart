@@ -152,14 +152,31 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
-  void onVideoCameraClicked() {
-    _navigationUtil.navigateTo(
-      routeCamera,
-      data: {"cameraTask": CameraTask.test},
-    );
+  Future<void> onVideoCameraClicked(
+      {required Function(String message) showException}) async {
+    try {
+      PermissionState state =
+          await _permissionHandler.isCameraPermissionGranted();
+      switch (state) {
+        case PermissionState.granted:
+          _navigationUtil.navigateTo(
+            routeCamera,
+            data: {"cameraTask": CameraTask.test},
+          );
+          break;
+        case PermissionState.denied:
+          showException("Permission not allowed");
+
+          break;
+        default:
+          showException("Permission restricted! Allow it in settings!");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
-  void onShowVideosClicked(){
+  void onShowVideosClicked() {
     _navigationUtil.navigateTo(routeShowVideos);
   }
 }

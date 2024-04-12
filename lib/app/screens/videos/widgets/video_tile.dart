@@ -1,12 +1,13 @@
-
 import 'package:flickrate/app/theme/color_palette.dart';
+import 'package:flickrate/utils/video_player_util.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoTile extends StatefulWidget {
   final String url;
   final ColorsPalette colorsPalette = ColorsPalette();
-   VideoTile({
+  final VideoPlayerUtil videoPlayerUtil = VideoPlayerUtil();
+  VideoTile({
     super.key,
     required this.url,
   });
@@ -16,47 +17,56 @@ class VideoTile extends StatefulWidget {
 }
 
 class _VideoTileState extends State<VideoTile> {
-  late VideoPlayerController videoPlayerController;
-  late Future _initVideoPlayer;
-
   @override
   void initState() {
-    videoPlayerController =
-        VideoPlayerController.networkUrl(Uri.parse(widget.url));
-    _initVideoPlayer = videoPlayerController.initialize();
-    videoPlayerController.setLooping(true);
-    videoPlayerController.play();
+    widget.videoPlayerUtil.initVideoPlayer(widget.url);
     super.initState();
   }
 
   @override
   void dispose() {
-    videoPlayerController.dispose();
+    widget.videoPlayerUtil.disposeVideoPlayer();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initVideoPlayer,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-           return Container(
-                color: widget.colorsPalette.mainColor,
-                height: double.infinity,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
+    return widget.videoPlayerUtil.isInitialized
+        ? FutureBuilder(
+            future: widget.videoPlayerUtil.futureVideoPlayer,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container(
+                  color: widget.colorsPalette.mainColor,
+                  height: double.infinity,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              );
-        }
-        else{
-          return Container(
+                );
+              } else {
+                return GestureDetector(
+                  onTap: () {
+                    widget.videoPlayerUtil.onVideoTaped();
+                  },
+                  child: Container(
+                    color: widget.colorsPalette.mainColor,
+                    child: VideoPlayer(
+                        widget.videoPlayerUtil.videoPlayerController),
+                  ),
+                );
+              }
+            },
+          )
+        : Container(
             color: widget.colorsPalette.mainColor,
-            child: VideoPlayer(videoPlayerController));
-        }
-      },
-    );
+            height: double.infinity,
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            ),
+          );
   }
 }

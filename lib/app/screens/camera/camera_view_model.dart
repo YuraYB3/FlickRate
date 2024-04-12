@@ -15,21 +15,28 @@ enum CameraTask { updateProfileImage, test }
 
 enum ActiveOption { camera, video }
 
-class CameraViewModel extends ChangeNotifier {
+class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   final ICameraService _cameraService;
   final INavigationUtil _navigationUtil;
   final IMyUserRepository _myUserRepository;
   final IVideoRepository _videoRepository;
   final CameraTask cameraTask;
+
+  late void Function() showVideo;
   String? imagePath = '';
   XFile? file;
   String imageName;
   String documentId;
   bool isTakePictureClicked = false;
-  bool isRecordVideoClicked = false;
-  late VideoPlayerController videoPlayerController;
-
+  bool isRecording = false;
+  late VideoPlayerController _videoPlayerController;
+  VideoPlayerController get videoPlayerController => _videoPlayerController;
   ActiveOption currentOption = ActiveOption.camera;
+
+  Widget get cameraPreview => _cameraService.cameraPreview;
+
+  Stream<CameraState> get cameraStateStream => _cameraService.cameraStateStream;
+
   CameraViewModel(
       {required ICameraService cameraService,
       required INavigationUtil navigationUtil,
@@ -43,10 +50,12 @@ class CameraViewModel extends ChangeNotifier {
         _myUserRepository = myUserRepository,
         _videoRepository = videoRepository;
 
-  Widget get cameraPreview => _cameraService.cameraPreview;
-
-  Stream<CameraState> get cameraStateStream => _cameraService.cameraStateStream;
-
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.inactive) {
+      _navigationUtil.navigateBack();
+    }
+  }
   Future<void> initCamera() async {
     _cameraService.initCamera();
   }
@@ -56,14 +65,16 @@ class CameraViewModel extends ChangeNotifier {
   }
 
   Future<void> initVideoController() async {
-    videoPlayerController = VideoPlayerController.file(File(file!.path));
-    await videoPlayerController.initialize();
-    await videoPlayerController.setLooping(true);
-    await videoPlayerController.play();
+    _videoPlayerController = VideoPlayerController.file(File(file!.path));
+    await _videoPlayerController.initialize();
+    await _videoPlayerController.setLooping(true);
+    await _videoPlayerController.play();
   }
 
+  
+
   void disposeVideoController() {
-    videoPlayerController.dispose();
+    _videoPlayerController.dispose();
   }
 
   void onToggleCameraClicked() {
@@ -73,12 +84,12 @@ class CameraViewModel extends ChangeNotifier {
   Future<void> onTakePhotoClicked(
       {required Function(String message) showException,
       required Function() showPicture}) async {
-    _swapIsTakePictureClickedState();
+    _swapIsTakePictureClicked();
     file = await _cameraService.takePicture();
     if (file != null) {
       imagePath = file!.path;
       showPicture();
-      _swapIsTakePictureClickedState();
+      _swapIsTakePictureClicked();
     } else {
       showException("Something went wrong");
       _navigationUtil.navigateBack();
@@ -89,17 +100,14 @@ class CameraViewModel extends ChangeNotifier {
       {required Function(String message) showException,
       required Function() showVideo}) async {
     try {
-      if (isRecordVideoClicked) {
-        //start recording
-        file = await _cameraService.cameraController.stopVideoRecording();
-        isRecordVideoClicked = !isRecordVideoClicked;
-        notifyListeners();
+      if (isRecording) {
+        //stop recording
+        await _stopVideoRecording();
         showVideo();
       } else {
-        // end recording
-        await _cameraService.cameraController.prepareForVideoRecording();
-        await _cameraService.cameraController.startVideoRecording();
-        isRecordVideoClicked = !isRecordVideoClicked;
+        // start recording
+        await _cameraService.startVideoRecording();
+        isRecording = !isRecording;
         notifyListeners();
       }
     } catch (e) {
@@ -145,7 +153,7 @@ class CameraViewModel extends ChangeNotifier {
     }
   }
 
-  void _swapIsTakePictureClickedState() {
+  void _swapIsTakePictureClicked() {
     isTakePictureClicked = !isTakePictureClicked;
     notifyListeners();
   }
@@ -156,7 +164,13 @@ class CameraViewModel extends ChangeNotifier {
     } else {
       currentOption = ActiveOption.camera;
     }
-    isRecordVideoClicked = false;
+    isRecording = false;
+    notifyListeners();
+  }
+
+  Future<void> _stopVideoRecording() async {
+    file = await _cameraService.stopVideoRecording();
+    isRecording = !isRecording;
     notifyListeners();
   }
 }

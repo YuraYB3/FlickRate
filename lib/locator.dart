@@ -23,6 +23,7 @@ import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/domain/video/ivideo_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
+import 'package:flickrate/utils/video_player_util.dart';
 import 'package:get_it/get_it.dart';
 
 import 'app/services/functions/function_service.dart';
@@ -51,6 +52,7 @@ void initServices() {
   initCameraCore();
   initCameraConfig();
   initCameraService();
+  initVideoPlayerUtil();
 }
 
 void initFunctionService() {
@@ -132,6 +134,12 @@ void initRepos() {
     () => VideoRepository(
         networkService: locator.get<INetworkService>(),
         storageService: locator.get<IStorageService>()),
+  );
+}
+
+void initVideoPlayerUtil() {
+  locator.registerFactory<VideoPlayerUtil>(
+    () => VideoPlayerUtil(),
   );
 }
 

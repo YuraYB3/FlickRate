@@ -30,4 +30,8 @@ abstract class ICameraService {
   Stream<CameraState> get cameraStateStream;
 
   Future<XFile?> takePicture();
+
+  Future<XFile?> stopVideoRecording();
+
+  Future<void> startVideoRecording();
 }

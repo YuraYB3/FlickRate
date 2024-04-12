@@ -69,20 +69,20 @@ class CameraService extends ChangeNotifier
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     print('did');
     if (_cameraController == null || !_cameraController!.value.isInitialized) {
       return;
     }
-
     if (state == AppLifecycleState.inactive) {
-      _disposeCameraController();
+      await _disposeCameraController();
     } else if (state == AppLifecycleState.resumed) {
-      _create();
+      await reset();
+      await _create();
     }
   }
 
-  void _create() async {
+  Future<void> _create() async {
     print('create');
 
     if (!_isObserverAdded) {
@@ -149,5 +149,16 @@ class CameraService extends ChangeNotifier
       print(e.toString());
       return null;
     }
+  }
+
+  @override
+  Future<void> startVideoRecording() async {
+    await cameraController.prepareForVideoRecording();
+    await cameraController.startVideoRecording();
+  }
+
+  @override
+  Future<XFile?> stopVideoRecording() async {
+    return await cameraController.stopVideoRecording();
   }
 }
