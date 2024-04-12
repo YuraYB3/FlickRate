@@ -136,6 +136,7 @@ class CameraService extends ChangeNotifier
     await _disposeCameraController();
     _cameraPreview = null;
     _currentCameraId = 0;
+    _isCameraControllerDisposed = false;
   }
 
   Future<void> _disposeCameraController() async {
