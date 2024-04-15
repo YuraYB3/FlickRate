@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -54,7 +56,7 @@ class AddMovieContainer extends StatelessWidget {
                             width: 200,
                             child: ElevatedButton(
                                 style: ButtonStyle(
-                                    shape: WidgetStateProperty.all<
+                                    shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                         borderRadius:
@@ -62,7 +64,7 @@ class AddMovieContainer extends StatelessWidget {
                                       ),
                                     ),
                                     backgroundColor:
-                                        WidgetStateProperty.all<Color>(
+                                        MaterialStateProperty.all<Color>(
                                             Colors.white)),
                                 onPressed: onButtonClicked,
                                 child: Text(

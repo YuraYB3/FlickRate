@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
@@ -131,7 +133,7 @@ class _CameraViewState extends State<CameraView> {
                   ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            WidgetStateProperty.all<Color>(Colors.red)),
+                            MaterialStateProperty.all<Color>(Colors.red)),
                     onPressed: () {
                       widget.model.onClosePictureClicked();
                     },
@@ -143,7 +145,7 @@ class _CameraViewState extends State<CameraView> {
                   ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            WidgetStateProperty.all<Color>(Colors.green)),
+                            MaterialStateProperty.all<Color>(Colors.green)),
                     onPressed: () {
                       widget.model.onApplyPictureClicked(
                         showSuccess: (message) => showCustomSnackBar(
@@ -203,7 +205,7 @@ class _CameraViewState extends State<CameraView> {
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            WidgetStateProperty.all<Color>(Colors.red),
+                            MaterialStateProperty.all<Color>(Colors.red),
                       ),
                       onPressed: () {
                         widget.model.onCloseVideoClicked();
@@ -216,7 +218,7 @@ class _CameraViewState extends State<CameraView> {
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            WidgetStateProperty.all<Color>(Colors.green),
+                            MaterialStateProperty.all<Color>(Colors.green),
                       ),
                       onPressed: () {
                         widget.model.onApplyVideoClicked(

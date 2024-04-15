@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 import '../../theme/color_palette.dart';
@@ -23,7 +25,7 @@ class MyElevatedButton extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all<Color>(buttonColor)),
+            backgroundColor: MaterialStateProperty.all<Color>(buttonColor)),
         onPressed: onButtonPressed,
         child: Text(
           title,

@@ -41,10 +41,10 @@ void initServices() {
   initFunctionService();
   initPermissionHandler();
   initNetworkService();
-  initStorageService();
   initNavigationService();
   initLocalNotificationService();
   initNotificationService();
+  initStorageService();
   initDeepLinkService();
   initRepos();
   initAuthService();
@@ -68,12 +68,6 @@ void initPermissionHandler() {
 void initNetworkService() {
   locator.registerSingleton<INetworkService>(
     FirebaseService(),
-  );
-}
-
-void initStorageService() {
-  locator.registerSingleton<IStorageService>(
-    CloudStorageService(),
   );
 }
 
@@ -108,6 +102,12 @@ void initNotificationService() {
   );
 }
 
+void initStorageService() {
+  locator.registerSingleton<IStorageService>(
+    CloudStorageService(),
+  );
+}
+
 void initDeepLinkService() {
   locator.registerSingleton<UniService>(
       UniService(navigationUtil: locator<INavigationUtil>()));
@@ -132,8 +132,8 @@ void initRepos() {
 
   locator.registerFactory<IVideoRepository>(
     () => VideoRepository(
-        networkService: locator.get<INetworkService>(),
-        storageService: locator.get<IStorageService>()),
+      networkService: locator.get<INetworkService>(),
+    ),
   );
 }
 

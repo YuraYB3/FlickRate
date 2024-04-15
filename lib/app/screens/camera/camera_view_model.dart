@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
@@ -10,6 +9,11 @@ import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/domain/video/ivideo_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
+@pragma('vm:entry-point')
+void someFunction(Map<String, dynamic> message) async {
+  print("MESSAGE MESSAGE");
+}
 
 enum CameraTask { updateProfileImage, test }
 
@@ -134,13 +138,9 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   Future<void> onApplyVideoClicked(
       {required Function(String message) showSuccess}) async {
     if (file != null) {
-      try {
-        showSuccess("Video successfully added! Please wait");
-        _navigationUtil.navigateBackToStart();
-        await _videoRepository.uploadVideo(file!);
-      } catch (e) {
-        print(e.toString());
-      }
+      showSuccess("Video is loading! Please wait");
+      _navigationUtil.navigateBackToStart();
+      await _videoRepository.uploadVideo(file!);
     } else {
       _navigationUtil.navigateBack();
     }

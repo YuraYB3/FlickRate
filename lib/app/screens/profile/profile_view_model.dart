@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/app/routing/routes.dart';
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
+import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class ProfileViewModel extends ChangeNotifier {
   final IMyUserRepository _myUserRepository;
   final PermissionHandler _permissionHandler;
   final INavigationUtil _navigationUtil;
+  final ILocalNotificationService _localNotificationService;
   late Stream<IMyUser> _userStream;
   late IMyUser _myUser;
   String _userNickName = '';
@@ -26,15 +29,17 @@ class ProfileViewModel extends ChangeNotifier {
   bool get isEditInfoClicked => _isEditInfoClicked;
   ProfileViewState get profileViewState => _profileViewState;
 
-  ProfileViewModel({
-    required PermissionHandler permissionHandler,
-    required IMyUserRepository myUserRepository,
-    required IUserService userService,
-    required INavigationUtil navigationUtil,
-  })  : _userService = userService,
+  ProfileViewModel(
+      {required PermissionHandler permissionHandler,
+      required IMyUserRepository myUserRepository,
+      required IUserService userService,
+      required INavigationUtil navigationUtil,
+      required ILocalNotificationService localNotification})
+      : _userService = userService,
         _permissionHandler = permissionHandler,
         _myUserRepository = myUserRepository,
-        _navigationUtil = navigationUtil {
+        _navigationUtil = navigationUtil,
+        _localNotificationService = localNotification {
     _init();
   }
 
@@ -178,5 +183,12 @@ class ProfileViewModel extends ChangeNotifier {
 
   void onShowVideosClicked() {
     _navigationUtil.navigateTo(routeShowVideos);
+  }
+
+  void onNotificationClicked() {
+    _localNotificationService.showNotification(
+      message:
+          const RemoteMessage(notification: RemoteNotification(body: 'notify')),
+    );
   }
 }

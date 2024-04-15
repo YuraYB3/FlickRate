@@ -35,9 +35,15 @@ class MyUserRepository implements IMyUserRepository {
   @override
   Future<void> changeProfilePhoto(
       String documentId, String imageName, XFile image) async {
-    String imgURL = await _storageService.uploadFile(
-        directoryUserProfile, image, imageName);
-    updateProfileImage(imgURL, documentId);
+    await _storageService
+        .uploadFile(directoryUserProfile, image.path, imageName)
+        .then(
+      (value) async {
+        await value;
+        String url = await value.snapshot.ref.getDownloadURL();
+        await updateProfileImage(url, documentId);
+      },
+    );
   }
 
   @override

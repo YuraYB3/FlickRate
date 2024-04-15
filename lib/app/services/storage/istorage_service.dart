@@ -1,7 +1,6 @@
-import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 abstract interface class IStorageService {
-  Future<String> uploadFile(
-      String directoryName, XFile image, String imageName);
- 
+  Future<UploadTask> uploadFile(
+      String directoryName, String filePath, String fileName);
 }
