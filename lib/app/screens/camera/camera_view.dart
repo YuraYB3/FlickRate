@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: avoid_print
 
 import 'dart:io';
 
@@ -35,8 +35,6 @@ class _CameraViewState extends State<CameraView> {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +46,7 @@ class _CameraViewState extends State<CameraView> {
         stream: widget.model.cameraStateStream,
         builder: (context, snapshot) {
           switch (snapshot.data) {
-            case CameraState.inactive: 
+            case CameraState.inactive:
             case CameraState.init:
               return Container(
                 color: widget.colorsPalette.mainColor,
@@ -74,9 +72,7 @@ class _CameraViewState extends State<CameraView> {
                           ? () => widget.model.onTakePhotoClicked(
                                 showException: (message) =>
                                     showCustomSnackBar(context, message),
-                                showPicture: () {
-                                  _showPicture(context);
-                                },
+                                showPicture: () => _showPicture(context),
                               )
                           : () {},
                       switchCamera: widget.model.onToggleCameraClicked,
@@ -119,10 +115,8 @@ class _CameraViewState extends State<CameraView> {
           content: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.width,
-            child: Expanded(
-              child: Image.file(
-                File(widget.model.imagePath!),
-              ),
+            child: Image.file(
+              File(widget.model.imagePath!),
             ),
           ),
           actions: [
@@ -132,8 +126,9 @@ class _CameraViewState extends State<CameraView> {
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.red)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.red),
+                    ),
                     onPressed: () {
                       widget.model.onClosePictureClicked();
                     },
@@ -144,8 +139,9 @@ class _CameraViewState extends State<CameraView> {
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.green)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.green),
+                    ),
                     onPressed: () {
                       widget.model.onApplyPictureClicked(
                         showSuccess: (message) => showCustomSnackBar(

@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:isolate';
 
-import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flickrate/app/services/local_notification/local_notification_service.dart';
@@ -45,14 +44,14 @@ class VideoRepository implements IVideoRepository {
   }
 
   @override
-  Future<void> uploadVideo(XFile file) async {
+  Future<void> uploadVideo(String filePath) async {
     print('UPLOADING');
     final mainIsolatePort = ReceivePort();
     try {
       Map payload = {};
-      payload['filePath'] = file.path;
+      payload['filePath'] = filePath;
       final uploadIsolate =
-          await FlutterIsolate.spawn(_uploadFile, mainIsolatePort.sendPort);
+          await FlutterIsolate.spawn(_uploadToStorage, mainIsolatePort.sendPort);
       mainIsolatePort.listen(
         (message) {
           if (message is SendPort) {
@@ -65,6 +64,7 @@ class VideoRepository implements IVideoRepository {
           }
         },
         onDone: () {
+          print('DONE');
           uploadIsolate.kill();
           mainIsolatePort.close();
         },
@@ -72,6 +72,7 @@ class VideoRepository implements IVideoRepository {
           print("Error in main Isolate : $e");
           uploadIsolate.kill();
           mainIsolatePort.close();
+          
         },
       );
     } catch (e) {
@@ -80,7 +81,7 @@ class VideoRepository implements IVideoRepository {
   }
 }
 
-_uploadFile(SendPort mainIsolatePort) {
+_uploadToStorage(SendPort mainIsolatePort) {
   final uploadIsolatePort = ReceivePort();
   String name = "video${DateTime.now().toString()}.mp4";
   try {
@@ -96,15 +97,15 @@ _uploadFile(SendPort mainIsolatePort) {
               CloudStorageService();
           INetworkService networkService = FirebaseService();
           storageService.uploadFile(directoryVideos, file, name).then(
-            (value) async {
+            (uploadTask) async {
               await localNotification.showNotificationWithProgress(
                   message: const RemoteMessage(
                     notification:
-                        RemoteNotification(body: 'Uploading progress'),
+                        RemoteNotification(body: 'Uploading progress', title: 'Video uploading'),
                   ),
-                  task: value);
-              await value;
-              String url = await value.snapshot.ref.getDownloadURL();
+                  task: uploadTask);
+              await uploadTask;
+              String url = await uploadTask.snapshot.ref.getDownloadURL();
               await networkService
                   .create({"name": name, "url": url}, collectionVideos);
               print('NOT EMPTY');

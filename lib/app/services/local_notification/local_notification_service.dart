@@ -84,7 +84,7 @@ class LocalNotificationService implements ILocalNotificationService {
                 if (progress.round()==100) {
                    _flutterLocalNotificationsPlugin.show(
                     id,
-                    message.notification!.title ?? "",
+                    "Completed",
                     'Uploading completed',
                     notificationDetails);
                 }

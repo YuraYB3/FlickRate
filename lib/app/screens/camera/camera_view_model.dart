@@ -10,11 +10,6 @@ import 'package:flickrate/domain/video/ivideo_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-@pragma('vm:entry-point')
-void someFunction(Map<String, dynamic> message) async {
-  print("MESSAGE MESSAGE");
-}
-
 enum CameraTask { updateProfileImage, test }
 
 enum ActiveOption { camera, video }
@@ -81,15 +76,26 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   Future<void> onTakePhotoClicked(
       {required Function(String message) showException,
       required Function() showPicture}) async {
-    _swapIsTakePictureClicked();
-    file = await _cameraService.takePicture();
-    if (file != null) {
-      imagePath = file!.path;
-      showPicture();
+    try {
+      print('CLICKED');
       _swapIsTakePictureClicked();
-    } else {
-      showException("Something went wrong");
-      _navigationUtil.navigateBack();
+      print('SWAP');
+      await _cameraService.takePicture().then(
+        (file) {
+          if (file != null) {
+            imagePath = file.path;
+            print(imagePath);
+            showPicture();
+            _swapIsTakePictureClicked();
+          } else {
+            showException("Something went wrong");
+            _swapIsTakePictureClicked();
+            _navigationUtil.navigateBack();
+          }
+        },
+      );
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -99,14 +105,14 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     try {
       if (isRecording) {
         //stop recording
-        await _stopVideoRecording();
+        file = await _cameraService.stopVideoRecording();
         showVideo();
       } else {
         // start recording
         await _cameraService.startVideoRecording();
-        _isRecording = !_isRecording;
-        notifyListeners();
       }
+      _isRecording = !isRecording;
+      notifyListeners();
     } catch (e) {
       print(e.toString());
       showException("Something went wrong");
@@ -140,7 +146,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     if (file != null) {
       showSuccess("Video is loading! Please wait");
       _navigationUtil.navigateBackToStart();
-      await _videoRepository.uploadVideo(file!);
+      await _videoRepository.uploadVideo(file!.path);
     } else {
       _navigationUtil.navigateBack();
     }
@@ -159,16 +165,5 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     }
     _isRecording = false;
     notifyListeners();
-  }
-
-  Future<void> _stopVideoRecording() async {
-    file = await _cameraService.stopVideoRecording();
-    _isRecording = !_isRecording;
-    notifyListeners();
-  }
-
-  void setDefaultValues() {
-    isTakePictureClicked = false;
-    _isRecording = false;
   }
 }
