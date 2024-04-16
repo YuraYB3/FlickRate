@@ -46,37 +46,29 @@ class VideoRepository implements IVideoRepository {
   @override
   Future<void> uploadVideo(String filePath) async {
     print('UPLOADING');
-    final mainIsolatePort = ReceivePort();
+    final ReceivePort mainIsolatePort = ReceivePort();
     try {
-      Map payload = {};
-      payload['filePath'] = filePath;
-      final uploadIsolate =
-          await FlutterIsolate.spawn(_uploadToStorage, mainIsolatePort.sendPort);
-      mainIsolatePort.listen(
-        (message) {
-          if (message is SendPort) {
-            print("COMMUNICATION SETUP SUCCESS");
-            message.send(payload);
-            print("SENT INPUT PAYLOAD TO UPLOAD ISOLATE");
-          }
-          if (message is String) {
-            print("GOT THE UPLOAD RESULT FROM UPLOAD ISOLATE:$message");
-          }
-        },
-        onDone: () {
-          print('DONE');
+      Map payload = {
+        'filePath':filePath
+      };
+      final FlutterIsolate uploadIsolate = await FlutterIsolate.spawn(
+          _uploadToStorage, mainIsolatePort.sendPort);
+      mainIsolatePort.listen((message) {
+        if (message is SendPort) {
+          print("COMMUNICATION SETUP SUCCESS");
+          message.send(payload);
+          print("SENT INPUT PAYLOAD TO UPLOAD ISOLATE");
+        }
+        if (message is String) {
+          print("GOT THE UPLOAD RESULT FROM UPLOAD ISOLATE:$message");
           uploadIsolate.kill();
           mainIsolatePort.close();
-        },
-        onError: (e) {
-          print("Error in main Isolate : $e");
-          uploadIsolate.kill();
-          mainIsolatePort.close();
-          
-        },
-      );
+        }
+      });
     } catch (e) {
       mainIsolatePort.close();
+    } finally {
+      print('WE HERE');
     }
   }
 }
@@ -93,15 +85,14 @@ _uploadToStorage(SendPort mainIsolatePort) {
           String file = message['filePath'];
           ILocalNotificationService localNotification =
               LocalNotificationService();
-          IStorageService storageService =
-              CloudStorageService();
+          IStorageService storageService = CloudStorageService();
           INetworkService networkService = FirebaseService();
           storageService.uploadFile(directoryVideos, file, name).then(
             (uploadTask) async {
               await localNotification.showNotificationWithProgress(
                   message: const RemoteMessage(
-                    notification:
-                        RemoteNotification(body: 'Uploading progress', title: 'Video uploading'),
+                    notification: RemoteNotification(
+                        body: 'Uploading progress', title: 'Video uploading'),
                   ),
                   task: uploadTask);
               await uploadTask;
@@ -110,6 +101,8 @@ _uploadToStorage(SendPort mainIsolatePort) {
                   .create({"name": name, "url": url}, collectionVideos);
               print('NOT EMPTY');
               print(url);
+              uploadIsolatePort.close();
+              mainIsolatePort.send(url);
             },
           );
         }
@@ -117,5 +110,6 @@ _uploadToStorage(SendPort mainIsolatePort) {
     );
   } catch (e) {
     print(e.toString());
+    mainIsolatePort.send('error');
   }
 }

@@ -46,7 +46,6 @@ class _CameraViewState extends State<CameraView> {
         stream: widget.model.cameraStateStream,
         builder: (context, snapshot) {
           switch (snapshot.data) {
-            case CameraState.inactive:
             case CameraState.init:
               return Container(
                 color: widget.colorsPalette.mainColor,

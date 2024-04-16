@@ -77,9 +77,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
       {required Function(String message) showException,
       required Function() showPicture}) async {
     try {
-      print('CLICKED');
       _swapIsTakePictureClicked();
-      print('SWAP');
       await _cameraService.takePicture().then(
         (file) {
           if (file != null) {
@@ -126,7 +124,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   void onApplyPictureClicked({required Function(String message) showSuccess}) {
     switch (cameraTask) {
       case CameraTask.updateProfileImage:
-        _myUserRepository.changeProfilePhoto(documentId, imageName, file!);
+        _myUserRepository.changeProfilePhoto(documentId, imageName, imagePath!);
         showSuccess("Photo successfully updated! Please wait");
         _navigationUtil.navigateBackToStart();
         break;

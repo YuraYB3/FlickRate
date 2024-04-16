@@ -1,4 +1,5 @@
 import 'package:flickrate/app/screens/movies/show_movies/show_movies_factory.dart';
+import 'package:flickrate/app/screens/videos/show_videos_factory.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,9 @@ class CoreNavigationViewModel extends ChangeNotifier {
   final List<Widget> _pages = [
     HomeFactory.build(),
     ShowMoviesFactory.build(""),
+    ShowVideosFactory.build(),
     ProfileFactory.build(),
+    
   ];
   List<Widget> get pages => _pages;
 

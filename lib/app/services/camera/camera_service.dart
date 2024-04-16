@@ -79,7 +79,6 @@ class CameraService extends ChangeNotifier
     if (state == AppLifecycleState.inactive) {
       if (!_isCameraControllerDisposed) {
         await _disposeCameraController();
-        _updateCameraState(CameraState.inactive);
       }
     } else if (state == AppLifecycleState.resumed) {
       if (!_isCameraControllerDisposed) {

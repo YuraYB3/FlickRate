@@ -21,6 +21,7 @@ class _CoreNavigationViewState extends State<CoreNavigationView> {
       extendBody: true,
       body: widget._viewModel.pages[widget._viewModel.selectedIndex],
       bottomNavigationBar: BottomAppBar(
+        surfaceTintColor: Colors.white,
         height: 60,
         shape: const CircularNotchedRectangle(),
         child: Padding(
@@ -50,18 +51,29 @@ class _CoreNavigationViewState extends State<CoreNavigationView> {
                     color: widget._viewModel.selectedIndex == 1
                         ? widget.colorsPalette.mainColor
                         : widget.colorsPalette.secondColor,
-                  )),
-              IconButton(
+                  ),),
+                   IconButton(
                   onPressed: () {
                     widget._viewModel.updateSelectedIndex(2);
                   },
                   icon: Icon(
-                    Icons.person_rounded,
+                    Icons.video_collection,
                     size: widget._viewModel.iconSize,
                     color: widget._viewModel.selectedIndex == 2
                         ? widget.colorsPalette.mainColor
                         : widget.colorsPalette.secondColor,
-                  )),
+                  ),),
+              IconButton(
+                  onPressed: () {
+                    widget._viewModel.updateSelectedIndex(3);
+                  },
+                  icon: Icon(
+                    Icons.person_rounded,
+                    size: widget._viewModel.iconSize,
+                    color: widget._viewModel.selectedIndex == 3
+                        ? widget.colorsPalette.mainColor
+                        : widget.colorsPalette.secondColor,
+                  ),),
             ],
           ),
         ),

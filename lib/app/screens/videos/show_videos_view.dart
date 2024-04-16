@@ -26,10 +26,6 @@ class _ShowVideosViewState extends State<ShowVideosView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: widget.colorsPalette.mainColor,
-        foregroundColor: Colors.white,
-      ),
       body: widget.model.isURLsLoaded
           ? StreamBuilder<List<IVideo>>(
               stream: widget.model.videoStreamList,
@@ -61,7 +57,7 @@ class _ShowVideosViewState extends State<ShowVideosView> {
               height: double.infinity,
               child: const Center(
                 child: CircularProgressIndicator(
-                  color: Colors.white,
+                  color: Colors.red,
                   
                 ),
               ),
@@ -69,5 +65,3 @@ class _ShowVideosViewState extends State<ShowVideosView> {
     );
   }
 }
-/*
-*/

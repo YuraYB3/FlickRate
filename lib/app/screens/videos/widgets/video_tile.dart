@@ -1,3 +1,4 @@
+import 'package:flickrate/app/common/screens/my_loading_widget.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flickrate/utils/video_player_util.dart';
 import 'package:flutter/material.dart';
@@ -36,15 +37,7 @@ class _VideoTileState extends State<VideoTile> {
             future: widget.videoPlayerUtil.futureVideoPlayer,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Container(
-                  color: widget.colorsPalette.mainColor,
-                  height: double.infinity,
-                  child: const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  ),
-                );
+                return MyLoadingScreen();
               } else {
                 return GestureDetector(
                   onTap: () {
