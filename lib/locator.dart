@@ -22,6 +22,7 @@ import 'package:flickrate/data/user/my_user_repository.dart';
 import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/domain/video/ivideo_repository.dart';
+import 'package:flickrate/utils/isolate_handler.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flickrate/utils/video_player_util.dart';
 import 'package:get_it/get_it.dart';
@@ -53,8 +54,12 @@ void initServices() {
   initCameraConfig();
   initCameraService();
   initVideoPlayerUtil();
+  initIsolateHandel();
 }
-
+void initIsolateHandel() {
+  locator.registerFactory<IsolateHandler>(
+    () => IsolateHandler(),
+  );}
 void initFunctionService() {
   locator.registerSingleton<IFunctionService>(
     FunctionService(),
@@ -133,6 +138,7 @@ void initRepos() {
   locator.registerFactory<IVideoRepository>(
     () => VideoRepository(
       networkService: locator.get<INetworkService>(),
+      isolateHandler: locator.get<IsolateHandler>()
     ),
   );
 }
@@ -160,3 +166,6 @@ void initCameraService() {
     ),
   );
 }
+
+
+

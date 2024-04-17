@@ -7,11 +7,11 @@ import 'package:device_info/device_info.dart';
 class DeviceInfo {
   Future<bool> isAndroidVersionAbove13() async {
     if (Platform.isAndroid) {
-      var androidInfo = await DeviceInfoPlugin().androidInfo;
-      var release = androidInfo.version.release;
-      var sdkInt = androidInfo.version.sdkInt;
-      var manufacturer = androidInfo.manufacturer;
-      var model = androidInfo.model;
+      AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+      String release = androidInfo.version.release;
+      int sdkInt = androidInfo.version.sdkInt;
+      String manufacturer = androidInfo.manufacturer;
+      String model = androidInfo.model;
       print('Android $release (SDK $sdkInt), $manufacturer $model');
       if (int.parse(release) >= 13) {
         return true;

@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../../domain/local_notification/ilocal_notification_service.dart';
@@ -24,6 +23,11 @@ class LocalNotificationService implements ILocalNotificationService {
     const InitializationSettings initializationSettings =
         InitializationSettings(
       android: AndroidInitializationSettings("@drawable/ic_launcher"),
+      iOS: DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true
+      )
     );
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onNotificationTap,
@@ -59,61 +63,27 @@ class LocalNotificationService implements ILocalNotificationService {
 
   @override
   Future<void> showNotificationWithProgress(
-      {required RemoteMessage message, required UploadTask task}) async {
+      {required double progress, required int id}) async {
     try {
-      Random random = Random();
       String channel = 'progress';
-      final id = random.nextInt(1000);
-      task.snapshotEvents.listen(
-        (event) {
-          switch (event.state) {
-            case TaskState.running:
-              double progress =
-                  100 * (event.bytesTransferred / event.totalBytes);
-              NotificationDetails notificationDetails = NotificationDetails(
-                android: AndroidNotificationDetails(channel, channel,
-                    channelDescription: channel,
-                    importance: Importance.low,
-                    priority: Priority.low,
-                    showProgress: true,
-                    progress: progress.round(),
-                    ongoing: progress.round()!=100,
-                    maxProgress: 100),
-              );
-              if (message.notification != null) {
-                if (progress.round()==100) {
-                   _flutterLocalNotificationsPlugin.show(
-                    id,
-                    "Completed",
-                    'Uploading completed',
-                    notificationDetails);
-                }
-                else{
-                   _flutterLocalNotificationsPlugin.show(
-                    id,
-                    message.notification!.title ?? "",
-                    message.notification!.body ?? "",
-                    notificationDetails);
-                }
-               
-              }
-              print("progress $progress");
-              break;
-            case TaskState.paused:
-              print("paused");
-              break;
-            case TaskState.error:
-              print("error");
-              break;
-            case TaskState.canceled:
-              print("canceled");
-              break;
-            case TaskState.success:
-              print('success');
-            default:
-          }
-        },
+      print('notification id:$id');
+      NotificationDetails notificationDetails = NotificationDetails(
+        android: AndroidNotificationDetails(channel, channel,
+            channelDescription: channel,
+            importance: Importance.low,
+            priority: Priority.low,
+            showProgress: true,
+            progress: progress.round(),
+            ongoing: progress.round() != 100,
+            maxProgress: 100),
       );
+      if (progress.round() == 100) {
+        _flutterLocalNotificationsPlugin.cancel(id);
+      } else {
+        _flutterLocalNotificationsPlugin.show(
+            id, 'Uploading', 'Uploading progress', notificationDetails);
+      }
+      print("progress $progress");
     } on Exception catch (e) {
       print(e);
     }
