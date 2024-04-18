@@ -29,6 +29,7 @@ class IsolateHandler {
           _uploadToStorage, mainIsolatePort.sendPort);
       mainIsolatePort.listen((message) {
         if (message is SendPort) {
+          print("SEND PORT");
           print("COMMUNICATION SETUP SUCCESS");
           message.send(payload);
           print("SENT INPUT PAYLOAD TO UPLOAD ISOLATE");
@@ -40,6 +41,7 @@ class IsolateHandler {
         }
       });
     } catch (e) {
+      print(e.toString());
       mainIsolatePort.close();
     } finally {
       print('WE HERE');
@@ -47,13 +49,20 @@ class IsolateHandler {
   }
 }
 
+@pragma("vm:entry-point")
 _uploadToStorage(SendPort mainIsolatePort) {
+  print("uploading function started");
+
   final uploadIsolatePort = ReceivePort();
   try {
+    print("MAIN ISOLATE SEND");
+
     mainIsolatePort.send(uploadIsolatePort.sendPort);
+    print("UPLOAD ISOLATE LISTEN");
     uploadIsolatePort.listen(
       (message) async {
         if (message is Map) {
+          print("FIREBASE INITIALIZE");
           await Firebase.initializeApp();
           String file = message['filePath'];
           String directoryName = message['directoryName'];
@@ -64,13 +73,17 @@ _uploadToStorage(SendPort mainIsolatePort) {
           IStorageService storageService = CloudStorageService();
           INetworkService networkService = FirebaseService();
           final id = Random().nextInt(1000);
-          storageService.uploadFile(directoryName, file, fileName).then(
+          print("UPLOAD FILE");
+          await storageService.uploadFile(directoryName, file, fileName).then(
             (uploadTask) async {
+              print("UPLOAD TASK LISTEN");
               uploadTask.snapshotEvents.listen((event) async {
+                print("HERE");
                 switch (event.state) {
                   case TaskState.running:
                     double progress =
                         100 * (event.bytesTransferred / event.totalBytes);
+                    print("NOTIFICATION");
                     await localNotification.showNotificationWithProgress(
                         progress: progress, id: id);
                     break;

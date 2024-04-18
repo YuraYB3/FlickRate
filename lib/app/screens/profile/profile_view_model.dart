@@ -2,6 +2,7 @@
 import 'package:flickrate/app/routing/inavigation_util.dart';
 import 'package:flickrate/app/routing/routes.dart';
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
+import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class ProfileViewModel extends ChangeNotifier {
   final IMyUserRepository _myUserRepository;
   final PermissionHandler _permissionHandler;
   final INavigationUtil _navigationUtil;
+  final ILocalNotificationService _localNotificationService;
   late Stream<IMyUser> _userStream;
   late IMyUser _myUser;
   String _userNickName = '';
@@ -31,11 +33,13 @@ class ProfileViewModel extends ChangeNotifier {
       required IMyUserRepository myUserRepository,
       required IUserService userService,
       required INavigationUtil navigationUtil,
+      required ILocalNotificationService localNotificationService
       })
       : _userService = userService,
         _permissionHandler = permissionHandler,
         _myUserRepository = myUserRepository,
-        _navigationUtil = navigationUtil
+        _navigationUtil = navigationUtil,
+        _localNotificationService = localNotificationService
         {
     _init();
   }
@@ -176,5 +180,9 @@ class ProfileViewModel extends ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  void onNotificationTap(){
+    _localNotificationService.showNotificationWithProgress(progress: 56, id: 89);
   }
 }

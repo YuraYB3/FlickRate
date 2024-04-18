@@ -138,7 +138,7 @@ void initRepos() {
   locator.registerFactory<IVideoRepository>(
     () => VideoRepository(
       networkService: locator.get<INetworkService>(),
-      isolateHandler: locator.get<IsolateHandler>()
+      isolateHandler: locator.get<IsolateHandler>(),
     ),
   );
 }

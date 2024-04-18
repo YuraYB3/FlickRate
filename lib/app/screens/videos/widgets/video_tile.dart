@@ -43,11 +43,9 @@ class _VideoTileState extends State<VideoTile> {
                   onTap: () {
                     widget.videoPlayerUtil.onVideoTaped();
                   },
-                  child: Container(
-                    color: widget.colorsPalette.mainColor,
-                    child: VideoPlayer(
-                        widget.videoPlayerUtil.videoPlayerController),
-                  ),
+                  child: SizedBox(
+                      child: VideoPlayer(
+                          widget.videoPlayerUtil.videoPlayerController)),
                 );
               }
             },

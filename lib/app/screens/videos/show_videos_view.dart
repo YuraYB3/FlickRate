@@ -58,7 +58,6 @@ class _ShowVideosViewState extends State<ShowVideosView> {
               child: const Center(
                 child: CircularProgressIndicator(
                   color: Colors.red,
-                  
                 ),
               ),
             ),

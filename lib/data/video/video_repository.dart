@@ -14,10 +14,10 @@ class VideoRepository implements IVideoRepository {
   final INetworkService _networkService;
   final IsolateHandler _isolateHandler;
 
-  VideoRepository(
-      {required INetworkService networkService,
-      required IsolateHandler isolateHandler})
-      : _networkService = networkService,
+  VideoRepository({
+    required INetworkService networkService,
+    required IsolateHandler isolateHandler,
+  })  : _networkService = networkService,
         _isolateHandler = isolateHandler;
 
   @override

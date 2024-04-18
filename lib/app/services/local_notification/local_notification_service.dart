@@ -22,13 +22,11 @@ class LocalNotificationService implements ILocalNotificationService {
   Future<void> _init() async {
     const InitializationSettings initializationSettings =
         InitializationSettings(
-      android: AndroidInitializationSettings("@drawable/ic_launcher"),
-      iOS: DarwinInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestSoundPermission: true
-      )
-    );
+            android: AndroidInitializationSettings("@drawable/ic_launcher"),
+            iOS: DarwinInitializationSettings(
+                requestAlertPermission: true,
+                requestBadgePermission: true,
+                requestSoundPermission: true));
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onNotificationTap,
         onDidReceiveBackgroundNotificationResponse: onNotificationTap);
@@ -40,14 +38,14 @@ class LocalNotificationService implements ILocalNotificationService {
       Random random = Random();
       final id = random.nextInt(1000);
       const NotificationDetails notificationDetails = NotificationDetails(
-        android: AndroidNotificationDetails(
-          channelId,
-          channelName,
-          channelDescription: channelDescription,
-          importance: Importance.max,
-          priority: Priority.high,
-        ),
-      );
+          android: AndroidNotificationDetails(
+            channelId,
+            channelName,
+            channelDescription: channelDescription,
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+          iOS: DarwinNotificationDetails());
 
       if (message.notification != null) {
         await _flutterLocalNotificationsPlugin.show(
@@ -68,15 +66,15 @@ class LocalNotificationService implements ILocalNotificationService {
       String channel = 'progress';
       print('notification id:$id');
       NotificationDetails notificationDetails = NotificationDetails(
-        android: AndroidNotificationDetails(channel, channel,
-            channelDescription: channel,
-            importance: Importance.low,
-            priority: Priority.low,
-            showProgress: true,
-            progress: progress.round(),
-            ongoing: progress.round() != 100,
-            maxProgress: 100),
-      );
+          android: AndroidNotificationDetails(channel, channel,
+              channelDescription: channel,
+              importance: Importance.low,
+              priority: Priority.low,
+              showProgress: true,
+              progress: progress.round(),
+              ongoing: progress.round() != 100,
+              maxProgress: 100),
+          iOS: const DarwinNotificationDetails());
       if (progress.round() == 100) {
         _flutterLocalNotificationsPlugin.cancel(id);
       } else {
