@@ -114,6 +114,7 @@ _uploadToStorage(SendPort mainIsolatePort) {
               mainIsolatePort.send(url);
             },
           );
+          print("WE HERE");
         }
       },
     );

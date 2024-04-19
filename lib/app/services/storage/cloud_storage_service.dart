@@ -13,9 +13,30 @@ class CloudStorageService extends ChangeNotifier implements IStorageService {
   @override
   Future<UploadTask> uploadFile(
       String directoryName, String file, String fileName) async {
-    Reference fileRef = storage.child(directoryName);
-    Reference referenceFileToUpload = fileRef.child(fileName);
-    return referenceFileToUpload.putFile(File(file));
+    try {
+      print("UPLOADINGGG");
+      Reference fileRef = storage.child(directoryName);
+      print("UPLOADINGGG 1");
+      Reference referenceFileToUpload = fileRef.child(fileName);
+      print("UPLOADINGGG 2");
+      UploadTask uploadTask = referenceFileToUpload.putFile(File(file));
+      print('GREAT');
+      //  await uploadTask;
+      print('GREAT 2 ');
+      return uploadTask;
+    } catch (e) {
+      print("PROBLEM");
+      Reference fileRef = storage.child(directoryName);
+      print("PROBLEM 1");
+      Reference referenceFileToUpload = fileRef.child(fileName);
+      print("PROBLEM 2");
+      UploadTask uploadTask = referenceFileToUpload.putFile(File(file));
+      print('GREAT');
+      //  await uploadTask;
+      print('GREAT 2 ');
+      print("WE HAVE A PROBLEM: $e");
+      return uploadTask;
+    }
   }
 }
 /*@override
