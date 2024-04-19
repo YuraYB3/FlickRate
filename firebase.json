@@ -1,21 +1,60 @@
 {
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
+    "functions": [
+        {
+            "source": "functions",
+            "codebase": "default",
+            "ignore": [
+                "node_modules",
+                ".git",
+                "firebase-debug.log",
+                "firebase-debug.*.log"
+            ],
+            "predeploy": [
+                "npm --prefix \"$RESOURCE_DIR\" run lint"
+            ]
+        }
+    ],
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
+    },
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "flickrate-b668e",
+                    "appId": "1:705478736954:android:a57e7f020637f443208903",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "ios": {
+                "default": {
+                    "projectId": "flickrate-b668e",
+                    "appId": "1:705478736954:ios:add316a232796df9208903",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "ios/Runner/GoogleService-Info.plist"
+                }
+            },
+            "macos": {
+                "default": {
+                    "projectId": "flickrate-b668e",
+                    "appId": "1:705478736954:ios:add316a232796df9208903",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "macos/Runner/GoogleService-Info.plist"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "flickrate-b668e",
+                    "configurations": {
+                        "android": "1:705478736954:android:a57e7f020637f443208903",
+                        "ios": "1:705478736954:ios:add316a232796df9208903",
+                        "macos": "1:705478736954:ios:add316a232796df9208903",
+                        "web": "1:705478736954:web:0eba407b872efaf2208903",
+                        "windows": "1:705478736954:web:c1d717d5ae36732b208903"
+                    }
+                }
+            }
+        }
     }
-  ],
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  }
 }

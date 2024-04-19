@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "705478736954",
+    "project_id": "flickrate-b668e",
+    "storage_bucket": "flickrate-b668e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705478736954:android:a57e7f020637f443208903",
+        "android_client_info": {
+          "package_name": "com.example.flickrate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705478736954-l810tgdegl7bb8ndp8s07n4m6s3tdo3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flickrate",
+            "certificate_hash": "a9e455f4917f4a8b1255a2bda6e4faf15e93be76"
+          }
+        },
+        {
+          "client_id": "705478736954-ln84jiuh26t80gn7vqcp8mtvneh8c4rf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flickrate",
+            "certificate_hash": "e1e9a551bb5e7d5c63d20662e73f5a38f133ac21"
+          }
+        },
+        {
+          "client_id": "705478736954-fo2pvdurenrfae5qujfkp6fvkf35tjqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEn0B0eQU5Uzu7Itb6jD-BFwPvP_tC9_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705478736954-fo2pvdurenrfae5qujfkp6fvkf35tjqk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "705478736954-lr24f7h10vn3ddkpvb7g44ureaecka5a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flickrate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

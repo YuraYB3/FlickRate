@@ -17,8 +17,8 @@ class NotificationService implements INotificationService {
   }
 
   Future<void> _init() async {
-    final fcmToken = await _firebaseMessaging.getToken();
-    print('Token: $fcmToken');
+// final fcmToken = await _firebaseMessaging.getToken();
+    //  print('Token: $fcmToken');
     await _setNotificationsHandlers();
   }
 

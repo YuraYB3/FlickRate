@@ -11,6 +11,7 @@ import 'package:flickrate/app/services/storage/cloud_storage_service.dart';
 import 'package:flickrate/app/services/storage/istorage_service.dart';
 import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
 import 'package:flickrate/domain/network/inetwork_service.dart';
+import 'package:flickrate/firebase_options.dart';
 import 'package:flutter_isolate/flutter_isolate.dart';
 
 class IsolateHandler {
@@ -63,7 +64,7 @@ _uploadToStorage(SendPort mainIsolatePort) {
       (message) async {
         if (message is Map) {
           print("FIREBASE INITIALIZE");
-          await Firebase.initializeApp();
+          await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
           String file = message['filePath'];
           String directoryName = message['directoryName'];
           String fileName = message['fileName'];
@@ -74,10 +75,10 @@ _uploadToStorage(SendPort mainIsolatePort) {
           INetworkService networkService = FirebaseService();
           final id = Random().nextInt(1000);
           print("UPLOAD FILE");
-          await storageService.uploadFile(directoryName, file, fileName).then(
+          storageService.uploadFile(directoryName, file, fileName).then(
             (uploadTask) async {
               print("UPLOAD TASK LISTEN");
-              uploadTask.snapshotEvents.listen((event) async {
+            uploadTask.snapshotEvents.listen((event) async {
                 print("HERE");
                 switch (event.state) {
                   case TaskState.running:
