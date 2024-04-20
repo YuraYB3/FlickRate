@@ -54,12 +54,15 @@ void initServices() {
   initCameraConfig();
   initCameraService();
   initVideoPlayerUtil();
-  initIsolateHandel();
+  initIsolateHandler();
 }
-void initIsolateHandel() {
+
+void initIsolateHandler() {
   locator.registerFactory<IsolateHandler>(
     () => IsolateHandler(),
-  );}
+  );
+}
+
 void initFunctionService() {
   locator.registerSingleton<IFunctionService>(
     FunctionService(),
@@ -166,6 +169,3 @@ void initCameraService() {
     ),
   );
 }
-
-
-

@@ -63,10 +63,16 @@ class _CameraViewState extends State<CameraView> {
             case CameraState.ready:
               return Column(
                 children: [
-                  PreviewWidget(cameraPreview: widget.model.cameraPreview),
+                  Expanded(
+                    child: PreviewWidget(
+                      cameraPreview: widget.model.cameraPreview,
+                      cameraController: widget.model.cameraController,
+                    ),
+                  ),
                   Container(
                     color: widget.colorsPalette.mainColor,
                     child: BottomRowWidget(
+                      recordingDuration: widget.model.recordingDuration,
                       takePhoto: !widget.model.isTakePictureClicked
                           ? () => widget.model.onTakePhotoClicked(
                                 showException: (message) =>
@@ -88,11 +94,6 @@ class _CameraViewState extends State<CameraView> {
                       cameraTask: widget.model.cameraTask,
                     ),
                   ),
-                  Container(
-                    color: widget.colorsPalette.mainColor,
-                    height: 20,
-                    width: double.infinity,
-                  )
                 ],
               );
             default:

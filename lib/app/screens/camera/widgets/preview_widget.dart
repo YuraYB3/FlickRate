@@ -1,10 +1,13 @@
+import 'package:camera/camera.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
 class PreviewWidget extends StatefulWidget {
   final Widget cameraPreview;
   final ColorsPalette colorsPalette = ColorsPalette();
-  PreviewWidget({required this.cameraPreview, super.key});
+  final CameraController cameraController;
+  PreviewWidget(
+      {required this.cameraPreview, super.key, required this.cameraController});
 
   @override
   State<PreviewWidget> createState() => _PreviewWidgetState();
@@ -13,23 +16,11 @@ class PreviewWidget extends StatefulWidget {
 class _PreviewWidgetState extends State<PreviewWidget> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-          decoration:  BoxDecoration(
-            border: Border.all(
-                color: widget.colorsPalette.mainColor,
-                width: 20
-              ),
-            ),
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Center(
-                  child: AspectRatio(
-                  aspectRatio: 9/ 16,
-                  child: widget.cameraPreview),
-          ),
-        ),
-      ),
+    return Transform.scale(
+      scale: 1 /
+          (widget.cameraController.value.aspectRatio *
+              MediaQuery.of(context).size.aspectRatio),
+      child: widget.cameraPreview,
     );
   }
 }

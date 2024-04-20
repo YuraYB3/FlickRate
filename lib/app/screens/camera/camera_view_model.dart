@@ -26,6 +26,10 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   XFile? file;
   String imageName;
   String documentId;
+  int recordDurationLimit = 15;
+  Timer? recordingTimer;
+  final ValueNotifier<double> _recordingDuration = ValueNotifier(0);
+  ValueNotifier<double>  get recordingDuration => _recordingDuration;
   bool isTakePictureClicked = false;
   bool _isRecording = false;
   bool get isRecording => _isRecording;
@@ -36,6 +40,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   Widget get cameraPreview => _cameraService.cameraPreview;
 
   Stream<CameraState> get cameraStateStream => _cameraService.cameraStateStream;
+  CameraController get cameraController => _cameraService.cameraController;
 
   CameraViewModel(
       {required ICameraService cameraService,
@@ -104,10 +109,12 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
       if (isRecording) {
         //stop recording
         file = await _cameraService.stopVideoRecording();
+        _stopTimerAndResetDuration();
         showVideo();
       } else {
         // start recording
         await _cameraService.startVideoRecording();
+        _startTimer(showException: showException, showVideo: showVideo);
       }
       _isRecording = !isRecording;
       notifyListeners();
@@ -163,5 +170,27 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     }
     _isRecording = false;
     notifyListeners();
+  }
+
+  void _startTimer(
+      {required Function(String message) showException,
+      required Function() showVideo}) async {
+    recordingTimer = Timer.periodic(
+      const Duration(milliseconds: 100),
+      (timer) {
+        _recordingDuration.value+=0.1;
+        notifyListeners();
+        if (_recordingDuration.value >= recordDurationLimit) {
+          onRecordVideoClicked(
+              showException: showException, showVideo: showVideo);
+        }
+        print("Seconds: ${recordingDuration.value}");
+      },
+    );
+  }
+
+  void _stopTimerAndResetDuration() async {
+    recordingTimer?.cancel();
+    _recordingDuration.value = 0;
   }
 }
