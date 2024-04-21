@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_print
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
 
@@ -17,8 +19,14 @@ class NotificationService implements INotificationService {
   }
 
   Future<void> _init() async {
-// final fcmToken = await _firebaseMessaging.getToken();
-    //  print('Token: $fcmToken');
+    String? token; 
+    if (Platform.isIOS) {
+       token = await _firebaseMessaging.getAPNSToken();
+    }
+    else{
+      token = await _firebaseMessaging.getToken();
+    }
+    print("THIS IS TOKEN: $token");
     await _setNotificationsHandlers();
   }
 
