@@ -35,8 +35,8 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => _buildShowVideosSettings(routeSettings));
       default:
+        return MaterialPageRoute(builder: (_) => const Placeholder());
     }
-    return MaterialPageRoute(builder: (_) => const Placeholder());
   }
 
   Widget _buildLoginSettings(RouteSettings settings) {

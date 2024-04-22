@@ -42,38 +42,41 @@ class _CoreNavigationViewState extends State<CoreNavigationView> {
                         : widget.colorsPalette.secondColor,
                   )),
               IconButton(
-                  onPressed: () {
-                    widget._viewModel.updateSelectedIndex(1);
-                  },
-                  icon: Icon(
-                    Icons.search,
-                    size: widget._viewModel.iconSize,
-                    color: widget._viewModel.selectedIndex == 1
-                        ? widget.colorsPalette.mainColor
-                        : widget.colorsPalette.secondColor,
-                  ),),
-                   IconButton(
-                  onPressed: () {
-                    widget._viewModel.updateSelectedIndex(2);
-                  },
-                  icon: Icon(
-                    Icons.video_collection,
-                    size: widget._viewModel.iconSize,
-                    color: widget._viewModel.selectedIndex == 2
-                        ? widget.colorsPalette.mainColor
-                        : widget.colorsPalette.secondColor,
-                  ),),
+                onPressed: () {
+                  widget._viewModel.updateSelectedIndex(1);
+                },
+                icon: Icon(
+                  Icons.search,
+                  size: widget._viewModel.iconSize,
+                  color: widget._viewModel.selectedIndex == 1
+                      ? widget.colorsPalette.mainColor
+                      : widget.colorsPalette.secondColor,
+                ),
+              ),
               IconButton(
-                  onPressed: () {
-                    widget._viewModel.updateSelectedIndex(3);
-                  },
-                  icon: Icon(
-                    Icons.person_rounded,
-                    size: widget._viewModel.iconSize,
-                    color: widget._viewModel.selectedIndex == 3
-                        ? widget.colorsPalette.mainColor
-                        : widget.colorsPalette.secondColor,
-                  ),),
+                onPressed: () {
+                  widget._viewModel.updateSelectedIndex(2);
+                },
+                icon: Icon(
+                  Icons.video_collection,
+                  size: widget._viewModel.iconSize,
+                  color: widget._viewModel.selectedIndex == 2
+                      ? widget.colorsPalette.mainColor
+                      : widget.colorsPalette.secondColor,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  widget._viewModel.updateSelectedIndex(3);
+                },
+                icon: Icon(
+                  Icons.person_rounded,
+                  size: widget._viewModel.iconSize,
+                  color: widget._viewModel.selectedIndex == 3
+                      ? widget.colorsPalette.mainColor
+                      : widget.colorsPalette.secondColor,
+                ),
+              ),
             ],
           ),
         ),

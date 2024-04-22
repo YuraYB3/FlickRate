@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/movies/imovie.dart';
-import '../../../common/screens/my_empty_screen.dart';
-import '../../../common/screens/my_error_widget.dart';
-import '../../../common/screens/my_loading_widget.dart';
 import '../../../theme/color_palette.dart';
 import 'show_movies_view_model.dart';
 import 'widgets/movie_tile.dart';
@@ -21,6 +18,11 @@ class ShowMoviesView extends StatefulWidget {
 
 class _ShowMoviesViewState extends State<ShowMoviesView> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -32,36 +34,55 @@ class _ShowMoviesViewState extends State<ShowMoviesView> {
           },
         ),
       ),
-      body: StreamBuilder<List<IMovie>>(
-        stream: widget._model.movieStreamList,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(child: MyErrorScreen());
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: MyLoadingScreen());
-          }
-          if (snapshot.data!.isEmpty) {
-            return Center(child: MyEmptyScreen());
-          }
-          final moviesData = snapshot.data!;
-          return ListView.builder(
-              itemBuilder: (context, index) {
-                final movie = moviesData[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: MovieTile(
-                    movieDescription: movie.movieDescription,
-                    movieGenre: movie.movieGenre,
-                    movieName: movie.movieName,
-                    onTileClicked: () {
-                      widget._model.onListTileClicked(movie.documentId);
-                    },
-                  ),
-                );
-              },
-              itemCount: moviesData.length);
-        },
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Expanded(
+                child: StreamBuilder<List<IMovie>>(
+                  stream: widget._model.movieStreamList,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                          "ERROR${snapshot.error}",
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 24),
+                        ),
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      );
+                    }
+                    final List<IMovie> movieData = snapshot.data!;
+                    return ListView.builder(
+                        itemBuilder: (context, index) {
+                          final movie = movieData[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: MovieTile(
+                              movieDescription: movie.movieDescription,
+                              movieGenre: movie.movieGenre,
+                              movieName: movie.movieName,
+                              onTileClicked: () {
+                                widget._model
+                                    .onListTileClicked(movie.documentId);
+                              },
+                            ),
+                          );
+                        },
+                        itemCount: movieData.length);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

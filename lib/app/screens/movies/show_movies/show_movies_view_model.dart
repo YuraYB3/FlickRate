@@ -41,9 +41,9 @@ class ShowMoviesViewModel extends ChangeNotifier {
     searchQuery = query;
     if (searchQuery.trim().length > 3) {
       _fetchMoviesStreamByQuery(query);
-    } else {
+    } else if (searchQuery.trim().isEmpty) {
       _fetchMoviesStream();
-    }
+    } else {}
   }
 
   Future<void> _fetchMoviesStreamByQuery(String query) async {
