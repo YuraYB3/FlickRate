@@ -21,36 +21,41 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   final IVideoRepository _videoRepository;
   final CameraTask cameraTask;
 
-  late void Function() showVideo;
   String? imagePath = '';
   XFile? file;
   String imageName;
   String documentId;
-  int recordDurationLimit = 15;
+  final int _recordDurationLimit = 15;
   Timer? recordingTimer;
+
+  ActiveOption _currentOption = ActiveOption.camera;
+  ActiveOption get currentOption => _currentOption;
+
   final ValueNotifier<double> _recordingDuration = ValueNotifier(0);
-  ValueNotifier<double>  get recordingDuration => _recordingDuration;
-  bool isTakePictureClicked = false;
+  ValueNotifier<double> get recordingDuration => _recordingDuration;
+
+  bool _isTakePictureClicked = false;
+  bool get isTakePictureClicked => _isTakePictureClicked;
+
   bool _isRecording = false;
   bool get isRecording => _isRecording;
+
   late VideoPlayerController _videoPlayerController;
   VideoPlayerController get videoPlayerController => _videoPlayerController;
-  ActiveOption currentOption = ActiveOption.camera;
 
   Widget get cameraPreview => _cameraService.cameraPreview;
-
   Stream<CameraState> get cameraStateStream => _cameraService.cameraStateStream;
   CameraController get cameraController => _cameraService.cameraController;
 
-  CameraViewModel(
-      {required ICameraService cameraService,
-      required INavigationUtil navigationUtil,
-      required this.imageName,
-      required this.documentId,
-      required this.cameraTask,
-      required IMyUserRepository myUserRepository,
-      required IVideoRepository videoRepository})
-      : _cameraService = cameraService,
+  CameraViewModel({
+    required ICameraService cameraService,
+    required INavigationUtil navigationUtil,
+    required this.imageName,
+    required this.documentId,
+    required this.cameraTask,
+    required IMyUserRepository myUserRepository,
+    required IVideoRepository videoRepository,
+  })  : _cameraService = cameraService,
         _navigationUtil = navigationUtil,
         _myUserRepository = myUserRepository,
         _videoRepository = videoRepository;
@@ -78,49 +83,33 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     _cameraService.toggleCamera();
   }
 
-  Future<void> onTakePhotoClicked(
-      {required Function(String message) showException,
-      required Function() showPicture}) async {
-    try {
-      _swapIsTakePictureClicked();
-      await _cameraService.takePicture().then(
-        (file) {
-          if (file != null) {
-            imagePath = file.path;
-            print(imagePath);
-            showPicture();
-            _swapIsTakePictureClicked();
-          } else {
-            showException("Something went wrong");
-            _swapIsTakePictureClicked();
-            _navigationUtil.navigateBack();
-          }
-        },
-      );
-    } catch (e) {
-      print(e.toString());
-    }
+  void onChangeActiveOptionClicked() {
+    _currentOption = currentOption == ActiveOption.camera
+        ? ActiveOption.video
+        : ActiveOption.camera;
+    _isRecording = false;
+    notifyListeners();
   }
 
-  Future<void> onRecordVideoClicked(
-      {required Function(String message) showException,
-      required Function() showVideo}) async {
+  Future<void> onTakePhotoClicked({
+    required Function(String message) showException,
+    required Function() showPicture,
+  }) async {
     try {
-      if (isRecording) {
-        //stop recording
-        file = await _cameraService.stopVideoRecording();
-        _stopTimerAndResetDuration();
-        showVideo();
+      _swapIsTakePictureClicked();
+      final file = await _cameraService.takePicture();
+      if (file != null) {
+        imagePath = file.path;
+        print(imagePath);
+        showPicture();
+        _swapIsTakePictureClicked();
       } else {
-        // start recording
-        await _cameraService.startVideoRecording();
-        _startTimer(showException: showException, showVideo: showVideo);
+        showException("Something went wrong");
+        _swapIsTakePictureClicked();
+        _navigationUtil.navigateBack();
       }
-      _isRecording = !isRecording;
-      notifyListeners();
     } catch (e) {
       print(e.toString());
-      showException("Something went wrong");
     }
   }
 
@@ -128,7 +117,9 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     _navigationUtil.navigateBack();
   }
 
-  void onApplyPictureClicked({required Function(String message) showSuccess}) {
+  void onApplyPictureClicked({
+    required Function(String message) showSuccess,
+  }) {
     switch (cameraTask) {
       case CameraTask.updateProfileImage:
         _myUserRepository.changeProfilePhoto(documentId, imageName, imagePath!);
@@ -138,16 +129,58 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
       case CameraTask.test:
         showSuccess("Camera successfully tested!");
         _navigationUtil.navigateBackToStart();
+        break;
       default:
     }
+  }
+
+  void _swapIsTakePictureClicked() {
+    _isTakePictureClicked = !isTakePictureClicked;
+    notifyListeners();
+  }
+
+  Future<void> onRecordVideoClicked({
+    required Function(String message) showException,
+    required Function() showVideo,
+  }) async {
+    try {
+      if (isRecording) {
+        // Stop recording
+        _stopRecording(showVideo: showVideo);
+      } else {
+        // Start recording
+        _startVideoRecording(
+            showException: showException, showVideo: showVideo);
+      }
+      _isRecording = !isRecording;
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+      showException("Something went wrong");
+    }
+  }
+
+  void _startVideoRecording({
+    required Function(String message) showException,
+    required Function() showVideo,
+  }) async {
+    await _cameraService.startVideoRecording();
+    _startTimer(showException: showException, showVideo: showVideo);
+  }
+
+  void _stopRecording({required Function() showVideo}) async {
+    file = await _cameraService.stopVideoRecording();
+    _stopTimerAndResetDuration();
+    showVideo();
   }
 
   void onCloseVideoClicked() {
     _navigationUtil.navigateBack();
   }
 
-  Future<void> onApplyVideoClicked(
-      {required Function(String message) showSuccess}) async {
+  Future<void> onApplyVideoClicked({
+    required Function(String message) showSuccess,
+  }) async {
     if (file != null) {
       showSuccess("Video is loading! Please wait");
       _navigationUtil.navigateBackToStart();
@@ -157,39 +190,24 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     }
   }
 
-  void _swapIsTakePictureClicked() {
-    isTakePictureClicked = !isTakePictureClicked;
-    notifyListeners();
-  }
-
-  void onChangeActiveOptionClicked() {
-    if (currentOption == ActiveOption.camera) {
-      currentOption = ActiveOption.video;
-    } else {
-      currentOption = ActiveOption.camera;
-    }
-    _isRecording = false;
-    notifyListeners();
-  }
-
-  void _startTimer(
-      {required Function(String message) showException,
-      required Function() showVideo}) async {
+  void _startTimer({
+    required Function(String message) showException,
+    required Function() showVideo,
+  }) {
     recordingTimer = Timer.periodic(
       const Duration(milliseconds: 100),
       (timer) {
-        _recordingDuration.value+=0.1;
+        _recordingDuration.value += 0.1;
         notifyListeners();
-        if (_recordingDuration.value >= recordDurationLimit) {
-          onRecordVideoClicked(
-              showException: showException, showVideo: showVideo);
+        if (_recordingDuration.value >= _recordDurationLimit) {
+          _stopRecording(showVideo: showVideo);
         }
-        print("Seconds: ${recordingDuration.value}");
+        print("Seconds: ${_recordingDuration.value}");
       },
     );
   }
 
-  void _stopTimerAndResetDuration() async {
+  void _stopTimerAndResetDuration() {
     recordingTimer?.cancel();
     _recordingDuration.value = 0;
   }
