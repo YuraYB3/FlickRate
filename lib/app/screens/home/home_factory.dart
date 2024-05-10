@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../routing/inavigation_util.dart';
-import 'home_view.dart';
+import 'home_screen.dart';
 import 'home_view_model.dart';
 
 class HomeFactory {
@@ -13,10 +13,10 @@ class HomeFactory {
     return ChangeNotifierProvider(
       create: (context) => HomeViewModel(
           userService: locator<IUserService>(),
-          navigationUtil: context.read<INavigationUtil>(),
+          navigationUtil: locator<INavigationUtil>(),
           myUserRepository: locator<IMyUserRepository>()),
       child: Consumer<HomeViewModel>(
-        builder: (context, model, child) => HomeView(model: model),
+        builder: (context, model, child) => HomeScreen(model: model),
       ),
     );
   }

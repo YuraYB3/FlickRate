@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use
 
 import 'dart:io';
 
@@ -13,16 +13,16 @@ import 'package:video_player/video_player.dart';
 import '../../common/widgets/custom_snackbar.dart';
 import 'widgets/bottom_row_widget.dart';
 
-class CameraView extends StatefulWidget {
+class CameraScreen extends StatefulWidget {
   final CameraViewModel model;
   final ColorsPalette colorsPalette = ColorsPalette();
-  CameraView({super.key, required this.model});
+  CameraScreen({super.key, required this.model});
 
   @override
-  State<CameraView> createState() => _CameraViewState();
+  State<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _CameraViewState extends State<CameraView> {
+class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     widget.model.initCamera();

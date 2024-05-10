@@ -7,7 +7,7 @@ import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'camera_view.dart';
+import 'camera_screen.dart';
 
 class CameraFactory {
   static Widget build(
@@ -18,13 +18,13 @@ class CameraFactory {
       create: (context) => CameraViewModel(
           myUserRepository: locator<IMyUserRepository>(),
           cameraService: locator<ICameraService>(),
-          navigationUtil: context.read<INavigationUtil>(),
+          navigationUtil: locator<INavigationUtil>(),
           videoRepository: locator<IVideoRepository>(),
           documentId: documentId,
           imageName: imageName,
           cameraTask: cameraTask),
       child: Consumer<CameraViewModel>(
-        builder: (context, model, child) => CameraView(model: model),
+        builder: (context, model, child) => CameraScreen(model: model),
       ),
     );
   }

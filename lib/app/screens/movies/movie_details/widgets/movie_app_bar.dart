@@ -17,6 +17,7 @@ class MovieBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 100,
       color: colorsPalette.mainColor,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         IconButton(

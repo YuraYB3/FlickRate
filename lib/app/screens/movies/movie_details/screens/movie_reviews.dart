@@ -28,34 +28,36 @@ class _MovieReviewsState extends State<MovieReviews> {
       child: Center(
         child: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.9,
-              child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    final review = widget.reviewData[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        leading: SizedBox(
-                          height: 50,
-                          width: 50,
-                          child: CachedImageWidget(
-                              imageUrl: review.userImage,
-                              height: 50,
-                              shape: BoxShape.circle,
-                              width: 50),
+            Expanded(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.9,
+                child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      final review = widget.reviewData[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          leading: SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: CachedImageWidget(
+                                imageUrl: review.userImage,
+                                height: 50,
+                                shape: BoxShape.circle,
+                                width: 50),
+                          ),
+                          title: Text(review.userName),
+                          subtitle: Text(
+                            review.reviewText,
+                            maxLines: 50,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: Text(review.rating.toStringAsFixed(1)),
                         ),
-                        title: Text(review.userName),
-                        subtitle: Text(
-                          review.reviewText,
-                          maxLines: 50,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        trailing: Text(review.rating.toStringAsFixed(1)),
-                      ),
-                    );
-                  },
-                  itemCount: widget.reviewData.length),
+                      );
+                    },
+                    itemCount: widget.reviewData.length),
+              ),
             ),
             MovieBottomNavigation(
                 pageController: widget.pageController,

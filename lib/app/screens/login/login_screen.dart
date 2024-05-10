@@ -5,10 +5,10 @@ import 'screens/login_with_email_and_pass_screen.dart';
 import 'screens/login_with_phone_number_screen.dart';
 import 'screens/sign_up_screen.dart';
 
-class LoginView extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   final LoginViewModel model;
 
-  const LoginView({required this.model, super.key});
+  const LoginScreen({required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {

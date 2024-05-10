@@ -1,3 +1,4 @@
+import 'package:flickrate/app/common/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../theme/color_palette.dart';
@@ -11,20 +12,24 @@ class MovieTile extends StatelessWidget {
     required this.movieName,
     required this.movieGenre,
     required this.movieDescription,
+    required this.movieImage,
   });
 
   final String movieName;
   final String movieGenre;
   final String movieDescription;
+  final String movieImage;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: colorsPalette.secondColor,
-        child: Text(
-          movieName[0],
-          style: const TextStyle(color: Colors.white),
+        child: CachedImageWidget(
+          imageUrl: movieImage,
+          height: 50,
+          shape: BoxShape.circle,
+          width: 50,
         ),
       ),
       title: Text(movieName),

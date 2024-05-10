@@ -6,21 +6,22 @@ import '../../../common/screens/my_empty_screen.dart';
 import '../../../common/screens/my_loading_widget.dart';
 import '../../../theme/color_palette.dart';
 
-class ShowReviewsView extends StatefulWidget {
+class ShowReviewsScreen extends StatefulWidget {
   final ColorsPalette colorsPalette = ColorsPalette();
   final ShowReviewsViewModel model;
 
-  ShowReviewsView({super.key, required this.model});
+  ShowReviewsScreen({super.key, required this.model});
   @override
-  State<ShowReviewsView> createState() => _ShowMoviesViewState();
+  State<ShowReviewsScreen> createState() => _ShowMoviesViewState();
 }
 
-class _ShowMoviesViewState extends State<ShowReviewsView> {
+class _ShowMoviesViewState extends State<ShowReviewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: widget.colorsPalette.mainColor,
+        foregroundColor: Colors.white,
       ),
       body: StreamBuilder<List<IReview>>(
         stream: widget.model.reviewStreamList,

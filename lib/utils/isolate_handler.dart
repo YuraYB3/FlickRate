@@ -53,11 +53,9 @@ class IsolateHandler {
 @pragma("vm:entry-point")
 _uploadToStorage(SendPort mainIsolatePort) {
   print("uploading function started");
-
   final uploadIsolatePort = ReceivePort();
   try {
     print("MAIN ISOLATE SEND");
-
     mainIsolatePort.send(uploadIsolatePort.sendPort);
     print("UPLOAD ISOLATE LISTEN");
     uploadIsolatePort.listen(

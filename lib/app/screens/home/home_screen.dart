@@ -2,16 +2,17 @@ import 'package:flickrate/app/common/screens/my_loading_widget.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
+import '../../common/screens/my_error_widget.dart';
 import '../../common/widgets/cached_image.dart';
 import 'home_view_model.dart';
 import 'widgets/add_movie_container.dart';
 import 'widgets/custom_genre_filter_row.dart';
 import 'widgets/custom_grid_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   final HomeViewModel model;
   final ColorsPalette colorsPalette = ColorsPalette();
-  HomeView({required this.model, super.key});
+  HomeScreen({required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class HomeView extends StatelessWidget {
                 stream: model.userStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return MyLoadingScreen();
+                    return  const MyErrorScreen();
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return MyLoadingScreen();

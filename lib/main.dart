@@ -13,11 +13,10 @@ import 'app/services/user/iuser_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  initServices();
-  final INavigationUtil navigationUtil = locator<INavigationUtil>();
+  init();
   runApp(MultiProvider(
     providers: [
-      Provider.value(value: navigationUtil),
+      Provider.value(value: locator<INavigationUtil>()),
     ],
     child: App(
       userService: locator<IUserService>(),
@@ -26,5 +25,3 @@ void main() async {
     ),
   ));
 }
-
-

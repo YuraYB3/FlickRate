@@ -38,7 +38,7 @@ import 'domain/movies/imovie_repository.dart';
 
 final locator = GetIt.instance;
 
-void initServices() {
+void init() {
   initFunctionService();
   initPermissionHandler();
   initNetworkService();

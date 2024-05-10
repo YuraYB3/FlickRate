@@ -1,7 +1,7 @@
-import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
 import 'package:flickrate/app/screens/movies/movie_details/screens/create_review_form.dart';
 import 'package:flickrate/app/screens/movies/movie_details/screens/movie_details.dart';
 import 'package:flickrate/app/screens/movies/movie_details/screens/movie_reviews.dart';
+import 'package:flickrate/app/screens/movies/movie_details/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/movies/imovie.dart';
@@ -14,16 +14,16 @@ import '../../../theme/color_palette.dart';
 import 'movie_view_model.dart';
 import 'widgets/movie_app_bar.dart';
 
-class MovieView extends StatefulWidget {
+class MovieScreen extends StatefulWidget {
   final MovieViewModel _model;
 
-  const MovieView({super.key, required MovieViewModel model}) : _model = model;
+  const MovieScreen({super.key, required MovieViewModel model}) : _model = model;
 
   @override
-  State<MovieView> createState() => _MovieViewState();
+  State<MovieScreen> createState() => _MovieScreenState();
 }
 
-class _MovieViewState extends State<MovieView> {
+class _MovieScreenState extends State<MovieScreen> {
   final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
@@ -64,15 +64,14 @@ class _MovieViewState extends State<MovieView> {
                       movieName: movieData.movieName,
                       movieRating: movieData.movieRating.toString(),
                     )
-                  : MyElevatedButton(
+                  : CustomButton(
                       buttonColor: widget._model.isShowCreateReviewFormClicked
                           ? colorsPalette.secondColor
                           : colorsPalette.mainColor,
                       title: widget._model.isShowCreateReviewFormClicked
                           ? "Cancel"
                           : "Write review",
-                      width: double.infinity,
-                      onButtonPressed:
+                      onButtonTaped:
                           widget._model.onShowCreateReviewFormClicked),
               body: GestureDetector(
                 onHorizontalDragEnd: (details) {

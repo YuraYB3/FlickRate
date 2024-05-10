@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/user/iuser_service.dart';
-import 'login_view.dart';
+import 'login_screen.dart';
 import 'login_view_model.dart';
 
 class LoginFactory {
@@ -11,7 +11,7 @@ class LoginFactory {
     return ChangeNotifierProvider(
       create: (context) => LoginViewModel(userService: locator<IUserService>()),
       child: Consumer<LoginViewModel>(
-        builder: (context, value, child) => LoginView(model: value),
+        builder: (context, value, child) => LoginScreen(model: value),
       ),
     );
   }

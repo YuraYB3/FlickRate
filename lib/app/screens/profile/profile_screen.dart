@@ -9,17 +9,17 @@ import 'widgets/log_out_button.dart';
 import 'widgets/update_info_widget.dart';
 import 'widgets/user_info_widget.dart';
 
-class ProfileView extends StatefulWidget {
+class ProfileScreen extends StatefulWidget {
   final ProfileViewModel _model;
 
-  const ProfileView({required ProfileViewModel model, super.key})
+  const ProfileScreen({required ProfileViewModel model, super.key})
       : _model = model;
 
   @override
-  State<ProfileView> createState() => _ProfileViewState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileViewState extends State<ProfileView> {
+class _ProfileScreenState extends State<ProfileScreen> {
   ColorsPalette colorsPalette = ColorsPalette();
 
   @override

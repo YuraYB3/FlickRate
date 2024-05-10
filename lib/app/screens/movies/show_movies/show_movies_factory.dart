@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../domain/movies/imovie_repository.dart';
 import '../../../routing/inavigation_util.dart';
-import 'show_movies_view.dart';
+import 'show_movies_screen.dart';
 import 'show_movies_view_model.dart';
 
 class ShowMoviesFactory {
@@ -12,10 +12,10 @@ class ShowMoviesFactory {
     return ChangeNotifierProvider(
       create: (context) => ShowMoviesViewModel(
         movieRepository: locator<IMovieRepository>(),
-        navigationUtil: context.read<INavigationUtil>(),
+          navigationUtil: locator<INavigationUtil>(),
       ),
       child: Consumer<ShowMoviesViewModel>(
-        builder: (context, model, child) => ShowMoviesView(model: model),
+        builder: (context, model, child) => ShowMoviesScreen(model: model),
       ),
     );
   }

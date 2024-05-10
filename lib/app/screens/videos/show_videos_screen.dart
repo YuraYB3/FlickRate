@@ -8,16 +8,16 @@ import '../../common/screens/my_empty_screen.dart';
 import '../../common/screens/my_error_widget.dart';
 import '../../common/screens/my_loading_widget.dart';
 
-class ShowVideosView extends StatefulWidget {
+class ShowVideosScreen extends StatefulWidget {
   final ShowVideosViewModel model;
   final ColorsPalette colorsPalette = ColorsPalette();
-  ShowVideosView({super.key, required this.model});
+  ShowVideosScreen({super.key, required this.model});
 
   @override
-  State<ShowVideosView> createState() => _ShowVideosViewState();
+  State<ShowVideosScreen> createState() => _ShowVideosScreenState();
 }
 
-class _ShowVideosViewState extends State<ShowVideosView> {
+class _ShowVideosScreenState extends State<ShowVideosScreen> {
   @override
   void dispose() {
     super.dispose();

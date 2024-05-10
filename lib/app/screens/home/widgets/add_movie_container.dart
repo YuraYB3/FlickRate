@@ -37,46 +37,18 @@ class AddMovieContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: SizedBox(
-              height: screenHeight * 0.3,
               width: screenWidth,
-              child: Padding(
+              child: const Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                    EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: Column(
                   children: [
-                    const Text(
+                    Text(
                       "Have you watched new movie? ",
                       style: TextStyle(color: Colors.white, fontSize: 32),
                     ),
-                    Expanded(child: Container()),
-                    Row(
-                      children: [
-                        Expanded(child: Container()),
-                        SizedBox(
-                            width: 200,
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                    ),
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white)),
-                                onPressed: onButtonClicked,
-                                child: Text(
-                                  "Write review",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: colorsPalette.mainColor),
-                                )))
-                      ],
-                    ),
-                    const SizedBox(
+                  
+                    SizedBox(
                       height: 10,
                     )
                   ],

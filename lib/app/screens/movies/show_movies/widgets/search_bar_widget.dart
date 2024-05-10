@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
@@ -26,31 +24,26 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               borderRadius: BorderRadius.circular(20), color: Colors.white),
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
-            child: Platform.isIOS
-                ? const Center(
-                    child: Text("Sorry searching doesn't work on IOS yet"),
-                  )
-                : TextFormField(
-                    onChanged: (value) async {
-                      widget.updateSearchQuery(value);
-                    },
-                    maxLength: 20,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      labelStyle: TextStyle(color: colorsPalette.mainColor),
-                      prefix: const Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      hintText: 'Enter movie name here',
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: colorsPalette.mainColor)),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: colorsPalette.mainColor),
-                      ),
-                    ),
-                  ),
+            child: TextFormField(
+              onChanged: (value) async {
+                widget.updateSearchQuery(value);
+              },
+              maxLength: 20,
+              decoration: InputDecoration(
+                counterText: '',
+                labelStyle: TextStyle(color: colorsPalette.mainColor),
+                prefix: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                hintText: 'Enter movie name here',
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: colorsPalette.mainColor)),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: colorsPalette.mainColor),
+                ),
+              ),
+            ),
           ),
         ),
       ),

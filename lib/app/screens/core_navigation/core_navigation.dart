@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../../theme/color_palette.dart';
 import 'core_navigation_view_model.dart';
 
-class CoreNavigationView extends StatefulWidget {
+class CoreNavigation extends StatefulWidget {
   final CoreNavigationViewModel _viewModel;
-  CoreNavigationView({required CoreNavigationViewModel viewModel, super.key})
+  CoreNavigation({required CoreNavigationViewModel viewModel, super.key})
       : _viewModel = viewModel;
 
   final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
-  State<CoreNavigationView> createState() => _CoreNavigationViewState();
+  State<CoreNavigation> createState() => _CoreNavigationState();
 }
 
-class _CoreNavigationViewState extends State<CoreNavigationView> {
+class _CoreNavigationState extends State<CoreNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

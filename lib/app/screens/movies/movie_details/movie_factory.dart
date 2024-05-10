@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../domain/movies/imovie_repository.dart';
 
-import 'movie_view.dart';
+import 'movie_screen.dart';
 import 'movie_view_model.dart';
 
 class MovieFactory {
@@ -16,11 +16,11 @@ class MovieFactory {
       create: (context) => MovieViewModel(
           reviewRepository: locator<IReviewRepository>(),
           userService: locator<IUserService>(),
-          navigationUtil: context.read<INavigationUtil>(),
+          navigationUtil: locator<INavigationUtil>(),
           movieId: movieId,
           movieRepository: locator<IMovieRepository>()),
       child: Consumer<MovieViewModel>(
-        builder: (context, value, child) => MovieView(
+        builder: (context, value, child) => MovieScreen(
           model: value,
         ),
       ),

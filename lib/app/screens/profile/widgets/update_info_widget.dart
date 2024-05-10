@@ -47,7 +47,7 @@ class UpdateInfoWidget extends StatelessWidget {
                         onChangePhotoByGalleryClicked,
                         onChangePhotoByCameraClicked);
                   },
-                  icon: const Icon(Icons.add_a_photo),
+                  icon:  Icon(Icons.add_a_photo, color: colorsPalette.secondColor,),
                 ),
               )
             ],

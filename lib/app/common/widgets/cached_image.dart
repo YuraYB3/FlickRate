@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flickrate/app/common/screens/my_loading_widget.dart';
-import 'package:flickrate/app/theme/color_palette.dart';
 
 import 'package:flutter/material.dart';
 
@@ -8,10 +7,9 @@ class CachedImageWidget extends StatelessWidget {
   final String imageUrl;
   final double height;
   final double width;
-  final ColorsPalette colorsPalette = ColorsPalette();
   final BoxShape shape;
 
-  CachedImageWidget(
+  const CachedImageWidget(
       {super.key,
       required this.imageUrl,
       required this.height,

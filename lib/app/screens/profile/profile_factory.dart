@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/user/iuser_service.dart';
-import 'profile_view.dart';
+import 'profile_screen.dart';
 import 'profile_view_model.dart';
 
 class ProfileFactory {
@@ -18,9 +18,9 @@ class ProfileFactory {
           localNotificationService: locator<ILocalNotificationService>(),
           userService: locator<IUserService>(),
           myUserRepository: locator<IMyUserRepository>(),
-          navigationUtil: context.read<INavigationUtil>()),
+          navigationUtil: locator<INavigationUtil>()),
       child: Consumer<ProfileViewModel>(
-        builder: (context, model, child) => ProfileView(model: model),
+        builder: (context, model, child) => ProfileScreen(model: model),
       ),
     );
   }

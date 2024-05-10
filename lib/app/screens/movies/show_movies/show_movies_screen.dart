@@ -6,17 +6,17 @@ import 'show_movies_view_model.dart';
 import 'widgets/movie_tile.dart';
 import 'widgets/search_bar_widget.dart';
 
-class ShowMoviesView extends StatefulWidget {
+class ShowMoviesScreen extends StatefulWidget {
   final ShowMoviesViewModel _model;
   final ColorsPalette colorsPalette = ColorsPalette();
-  ShowMoviesView({required ShowMoviesViewModel model, super.key})
+  ShowMoviesScreen({required ShowMoviesViewModel model, super.key})
       : _model = model;
 
   @override
-  State<ShowMoviesView> createState() => _ShowMoviesViewState();
+  State<ShowMoviesScreen> createState() => _ShowMoviesScreenState();
 }
 
-class _ShowMoviesViewState extends State<ShowMoviesView> {
+class _ShowMoviesScreenState extends State<ShowMoviesScreen> {
   @override
   void initState() {
     super.initState();
@@ -73,6 +73,7 @@ class _ShowMoviesViewState extends State<ShowMoviesView> {
                                 widget._model
                                     .onListTileClicked(movie.documentId);
                               },
+                              movieImage: movie.movieImg,
                             ),
                           );
                         },
