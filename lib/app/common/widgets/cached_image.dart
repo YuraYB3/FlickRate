@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flickrate/app/common/screens/my_loading_widget.dart';
+import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 
 import 'package:flutter/material.dart';
 

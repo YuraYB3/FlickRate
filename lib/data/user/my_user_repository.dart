@@ -1,4 +1,4 @@
-import 'package:flickrate/app/services/storage/istorage_service.dart';
+import 'package:flickrate/domain/storage/istorage_service.dart';
 import 'package:flickrate/data/user/my_user.dart';
 import 'package:flickrate/domain/user/i_my_user.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';

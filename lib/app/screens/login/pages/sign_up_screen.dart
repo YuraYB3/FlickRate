@@ -9,14 +9,14 @@ import '../widgets/flickrate_text.dart';
 import '../widgets/my_email_field.dart';
 import '../widgets/my_password_field.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpPage extends StatelessWidget {
   final Function(Function(String message)) onRegisterNewUserClicked;
   final Function() onSwitchToEmailAndPasswordClicked;
   final Function(String value) updateEmail;
   final Function(String value) updatePassword;
   final Function(String value) updateRepeatedPassword;
 
-  const SignUpScreen(
+  const SignUpPage(
       {required this.onRegisterNewUserClicked,
       super.key,
       required this.updateEmail,

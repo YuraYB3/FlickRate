@@ -9,14 +9,14 @@ import '../widgets/flickrate_text.dart';
 import '../widgets/my_otp_field.dart';
 import '../widgets/my_phone_number_field.dart';
 
-class LoginWithPhoneNumberScreen extends StatelessWidget {
+class LoginWithPhoneNumberPage extends StatelessWidget {
   final bool isOtpSent;
   final Function(String value) updatePhoneNumber;
   final Function() onSwitchToEmailAndPasswordClicked;
   final Function(Function(String message)) onApplyOtpCodeButtonClicked;
   final Function(String value) updateOtpCode;
   final Function(Function(String message)) sentOtpClicked;
-  const LoginWithPhoneNumberScreen({
+  const LoginWithPhoneNumberPage({
     super.key,
     required this.updatePhoneNumber,
     required this.sentOtpClicked,

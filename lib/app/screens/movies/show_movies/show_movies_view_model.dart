@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/movies/imovie.dart';
 import '../../../../domain/movies/imovie_repository.dart';
-import '../../../routing/inavigation_util.dart';
+import '../../../../domain/navigation/inavigation_util.dart';
 import '../../../routing/routes.dart';
 
 class ShowMoviesViewModel extends ChangeNotifier {

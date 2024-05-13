@@ -8,7 +8,7 @@ import '../widgets/flickrate_text.dart';
 import '../widgets/my_email_field.dart';
 import '../widgets/my_password_field.dart';
 
-class LoginWithEmailAndPasswordScreen extends StatelessWidget {
+class LoginWithEmailAndPasswordPage extends StatelessWidget {
   final Function(String value) updateEmail;
   final Function(String value) updatePassword;
   final Function(Function(String message)) onSignInWithEmailAndPasswordClicked;
@@ -16,7 +16,7 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
   final Function(Function(String message)) onSignInWithGoogleClicked;
   final Function() onSwitchToSignUpClicked;
 
-  const LoginWithEmailAndPasswordScreen({
+  const LoginWithEmailAndPasswordPage({
     required this.updateEmail,
     super.key,
     required this.updatePassword,

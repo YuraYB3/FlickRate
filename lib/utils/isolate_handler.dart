@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flickrate/app/services/local_notification/local_notification_service.dart';
 import 'package:flickrate/app/services/network/firebase_service.dart';
 import 'package:flickrate/app/services/storage/cloud_storage_service.dart';
-import 'package:flickrate/app/services/storage/istorage_service.dart';
+import 'package:flickrate/domain/storage/istorage_service.dart';
 import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
 import 'package:flickrate/domain/network/inetwork_service.dart';
 import 'package:flickrate/firebase_options.dart';

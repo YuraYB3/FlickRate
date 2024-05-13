@@ -1,9 +1,7 @@
-// ignore_for_file: avoid_print
-
 import 'dart:async';
 import 'dart:io';
 import 'package:flickrate/app/services/storage/directory_names.dart';
-import 'package:flickrate/app/services/storage/istorage_service.dart';
+import 'package:flickrate/domain/storage/istorage_service.dart';
 import 'package:flickrate/data/video/video.dart';
 import 'package:flickrate/domain/video/ivideo.dart';
 import 'package:flickrate/domain/video/ivideo_repository.dart';

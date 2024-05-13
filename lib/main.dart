@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flickrate/app/services/deep_linking/uni_services.dart';
 import 'package:flickrate/firebase_options.dart';
@@ -7,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app/app.dart';
 import 'app/routing/app_router.dart';
-import 'app/routing/inavigation_util.dart';
-import 'app/services/user/iuser_service.dart';
+import 'domain/navigation/inavigation_util.dart';
+import 'domain/user_service/iuser_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
 import 'package:cloud_functions/cloud_functions.dart';
 
@@ -13,7 +13,7 @@ class FunctionService implements IFunctionService {
       var result = await callable.call(data);
       return result.data;
     } catch (e) {
-      print("Error: $e");
+      log("Error: $e");
       return null;
     }
   }

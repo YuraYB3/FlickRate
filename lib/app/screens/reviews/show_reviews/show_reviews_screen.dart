@@ -1,9 +1,10 @@
+import 'package:flickrate/app/common/screens/my_error_widget.dart';
 import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_view_model.dart';
 import 'package:flickrate/domain/review/ireview.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/screens/my_empty_screen.dart';
-import '../../../common/screens/my_loading_widget.dart';
+import '../../../common/widgets/my_loading_widget.dart';
 import '../../../theme/color_palette.dart';
 
 class ShowReviewsScreen extends StatefulWidget {
@@ -26,13 +27,17 @@ class _ShowMoviesViewState extends State<ShowReviewsScreen> {
         stream: widget.model.reviewStreamList,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: MyLoadingScreen());
+            return const Center(child: MyErrorScreen());
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: MyLoadingScreen());
+            return const Center(
+              child: MyLoadingScreen(),
+            );
           }
           if (snapshot.data!.isEmpty) {
-            return const Center(child: MyEmptyScreen());
+            return const Center(
+              child: MyEmptyScreen(),
+            );
           }
           final reviewData = snapshot.data!;
           return ListView.builder(

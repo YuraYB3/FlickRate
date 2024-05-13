@@ -12,14 +12,20 @@ class CoreNavigationViewModel extends ChangeNotifier {
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
 
+  final List<IconData> _icons = [
+    Icons.home,
+    Icons.search,
+    Icons.video_collection,
+    Icons.person_rounded,
+  ];
   final List<Widget> _pages = [
     HomeFactory.build(),
     ShowMoviesFactory.build(""),
     ShowVideosFactory.build(),
     ProfileFactory.build(),
-    
   ];
   List<Widget> get pages => _pages;
+  List<IconData> get icons => _icons;
 
   CoreNavigationViewModel({
     required PermissionHandler permissionHandler,

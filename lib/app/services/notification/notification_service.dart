@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -19,14 +19,13 @@ class NotificationService implements INotificationService {
   }
 
   Future<void> _init() async {
-    String? token; 
+    String? token;
     if (Platform.isIOS) {
-       token = await _firebaseMessaging.getAPNSToken();
-    }
-    else{
+      token = await _firebaseMessaging.getAPNSToken();
+    } else {
       token = await _firebaseMessaging.getToken();
     }
-    print("THIS IS TOKEN: $token");
+    log("THIS IS TOKEN: $token");
     await _setNotificationsHandlers();
   }
 
@@ -49,7 +48,7 @@ class NotificationService implements INotificationService {
     FirebaseMessaging.onMessageOpenedApp.listen(
       (RemoteMessage message) {
         if (message.notification != null) {
-          print("Background Notification Tapped");
+          log("Background Notification Tapped");
           _onNotificationTapped();
         }
       },

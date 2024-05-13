@@ -1,4 +1,4 @@
-import 'package:flickrate/app/common/screens/my_loading_widget.dart';
+import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +77,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: Colors.grey,
                     ),
                     if (!widget._model.isEditInfoClicked)
-                      UserInfoWidget(userData: userData)
+                      UserInfoWidget(
+                        userName: userData.userName,
+                        userProfileImage: userData.userProfileImage,
+                      )
                     else
                       UpdateInfoWidget(
                         userData: userData,

@@ -1,11 +1,11 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
-import 'package:flickrate/app/services/user/iuser_service.dart';
+import 'package:flickrate/domain/user_service/iuser_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/user/i_my_user.dart';
 import '../../../domain/user/i_my_user_repository.dart';
-import '../../routing/inavigation_util.dart';
+import '../../../domain/navigation/inavigation_util.dart';
 import '../../routing/routes.dart';
 
 enum HomeViewState { readyToWork, loadingInfo }
@@ -40,13 +40,12 @@ class HomeViewModel extends ChangeNotifier {
       _homeState = HomeViewState.readyToWork;
       notifyListeners();
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
       _homeState = HomeViewState.loadingInfo;
       notifyListeners();
     }
   }
 
-  void onAddButtonClicked() {}
 
   void onShowAllClicked() {
     _navigationUtil.navigateTo(routeShowReviews);

@@ -1,9 +1,8 @@
-import 'package:flickrate/app/common/screens/my_loading_widget.dart';
-import 'package:flickrate/app/theme/color_palette.dart';
+import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
+import 'package:flickrate/app/screens/home/widgets/home_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/screens/my_error_widget.dart';
-import '../../common/widgets/cached_image.dart';
 import 'home_view_model.dart';
 import 'widgets/add_movie_container.dart';
 import 'widgets/custom_genre_filter_row.dart';
@@ -34,32 +33,12 @@ class HomeScreen extends StatelessWidget {
                   final userData = snapshot.data!;
                   return Column(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              top: 60, left: 20, right: 20, bottom: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Hi, ${userData.userName} \u{1F44B}",
-                                style: const TextStyle(
-                                    fontSize: 24, color: mainColor),
-                              ),
-                              SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: CachedImageWidget(
-                                    imageUrl: userData.userProfileImage,
-                                    height: 50,
-                                    width: 50,
-                                    shape: BoxShape.circle,
-                                  ))
-                            ],
-                          )),
+                      HomeAppBar(
+                          imgURL: userData.userProfileImage,
+                          userName: userData.userName),
                       AddMovieContainer(
                         screenHeight: screenHeight,
                         screenWidth: screenWidth,
-                        onButtonClicked: model.onAddButtonClicked,
                       ),
                       const SizedBox(
                         height: 30,

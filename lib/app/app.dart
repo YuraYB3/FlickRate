@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'common/screens/my_error_widget.dart';
-import 'common/screens/my_loading_widget.dart';
+import 'common/widgets/my_loading_widget.dart';
 import 'routing/app_router.dart';
-import 'routing/inavigation_util.dart';
+import '../domain/navigation/inavigation_util.dart';
 import 'screens/core_navigation/core_navigation_factory.dart';
 import 'screens/login/login_factory.dart';
 import 'services/deep_linking/uni_services.dart';
-import 'services/user/iuser_service.dart';
+import '../domain/user_service/iuser_service.dart';
 import 'services/user/user_service.dart';
 
 class App extends StatefulWidget {

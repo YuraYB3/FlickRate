@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class LogOutButton extends StatelessWidget {
   const LogOutButton({super.key, required this.onLogOutButtonPressed});
 
-  final Function() onLogOutButtonPressed;
+  final Function onLogOutButtonPressed;
 
   @override
   Widget build(BuildContext context) {

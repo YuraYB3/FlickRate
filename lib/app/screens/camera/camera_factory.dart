@@ -1,4 +1,4 @@
-import 'package:flickrate/app/routing/inavigation_util.dart';
+import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';

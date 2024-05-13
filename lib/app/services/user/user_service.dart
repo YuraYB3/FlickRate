@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import '../../../domain/auth/iauth_service.dart';
-import 'iuser_service.dart';
+import '../../../domain/user_service/iuser_service.dart';
 
 enum UserState { readyToWork, notAuthorized }
 

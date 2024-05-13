@@ -1,5 +1,5 @@
-// ignore_for_file: avoid_print
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -55,7 +55,7 @@ class CameraService extends ChangeNotifier
 
   @override
   void initCamera() {
-    print('init');
+    log('init');
     WidgetsBinding.instance.addObserver(this);
     _cameraStateController = StreamController.broadcast();
     _create();
@@ -63,7 +63,7 @@ class CameraService extends ChangeNotifier
 
   @override
   void dispose() {
-    print('Camera dispose 1');
+    log('Camera dispose 1');
     reset();
     WidgetsBinding.instance.removeObserver(this);
     _cameraStateController.close();
@@ -72,7 +72,7 @@ class CameraService extends ChangeNotifier
 
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    print('did');
+    log('did');
     if (_cameraController == null || !_cameraController!.value.isInitialized) {
       return;
     }
@@ -89,7 +89,7 @@ class CameraService extends ChangeNotifier
   }
 
   Future<void> _create() async {
-    print('create');
+    log('create');
 
     if (!_isObserverAdded) {
       WidgetsBinding.instance.addObserver(this);
@@ -109,19 +109,19 @@ class CameraService extends ChangeNotifier
       _updateCameraState(CameraState.ready);
     } on CameraException catch (e) {
       _updateCameraState(CameraState.error);
-      print(e.toString());
+      log(e.toString());
     }
   }
 
   void _updateCameraState(CameraState state) {
-    print('update');
+    log('update');
     _cameraState = state;
     _cameraStateController.add(state);
   }
 
   @override
   Future<void> toggleCamera() async {
-    print('tog');
+    log('tog');
     _updateCameraState(CameraState.init);
     _currentCameraId = _currentCameraId == 0 ? 1 : 0;
     await _disposeCameraController();
@@ -131,7 +131,7 @@ class CameraService extends ChangeNotifier
 
   @override
   Future<void> reset() async {
-    print('reset');
+    log('reset');
     await _disposeCameraController();
     _cameraPreview = null;
     _currentCameraId = 0;
@@ -139,7 +139,7 @@ class CameraService extends ChangeNotifier
   }
 
   Future<void> _disposeCameraController() async {
-    print("dispose controller");
+    log("dispose controller");
     await _cameraController?.dispose();
     _cameraController = null;
     _isCameraControllerDisposed = true;
@@ -147,14 +147,14 @@ class CameraService extends ChangeNotifier
 
   @override
   Future<XFile?> takePicture() async {
-    print('take');
+    log('take');
     try {
       _cameraController!.setFlashMode(FlashMode.off);
       XFile xFile = await _cameraController!.takePicture();
       return xFile;
     } on CameraException catch (e) {
       _updateCameraState(CameraState.error);
-      print(e.toString());
+      log(e.toString());
       return null;
     }
   }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../common/screens/my_empty_screen.dart';
 import '../../common/screens/my_error_widget.dart';
-import '../../common/screens/my_loading_widget.dart';
+import '../../common/widgets/my_loading_widget.dart';
 
 class ShowVideosScreen extends StatefulWidget {
   final ShowVideosViewModel model;

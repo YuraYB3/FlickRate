@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/user/i_my_user.dart';
 import '../../../common/widgets/cached_image.dart';
 
 class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({
     super.key,
-    required this.userData,
+    required this.userProfileImage,
+    required this.userName,
   });
 
-  final IMyUser userData;
+  final String userProfileImage;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class UserInfoWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CachedImageWidget(
-            imageUrl: userData.userProfileImage,
+            imageUrl: userProfileImage,
             height: 80,
             width: 80,
             shape: BoxShape.circle,
@@ -33,7 +34,7 @@ class UserInfoWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                userData.userName,
+                userName,
                 style: const TextStyle(fontSize: 24),
               ),
             ],

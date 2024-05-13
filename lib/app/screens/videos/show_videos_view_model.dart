@@ -16,10 +16,10 @@ class ShowVideosViewModel extends ChangeNotifier {
   ShowVideosViewModel({
     required IVideoRepository videoRepository,
   }) : _videoRepository = videoRepository {
-    getVideosURLs();
+    _getVideosURLs();
   }
 
-  Future<void> getVideosURLs() async {
+  Future<void> _getVideosURLs() async {
     _videoStreamList = _videoRepository.fetchVideosStream();
     isURLsLoaded = true;
     notifyListeners();

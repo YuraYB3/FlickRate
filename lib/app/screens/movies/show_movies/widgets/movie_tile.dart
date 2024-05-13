@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../theme/color_palette.dart';
 
 class MovieTile extends StatelessWidget {
-  final Function() onTileClicked;
+  final Function onTileClicked;
   const MovieTile({
     required this.onTileClicked,
     super.key,
@@ -12,12 +12,14 @@ class MovieTile extends StatelessWidget {
     required this.movieGenre,
     required this.movieDescription,
     required this.movieImage,
+    required this.movieId,
   });
 
   final String movieName;
   final String movieGenre;
   final String movieDescription;
   final String movieImage;
+  final String movieId;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,9 @@ class MovieTile extends StatelessWidget {
           ),
         ],
       ),
-      onTap: onTileClicked,
+      onTap: () {
+        onTileClicked(movieId);
+      },
     );
   }
 }

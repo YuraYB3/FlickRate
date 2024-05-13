@@ -7,10 +7,8 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class AddMovieContainer extends StatelessWidget {
-  final Function() onButtonClicked;
   const AddMovieContainer({
     super.key,
-    required this.onButtonClicked,
     required this.screenHeight,
     required this.screenWidth,
   });

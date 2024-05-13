@@ -13,7 +13,7 @@ class MyErrorScreen extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: const Center(
           child: Text(
-            'ERRORKA',
+            'ERROR',
             style: TextStyle(color: Colors.red, fontSize: 48),
           ),
         ),

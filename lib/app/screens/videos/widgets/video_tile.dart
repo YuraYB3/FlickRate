@@ -1,4 +1,4 @@
-import 'package:flickrate/app/common/screens/my_loading_widget.dart';
+import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flickrate/utils/video_player_util.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +43,9 @@ class _VideoTileState extends State<VideoTile> {
                     widget.videoPlayerUtil.onVideoTaped();
                   },
                   child: SizedBox(
-                      child: VideoPlayer(
-                          widget.videoPlayerUtil.videoPlayerController)),
+                    child: VideoPlayer(
+                        widget.videoPlayerUtil.videoPlayerController),
+                  ),
                 );
               }
             },

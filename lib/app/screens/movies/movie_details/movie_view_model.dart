@@ -1,7 +1,7 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
-import 'package:flickrate/app/routing/inavigation_util.dart';
-import 'package:flickrate/app/services/user/iuser_service.dart';
+import 'package:flickrate/domain/navigation/inavigation_util.dart';
+import 'package:flickrate/domain/user_service/iuser_service.dart';
 import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +54,7 @@ class MovieViewModel extends ChangeNotifier {
       _reviewStreamList =
           _reviewRepository.fetchReviewsStreamByMovieId(_movieId);
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
@@ -63,7 +63,7 @@ class MovieViewModel extends ChangeNotifier {
       _reviewStreamList =
           _reviewRepository.fetchReviewsStreamByMovieId(_movieId);
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
@@ -103,7 +103,7 @@ class MovieViewModel extends ChangeNotifier {
           showError("You are not logged in!");
         }
       } catch (e) {
-        print(e.toString());
+        log(e.toString());
         showError("Can't create review");
         _navigationUtil.navigateBack();
       }

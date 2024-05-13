@@ -2,7 +2,7 @@ import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/user/iuser_service.dart';
+import '../../../domain/user_service/iuser_service.dart';
 import 'login_screen.dart';
 import 'login_view_model.dart';
 

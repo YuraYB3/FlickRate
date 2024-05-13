@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'inavigation_util.dart';
+import '../../domain/navigation/inavigation_util.dart';
 
 class NavigationUtil implements INavigationUtil {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();

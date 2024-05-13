@@ -14,10 +14,10 @@ class UpdateInfoWidget extends StatelessWidget {
       required this.onChangeUserNickNameClicked});
 
   final IMyUser userData;
-  final Function() onChangePhotoByGalleryClicked;
-  final Function() onChangePhotoByCameraClicked;
+  final Function onChangePhotoByGalleryClicked;
+  final Function onChangePhotoByCameraClicked;
   final Function(String value) updateUserNickNameField;
-  final Function() onChangeUserNickNameClicked;
+  final Function onChangeUserNickNameClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,10 @@ class UpdateInfoWidget extends StatelessWidget {
                         onChangePhotoByGalleryClicked,
                         onChangePhotoByCameraClicked);
                   },
-                  icon:  const Icon(Icons.add_a_photo, color: secondaryColor,),
+                  icon: const Icon(
+                    Icons.add_a_photo,
+                    color: secondaryColor,
+                  ),
                 ),
               )
             ],
@@ -75,15 +78,12 @@ class UpdateInfoWidget extends StatelessWidget {
                             },
                             maxLength: 13,
                             decoration: const InputDecoration(
-                              labelStyle:
-                                  TextStyle(color: mainColor),
+                              labelStyle: TextStyle(color: mainColor),
                               hintText: 'Enter nickname',
                               focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: mainColor)),
+                                  borderSide: BorderSide(color: mainColor)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color:mainColor),
+                                borderSide: BorderSide(color: mainColor),
                               ),
                               counterText: '',
                             )),
@@ -111,8 +111,8 @@ class UpdateInfoWidget extends StatelessWidget {
 
 void showCustomModelSnackBar(
     BuildContext context,
-    Function() onChangePhotoFromGalleryClicked,
-    Function() onChangePhotoByCameraClicked) {
+    Function onChangePhotoFromGalleryClicked,
+    Function onChangePhotoByCameraClicked) {
   showModalBottomSheet(
     context: context,
     builder: (context) {
@@ -129,16 +129,14 @@ void showCustomModelSnackBar(
                 child: InkWell(
                   child: const Column(
                     children: [
-                      Icon(Icons.image,
-                          size: 60, color: mainColor),
+                      Icon(Icons.image, size: 60, color: mainColor),
                       SizedBox(
                         height: 12,
                       ),
                       Text(
                         "Gallery",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16, color: secondaryColor),
+                        style: TextStyle(fontSize: 16, color: secondaryColor),
                       ),
                     ],
                   ),
@@ -151,16 +149,14 @@ void showCustomModelSnackBar(
                 child: InkWell(
                   child: const Column(
                     children: [
-                      Icon(Icons.camera,
-                          size: 60, color: mainColor),
+                      Icon(Icons.camera, size: 60, color: mainColor),
                       SizedBox(
                         height: 12,
                       ),
                       Text(
                         "Camera",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16, color: secondaryColor),
+                        style: TextStyle(fontSize: 16, color: secondaryColor),
                       ),
                     ],
                   ),

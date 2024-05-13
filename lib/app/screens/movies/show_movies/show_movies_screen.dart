@@ -65,13 +65,11 @@ class _ShowMoviesScreenState extends State<ShowMoviesScreen> {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: MovieTile(
+                              movieId: movie.documentId,
                               movieDescription: movie.movieDescription,
                               movieGenre: movie.movieGenre,
                               movieName: movie.movieName,
-                              onTileClicked: () {
-                                widget._model
-                                    .onListTileClicked(movie.documentId);
-                              },
+                              onTileClicked: widget._model.onListTileClicked,
                               movieImage: movie.movieImg,
                             ),
                           );

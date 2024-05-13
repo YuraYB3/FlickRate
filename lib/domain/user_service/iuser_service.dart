@@ -1,4 +1,4 @@
-import 'user_service.dart';
+import '../../app/services/user/user_service.dart';
 
 abstract interface class IUserService {
   Future<void> signWithOtp(String otp);

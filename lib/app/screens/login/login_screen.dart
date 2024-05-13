@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'login_view_model.dart';
-import 'screens/login_with_email_and_pass_screen.dart';
-import 'screens/login_with_phone_number_screen.dart';
-import 'screens/sign_up_screen.dart';
+import 'pages/login_with_email_and_pass_screen.dart';
+import 'pages/login_with_phone_number_screen.dart';
+import 'pages/sign_up_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final LoginViewModel model;
@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
           child: switch (model.loginMethod) {
-        LoginState.loginWithPhoneNumber => LoginWithPhoneNumberScreen(
+        LoginState.loginWithPhoneNumber => LoginWithPhoneNumberPage(
             isOtpSent: model.isOtpSent,
             updateOtpCode: (value) {
               model.updateOtpCode(value);
@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               model.onApplyOtpCodeButtonClicked(showException: p0);
             },
           ),
-        LoginState.loginWithEmailAndPassword => LoginWithEmailAndPasswordScreen(
+        LoginState.loginWithEmailAndPassword => LoginWithEmailAndPasswordPage(
             updateEmail: (value) {
               model.updateEmail(value);
             },
@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
             },
             onSwitchToSignUpClicked: model.onSwitchToSignUpClicked,
           ),
-        LoginState.registerNewAccount => SignUpScreen(
+        LoginState.registerNewAccount => SignUpPage(
             updateRepeatedPassword: (value) {
               model.updateRepeatedPassword(value);
             },

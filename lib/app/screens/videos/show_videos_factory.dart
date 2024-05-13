@@ -10,8 +10,7 @@ class ShowVideosFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => ShowVideosViewModel(
-        videoRepository: locator<IVideoRepository>(),
-     
+        videoRepository: locator<IVideoRepository>()
          ),
       child: Consumer<ShowVideosViewModel>(
         builder: (context, model, child) => ShowVideosScreen(model: model),

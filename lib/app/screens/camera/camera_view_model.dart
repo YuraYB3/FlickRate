@@ -1,9 +1,8 @@
-// ignore_for_file: avoid_print
-
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:camera/camera.dart';
-import 'package:flickrate/app/routing/inavigation_util.dart';
+import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/domain/video/ivideo_repository.dart';
@@ -100,7 +99,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
       final file = await _cameraService.takePicture();
       if (file != null) {
         imagePath = file.path;
-        print(imagePath);
+        log('$imagePath');
         showPicture();
         _swapIsTakePictureClicked();
       } else {
@@ -109,7 +108,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
         _navigationUtil.navigateBack();
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
@@ -155,7 +154,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
       _isRecording = !isRecording;
       notifyListeners();
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
       showException("Something went wrong");
     }
   }
@@ -202,7 +201,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
         if (_recordingDuration.value >= _recordDurationLimit) {
           _stopRecording(showVideo: showVideo);
         }
-        print("Seconds: ${_recordingDuration.value}");
+        log("Seconds: ${_recordingDuration.value}");
       },
     );
   }

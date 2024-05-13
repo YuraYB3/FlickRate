@@ -1,4 +1,4 @@
-import 'package:flickrate/app/routing/inavigation_util.dart';
+import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/locator.dart';
@@ -6,7 +6,7 @@ import 'package:flickrate/utils/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/user/iuser_service.dart';
+import '../../../domain/user_service/iuser_service.dart';
 import 'profile_screen.dart';
 import 'profile_view_model.dart';
 

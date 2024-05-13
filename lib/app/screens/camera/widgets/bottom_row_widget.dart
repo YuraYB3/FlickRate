@@ -3,10 +3,10 @@ import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
 class BottomRowWidget extends StatefulWidget {
-  final Function() switchCamera;
-  final Function() takePhoto;
-  final Function() recordVideo;
-  final Function() changeOption;
+  final Function switchCamera;
+  final Function takePhoto;
+  final Function recordVideo;
+  final Function changeOption;
   final bool isRecordVideoClicked;
   final ActiveOption activeOption;
   final CameraTask cameraTask;
@@ -40,7 +40,9 @@ class _BottomRowWidgetState extends State<BottomRowWidget> {
             children: [
               !widget.isRecordVideoClicked
                   ? IconButton(
-                      onPressed: widget.switchCamera,
+                      onPressed: () {
+                        widget.switchCamera();
+                      },
                       icon: Icon(
                         Icons.switch_camera_rounded,
                         size: iconSize,
@@ -49,9 +51,11 @@ class _BottomRowWidgetState extends State<BottomRowWidget> {
                     )
                   : Container(),
               IconButton(
-                onPressed: widget.activeOption == ActiveOption.camera
-                    ? widget.takePhoto
-                    : widget.recordVideo,
+                onPressed: () {
+                  widget.activeOption == ActiveOption.camera
+                      ? widget.takePhoto()
+                      : widget.recordVideo();
+                },
                 icon: widget.activeOption == ActiveOption.camera
                     ? Icon(
                         Icons.camera,
@@ -68,7 +72,9 @@ class _BottomRowWidgetState extends State<BottomRowWidget> {
               ),
               !widget.isRecordVideoClicked
                   ? IconButton(
-                      onPressed: widget.changeOption,
+                      onPressed: () {
+                        widget.changeOption();
+                      },
                       icon: widget.activeOption == ActiveOption.camera
                           ? Icon(
                               Icons.videocam,
@@ -90,7 +96,9 @@ class _BottomRowWidgetState extends State<BottomRowWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed: widget.switchCamera,
+              onPressed: () {
+                widget.switchCamera();
+              },
               icon: Icon(
                 Icons.switch_camera_rounded,
                 size: iconSize,
@@ -98,7 +106,9 @@ class _BottomRowWidgetState extends State<BottomRowWidget> {
               ),
             ),
             IconButton(
-              onPressed: widget.takePhoto,
+              onPressed: () {
+                widget.takePhoto();
+              },
               icon: Icon(
                 Icons.camera,
                 size: iconSize,

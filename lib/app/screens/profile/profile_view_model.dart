@@ -1,5 +1,6 @@
-// ignore_for_file: avoid_print
-import 'package:flickrate/app/routing/inavigation_util.dart';
+import 'dart:developer';
+
+import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/app/routing/routes.dart';
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
 import 'package:flickrate/domain/local_notification/ilocal_notification_service.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../domain/user/i_my_user.dart';
-import '../../services/user/iuser_service.dart';
+import '../../../domain/user_service/iuser_service.dart';
 
 enum ProfileViewState { readyToWork, loadingInfo }
 
@@ -33,14 +34,12 @@ class ProfileViewModel extends ChangeNotifier {
       required IMyUserRepository myUserRepository,
       required IUserService userService,
       required INavigationUtil navigationUtil,
-      required ILocalNotificationService localNotificationService
-      })
+      required ILocalNotificationService localNotificationService})
       : _userService = userService,
         _permissionHandler = permissionHandler,
         _myUserRepository = myUserRepository,
         _navigationUtil = navigationUtil,
-        _localNotificationService = localNotificationService
-        {
+        _localNotificationService = localNotificationService {
     _init();
   }
 
@@ -53,7 +52,7 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       _userService.logOut();
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
@@ -66,7 +65,7 @@ class ProfileViewModel extends ChangeNotifier {
     } catch (e) {
       _profileViewState = ProfileViewState.loadingInfo;
       notifyListeners();
-      print(e.toString());
+      log(e.toString());
     }
   }
 
@@ -76,21 +75,10 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       PermissionState state =
           await _permissionHandler.isGalleryPermissionGranted();
-      print(state);
+      log('$state');
       switch (state) {
         case PermissionState.granted:
-          String userId = _myUser.userId;
-          String imageName = "profile_image$userId.jpg";
-          XFile? image = await _myUserRepository.pickImageFromGallery();
-          if (image != null) {
-            await _myUserRepository.changeProfilePhoto(
-                _myUser.documentId, imageName, image.path);
-            _navigationUtil.navigateBack();
-            onEditInfoButtonClicked();
-            showSuccess("Photo successfully updated! Please wait");
-          } else {
-            _navigationUtil.navigateBack();
-          }
+          _choosePhotoFromGallery(showSuccess: showSuccess);
           break;
         case PermissionState.denied:
           showException("Permission not allowed");
@@ -101,7 +89,23 @@ class ProfileViewModel extends ChangeNotifier {
           showException("Permission restricted! Allow it in settings!");
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
+    }
+  }
+
+  void _choosePhotoFromGallery(
+      {required Function(String message) showSuccess}) async {
+    String userId = _myUser.userId;
+    String imageName = "profile_image$userId.jpg";
+    XFile? image = await _myUserRepository.pickImageFromGallery();
+    if (image != null) {
+      await _myUserRepository.changeProfilePhoto(
+          _myUser.documentId, imageName, image.path);
+      _navigationUtil.navigateBack();
+      onEditInfoButtonClicked();
+      showSuccess("Photo successfully updated! Please wait");
+    } else {
+      _navigationUtil.navigateBack();
     }
   }
 
@@ -110,7 +114,7 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       PermissionState state =
           await _permissionHandler.isCameraPermissionGranted();
-      print(state);
+      log('$state');
       switch (state) {
         case PermissionState.granted:
           String userId = _myUser.userId;
@@ -134,7 +138,7 @@ class ProfileViewModel extends ChangeNotifier {
           showException("Permission restricted! Allow it in settings!");
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
@@ -178,11 +182,12 @@ class ProfileViewModel extends ChangeNotifier {
           showException("Permission restricted! Allow it in settings!");
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
-  void onNotificationTap(){
-    _localNotificationService.showNotificationWithProgress(progress: 56, id: 89);
+  void onNotificationTap() {
+    _localNotificationService.showNotificationWithProgress(
+        progress: 56, id: 89);
   }
 }

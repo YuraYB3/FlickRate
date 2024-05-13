@@ -7,7 +7,7 @@ import '../../../../domain/movies/imovie.dart';
 import '../../../../domain/review/ireview.dart';
 import '../../../common/screens/my_empty_screen.dart';
 import '../../../common/screens/my_error_widget.dart';
-import '../../../common/screens/my_loading_widget.dart';
+import '../../../common/widgets/my_loading_widget.dart';
 import '../../../theme/color_palette.dart';
 import 'movie_view_model.dart';
 import 'widgets/movie_app_bar.dart';

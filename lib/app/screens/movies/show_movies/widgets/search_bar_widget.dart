@@ -10,7 +10,6 @@ class SearchBarWidget extends StatefulWidget {
 }
 
 class _SearchBarWidgetState extends State<SearchBarWidget> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +23,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             child: TextFormField(
-              
               onChanged: (value) async {
                 widget.updateSearchQuery(value);
               },
@@ -38,7 +36,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                   color: Colors.white,
                 ),
                 hintText: 'Enter movie name here',
-                
               ),
             ),
           ),
