@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class CustomGenreFilterRow extends StatelessWidget {
-  final ColorsPalette colorsPalette = ColorsPalette();
   final Function() onButtonClicked;
-  CustomGenreFilterRow({
+  const CustomGenreFilterRow({
     required this.onButtonClicked,
     super.key,
   });
@@ -16,9 +15,9 @@ class CustomGenreFilterRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          Text(
+          const Text(
             "My Reviews",
-            style: TextStyle(fontSize: 20, color: colorsPalette.mainColor),
+            style: TextStyle(fontSize: 20, color: mainColor),
           ),
           Expanded(child: Container()),
           GestureDetector(

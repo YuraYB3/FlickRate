@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class DrawCircle extends StatelessWidget {
-  DrawCircle({
+  const DrawCircle({
     super.key,
   });
 
-  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +15,9 @@ class DrawCircle extends StatelessWidget {
       child: Container(
         height: 200,
         width: 300,
-        decoration: BoxDecoration(
-          color: colorsPalette.mainColor,
-          borderRadius: const BorderRadius.only(
+        decoration: const BoxDecoration(
+          color: mainColor,
+          borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0),
             bottomRight: Radius.circular(1000),
           ),

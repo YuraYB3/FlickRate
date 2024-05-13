@@ -16,20 +16,18 @@ class MovieViewModel extends ChangeNotifier {
   final IReviewRepository _reviewRepository;
   final IUserService _userService;
   final String _movieId;
+
   double _movieRating = 0.1;
   double get movieRating => _movieRating;
   String _movieReview = '';
   String get movieReview => _movieReview;
-  int currentPageIndex = 0;
+  int _currentPageIndex = 0;
+  int get currentPageIndex => _currentPageIndex;
 
-  final PageController _pageController = PageController();
-  PageController get pageController => _pageController;
   late Stream<List<IReview>> _reviewStreamList;
   Stream<List<IReview>> get reviewStreamList => _reviewStreamList;
   late Stream<IMovie> _movieStream;
   Stream<IMovie> get movieStream => _movieStream;
-  bool _isShowCreateReviewFormClicked = false;
-  bool get isShowCreateReviewFormClicked => _isShowCreateReviewFormClicked;
 
   MovieViewModel(
       {required String movieId,
@@ -70,25 +68,8 @@ class MovieViewModel extends ChangeNotifier {
   }
 
   void onBackButtonClicked() {
+    _restoreDefaultValues();
     _navigationUtil.navigateBack();
-  }
-
-  void moveToPreviousPage() {
-    currentPageIndex--;
-  }
-
-  void moveToNextPage() {
-    currentPageIndex++;
-  }
-
-  void setCurrentPageIndex(int index) {
-    currentPageIndex = index;
-    notifyListeners();
-  }
-
-  void onShowCreateReviewFormClicked() {
-    _isShowCreateReviewFormClicked = !_isShowCreateReviewFormClicked;
-    notifyListeners();
   }
 
   void updateMovieRatingField(double value) {
@@ -101,20 +82,20 @@ class MovieViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onCreateReviewClicked(
-      {required Function(String message) showError,
-      required Function(String message) showSuccess}) {
+  void onCreateReviewClicked(Function(String message) showError,
+      Function(String message) showSuccess) {
     if (_movieReview.trim().isNotEmpty) {
       try {
         String userId = _userService.getCurrentUserId();
-
         if (userId.isNotEmpty) {
-          _reviewRepository.createReview(Review(
-            userId: userId,
-            movieId: _movieId,
-            rating: _movieRating,
-            reviewText: _movieReview,
-          ));
+          _reviewRepository.createReview(
+            Review(
+              userId: userId,
+              movieId: _movieId,
+              rating: _movieRating,
+              reviewText: _movieReview,
+            ),
+          );
           showSuccess('Review created');
           _restoreDefaultValues();
           notifyListeners();
@@ -132,9 +113,12 @@ class MovieViewModel extends ChangeNotifier {
   }
 
   void _restoreDefaultValues() {
-    _isShowCreateReviewFormClicked = false;
-    currentPageIndex = 0;
     _movieReview = '';
     _movieRating = 0.1;
+  }
+
+  void updateCurrentPageIndex(int value) {
+    _currentPageIndex = value;
+    notifyListeners();
   }
 }

@@ -8,8 +8,7 @@ import 'widgets/search_bar_widget.dart';
 
 class ShowMoviesScreen extends StatefulWidget {
   final ShowMoviesViewModel _model;
-  final ColorsPalette colorsPalette = ColorsPalette();
-  ShowMoviesScreen({required ShowMoviesViewModel model, super.key})
+  const ShowMoviesScreen({required ShowMoviesViewModel model, super.key})
       : _model = model;
 
   @override
@@ -26,7 +25,7 @@ class _ShowMoviesScreenState extends State<ShowMoviesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: widget.colorsPalette.mainColor,
+        backgroundColor: mainColor,
         toolbarHeight: 80,
         title: SearchBarWidget(
           updateSearchQuery: (value) {

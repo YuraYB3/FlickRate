@@ -7,10 +7,9 @@ import '../../../common/screens/my_loading_widget.dart';
 import '../../../theme/color_palette.dart';
 
 class ShowReviewsScreen extends StatefulWidget {
-  final ColorsPalette colorsPalette = ColorsPalette();
   final ShowReviewsViewModel model;
 
-  ShowReviewsScreen({super.key, required this.model});
+  const ShowReviewsScreen({super.key, required this.model});
   @override
   State<ShowReviewsScreen> createState() => _ShowMoviesViewState();
 }
@@ -20,20 +19,20 @@ class _ShowMoviesViewState extends State<ShowReviewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: widget.colorsPalette.mainColor,
+        backgroundColor: mainColor,
         foregroundColor: Colors.white,
       ),
       body: StreamBuilder<List<IReview>>(
         stream: widget.model.reviewStreamList,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Center(child: MyLoadingScreen());
+            return const Center(child: MyLoadingScreen());
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: MyLoadingScreen());
+            return const Center(child: MyLoadingScreen());
           }
           if (snapshot.data!.isEmpty) {
-            return Center(child: MyEmptyScreen());
+            return const Center(child: MyEmptyScreen());
           }
           final reviewData = snapshot.data!;
           return ListView.builder(
@@ -43,7 +42,7 @@ class _ShowMoviesViewState extends State<ShowReviewsScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: widget.colorsPalette.mainColor.withOpacity(0.7),
+                        color: mainColor.withOpacity(0.7),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20))),
                     child: ListTile(

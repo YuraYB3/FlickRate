@@ -5,10 +5,8 @@ import 'core_navigation_view_model.dart';
 
 class CoreNavigation extends StatefulWidget {
   final CoreNavigationViewModel _viewModel;
-  CoreNavigation({required CoreNavigationViewModel viewModel, super.key})
+  const CoreNavigation({required CoreNavigationViewModel viewModel, super.key})
       : _viewModel = viewModel;
-
-  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   State<CoreNavigation> createState() => _CoreNavigationState();
@@ -38,8 +36,8 @@ class _CoreNavigationState extends State<CoreNavigation> {
                     Icons.home,
                     size: widget._viewModel.iconSize,
                     color: widget._viewModel.selectedIndex == 0
-                        ? widget.colorsPalette.mainColor
-                        : widget.colorsPalette.secondColor,
+                        ? mainColor
+                        : secondaryColor,
                   )),
               IconButton(
                 onPressed: () {
@@ -49,8 +47,8 @@ class _CoreNavigationState extends State<CoreNavigation> {
                   Icons.search,
                   size: widget._viewModel.iconSize,
                   color: widget._viewModel.selectedIndex == 1
-                      ? widget.colorsPalette.mainColor
-                      : widget.colorsPalette.secondColor,
+                      ? mainColor
+                      : secondaryColor,
                 ),
               ),
               IconButton(
@@ -61,8 +59,8 @@ class _CoreNavigationState extends State<CoreNavigation> {
                   Icons.video_collection,
                   size: widget._viewModel.iconSize,
                   color: widget._viewModel.selectedIndex == 2
-                      ? widget.colorsPalette.mainColor
-                      : widget.colorsPalette.secondColor,
+                      ? mainColor
+                      : secondaryColor,
                 ),
               ),
               IconButton(
@@ -73,8 +71,8 @@ class _CoreNavigationState extends State<CoreNavigation> {
                   Icons.person_rounded,
                   size: widget._viewModel.iconSize,
                   color: widget._viewModel.selectedIndex == 3
-                      ? widget.colorsPalette.mainColor
-                      : widget.colorsPalette.secondColor,
+                      ? mainColor
+                      : secondaryColor,
                 ),
               ),
             ],

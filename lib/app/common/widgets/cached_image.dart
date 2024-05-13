@@ -31,7 +31,7 @@ class CachedImageWidget extends StatelessWidget {
       placeholder: (context, url) => SizedBox(
         width: width,
         height: height,
-        child: Center(
+        child: const Center(
           child: MyLoadingScreen(),
         ),
       ),

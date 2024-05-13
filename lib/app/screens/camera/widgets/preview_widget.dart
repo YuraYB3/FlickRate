@@ -1,12 +1,10 @@
 import 'package:camera/camera.dart';
-import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
 class PreviewWidget extends StatefulWidget {
   final Widget cameraPreview;
-  final ColorsPalette colorsPalette = ColorsPalette();
   final CameraController cameraController;
-  PreviewWidget(
+  const PreviewWidget(
       {required this.cameraPreview, super.key, required this.cameraController});
 
   @override

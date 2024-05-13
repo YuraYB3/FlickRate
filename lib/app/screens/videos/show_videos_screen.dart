@@ -10,8 +10,7 @@ import '../../common/screens/my_loading_widget.dart';
 
 class ShowVideosScreen extends StatefulWidget {
   final ShowVideosViewModel model;
-  final ColorsPalette colorsPalette = ColorsPalette();
-  ShowVideosScreen({super.key, required this.model});
+  const ShowVideosScreen({super.key, required this.model});
 
   @override
   State<ShowVideosScreen> createState() => _ShowVideosScreenState();
@@ -34,10 +33,10 @@ class _ShowVideosScreenState extends State<ShowVideosScreen> {
                   return const Center(child: MyErrorScreen());
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: MyLoadingScreen());
+                  return const Center(child: MyLoadingScreen());
                 }
                 if (snapshot.data!.isEmpty) {
-                  return Center(child: MyEmptyScreen());
+                  return const Center(child: MyEmptyScreen());
                 }
                 final videosData = snapshot.data!;
                 return PageView.builder(
@@ -53,7 +52,7 @@ class _ShowVideosScreenState extends State<ShowVideosScreen> {
               },
             )
           : Container(
-              color: widget.colorsPalette.mainColor,
+              color: mainColor,
               height: double.infinity,
               child: const Center(
                 child: CircularProgressIndicator(

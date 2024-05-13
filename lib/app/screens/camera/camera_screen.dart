@@ -5,18 +5,17 @@ import 'dart:io';
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
 import 'package:flickrate/app/screens/camera/widgets/preview_widget.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
-import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../common/widgets/custom_snackbar.dart';
+import '../../theme/color_palette.dart';
 import 'widgets/bottom_row_widget.dart';
 
 class CameraScreen extends StatefulWidget {
   final CameraViewModel model;
-  final ColorsPalette colorsPalette = ColorsPalette();
-  CameraScreen({super.key, required this.model});
+  const CameraScreen({super.key, required this.model});
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
@@ -39,7 +38,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: widget.colorsPalette.mainColor,
+        backgroundColor: mainColor,
         foregroundColor: Colors.white,
       ),
       body: StreamBuilder<CameraState>(
@@ -48,7 +47,7 @@ class _CameraScreenState extends State<CameraScreen> {
           switch (snapshot.data) {
             case CameraState.init:
               return Container(
-                color: widget.colorsPalette.mainColor,
+                color: mainColor,
                 height: double.infinity,
                 child: const Center(
                   child: CircularProgressIndicator(
@@ -70,7 +69,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     ),
                   ),
                   Container(
-                    color: widget.colorsPalette.mainColor,
+                    color: mainColor,
                     child: BottomRowWidget(
                       recordingDuration: widget.model.recordingDuration,
                       takePhoto: !widget.model.isTakePictureClicked
@@ -179,9 +178,9 @@ class _CameraScreenState extends State<CameraScreen> {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.5,
                     width: MediaQuery.of(context).size.width * 0.9,
-                    child: Center(
+                    child: const Center(
                       child: CircularProgressIndicator(
-                        color: widget.colorsPalette.mainColor,
+                        color: mainColor,
                       ),
                     ),
                   );

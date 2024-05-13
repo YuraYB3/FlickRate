@@ -5,7 +5,7 @@ import '../../../common/widgets/cached_image.dart';
 import '../../../theme/color_palette.dart';
 
 class UpdateInfoWidget extends StatelessWidget {
-  UpdateInfoWidget(
+  const UpdateInfoWidget(
       {super.key,
       required this.userData,
       required this.onChangePhotoByGalleryClicked,
@@ -18,7 +18,6 @@ class UpdateInfoWidget extends StatelessWidget {
   final Function() onChangePhotoByCameraClicked;
   final Function(String value) updateUserNickNameField;
   final Function() onChangeUserNickNameClicked;
-  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +42,10 @@ class UpdateInfoWidget extends StatelessWidget {
                   onPressed: () {
                     showCustomModelSnackBar(
                         context,
-                        colorsPalette,
                         onChangePhotoByGalleryClicked,
                         onChangePhotoByCameraClicked);
                   },
-                  icon:  Icon(Icons.add_a_photo, color: colorsPalette.secondColor,),
+                  icon:  const Icon(Icons.add_a_photo, color: secondaryColor,),
                 ),
               )
             ],
@@ -76,16 +74,16 @@ class UpdateInfoWidget extends StatelessWidget {
                               updateUserNickNameField(value);
                             },
                             maxLength: 13,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelStyle:
-                                  TextStyle(color: colorsPalette.mainColor),
+                                  TextStyle(color: mainColor),
                               hintText: 'Enter nickname',
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: colorsPalette.mainColor)),
+                                      color: mainColor)),
                               enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: colorsPalette.mainColor),
+                                    BorderSide(color:mainColor),
                               ),
                               counterText: '',
                             )),
@@ -113,7 +111,6 @@ class UpdateInfoWidget extends StatelessWidget {
 
 void showCustomModelSnackBar(
     BuildContext context,
-    ColorsPalette colorsPalette,
     Function() onChangePhotoFromGalleryClicked,
     Function() onChangePhotoByCameraClicked) {
   showModalBottomSheet(
@@ -130,18 +127,18 @@ void showCustomModelSnackBar(
             children: [
               Expanded(
                 child: InkWell(
-                  child: Column(
+                  child: const Column(
                     children: [
                       Icon(Icons.image,
-                          size: 60, color: colorsPalette.mainColor),
-                      const SizedBox(
+                          size: 60, color: mainColor),
+                      SizedBox(
                         height: 12,
                       ),
                       Text(
                         "Gallery",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16, color: colorsPalette.secondColor),
+                            fontSize: 16, color: secondaryColor),
                       ),
                     ],
                   ),
@@ -152,18 +149,18 @@ void showCustomModelSnackBar(
               ),
               Expanded(
                 child: InkWell(
-                  child: Column(
+                  child: const Column(
                     children: [
                       Icon(Icons.camera,
-                          size: 60, color: colorsPalette.mainColor),
-                      const SizedBox(
+                          size: 60, color: mainColor),
+                      SizedBox(
                         height: 12,
                       ),
                       Text(
                         "Camera",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16, color: colorsPalette.secondColor),
+                            fontSize: 16, color: secondaryColor),
                       ),
                     ],
                   ),

@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
+import 'dart:io';
 import 'package:flickrate/app/services/storage/directory_names.dart';
+import 'package:flickrate/app/services/storage/istorage_service.dart';
 import 'package:flickrate/data/video/video.dart';
 import 'package:flickrate/domain/video/ivideo.dart';
 import 'package:flickrate/domain/video/ivideo_repository.dart';
@@ -13,11 +15,14 @@ import '../../domain/network/inetwork_service.dart';
 class VideoRepository implements IVideoRepository {
   final INetworkService _networkService;
   final IsolateHandler _isolateHandler;
+  final IStorageService _storageService;
 
-  VideoRepository({
-    required INetworkService networkService,
-    required IsolateHandler isolateHandler,
-  })  : _networkService = networkService,
+  VideoRepository(
+      {required INetworkService networkService,
+      required IsolateHandler isolateHandler,
+      required IStorageService storageService})
+      : _networkService = networkService,
+        _storageService = storageService,
         _isolateHandler = isolateHandler;
 
   @override
@@ -40,7 +45,21 @@ class VideoRepository implements IVideoRepository {
   @override
   Future<void> uploadVideo(String filePath) async {
     String fileName = "video${DateTime.now().toString()}.mp4";
-    await _isolateHandler.uploadFile(
-        filePath, fileName, directoryVideos, collectionVideos);
+    switch (Platform.operatingSystem) {
+      case 'ios':
+        _storageService.uploadFile(directoryVideos, filePath, fileName).then(
+          (uploadTask) async {
+            await uploadTask;
+            String url = await uploadTask.snapshot.ref.getDownloadURL();
+            await _networkService
+                .create({"name": fileName, "url": url}, collectionVideos);
+          },
+        );
+        break;
+      default:
+        await _isolateHandler.uploadFile(
+            filePath, fileName, directoryVideos, collectionVideos);
+        break;
+    }
   }
 }

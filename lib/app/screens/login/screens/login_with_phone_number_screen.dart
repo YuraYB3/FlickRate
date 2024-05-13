@@ -10,14 +10,13 @@ import '../widgets/my_otp_field.dart';
 import '../widgets/my_phone_number_field.dart';
 
 class LoginWithPhoneNumberScreen extends StatelessWidget {
-  final ColorsPalette colorsPalette = ColorsPalette();
   final bool isOtpSent;
   final Function(String value) updatePhoneNumber;
   final Function() onSwitchToEmailAndPasswordClicked;
   final Function(Function(String message)) onApplyOtpCodeButtonClicked;
   final Function(String value) updateOtpCode;
   final Function(Function(String message)) sentOtpClicked;
-  LoginWithPhoneNumberScreen({
+  const LoginWithPhoneNumberScreen({
     super.key,
     required this.updatePhoneNumber,
     required this.sentOtpClicked,
@@ -31,9 +30,9 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DrawCircle(),
+        const DrawCircle(),
         Container(height: 40),
-        FlickRateText(),
+        const FlickRateText(),
         Container(height: 40),
         if (!isOtpSent)
           Column(
@@ -43,7 +42,7 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
                 height: 20,
               ),
               MyElevatedButton(
-                  buttonColor: colorsPalette.mainColor,
+                  buttonColor: mainColor,
                   width: MediaQuery.of(context).size.width * 0.6,
                   title: 'Sent',
                   onButtonPressed: () {
@@ -60,7 +59,7 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
                 height: 20,
               ),
               MyElevatedButton(
-                  buttonColor: colorsPalette.mainColor,
+                  buttonColor: mainColor,
                   width: MediaQuery.of(context).size.width * 0.6,
                   title: 'Apply',
                   onButtonPressed: () {
@@ -73,7 +72,7 @@ class LoginWithPhoneNumberScreen extends StatelessWidget {
           height: 20,
         ),
         MyTextButton(
-            textColor: colorsPalette.secondColor,
+            textColor: secondaryColor,
             textSize: 16,
             title: 'Back',
             onButtonPressed: onSwitchToEmailAndPasswordClicked)

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/color_palette.dart';
 
 class MyTextButton extends StatelessWidget {
   final Function() onButtonPressed;
   final String title;
   final Color textColor;
-  final ColorsPalette colorsPalette = ColorsPalette();
   final double textSize;
-  MyTextButton(
+  const MyTextButton(
       {required this.textColor,
       required this.textSize,
       required this.title,

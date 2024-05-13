@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../theme/color_palette.dart';
 
 class MovieBar extends StatelessWidget {
-  final ColorsPalette colorsPalette = ColorsPalette();
   final String movieName;
   final String movieRating;
   final Function() navigateBack;
-  MovieBar({
+  const MovieBar({
     super.key,
     required this.movieName,
     required this.movieRating,
@@ -17,8 +16,8 @@ class MovieBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      color: colorsPalette.mainColor,
+      height: 80,
+      color: mainColor,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         IconButton(
           onPressed: navigateBack,

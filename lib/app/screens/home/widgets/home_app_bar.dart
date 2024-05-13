@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class HomeAppBar extends StatelessWidget {
-  final ColorsPalette colorsPalette = ColorsPalette();
   final String imgURL;
-  HomeAppBar({super.key, required this.imgURL});
+  const HomeAppBar({super.key, required this.imgURL});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +13,9 @@ class HomeAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "Hi",
-            style: TextStyle(fontSize: 24, color: colorsPalette.mainColor),
+            style: TextStyle(fontSize: 24, color: mainColor),
           ),
           SizedBox(
             height: 50,

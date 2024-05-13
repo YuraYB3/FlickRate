@@ -67,8 +67,7 @@ _uploadToStorage(SendPort mainIsolatePort) {
           String directoryName = message['directoryName'];
           String fileName = message['fileName'];
           String collectionName = message['collectionName'];
-          ILocalNotificationService localNotification =
-              LocalNotificationService();
+          ILocalNotificationService localNotification = LocalNotificationService();
           IStorageService storageService = CloudStorageService();
           INetworkService networkService = FirebaseService();
           final id = Random().nextInt(1000);

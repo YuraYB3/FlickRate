@@ -51,7 +51,7 @@ class _AppState extends State<App> {
         stream: widget._userService.userStateStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(body: MyLoadingScreen());
+            return const Scaffold(body: MyLoadingScreen());
           } else {
             if (snapshot.hasError) {
               return const Scaffold(body: MyErrorScreen());

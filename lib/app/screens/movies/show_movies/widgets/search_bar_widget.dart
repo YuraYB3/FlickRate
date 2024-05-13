@@ -10,7 +10,6 @@ class SearchBarWidget extends StatefulWidget {
 }
 
 class _SearchBarWidgetState extends State<SearchBarWidget> {
-  ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +24,21 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             child: TextFormField(
+              
               onChanged: (value) async {
                 widget.updateSearchQuery(value);
               },
               maxLength: 20,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
+                border: InputBorder.none,
                 counterText: '',
-                labelStyle: TextStyle(color: colorsPalette.mainColor),
-                prefix: const Icon(
+                labelStyle: TextStyle(color: mainColor),
+                prefix: Icon(
                   Icons.search,
                   color: Colors.white,
                 ),
                 hintText: 'Enter movie name here',
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: colorsPalette.mainColor)),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: colorsPalette.mainColor),
-                ),
+                
               ),
             ),
           ),

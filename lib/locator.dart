@@ -142,6 +142,7 @@ void initRepos() {
     () => VideoRepository(
       networkService: locator.get<INetworkService>(),
       isolateHandler: locator.get<IsolateHandler>(),
+      storageService: locator.get<IStorageService>()
     ),
   );
 }

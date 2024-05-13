@@ -11,8 +11,7 @@ import 'widgets/custom_grid_view.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeViewModel model;
-  final ColorsPalette colorsPalette = ColorsPalette();
-  HomeScreen({required this.model, super.key});
+  const HomeScreen({required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +21,15 @@ class HomeScreen extends StatelessWidget {
       body: SizedBox(
         height: screenHeight,
         child: model.homeState == HomeViewState.loadingInfo
-            ? MyLoadingScreen()
+            ? const MyLoadingScreen()
             : StreamBuilder(
                 stream: model.userStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return  const MyErrorScreen();
+                    return const MyErrorScreen();
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return MyLoadingScreen();
+                    return const MyLoadingScreen();
                   }
                   final userData = snapshot.data!;
                   return Column(
@@ -43,9 +42,8 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               Text(
                                 "Hi, ${userData.userName} \u{1F44B}",
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    color: colorsPalette.mainColor),
+                                style: const TextStyle(
+                                    fontSize: 24, color: mainColor),
                               ),
                               SizedBox(
                                   height: 50,

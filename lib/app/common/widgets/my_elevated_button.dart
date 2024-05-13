@@ -2,21 +2,19 @@
 
 import 'package:flutter/material.dart';
 
-import '../../theme/color_palette.dart';
-
 class MyElevatedButton extends StatelessWidget {
   final Function() onButtonPressed;
   final String title;
   final double width;
   final Color buttonColor;
-  MyElevatedButton(
+  final Color textColor;
+  const MyElevatedButton(
       {required this.title,
       required this.buttonColor,
       required this.width,
       required this.onButtonPressed,
+      this.textColor = Colors.white,
       super.key});
-
-  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,7 @@ class MyElevatedButton extends StatelessWidget {
         onPressed: onButtonPressed,
         child: Text(
           title,
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: textColor),
         ),
       ),
     );

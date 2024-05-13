@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import '../../theme/color_palette.dart';
 
 class MyLoadingScreen extends StatelessWidget {
-  MyLoadingScreen({super.key});
-
-  final ColorsPalette colorsPalette = ColorsPalette();
+  const MyLoadingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
-        color: colorsPalette.mainColor,
+        color: mainColor,
       ),
     );
   }

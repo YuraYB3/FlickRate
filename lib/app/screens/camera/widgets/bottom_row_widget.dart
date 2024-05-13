@@ -29,7 +29,6 @@ class BottomRowWidget extends StatefulWidget {
 
 class _BottomRowWidgetState extends State<BottomRowWidget> {
   final double iconSize = 36;
-  ColorsPalette colorsPalette = ColorsPalette();
   @override
   Widget build(BuildContext context) {
     switch (widget.cameraTask) {
@@ -125,7 +124,7 @@ class _BottomRowWidgetState extends State<BottomRowWidget> {
           builder: (context, value, child) {
             return CircleAvatar(
               radius: value,
-              backgroundColor: colorsPalette.mainColor,
+              backgroundColor: mainColor,
             );
           },
         ),

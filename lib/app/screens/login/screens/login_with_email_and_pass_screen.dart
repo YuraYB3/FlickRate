@@ -15,9 +15,8 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
   final Function() onSwitchToPhoneNumberClicked;
   final Function(Function(String message)) onSignInWithGoogleClicked;
   final Function() onSwitchToSignUpClicked;
-  final ColorsPalette colorsPalette = ColorsPalette();
 
-  LoginWithEmailAndPasswordScreen({
+  const LoginWithEmailAndPasswordScreen({
     required this.updateEmail,
     super.key,
     required this.updatePassword,
@@ -36,18 +35,17 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.2,
           ),
-          FlickRateText(),
+          const FlickRateText(),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
-            child: Row(
+            child: const Row(
               children: [
                 Text(
                   'Login to your Account',
-                  style:
-                      TextStyle(color: colorsPalette.secondColor, fontSize: 18),
+                  style: TextStyle(color: secondaryColor, fontSize: 18),
                 ),
               ],
             ),
@@ -65,7 +63,7 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
           ),
           MyElevatedButton(
               title: "Sign In",
-              buttonColor: colorsPalette.mainColor,
+              buttonColor: mainColor,
               width: MediaQuery.of(context).size.width * 0.6,
               onButtonPressed: () {
                 onSignInWithEmailAndPasswordClicked(
@@ -74,9 +72,9 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
           Container(
             height: MediaQuery.of(context).size.height * 0.1,
           ),
-          Text(
+          const Text(
             'Or sign in with:',
-            style: TextStyle(color: colorsPalette.secondColor, fontSize: 16),
+            style: TextStyle(color: secondaryColor, fontSize: 16),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
@@ -88,9 +86,9 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
                   width: 80,
                   child: IconButton(
                       onPressed: onSwitchToPhoneNumberClicked,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.phone_android,
-                        color: colorsPalette.mainColor,
+                        color: mainColor,
                       )),
                 ),
                 SizedBox(
@@ -102,10 +100,9 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
                           (message) => showCustomSnackBar(context, message),
                         );
                       },
-                      icon: Text(
+                      icon: const Text(
                         "G",
-                        style: TextStyle(
-                            fontSize: 24, color: colorsPalette.mainColor),
+                        style: TextStyle(fontSize: 24, color: mainColor),
                       )),
                 ),
               ],
@@ -116,13 +113,12 @@ class LoginWithEmailAndPasswordScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
+                const Text(
                   'Don\'t have an account yet?',
-                  style:
-                      TextStyle(color: colorsPalette.secondColor, fontSize: 16),
+                  style: TextStyle(color: secondaryColor, fontSize: 16),
                 ),
                 MyTextButton(
-                    textColor: colorsPalette.mainColor,
+                    textColor: mainColor,
                     textSize: 16,
                     title: 'Sign Up',
                     onButtonPressed: onSwitchToSignUpClicked)

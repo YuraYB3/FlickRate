@@ -5,8 +5,7 @@ import '../../../../theme/color_palette.dart';
 
 class MovieTile extends StatelessWidget {
   final Function() onTileClicked;
-  final ColorsPalette colorsPalette = ColorsPalette();
-  MovieTile({
+  const MovieTile({
     required this.onTileClicked,
     super.key,
     required this.movieName,
@@ -24,7 +23,7 @@ class MovieTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor: colorsPalette.secondColor,
+        backgroundColor: secondaryColor,
         child: CachedImageWidget(
           imageUrl: movieImage,
           height: 50,

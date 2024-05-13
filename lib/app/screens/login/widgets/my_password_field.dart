@@ -4,10 +4,9 @@ import '../../../theme/color_palette.dart';
 
 class MyPasswordField extends StatelessWidget {
   final Function(String value) updatePassword;
-  final ColorsPalette colorsPalette = ColorsPalette();
   final String label;
 
-  MyPasswordField({
+  const MyPasswordField({
     super.key,
     required this.updatePassword,
     required this.label,
@@ -21,12 +20,12 @@ class MyPasswordField extends StatelessWidget {
         onChanged: (value) => updatePassword(value),
         obscureText: true,
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: colorsPalette.secondColor),
+          labelStyle: const TextStyle(color: secondaryColor),
           labelText: label,
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: colorsPalette.secondColor)),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorsPalette.secondColor),
+          focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: secondaryColor)),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: secondaryColor),
           ),
           counterText: '',
         ),

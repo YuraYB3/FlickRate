@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class AddMovieContainer extends StatelessWidget {
-  final ColorsPalette colorsPalette = ColorsPalette();
   final Function() onButtonClicked;
-  AddMovieContainer({
+  const AddMovieContainer({
     super.key,
     required this.onButtonClicked,
     required this.screenHeight,
@@ -31,23 +30,21 @@ class AddMovieContainer extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-                colorsPalette.mainColor.withOpacity(0.6),
-                colorsPalette.mainColor.withOpacity(0.9)
+                mainColor.withOpacity(0.6),
+                mainColor.withOpacity(0.9)
               ], begin: Alignment.topLeft, end: Alignment.bottomRight),
               borderRadius: BorderRadius.circular(15),
             ),
             child: SizedBox(
               width: screenWidth,
               child: const Padding(
-                padding:
-                    EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: Column(
                   children: [
                     Text(
                       "Have you watched new movie? ",
                       style: TextStyle(color: Colors.white, fontSize: 32),
                     ),
-                  
                     SizedBox(
                       height: 10,
                     )

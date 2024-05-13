@@ -20,13 +20,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorsPalette.mainColor,
+        backgroundColor: mainColor,
         actions: [
           IconButton(
             onPressed: () => widget._model.onNotificationTap(),
@@ -62,15 +61,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       body: widget._model.profileViewState == ProfileViewState.loadingInfo
-          ? MyLoadingScreen()
+          ? const MyLoadingScreen()
           : StreamBuilder(
               stream: widget._model.userStream,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return MyLoadingScreen();
+                  return const MyLoadingScreen();
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return MyLoadingScreen();
+                  return const MyLoadingScreen();
                 }
                 final userData = snapshot.data!;
                 return Column(

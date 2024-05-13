@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class ActionsInfoWidget extends StatelessWidget {
-  ActionsInfoWidget(
+  const ActionsInfoWidget(
       {super.key, required this.reviewCount, required this.userLikes});
-  final ColorsPalette colorsPalette = ColorsPalette();
   final String reviewCount;
   final String userLikes;
 
@@ -18,26 +17,26 @@ class ActionsInfoWidget extends StatelessWidget {
           children: [
             Text(
               reviewCount,
-              style: TextStyle(color: colorsPalette.mainColor, fontSize: 18),
+              style: const TextStyle(color: mainColor, fontSize: 18),
             ),
             const SizedBox(
               height: 5,
             ),
-            Text('Reviews', style: TextStyle(color: colorsPalette.secondColor)),
+            const Text('Reviews', style: TextStyle(color: secondaryColor)),
           ],
         ),
         Column(
           children: [
             Text(
               userLikes,
-              style: TextStyle(color: colorsPalette.mainColor, fontSize: 18),
+              style: const TextStyle(color: mainColor, fontSize: 18),
             ),
             const SizedBox(
               height: 5,
             ),
-            Text(
+            const Text(
               'Likes',
-              style: TextStyle(color: colorsPalette.secondColor),
+              style: TextStyle(color: secondaryColor),
             ),
           ],
         )

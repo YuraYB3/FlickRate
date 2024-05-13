@@ -6,7 +6,6 @@ import 'package:video_player/video_player.dart';
 
 class VideoTile extends StatefulWidget {
   final String url;
-  final ColorsPalette colorsPalette = ColorsPalette();
   final VideoPlayerUtil videoPlayerUtil = VideoPlayerUtil();
   VideoTile({
     super.key,
@@ -37,7 +36,7 @@ class _VideoTileState extends State<VideoTile> {
             future: widget.videoPlayerUtil.futureVideoPlayer,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return MyLoadingScreen();
+                return const MyLoadingScreen();
               } else {
                 return GestureDetector(
                   onTap: () {
@@ -51,7 +50,7 @@ class _VideoTileState extends State<VideoTile> {
             },
           )
         : Container(
-            color: widget.colorsPalette.mainColor,
+            color: mainColor,
             height: double.infinity,
             child: const Center(
               child: CircularProgressIndicator(

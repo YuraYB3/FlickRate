@@ -4,33 +4,33 @@ import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flickrate/domain/review/ireview.dart';
 import 'package:flutter/material.dart';
 
-class MovieReviews extends StatefulWidget {
-  final ColorsPalette colorsPalette = ColorsPalette();
+class ReviewsPage extends StatefulWidget {
   final List<IReview> reviewData;
-  final Function() moveToPreviousPage;
-  final PageController pageController;
-  MovieReviews(
-      {super.key,
-      required this.reviewData,
-      required this.moveToPreviousPage,
-      required this.pageController});
+  final double screenHeight;
+  final double screenWidth;
+  const ReviewsPage({
+    super.key,
+    required this.reviewData,
+    required this.screenHeight,
+    required this.screenWidth,
+  });
 
   @override
-  State<MovieReviews> createState() => _MovieReviewsState();
+  State<ReviewsPage> createState() => _ReviewsPageState();
 }
 
-class _MovieReviewsState extends State<MovieReviews> {
+class _ReviewsPageState extends State<ReviewsPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+      height: widget.screenHeight,
+      width: widget.screenWidth,
       child: Center(
         child: Column(
           children: [
             Expanded(
               child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
+                height: widget.screenHeight * 0.9,
                 child: ListView.builder(
                     itemBuilder: (context, index) {
                       final review = widget.reviewData[index];
@@ -59,14 +59,12 @@ class _MovieReviewsState extends State<MovieReviews> {
                     itemCount: widget.reviewData.length),
               ),
             ),
-            MovieBottomNavigation(
-                pageController: widget.pageController,
-                activeColor: widget.colorsPalette.secondColor,
-                notActiveColor: widget.colorsPalette.mainColor,
-                moveToNextPage: () {},
-                moveToPreviousPage: widget.moveToPreviousPage),
+            const MovieBottomNavigation(
+              activeColor: secondaryColor,
+              notActiveColor: mainColor,
+            ),
             const SizedBox(
-              height: 5,
+              height: 10,
             )
           ],
         ),

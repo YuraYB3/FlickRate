@@ -5,8 +5,7 @@ import '../../theme/color_palette.dart';
 class MyField extends StatelessWidget {
   final String label;
   final Function(String text) onChanged;
-  final ColorsPalette colorsPalette = ColorsPalette();
-  MyField({required this.label, required this.onChanged, super.key});
+  const MyField({required this.label, required this.onChanged, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +15,13 @@ class MyField extends StatelessWidget {
         onChanged: onChanged,
         obscureText: label == 'Password',
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: colorsPalette.mainColor),
+          labelStyle: const TextStyle(color: mainColor),
           labelText: label,
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: colorsPalette.mainColor)),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorsPalette.mainColor),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: mainColor),
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: mainColor),
           ),
         ),
       ),

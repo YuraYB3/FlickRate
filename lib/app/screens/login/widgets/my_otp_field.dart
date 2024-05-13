@@ -5,12 +5,11 @@ import '../../../theme/color_palette.dart';
 
 class MyOtpField extends StatelessWidget {
   final Function(String value) updateOtpCode;
-  MyOtpField({
+  const MyOtpField({
     super.key,
     required this.updateOtpCode,
   });
 
-  final ColorsPalette colorsPalette = ColorsPalette();
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +20,13 @@ class MyOtpField extends StatelessWidget {
         maxLength: 6,
         keyboardType: TextInputType.number,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        decoration: InputDecoration(
-          labelStyle: TextStyle(color: colorsPalette.secondColor),
+        decoration: const InputDecoration(
+          labelStyle: TextStyle(color:secondaryColor),
           labelText: 'Code',
           focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: colorsPalette.secondColor)),
+              borderSide: BorderSide(color: secondaryColor)),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colorsPalette.secondColor),
+            borderSide: BorderSide(color: secondaryColor),
           ),
           counterText: '',
         ),

@@ -15,9 +15,8 @@ class SignUpScreen extends StatelessWidget {
   final Function(String value) updateEmail;
   final Function(String value) updatePassword;
   final Function(String value) updateRepeatedPassword;
-  final ColorsPalette colorsPalette = ColorsPalette();
 
-  SignUpScreen(
+  const SignUpScreen(
       {required this.onRegisterNewUserClicked,
       super.key,
       required this.updateEmail,
@@ -29,9 +28,9 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DrawCircle(),
+        const DrawCircle(),
         Container(height: 40),
-        FlickRateText(),
+        const FlickRateText(),
         Container(height: 40),
         MyEmailField(updateEmail: updateEmail),
         const SizedBox(
@@ -47,7 +46,7 @@ class SignUpScreen extends StatelessWidget {
           height: 10,
         ),
         MyElevatedButton(
-            buttonColor: colorsPalette.mainColor,
+            buttonColor: mainColor,
             width: MediaQuery.of(context).size.width * 0.6,
             title: "Sign Up",
             onButtonPressed: () {
@@ -58,7 +57,7 @@ class SignUpScreen extends StatelessWidget {
           height: 10,
         ),
         MyTextButton(
-            textColor: colorsPalette.secondColor,
+            textColor: secondaryColor,
             textSize: 16,
             title: 'I already have an account',
             onButtonPressed: onSwitchToEmailAndPasswordClicked)
