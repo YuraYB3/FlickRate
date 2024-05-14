@@ -92,30 +92,33 @@ class _BottomRowWidgetState extends State<BottomRowWidget> {
           ),
         );
       case CameraTask.updateProfileImage:
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () {
-                widget.switchCamera();
-              },
-              icon: Icon(
-                Icons.switch_camera_rounded,
-                size: iconSize,
-                color: Colors.white,
+        return SizedBox(
+          height: 80,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                onPressed: () {
+                  widget.switchCamera();
+                },
+                icon: Icon(
+                  Icons.switch_camera_rounded,
+                  size: iconSize,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            IconButton(
-              onPressed: () {
-                widget.takePhoto();
-              },
-              icon: Icon(
-                Icons.camera,
-                size: iconSize,
-                color: Colors.white,
+              IconButton(
+                onPressed: () {
+                  widget.takePhoto();
+                },
+                icon: Icon(
+                  Icons.camera,
+                  size: iconSize,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       default:
         return Container();

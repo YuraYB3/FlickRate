@@ -99,11 +99,11 @@ class ProfileViewModel extends ChangeNotifier {
     String imageName = "profile_image$userId.jpg";
     XFile? image = await _myUserRepository.pickImageFromGallery();
     if (image != null) {
-      await _myUserRepository.changeProfilePhoto(
-          _myUser.documentId, imageName, image.path);
       _navigationUtil.navigateBack();
       onEditInfoButtonClicked();
       showSuccess("Photo successfully updated! Please wait");
+      await _myUserRepository.changeProfilePhoto(
+          _myUser.documentId, imageName, image.path);
     } else {
       _navigationUtil.navigateBack();
     }

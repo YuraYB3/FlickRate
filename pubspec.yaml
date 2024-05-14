@@ -54,6 +54,7 @@ dependencies:
   camera: ^0.10.5+9
   video_player: ^2.8.5
   flutter_isolate: ^2.0.5-pre
+  share_plus: ^9.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flickrate/domain/auth/iauth_service.dart';
@@ -30,21 +31,26 @@ class AuthService implements IAuthService {
 
   @override
   Future<void> sentOtp(String number) async {
-    _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: "+380$number",
-      verificationCompleted: (phoneAuthCredential) async {
-        return;
-      },
-      verificationFailed: (error) async {
-        return;
-      },
-      codeSent: (verificationId, forceResendingToken) async {
-        _verifyId = verificationId;
-      },
-      codeAutoRetrievalTimeout: (verificationId) async {
-        return;
-      },
-    );
+    log(number);
+    try {
+      _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: "+380$number",
+        verificationCompleted: (phoneAuthCredential) async {
+          log('cool');
+        },
+        verificationFailed: (error) async {
+          log(error.message!);
+        },
+        codeSent: (verificationId, forceResendingToken) async {
+          _verifyId = verificationId;
+        },
+        codeAutoRetrievalTimeout: (verificationId) async {},
+      );
+    } catch (e) {
+      log(
+        e.toString(),
+      );
+    }
   }
 
   @override
@@ -98,9 +104,7 @@ class AuthService implements IAuthService {
       } catch (e) {
         showException("Error signing in with Google: $e");
       }
-    } else {
-      showException("User cancelled Google sign in.");
-    }
+    } else {}
   }
 
   @override

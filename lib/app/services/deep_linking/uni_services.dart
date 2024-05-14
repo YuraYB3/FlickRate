@@ -17,13 +17,17 @@ class UniService {
     } catch (e) {
       log('Error initializing deep link: $e');
     }
-    uriLinkStream.listen((Uri? uri) async {
-      _handleUri(uri);
-    }, onError: (error) {
-      log('Error listening to URI links: $error');
-    });
+    uriLinkStream.listen(
+      (Uri? uri) async {
+        _handleUri(uri);
+      },
+      onError: (error) {
+        log('Error listening to URI links: $error');
+      },
+    );
   }
 
+  @pragma("vm:entry-point")
   Future<void> _handleUri(Uri? uri) async {
     if (uri == null || uri.queryParameters.isEmpty) return;
 
@@ -38,11 +42,11 @@ class UniService {
         await _navigationUtil.navigateTo(routeMovie, data: receivedMovieId);
       } else {
         log('Navigate to default page');
-        //   await _navigationUtil.navigateTo(routeDefaultURLPage);
+        //    await _navigationUtil.navigateTo(urlDefault);
       }
     } catch (e) {
       log('Exception handling deep link: $e');
-      //  await _navigationUtil.navigateTo(routeDefaultURLPage);
+      //    await _navigationUtil.navigateTo(urlDefault);
     }
   }
 }

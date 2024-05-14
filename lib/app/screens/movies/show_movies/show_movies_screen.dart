@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../../domain/movies/imovie.dart';
@@ -19,6 +21,31 @@ class _ShowMoviesScreenState extends State<ShowMoviesScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget._model.fetchMoviesStream();
+    log("CHANGE");
+  }
+
+  @override
+  void didUpdateWidget(covariant ShowMoviesScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    log("DID");
+  }
+
+  @override
+  void activate() {
+    super.activate();
+    log("ACTIVATE");
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    log("DEACTIVATE");
   }
 
   @override

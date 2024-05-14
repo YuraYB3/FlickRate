@@ -19,7 +19,7 @@ class MovieRepository implements IMovieRepository {
   }
 
   @override
-  Stream<IMovie> fetchMovie(String id) {
+  Stream<IMovie> fetchMovieStream(String id) {
     return _networkService
         .read(id, collectionMovies)
         .map((event) => Movie.fromJson(event));
@@ -40,5 +40,10 @@ class MovieRepository implements IMovieRepository {
               ),
         )
         .toList());
+  }
+
+  @override
+  Future<IMovie> getMovieById(String id) async {
+    return await fetchMovieStream(id).first;
   }
 }

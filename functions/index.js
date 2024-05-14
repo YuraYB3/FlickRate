@@ -3,48 +3,6 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 
-exports.incrementRating = functions.https.onCall(async (data) => {
-  try {
-    const movieId = data.movieId;
-    console.log("Movie id =" + movieId);
-    if (!movieId) {
-      throw new Error("MovieId parameter is missing");
-    }
-    const movieRef = admin.firestore().collection("movies").doc(movieId);
-    const movieDoc = await movieRef.get();
-    if (!movieDoc.exists) {
-      throw new Error("MovieId not found");
-    }
-    const currentRating = movieDoc.data().rating;
-    const updatedRating = parseFloat((currentRating + 0.1).toFixed(1));
-    await movieRef.update({rating: updatedRating});
-    return {message: "Rating incremented successfully"};
-  } catch (error) {
-    console.error("Error incrementing rating:", error);
-  }
-});
-
-exports.decrementRating = functions.https.onCall(async (data) => {
-  try {
-    const movieId = data.movieId;
-    console.log("Movie id =" + movieId);
-    if (!movieId) {
-      throw new Error("MovieId parameter is missing");
-    }
-    const movieRef = admin.firestore().collection("movies").doc(movieId);
-    const movieDoc = await movieRef.get();
-    if (!movieDoc.exists) {
-      throw new Error("MovieId not found");
-    }
-    const currentRating = movieDoc.data().rating;
-    const updatedRating = parseFloat((currentRating - 0.1).toFixed(1));
-    await movieRef.update({rating: updatedRating});
-    return {message: "Rating decremented successfully"};
-  } catch (error) {
-    console.error("Error decrementing rating:", error);
-  }
-});
-
 exports.onNewAuth = functions.auth.user().onCreate((user) => {
   const userId = user.uid;
   const documentId = admin.firestore().collection("users").doc().id;
@@ -78,37 +36,31 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
 exports.onReviewCreate = functions.firestore.
     document("reviews/{reviewId}").onCreate(async (snapshot) => {
       const reviewData = snapshot.data();
-      const movieId = reviewData.movieId;
       const userId = reviewData.userId;
-      const movieRef = admin.firestore().collection("movies").doc(movieId);
-      const movieSnapshot = await movieRef.get();
-
-      if (movieSnapshot.exists) {
-        const movieData = movieSnapshot.data();
-        const movieGenre = movieData.movieGenre;
-        const movieName = movieData.movieName;
-        await snapshot.ref.update({movieGenre: movieGenre,
-          movieName: movieName});
-
-        const userQuerySnapshot = await admin.firestore().
-            collection("users").where("userId", "==", userId).get();
-        if (!userQuerySnapshot.empty) {
-          const userData = userQuerySnapshot.docs[0].data();
-          const userName = userData.userName;
-          const userProfileImage = userData.userProfileImage;
-
-          await userQuerySnapshot.docs[0].ref.
-              update({reviewCount: admin.firestore.FieldValue.increment(1)});
-          return snapshot.ref.update({
-            userName: userName,
-            userImage: userProfileImage,
-          });
-        } else {
-          console.log("User not found");
-          return null;
-        }
+      const userQuerySnapshot = await admin.firestore().
+          collection("users").where("userId", "==", userId).get();
+      if (!userQuerySnapshot.empty) {
+        await userQuerySnapshot.docs[0].ref.
+            update({reviewCount: admin.firestore.FieldValue.increment(1)});
       } else {
-        console.log("Movie not found");
+        console.log("User not found");
+        return null;
+      }
+    });
+exports.onReviewDelete = functions.firestore
+    .document("reviews/{reviewId}")
+    .onDelete(async (snapshot) => {
+      const reviewData = snapshot.data();
+      const userId = reviewData.userId;
+      const userQuerySnapshot = await admin.firestore()
+          .collection("users")
+          .where("userId", "==", userId)
+          .get();
+      if (!userQuerySnapshot.empty) {
+        await userQuerySnapshot.docs[0].ref
+            .update({reviewCount: admin.firestore.FieldValue.increment(-1)});
+      } else {
+        console.log("User not found");
         return null;
       }
     });

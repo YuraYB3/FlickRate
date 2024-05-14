@@ -30,9 +30,9 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   @override
-  void initState() {
+  void didChangeDependencies() {
     widget._uniService.getInitialLink();
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override

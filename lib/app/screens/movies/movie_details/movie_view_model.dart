@@ -1,6 +1,11 @@
 import 'dart:developer';
+import 'package:flickrate/app/routing/routes.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
+import 'package:flickrate/domain/review/ireview.dart';
+import 'package:flickrate/domain/user/i_my_user.dart';
+import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/domain/user_service/iuser_service.dart';
 import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +13,15 @@ import 'package:flutter/material.dart';
 import '../../../../data/review/review.dart';
 import '../../../../domain/movies/imovie.dart';
 import '../../../../domain/movies/imovie_repository.dart';
-import '../../../../domain/review/ireview.dart';
+
+enum MovieState { loading, readyToWork }
 
 class MovieViewModel extends ChangeNotifier {
   final IMovieRepository _movieRepository;
   final INavigationUtil _navigationUtil;
   final IReviewRepository _reviewRepository;
+  final IMyUserRepository _userRepository;
+
   final IUserService _userService;
   final String _movieId;
 
@@ -24,35 +32,41 @@ class MovieViewModel extends ChangeNotifier {
   int _currentPageIndex = 0;
   int get currentPageIndex => _currentPageIndex;
 
+  late IMovie _movie;
+  IMovie get movie => _movie;
   late Stream<List<IReview>> _reviewStreamList;
   Stream<List<IReview>> get reviewStreamList => _reviewStreamList;
-  late Stream<IMovie> _movieStream;
-  Stream<IMovie> get movieStream => _movieStream;
+
+  final Map<String, IMyUser> _userMap = {};
+  Map<String, IMyUser> get userMap => _userMap;
+
+  MovieState _movieState = MovieState.loading;
+  MovieState get movieState => _movieState;
 
   MovieViewModel(
       {required String movieId,
       required IMovieRepository movieRepository,
       required INavigationUtil navigationUtil,
       required IUserService userService,
-      required IReviewRepository reviewRepository})
+      required IReviewRepository reviewRepository,
+      required IMyUserRepository userRepo})
       : _movieRepository = movieRepository,
         _navigationUtil = navigationUtil,
         _userService = userService,
         _reviewRepository = reviewRepository,
-        _movieId = movieId {
-    _init();
-  }
+        _userRepository = userRepo,
+        _movieId = movieId;
 
-  Future<void> _init() async {
-    await _fetchMovieStream();
+  Future<void> init() async {
+    await _fetchMovie();
     await _fetchReviewStream();
+    await _fetchUsers();
+    _updateMovieState(MovieState.readyToWork);
   }
 
-  Future<void> _fetchMovieStream() async {
+  Future<void> _fetchMovie() async {
     try {
-      _movieStream = _movieRepository.fetchMovie(_movieId);
-      _reviewStreamList =
-          _reviewRepository.fetchReviewsStreamByMovieId(_movieId);
+      _movie = await _movieRepository.getMovieById(_movieId);
     } catch (e) {
       log(e.toString());
     }
@@ -65,6 +79,26 @@ class MovieViewModel extends ChangeNotifier {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  Future<void> _fetchUsers() async {
+    try {
+      final reviews =
+          await _reviewRepository.fetchReviewsStreamByMovieId(_movieId).first;
+      for (var review in reviews) {
+        if (!_userMap.containsKey(review.userId)) {
+          _userMap[review.userId] =
+              await _userRepository.fetchCurrentUser(review.userId).first;
+        }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void _updateMovieState(MovieState movieState) {
+    _movieState = movieState;
+    notifyListeners();
   }
 
   void onBackButtonClicked() {
@@ -82,43 +116,58 @@ class MovieViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onCreateReviewClicked(Function(String message) showError,
-      Function(String message) showSuccess) {
+  void onCreateReviewClicked(
+      {required Function(String message) showException,
+      required Function(String message) showSuccess,
+      required IMovie movie}) {
     if (_movieReview.trim().isNotEmpty) {
       try {
         String userId = _userService.getCurrentUserId();
         if (userId.isNotEmpty) {
-          _reviewRepository.createReview(
+          _reviewRepository
+              .createReview(
             Review(
-              userId: userId,
-              movieId: _movieId,
-              rating: _movieRating,
-              reviewText: _movieReview,
-            ),
+                userId: userId,
+                movieId: _movieId,
+                rating: _movieRating,
+                reviewText: _movieReview,
+                movieGenre: movie.movieGenre,
+                movieName: movie.movieName),
+          )
+              .then(
+            (value) {
+              _fetchUsers();
+              notifyListeners();
+              _navigationUtil.navigateBack();
+            },
           );
           showSuccess('Review created');
           _restoreDefaultValues();
-          notifyListeners();
         } else {
-          showError("You are not logged in!");
+          showException("You are not logged in!");
         }
       } catch (e) {
         log(e.toString());
-        showError("Can't create review");
+        showException("Can't create review");
         _navigationUtil.navigateBack();
       }
     } else {
-      showError("Please, fill all the fields");
+      showException("Please, fill all the fields");
     }
   }
 
   void _restoreDefaultValues() {
     _movieReview = '';
     _movieRating = 0.1;
+    notifyListeners();
   }
 
   void updateCurrentPageIndex(int value) {
     _currentPageIndex = value;
     notifyListeners();
+  }
+
+  void shareMovie() {
+    Share.share('Have you seen this movie? \n' '$urlMovies$_movieId');
   }
 }

@@ -1,18 +1,19 @@
 import 'package:flickrate/app/theme/color_palette.dart';
+import 'package:flickrate/domain/movies/imovie.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/custom_snackbar.dart';
 import '../../../../common/widgets/my_elevated_button.dart';
 
 class CreateReviewForm extends StatefulWidget {
-  final String movieName;
+  final IMovie movie;
   final Function onBackButtonClicked;
   final Function onCrateReviewClicked;
   final Function updateRating;
   final Function updateReview;
   const CreateReviewForm({
     super.key,
-    required this.movieName,
+    required this.movie,
     required this.onBackButtonClicked,
     required this.onCrateReviewClicked,
     required this.updateRating,
@@ -38,7 +39,7 @@ class _CreateReviewFormState extends State<CreateReviewForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              widget.movieName.toUpperCase(),
+              widget.movie.movieName.toUpperCase(),
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 72,
@@ -115,13 +116,11 @@ class _CreateReviewFormState extends State<CreateReviewForm> {
                   width: MediaQuery.of(context).size.width * 0.4,
                   onButtonPressed: () {
                     widget.onCrateReviewClicked(
-                      () {
-                        showCustomSnackBar(context, 'MESSAGE');
-                      },
-                      () {
-                        showCustomSnackBar(context, 'MESSAGE');
-                      },
-                    );
+                        showSuccess: (message) => showCustomSnackBar(
+                            context, message, backgroundColor: Colors.green),
+                        showException: (message) =>
+                            showCustomSnackBar(context, message),
+                        movie: widget.movie);
                   },
                 ),
               ],

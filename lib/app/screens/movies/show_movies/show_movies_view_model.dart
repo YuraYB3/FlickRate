@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -19,21 +19,18 @@ class ShowMoviesViewModel extends ChangeNotifier {
     required IMovieRepository movieRepository,
     required INavigationUtil navigationUtil,
   })  : _navigationUtil = navigationUtil,
-        _movieRepository = movieRepository {
-    _fetchMoviesStream();
-  }
+        _movieRepository = movieRepository;
 
   void onListTileClicked(String movieId) async {
-    print(movieId);
+    log(movieId);
     await _navigationUtil.navigateTo(routeMovie, data: movieId);
   }
 
-  Future<void> _fetchMoviesStream() async {
+  Future<void> fetchMoviesStream() async {
     try {
       _movieStreamList = _movieRepository.fetchMoviesStream();
-      notifyListeners();
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
@@ -42,7 +39,7 @@ class ShowMoviesViewModel extends ChangeNotifier {
     if (searchQuery.trim().length > 3) {
       _fetchMoviesStreamByQuery(query);
     } else if (searchQuery.trim().isEmpty) {
-      _fetchMoviesStream();
+      fetchMoviesStream();
     } else {}
   }
 
@@ -51,7 +48,7 @@ class ShowMoviesViewModel extends ChangeNotifier {
       _movieStreamList = _movieRepository.fetchMoviesByName(query);
       notifyListeners();
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 }

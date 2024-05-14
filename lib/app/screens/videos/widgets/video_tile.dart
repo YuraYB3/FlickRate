@@ -1,15 +1,20 @@
 import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
-import 'package:flickrate/app/theme/color_palette.dart';
+import 'package:flickrate/domain/video_player_controllers_service/ivideo_player_controllers__service.dart';
 import 'package:flickrate/utils/video_player_util.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoTile extends StatefulWidget {
   final String url;
-  final VideoPlayerUtil videoPlayerUtil = VideoPlayerUtil();
-  VideoTile({
+  final VideoPlayerHandler videoPlayerHandler;
+  final IVideoPlayerControllersService controllersService;
+  final bool shouldVideoPlay;
+  const VideoTile({
     super.key,
     required this.url,
+    required this.videoPlayerHandler,
+    required this.controllersService,
+    required this.shouldVideoPlay,
   });
 
   @override
@@ -19,45 +24,62 @@ class VideoTile extends StatefulWidget {
 class _VideoTileState extends State<VideoTile> {
   @override
   void initState() {
-    widget.videoPlayerUtil.initVideoPlayer(widget.url);
     super.initState();
   }
 
   @override
+  void didChangeDependencies() {
+    widget.videoPlayerHandler
+        .initializeVideoController(
+      videoPlayerController:
+          widget.controllersService.getController(widget.url),
+    )
+        .then(
+      (_) {
+        _checkShouldVideoPlay();
+      },
+    );
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(covariant VideoTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        if (oldWidget.shouldVideoPlay != widget.shouldVideoPlay) {
+          _checkShouldVideoPlay();
+        }
+      },
+    );
+  }
+
+  @override
   void dispose() {
-    widget.videoPlayerUtil.disposeVideoPlayer();
+    widget.controllersService
+        .clearController(controller: widget.videoPlayerHandler.videoController);
     super.dispose();
+  }
+
+  void _checkShouldVideoPlay() {
+    if (widget.shouldVideoPlay) {
+      widget.videoPlayerHandler.playVideo();
+    } else {
+      widget.videoPlayerHandler.pauseVideo();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget.videoPlayerUtil.isInitialized
-        ? FutureBuilder(
-            future: widget.videoPlayerUtil.futureVideoPlayer,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const MyLoadingScreen();
-              } else {
-                return GestureDetector(
-                  onTap: () {
-                    widget.videoPlayerUtil.onVideoTaped();
-                  },
-                  child: SizedBox(
-                    child: VideoPlayer(
-                        widget.videoPlayerUtil.videoPlayerController),
-                  ),
-                );
-              }
+    switch (widget.videoPlayerHandler.videoPlayerState) {
+      case VideoPlayerState.loading:
+        return const MyLoadingScreen();
+      case VideoPlayerState.readyToWork:
+        return GestureDetector(
+            onTap: () {
+              widget.videoPlayerHandler.onPlayButtonClicked();
             },
-          )
-        : Container(
-            color: mainColor,
-            height: double.infinity,
-            child: const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            ),
-          );
+            child: VideoPlayer(widget.videoPlayerHandler.videoController));
+    }
   }
 }

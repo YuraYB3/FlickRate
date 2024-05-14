@@ -1,38 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPlayerUtil extends ChangeNotifier {
-  late VideoPlayerController _videoPlayerController;
-  VideoPlayerController get videoPlayerController => _videoPlayerController;
-  bool _isVideoPlaying = true;
-  late Future _futureVideoPlayer;
-  Future get futureVideoPlayer => _futureVideoPlayer;
+enum VideoPlayerState { loading, readyToWork }
 
-  bool _isInitialized = false;
-  bool get isInitialized => _isInitialized;
+enum VideoState { playing, onPause }
 
-  Future<void> initVideoPlayer(String url) async {
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(url));
-    _futureVideoPlayer = _videoPlayerController.initialize();
-    _isInitialized = true;
-    notifyListeners();
-    _videoPlayerController.setLooping(true);
-    _videoPlayerController.play();
+class VideoPlayerHandler extends ChangeNotifier {
+  late VideoPlayerController _videoController;
+
+  VideoPlayerController get videoController => _videoController;
+
+  VideoPlayerState _videoPlayerState = VideoPlayerState.loading;
+  VideoPlayerState get videoPlayerState => _videoPlayerState;
+
+  VideoState _videoState = VideoState.playing;
+  VideoState get videoState => _videoState;
+
+  Future<void> initializeVideoController(
+      {required VideoPlayerController videoPlayerController}) async {
+    _videoController = videoPlayerController;
+    await _videoController.initialize();
+    _updateVideoPlayerState(VideoPlayerState.readyToWork);
   }
 
-  void disposeVideoPlayer() {
-    _videoPlayerController.dispose();
+  void playVideo() {
+    _videoController.play();
+    _videoController.setLooping(true);
+    _updateVideoState(VideoState.playing);
   }
 
-  void onVideoTaped() {
-    if (_isVideoPlaying) {
-      _videoPlayerController.pause();
-      _isVideoPlaying = false;
-      notifyListeners();
-    } else {
-      _videoPlayerController.play();
-      _isVideoPlaying = true;
-      notifyListeners();
+  void pauseVideo() {
+    _videoController.pause();
+    _updateVideoState(VideoState.onPause);
+  }
+
+  void onPlayButtonClicked() {
+    switch (_videoState) {
+      case VideoState.onPause:
+        playVideo();
+        break;
+      case VideoState.playing:
+        pauseVideo();
+        break;
+      default:
+        break;
     }
+  }
+
+  void _updateVideoPlayerState(VideoPlayerState videoPlayerState) {
+    _videoPlayerState = videoPlayerState;
+    notifyListeners();
+  }
+
+  void _updateVideoState(VideoState videoState) {
+    _videoState = videoState;
+    notifyListeners();
   }
 }

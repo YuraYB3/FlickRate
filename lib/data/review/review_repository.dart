@@ -12,7 +12,7 @@ class ReviewRepository implements IReviewRepository {
 
   @override
   Future<void> createReview(IReview review) async {
-    _networkService.create(review.toJson(), collectionReviews);
+    await _networkService.create(review.toJson(), collectionReviews);
   }
 
   @override
@@ -47,5 +47,14 @@ class ReviewRepository implements IReviewRepository {
   Stream<List<IReview>> fetchReviewsStreamByMovieId(String movieId) {
     return fetchReviewsStream().map((movies) =>
         movies.where((review) => review.movieId == movieId).toList());
+  }
+
+  @override
+  Stream<List<IReview>> fetchReviewsStreamByUserIdAndMovieGenre(
+      String movieGenre, String userId) {
+    return fetchReviewsStream().map((movies) => movies
+        .where((review) =>
+            review.userId == userId && review.movieGenre == movieGenre)
+        .toList());
   }
 }

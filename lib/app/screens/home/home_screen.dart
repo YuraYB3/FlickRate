@@ -2,9 +2,8 @@ import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flickrate/app/screens/home/widgets/home_app_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/screens/my_error_widget.dart';
 import 'home_view_model.dart';
-import 'widgets/add_movie_container.dart';
+import 'widgets/header_movie_holder.dart';
 import 'widgets/custom_genre_filter_row.dart';
 import 'widgets/custom_grid_view.dart';
 
@@ -25,7 +24,7 @@ class HomeScreen extends StatelessWidget {
                 stream: model.userStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return const MyErrorScreen();
+                    return const MyLoadingScreen();
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const MyLoadingScreen();
@@ -36,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                       HomeAppBar(
                           imgURL: userData.userProfileImage,
                           userName: userData.userName),
-                      AddMovieContainer(
+                      HeaderMovieHolder(
                         screenHeight: screenHeight,
                         screenWidth: screenWidth,
                       ),

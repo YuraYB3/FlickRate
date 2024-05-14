@@ -37,7 +37,7 @@ class UpdateInfoWidget extends StatelessWidget {
               ),
               Positioned(
                 bottom: -10,
-                left: 45,
+                left: 40,
                 child: IconButton(
                   onPressed: () {
                     showCustomModelSnackBar(
@@ -47,7 +47,7 @@ class UpdateInfoWidget extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.add_a_photo,
-                    color: secondaryColor,
+                    color: Colors.white,
                   ),
                 ),
               )
@@ -66,27 +66,24 @@ class UpdateInfoWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                        ),
                         child: TextField(
-                            onChanged: (value) {
-                              updateUserNickNameField(value);
-                            },
-                            maxLength: 13,
-                            decoration: const InputDecoration(
-                              labelStyle: TextStyle(color: mainColor),
-                              hintText: 'Enter nickname',
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: mainColor)),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: mainColor),
-                              ),
-                              counterText: '',
-                            )),
+                          onChanged: (value) {
+                            updateUserNickNameField(value);
+                          },
+                          maxLength: 15,
+                          decoration: const InputDecoration(
+                            labelStyle: TextStyle(color: mainColor),
+                            hintText: 'Enter nickname',
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: mainColor)),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: mainColor),
+                            ),
+                            counterText: '',
+                          ),
+                        ),
                       ),
                     ),
                     IconButton(
@@ -116,12 +113,11 @@ void showCustomModelSnackBar(
   showModalBottomSheet(
     context: context,
     builder: (context) {
-      return Card(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 5.2,
-          margin: const EdgeInsets.only(top: 8.0),
-          padding: const EdgeInsets.all(12),
+      return Container(
+        height: MediaQuery.of(context).size.height / 5.2,
+        margin: const EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.all(12),
+        child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

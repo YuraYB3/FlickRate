@@ -4,7 +4,7 @@ class InputValidator {
   }
 
   bool isPasswordValid(String value) {
-    return value.isNotEmpty;
+    return value.length >= 8;
   }
 
   bool isNumberValid(String value) {

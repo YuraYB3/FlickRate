@@ -13,10 +13,6 @@ class Review implements IReview {
   final String movieGenre;
   @override
   final String movieName;
-  @override
-  final String userName;
-  @override
-  final String userImage;
 
   @override
   String documentId;
@@ -25,8 +21,6 @@ class Review implements IReview {
     this.documentId = '',
     this.movieName = '',
     this.movieGenre = '',
-    this.userImage = '',
-    this.userName = '',
     required this.movieId,
     required this.reviewText,
     required this.userId,
@@ -35,15 +29,14 @@ class Review implements IReview {
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
-        movieName: json['movieName'],
-        rating: json['rating'],
-        movieId: json['movieId'],
-        reviewText: json['reviewText'],
-        userId: json['userId'],
-        documentId: json['documentId'],
-        movieGenre: json['movieGenre'],
-        userImage: json['userImage'],
-        userName: json['userName']);
+      userId: json['userId'],
+      documentId: json['documentId'],
+      movieId: json['movieId'],
+      movieName: json['movieName'],
+      movieGenre: json['movieGenre'],
+      rating: json['rating'],
+      reviewText: json['reviewText'],
+    );
   }
   @override
   Map<String, dynamic> toJson() {
@@ -52,6 +45,8 @@ class Review implements IReview {
       'movieId': movieId,
       'reviewText': reviewText,
       'userId': userId,
+      'movieName': movieName,
+      'movieGenre': movieGenre
     };
   }
 }

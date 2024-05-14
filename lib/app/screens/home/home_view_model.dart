@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_view_model.dart';
 import 'package:flickrate/domain/user_service/iuser_service.dart';
 import 'package:flutter/material.dart';
 
@@ -46,12 +47,20 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-
   void onShowAllClicked() {
-    _navigationUtil.navigateTo(routeShowReviews);
+    _navigationUtil.navigateTo(
+      routeShowReviews,
+      data: {'reviewLoadingType': ReviewLoadingType.byUserId},
+    );
   }
 
   void onGenreTileClicked(String genreName) {
-    //_navigationUtil.navigateTo(routeShowMovies, data: genreName);
+    _navigationUtil.navigateTo(
+      routeShowReviews,
+      data: {
+        'loadingType': ReviewLoadingType.byMovieGenre,
+        'movieGenre': genreName
+      },
+    );
   }
 }

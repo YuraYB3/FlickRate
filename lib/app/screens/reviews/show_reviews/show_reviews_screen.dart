@@ -1,11 +1,14 @@
 import 'package:flickrate/app/common/screens/my_error_widget.dart';
 import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_view_model.dart';
+import 'package:flickrate/app/screens/reviews/widgets/review_dialog.dart';
+import 'package:flickrate/app/screens/reviews/widgets/review_tile.dart';
 import 'package:flickrate/domain/review/ireview.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/screens/my_empty_screen.dart';
 import '../../../common/widgets/my_loading_widget.dart';
 import '../../../theme/color_palette.dart';
+import '../widgets/confirm_delete_dialog.dart';
 
 class ShowReviewsScreen extends StatefulWidget {
   final ShowReviewsViewModel model;
@@ -16,6 +19,13 @@ class ShowReviewsScreen extends StatefulWidget {
 }
 
 class _ShowMoviesViewState extends State<ShowReviewsScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    widget.model.init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,38 +51,54 @@ class _ShowMoviesViewState extends State<ShowReviewsScreen> {
           }
           final reviewData = snapshot.data!;
           return ListView.builder(
-              itemBuilder: (context, index) {
-                final review = reviewData[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: mainColor.withOpacity(0.7),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20))),
-                    child: ListTile(
-                      title: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          review.movieName,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold),
-                        ),
+            itemBuilder: (context, index) {
+              final review = reviewData[index];
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
                       ),
-                      trailing: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          review.rating.toStringAsFixed(1),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
-                );
-              },
-              itemCount: reviewData.length);
+                  child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ReviewDialog(review: review);
+                          },
+                        );
+                      },
+                      onLongPress: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ConfirmDeleteDialog(
+                              navigateBack: widget.model.navigateBack,
+                              reviewId: review.documentId,
+                              onConfirm: (widget.model.deleteReview),
+                            );
+                          },
+                        );
+                      },
+                      child: ReviewTile(
+                        movieName: review.movieName,
+                        rating: review.rating.toStringAsFixed(1),
+                      )),
+                ),
+              );
+            },
+            itemCount: reviewData.length,
+          );
         },
       ),
     );

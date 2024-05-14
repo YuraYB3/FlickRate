@@ -7,7 +7,8 @@
         "namespace": "android_app",
         "package_name": "com.example.flickrate",
         "sha256_cert_fingerprints": [
-          "EA:FC:49:AA:3D:91:B7:4D:AF:10:17:51:54:1A:40:6B:19:98:20:AD:85:2F:F7:C5:4A:CE:69:42:D3:D9:A9:90"
+          "EA:FC:49:AA:3D:91:B7:4D:AF:10:17:51:54:1A:40:6B:19:98:20:AD:85:2F:F7:C5:4A:CE:69:42:D3:D9:A9:90",
+          "70:2c:91:0d:9c:d9:2c:00:8b:c0:c8:5c:16:03:53:d7:cd:30:2d:2d:b4:1c:67:22:21:62:68:77:d4:32:1e:03"
         ]
       }
     }

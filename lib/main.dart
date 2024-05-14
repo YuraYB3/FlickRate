@@ -13,14 +13,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   init();
-  runApp(MultiProvider(
-    providers: [
-      Provider.value(value: locator<INavigationUtil>()),
-    ],
-    child: App(
-      userService: locator<IUserService>(),
-      uniService: locator<UniService>(),
-      appRouter: AppRouter(),
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider.value(value: locator<INavigationUtil>()),
+      ],
+      child: App(
+        userService: locator<IUserService>(),
+        uniService: locator<UniService>(),
+        appRouter: AppRouter(),
+      ),
     ),
-  ));
+  );
 }

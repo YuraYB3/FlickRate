@@ -24,10 +24,10 @@ import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/domain/video/ivideo_repository.dart';
 import 'package:flickrate/utils/isolate_handler.dart';
 import 'package:flickrate/utils/permission_handler.dart';
-import 'package:flickrate/utils/video_player_util.dart';
 import 'package:get_it/get_it.dart';
 
 import 'app/services/functions/function_service.dart';
+import 'app/services/video_player_controllers_service/video_player_controllers_service.dart';
 import 'domain/auth/iauth_service.dart';
 import 'domain/functions/ifunction_service.dart';
 import 'app/services/network/firebase_service.dart';
@@ -35,6 +35,7 @@ import 'domain/network/inetwork_service.dart';
 import 'app/services/storage/cloud_storage_service.dart';
 import 'data/movies/movie_repository.dart';
 import 'domain/movies/imovie_repository.dart';
+import 'domain/video_player_controllers_service/ivideo_player_controllers__service.dart';
 
 final locator = GetIt.instance;
 
@@ -53,8 +54,8 @@ void init() {
   initCameraCore();
   initCameraConfig();
   initCameraService();
-  initVideoPlayerUtil();
   initIsolateHandler();
+  initVideoService();
 }
 
 void initIsolateHandler() {
@@ -140,16 +141,9 @@ void initRepos() {
 
   locator.registerFactory<IVideoRepository>(
     () => VideoRepository(
-      networkService: locator.get<INetworkService>(),
-      isolateHandler: locator.get<IsolateHandler>(),
-      storageService: locator.get<IStorageService>()
-    ),
-  );
-}
-
-void initVideoPlayerUtil() {
-  locator.registerFactory<VideoPlayerUtil>(
-    () => VideoPlayerUtil(),
+        networkService: locator.get<INetworkService>(),
+        isolateHandler: locator.get<IsolateHandler>(),
+        storageService: locator.get<IStorageService>()),
   );
 }
 
@@ -168,5 +162,11 @@ void initCameraService() {
       cameraConfig: locator.get<ICameraConfig>(),
       cameraCore: locator.get<ICameraCore>(),
     ),
+  );
+}
+
+void initVideoService() {
+  locator.registerLazySingleton<IVideoPlayerControllersService>(
+    () => VideoPlayerControllersService(),
   );
 }

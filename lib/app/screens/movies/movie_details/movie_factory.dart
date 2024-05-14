@@ -1,4 +1,5 @@
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
+import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/domain/user_service/iuser_service.dart';
 import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flickrate/locator.dart';
@@ -14,6 +15,7 @@ class MovieFactory {
   static Widget build(String movieId) {
     return ChangeNotifierProvider(
       create: (context) => MovieViewModel(
+          userRepo: locator<IMyUserRepository>(),
           reviewRepository: locator<IReviewRepository>(),
           userService: locator<IUserService>(),
           navigationUtil: locator<INavigationUtil>(),

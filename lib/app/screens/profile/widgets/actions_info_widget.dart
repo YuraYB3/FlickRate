@@ -25,21 +25,7 @@ class ActionsInfoWidget extends StatelessWidget {
             const Text('Reviews', style: TextStyle(color: secondaryColor)),
           ],
         ),
-        Column(
-          children: [
-            Text(
-              userLikes,
-              style: const TextStyle(color: mainColor, fontSize: 18),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            const Text(
-              'Likes',
-              style: TextStyle(color: secondaryColor),
-            ),
-          ],
-        )
+       
       ],
     );
   }
