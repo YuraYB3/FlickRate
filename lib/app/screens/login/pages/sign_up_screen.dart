@@ -10,11 +10,11 @@ import '../widgets/my_email_field.dart';
 import '../widgets/my_password_field.dart';
 
 class SignUpPage extends StatelessWidget {
-  final Function(Function(String message)) onRegisterNewUserClicked;
-  final Function() onSwitchToEmailAndPasswordClicked;
-  final Function(String value) updateEmail;
-  final Function(String value) updatePassword;
-  final Function(String value) updateRepeatedPassword;
+  final Function onRegisterNewUserClicked;
+  final Function onSwitchToEmailAndPasswordClicked;
+  final Function updateEmail;
+  final Function updatePassword;
+  final Function updateRepeatedPassword;
 
   const SignUpPage(
       {required this.onRegisterNewUserClicked,
@@ -46,21 +46,26 @@ class SignUpPage extends StatelessWidget {
           height: 10,
         ),
         MyElevatedButton(
-            buttonColor: mainColor,
-            width: MediaQuery.of(context).size.width * 0.6,
-            title: "Sign Up",
-            onButtonPressed: () {
-              onRegisterNewUserClicked(
-                  (message) => showCustomSnackBar(context, message));
-            }),
+          buttonColor: mainColor,
+          width: MediaQuery.of(context).size.width * 0.6,
+          title: "Sign Up",
+          onButtonPressed: () {
+            onRegisterNewUserClicked(
+              showException: (message) => showCustomSnackBar(context, message),
+            );
+          },
+        ),
         const SizedBox(
           height: 10,
         ),
         MyTextButton(
-            textColor: secondaryColor,
-            textSize: 16,
-            title: 'I already have an account',
-            onButtonPressed: onSwitchToEmailAndPasswordClicked)
+          textColor: secondaryColor,
+          textSize: 16,
+          title: 'I already have an account',
+          onButtonPressed: () {
+            onSwitchToEmailAndPasswordClicked();
+          },
+        )
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/user/i_my_user.dart';
 import '../../../common/widgets/cached_image.dart';
+import '../../../common/widgets/custom_snackbar.dart';
 import '../../../theme/color_palette.dart';
 
 class UpdateInfoWidget extends StatelessWidget {
@@ -16,7 +17,7 @@ class UpdateInfoWidget extends StatelessWidget {
   final IMyUser userData;
   final Function onChangePhotoByGalleryClicked;
   final Function onChangePhotoByCameraClicked;
-  final Function(String value) updateUserNickNameField;
+  final Function updateUserNickNameField;
   final Function onChangeUserNickNameClicked;
 
   @override
@@ -88,7 +89,9 @@ class UpdateInfoWidget extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        onChangeUserNickNameClicked();
+                        onChangeUserNickNameClicked(
+                            showException: (message) =>
+                                showCustomSnackBar(context, message));
                       },
                       icon: const Icon(
                         Icons.done,
@@ -137,7 +140,12 @@ void showCustomModelSnackBar(
                     ],
                   ),
                   onTap: () {
-                    onChangePhotoFromGalleryClicked();
+                    onChangePhotoFromGalleryClicked(
+                        showException: (message) =>
+                            showCustomSnackBar(context, message),
+                        showSuccess: (message) => showCustomSnackBar(
+                            context, message,
+                            backgroundColor: Colors.green));
                   },
                 ),
               ),
@@ -157,7 +165,9 @@ void showCustomModelSnackBar(
                     ],
                   ),
                   onTap: () {
-                    onChangePhotoByCameraClicked();
+                    onChangePhotoByCameraClicked(
+                        showException: (message) =>
+                            showCustomSnackBar(context, message));
                   },
                 ),
               )

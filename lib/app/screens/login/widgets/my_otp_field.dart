@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../../../theme/color_palette.dart';
 
 class MyOtpField extends StatelessWidget {
-  final Function(String value) updateOtpCode;
+  final Function updateOtpCode;
   const MyOtpField({
     super.key,
     required this.updateOtpCode,

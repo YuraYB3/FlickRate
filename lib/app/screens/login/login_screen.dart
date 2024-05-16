@@ -17,50 +17,27 @@ class LoginScreen extends StatelessWidget {
           child: switch (model.loginMethod) {
         LoginState.loginWithPhoneNumber => LoginWithPhoneNumberPage(
             isOtpSent: model.isOtpSent,
-            updateOtpCode: (value) {
-              model.updateOtpCode(value);
-            },
-            sentOtpClicked: (p0) {
-              model.sentOtpClicked(showException: p0);
-            },
-            updatePhoneNumber: (value) {
-              model.updatePhoneNumber(value);
-            },
+            updateOtpCode: model.updateOtpCode,
+            sentOtpClicked: model.sentOtpClicked,
+            updatePhoneNumber: model.updatePhoneNumber,
             onSwitchToEmailAndPasswordClicked:
                 model.onSwitchToEmailAndPasswordClicked,
-            onApplyOtpCodeButtonClicked: (p0) {
-              model.onApplyOtpCodeButtonClicked(showException: p0);
-            },
+            onApplyOtpCodeButtonClicked: model.onApplyOtpCodeButtonClicked,
           ),
         LoginState.loginWithEmailAndPassword => LoginWithEmailAndPasswordPage(
-            updateEmail: (value) {
-              model.updateEmail(value);
-            },
-            updatePassword: (value) {
-              model.updatePassword(value);
-            },
-            onSignInWithEmailAndPasswordClicked: (p0) {
-              model.onSignInWithEmailAndPasswordClicked(showException: p0);
-            },
+            updateEmail: model.updateEmail,
+            updatePassword: model.updatePassword,
+            onSignInWithEmailAndPasswordClicked:
+                model.onSignInWithEmailAndPasswordClicked,
             onSwitchToPhoneNumberClicked: model.onSwitchToPhoneNumberClicked,
-            onSignInWithGoogleClicked: (p0) {
-              model.onSignInWithGoogleClicked(showException: p0);
-            },
+            onSignInWithGoogleClicked: model.onSignInWithGoogleClicked,
             onSwitchToSignUpClicked: model.onSwitchToSignUpClicked,
           ),
         LoginState.registerNewAccount => SignUpPage(
-            updateRepeatedPassword: (value) {
-              model.updateRepeatedPassword(value);
-            },
-            updateEmail: (value) {
-              model.updateEmail(value);
-            },
-            updatePassword: (value) {
-              model.updatePassword(value);
-            },
-            onRegisterNewUserClicked: (p0) {
-              model.onRegisterNewUserClicked(showException: p0);
-            },
+            updateRepeatedPassword: model.updateRepeatedPassword,
+            updateEmail: model.updateEmail,
+            updatePassword: model.updatePassword,
+            onRegisterNewUserClicked: model.onRegisterNewUserClicked,
             onSwitchToEmailAndPasswordClicked:
                 model.onSwitchToEmailAndPasswordClicked,
           )

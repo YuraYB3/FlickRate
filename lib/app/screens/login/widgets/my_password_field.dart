@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../theme/color_palette.dart';
 
 class MyPasswordField extends StatelessWidget {
-  final Function(String value) updatePassword;
+  final Function updatePassword;
   final String label;
 
   const MyPasswordField({

@@ -8,7 +8,7 @@ class MyEmailField extends StatelessWidget {
     required this.updateEmail,
   });
 
-  final Function(String value) updateEmail;
+  final Function updateEmail;
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ class MyPhoneNumberField extends StatelessWidget {
     required this.updatePhoneNumber,
   });
 
-  final Function(String value) updatePhoneNumber;
+  final Function updatePhoneNumber;
 
   @override
   Widget build(BuildContext context) {

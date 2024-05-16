@@ -9,12 +9,12 @@ import '../widgets/my_email_field.dart';
 import '../widgets/my_password_field.dart';
 
 class LoginWithEmailAndPasswordPage extends StatelessWidget {
-  final Function(String value) updateEmail;
-  final Function(String value) updatePassword;
-  final Function(Function(String message)) onSignInWithEmailAndPasswordClicked;
-  final Function() onSwitchToPhoneNumberClicked;
-  final Function(Function(String message)) onSignInWithGoogleClicked;
-  final Function() onSwitchToSignUpClicked;
+  final Function updateEmail;
+  final Function updatePassword;
+  final Function onSignInWithEmailAndPasswordClicked;
+  final Function onSwitchToPhoneNumberClicked;
+  final Function onSignInWithGoogleClicked;
+  final Function onSwitchToSignUpClicked;
 
   const LoginWithEmailAndPasswordPage({
     required this.updateEmail,
@@ -67,7 +67,9 @@ class LoginWithEmailAndPasswordPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.6,
               onButtonPressed: () {
                 onSignInWithEmailAndPasswordClicked(
-                    (message) => showCustomSnackBar(context, message));
+                  showException: (message) =>
+                      showCustomSnackBar(context, message),
+                );
               }),
           Container(
             height: MediaQuery.of(context).size.height * 0.1,
@@ -85,7 +87,9 @@ class LoginWithEmailAndPasswordPage extends StatelessWidget {
                   height: 60,
                   width: 80,
                   child: IconButton(
-                      onPressed: onSwitchToPhoneNumberClicked,
+                      onPressed: () {
+                        onSwitchToPhoneNumberClicked();
+                      },
                       icon: const Icon(
                         Icons.phone_android,
                         color: mainColor,
@@ -95,15 +99,17 @@ class LoginWithEmailAndPasswordPage extends StatelessWidget {
                   height: 60,
                   width: 80,
                   child: IconButton(
-                      onPressed: () {
-                        onSignInWithGoogleClicked(
-                          (message) => showCustomSnackBar(context, message),
-                        );
-                      },
-                      icon: const Text(
-                        "G",
-                        style: TextStyle(fontSize: 24, color: mainColor),
-                      )),
+                    onPressed: () {
+                      onSignInWithGoogleClicked(
+                        showException: (message) =>
+                            showCustomSnackBar(context, message),
+                      );
+                    },
+                    icon: const Text(
+                      "G",
+                      style: TextStyle(fontSize: 24, color: mainColor),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -118,10 +124,13 @@ class LoginWithEmailAndPasswordPage extends StatelessWidget {
                   style: TextStyle(color: secondaryColor, fontSize: 16),
                 ),
                 MyTextButton(
-                    textColor: mainColor,
-                    textSize: 16,
-                    title: 'Sign Up',
-                    onButtonPressed: onSwitchToSignUpClicked)
+                  textColor: mainColor,
+                  textSize: 16,
+                  title: 'Sign Up',
+                  onButtonPressed: () {
+                    onSwitchToSignUpClicked();
+                  },
+                )
               ],
             ),
           ),

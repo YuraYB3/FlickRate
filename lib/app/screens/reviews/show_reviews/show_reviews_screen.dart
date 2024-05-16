@@ -45,8 +45,11 @@ class _ShowMoviesViewState extends State<ShowReviewsScreen> {
             );
           }
           if (snapshot.data!.isEmpty) {
-            return const Center(
-              child: MyEmptyScreen(),
+            return MyEmptyScreen(
+              mainText: widget.model.reviewType == ReviewLoadingType.byUserId
+                  ? 'You do not have reviews yet'
+                  : 'This category is empty',
+              secondaryText: 'Write your first review!',
             );
           }
           final reviewData = snapshot.data!;
@@ -70,30 +73,31 @@ class _ShowMoviesViewState extends State<ShowReviewsScreen> {
                     ],
                   ),
                   child: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return ReviewDialog(review: review);
-                          },
-                        );
-                      },
-                      onLongPress: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return ConfirmDeleteDialog(
-                              navigateBack: widget.model.navigateBack,
-                              reviewId: review.documentId,
-                              onConfirm: (widget.model.deleteReview),
-                            );
-                          },
-                        );
-                      },
-                      child: ReviewTile(
-                        movieName: review.movieName,
-                        rating: review.rating.toStringAsFixed(1),
-                      )),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return ReviewDialog(review: review);
+                        },
+                      );
+                    },
+                    onLongPress: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return ConfirmDeleteDialog(
+                            navigateBack: widget.model.navigateBack,
+                            reviewId: review.documentId,
+                            onConfirm: (widget.model.deleteReview),
+                          );
+                        },
+                      );
+                    },
+                    child: ReviewTile(
+                      movieName: review.movieName,
+                      rating: review.rating.toStringAsFixed(1),
+                    ),
+                  ),
                 ),
               );
             },

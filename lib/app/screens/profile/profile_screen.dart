@@ -2,7 +2,6 @@ import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/widgets/custom_snackbar.dart';
 import 'profile_view_model.dart';
 import 'widgets/actions_info_widget.dart';
 import 'widgets/log_out_button.dart';
@@ -67,29 +66,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )
                     else
                       UpdateInfoWidget(
-                        userData: userData,
-                        updateUserNickNameField: (value) {
-                          widget._model.updateUserNickNameField(value);
-                        },
-                        onChangePhotoByGalleryClicked: () =>
-                            widget._model.onChoosePhotoFromGalleryClicked(
-                          showException: (message) =>
-                              showCustomSnackBar(context, message),
-                          showSuccess: (message) => showCustomSnackBar(
-                              context, message,
-                              backgroundColor: Colors.green),
-                        ),
-                        onChangeUserNickNameClicked: () =>
-                            widget._model.onChangeUserNickNameClicked(
-                          showException: (message) =>
-                              showCustomSnackBar(context, message),
-                        ),
-                        onChangePhotoByCameraClicked: () =>
-                            widget._model.onMadePhotoByCameraClicked(
-                          showException: (message) =>
-                              showCustomSnackBar(context, message),
-                        ),
-                      ),
+                          userData: userData,
+                          updateUserNickNameField:
+                              widget._model.updateUserNickNameField,
+                          onChangePhotoByGalleryClicked:
+                              widget._model.onChoosePhotoFromGalleryClicked,
+                          onChangeUserNickNameClicked:
+                              widget._model.onChangeUserNickNameClicked,
+                          onChangePhotoByCameraClicked:
+                              widget._model.onMadePhotoByCameraClicked),
                     const Divider(
                       color: Colors.grey,
                     ),
@@ -108,7 +93,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const Divider(
                       color: Colors.grey,
                     ),
-                    Expanded(child: Container()),
+                    Expanded(
+                      child: Container(),
+                    ),
                   ],
                 );
               },

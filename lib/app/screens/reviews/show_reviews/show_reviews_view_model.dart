@@ -12,9 +12,11 @@ class ShowReviewsViewModel extends ChangeNotifier {
   final IReviewRepository _reviewRepository;
   final IUserService _userService;
   final INavigationUtil _navigationUtil;
+  final String? _movieGenre;
 
   final ReviewLoadingType _reviewLoadingType;
-  final String? _movieGenre;
+  ReviewLoadingType get reviewType => _reviewLoadingType;
+  
   late Stream<List<IReview>> _reviewStreamList;
   Stream<List<IReview>> get reviewStreamList => _reviewStreamList;
 

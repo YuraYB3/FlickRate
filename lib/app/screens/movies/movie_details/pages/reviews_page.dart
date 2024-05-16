@@ -44,7 +44,10 @@ class _ReviewsPageState extends State<ReviewsPage> {
               return const MyLoadingScreen();
             }
             if (snapshotReview.data!.isEmpty) {
-              return const MyEmptyScreen();
+              return const MyEmptyScreen(
+                mainText: 'No Reviews Yet',
+                secondaryText: 'Be the first to write a review!',
+              );
             }
             var reviewData = snapshotReview.data!;
             return SizedBox(

@@ -11,11 +11,11 @@ import '../widgets/my_phone_number_field.dart';
 
 class LoginWithPhoneNumberPage extends StatelessWidget {
   final bool isOtpSent;
-  final Function(String value) updatePhoneNumber;
-  final Function() onSwitchToEmailAndPasswordClicked;
-  final Function(Function(String message)) onApplyOtpCodeButtonClicked;
-  final Function(String value) updateOtpCode;
-  final Function(Function(String message)) sentOtpClicked;
+  final Function updatePhoneNumber;
+  final Function onSwitchToEmailAndPasswordClicked;
+  final Function onApplyOtpCodeButtonClicked;
+  final Function updateOtpCode;
+  final Function sentOtpClicked;
   const LoginWithPhoneNumberPage({
     super.key,
     required this.updatePhoneNumber,
@@ -42,13 +42,16 @@ class LoginWithPhoneNumberPage extends StatelessWidget {
                 height: 20,
               ),
               MyElevatedButton(
-                  buttonColor: mainColor,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  title: 'Sent',
-                  onButtonPressed: () {
-                    sentOtpClicked(
-                        (message) => showCustomSnackBar(context, message));
-                  }),
+                buttonColor: mainColor,
+                width: MediaQuery.of(context).size.width * 0.6,
+                title: 'Sent',
+                onButtonPressed: () {
+                  sentOtpClicked(
+                    showException: (message) =>
+                        showCustomSnackBar(context, message),
+                  );
+                },
+              ),
             ],
           ),
         if (isOtpSent)
@@ -59,23 +62,29 @@ class LoginWithPhoneNumberPage extends StatelessWidget {
                 height: 20,
               ),
               MyElevatedButton(
-                  buttonColor: mainColor,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  title: 'Apply',
-                  onButtonPressed: () {
-                    onApplyOtpCodeButtonClicked(
-                        (message) => showCustomSnackBar(context, message));
-                  })
+                buttonColor: mainColor,
+                width: MediaQuery.of(context).size.width * 0.6,
+                title: 'Apply',
+                onButtonPressed: () {
+                  onApplyOtpCodeButtonClicked(
+                    showException: (message) =>
+                        showCustomSnackBar(context, message),
+                  );
+                },
+              )
             ],
           ),
         const SizedBox(
           height: 20,
         ),
         MyTextButton(
-            textColor: secondaryColor,
-            textSize: 16,
-            title: 'Back',
-            onButtonPressed: onSwitchToEmailAndPasswordClicked)
+          textColor: secondaryColor,
+          textSize: 16,
+          title: 'Back',
+          onButtonPressed: () {
+            onSwitchToEmailAndPasswordClicked();
+          },
+        )
       ],
     );
   }
