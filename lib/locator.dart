@@ -5,7 +5,6 @@ import 'package:flickrate/app/services/auth/auth_service.dart';
 import 'package:flickrate/app/services/camera/camera_config.dart';
 import 'package:flickrate/app/services/camera/camera_core.dart';
 import 'package:flickrate/app/services/camera/camera_service.dart';
-import 'package:flickrate/data/video/video_repository.dart';
 import 'package:flickrate/domain/camera/icamera_config.dart';
 import 'package:flickrate/domain/camera/icamera_core.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
@@ -21,13 +20,11 @@ import 'package:flickrate/domain/storage/istorage_service.dart';
 import 'package:flickrate/data/user/my_user_repository.dart';
 import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
-import 'package:flickrate/domain/video/ivideo_repository.dart';
 import 'package:flickrate/utils/isolate_handler.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:get_it/get_it.dart';
 
 import 'app/services/functions/function_service.dart';
-import 'app/services/video_player_controllers_service/video_player_controllers_service.dart';
 import 'domain/auth/iauth_service.dart';
 import 'domain/functions/ifunction_service.dart';
 import 'app/services/network/firebase_service.dart';
@@ -35,7 +32,6 @@ import 'domain/network/inetwork_service.dart';
 import 'app/services/storage/cloud_storage_service.dart';
 import 'data/movies/movie_repository.dart';
 import 'domain/movies/imovie_repository.dart';
-import 'domain/video_player_controllers_service/ivideo_player_controllers__service.dart';
 
 final locator = GetIt.instance;
 
@@ -55,7 +51,6 @@ void init() {
   initCameraConfig();
   initCameraService();
   initIsolateHandler();
-  initVideoService();
 }
 
 void initIsolateHandler() {
@@ -138,13 +133,6 @@ void initRepos() {
   locator.registerFactory<IReviewRepository>(
     () => ReviewRepository(networkService: locator.get<INetworkService>()),
   );
-
-  locator.registerFactory<IVideoRepository>(
-    () => VideoRepository(
-        networkService: locator.get<INetworkService>(),
-        isolateHandler: locator.get<IsolateHandler>(),
-        storageService: locator.get<IStorageService>()),
-  );
 }
 
 void initCameraCore() {
@@ -165,8 +153,5 @@ void initCameraService() {
   );
 }
 
-void initVideoService() {
-  locator.registerLazySingleton<IVideoPlayerControllersService>(
-    () => VideoPlayerControllersService(),
-  );
-}
+
+

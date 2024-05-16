@@ -5,7 +5,6 @@ import 'package:camera/camera.dart';
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
-import 'package:flickrate/domain/video/ivideo_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -17,15 +16,15 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   final ICameraService _cameraService;
   final INavigationUtil _navigationUtil;
   final IMyUserRepository _myUserRepository;
-  final IVideoRepository _videoRepository;
+  // final IVideoRepository _videoRepository;
   final CameraTask cameraTask;
 
   String? imagePath = '';
   XFile? file;
   String imageName;
   String documentId;
-  final int _recordDurationLimit = 15;
-  Timer? recordingTimer;
+  // final int _recordDurationLimit = 15;
+  // Timer? recordingTimer;
 
   ActiveOption _currentOption = ActiveOption.camera;
   ActiveOption get currentOption => _currentOption;
@@ -53,11 +52,9 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     required this.documentId,
     required this.cameraTask,
     required IMyUserRepository myUserRepository,
-    required IVideoRepository videoRepository,
   })  : _cameraService = cameraService,
         _navigationUtil = navigationUtil,
-        _myUserRepository = myUserRepository,
-        _videoRepository = videoRepository;
+        _myUserRepository = myUserRepository;
 
   Future<void> initCamera() async {
     _cameraService.initCamera();
@@ -137,7 +134,7 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
     _isTakePictureClicked = !isTakePictureClicked;
     notifyListeners();
   }
-
+/*
   Future<void> onRecordVideoClicked({
     required Function(String message) showException,
     required Function() showVideo,
@@ -209,5 +206,5 @@ class CameraViewModel extends ChangeNotifier with WidgetsBindingObserver {
   void _stopTimerAndResetDuration() {
     recordingTimer?.cancel();
     _recordingDuration.value = 0;
-  }
+  }*/
 }

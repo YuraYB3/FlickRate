@@ -89,7 +89,7 @@ class LoginViewModel extends ChangeNotifier {
       } else if (e.code == 'channel-error') {
         showException('Fill in all fields!');
       } else {
-        showException("Something went wrong!");
+        showException("Check your email and password!");
       }
     }
   }

@@ -7,7 +7,6 @@ import 'package:flickrate/app/screens/camera/widgets/preview_widget.dart';
 import 'package:flickrate/domain/camera/icamera_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../common/widgets/custom_snackbar.dart';
 import '../../theme/color_palette.dart';
@@ -82,13 +81,16 @@ class _CameraScreenState extends State<CameraScreen> {
                       switchCamera: widget.model.onToggleCameraClicked,
                       changeOption: widget.model.onChangeActiveOptionClicked,
                       activeOption: widget.model.currentOption,
-                      recordVideo: () => widget.model.onRecordVideoClicked(
+                      recordVideo: () {
+                        /*
+                        => widget.model.onRecordVideoClicked(
                         showException: (message) =>
                             showCustomSnackBar(context, message),
                         showVideo: () {
                           _showVideo(context);
                         },
-                      ),
+                      )*/
+                      },
                       isRecordVideoClicked: widget.model.isRecording,
                       cameraTask: widget.model.cameraTask,
                     ),
@@ -162,7 +164,7 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  void _showVideo(BuildContext context) {
+  /*void _showVideo(BuildContext context) {
     showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -203,7 +205,7 @@ class _CameraScreenState extends State<CameraScreen> {
                             MaterialStateProperty.all<Color>(Colors.red),
                       ),
                       onPressed: () {
-                        widget.model.onCloseVideoClicked();
+                        /*     widget.model.onCloseVideoClicked();*/
                       },
                       child: const Text(
                         "CLOSE",
@@ -216,11 +218,11 @@ class _CameraScreenState extends State<CameraScreen> {
                             MaterialStateProperty.all<Color>(Colors.green),
                       ),
                       onPressed: () {
-                        widget.model.onApplyVideoClicked(
+                        /*   widget.model.onApplyVideoClicked(
                           showSuccess: (message) => showCustomSnackBar(
                               context, message,
                               backgroundColor: Colors.green),
-                        );
+                        );*/
                       },
                       child: const Text(
                         "APPLY",
@@ -236,4 +238,6 @@ class _CameraScreenState extends State<CameraScreen> {
       },
     );
   }
+}
+*/
 }

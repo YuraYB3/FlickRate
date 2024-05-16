@@ -26,22 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: mainColor,
         actions: [
-          IconButton(
-            onPressed: () => widget._model.onNotificationTap(),
-            icon: const Icon(
-              Icons.notification_important,
-              color: Colors.white,
-            ),
-          ),
-          IconButton(
-            onPressed: () => widget._model.onVideoCameraClicked(
-              showException: (message) => showCustomSnackBar(context, message),
-            ),
-            icon: const Icon(
-              Icons.videocam,
-              color: Colors.white,
-            ),
-          ),
           widget._model.isEditInfoClicked
               ? IconButton(
                   onPressed: widget._model.onEditInfoButtonClicked,
