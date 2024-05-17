@@ -7,6 +7,8 @@ import '../../../theme/color_palette.dart';
 import '../widgets/flickrate_text.dart';
 import '../widgets/my_email_field.dart';
 import '../widgets/my_password_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class LoginWithEmailAndPasswordPage extends StatelessWidget {
   final Function updateEmail;
@@ -41,11 +43,11 @@ class LoginWithEmailAndPasswordPage extends StatelessWidget {
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
-            child: const Row(
+            child:  Row(
               children: [
                 Text(
-                  'Login to your Account',
-                  style: TextStyle(color: secondaryColor, fontSize: 18),
+                  AppLocalizations.of(context)!.login,
+                  style: const TextStyle(color: secondaryColor, fontSize: 18),
                 ),
               ],
             ),
@@ -57,12 +59,12 @@ class LoginWithEmailAndPasswordPage extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          MyPasswordField(label: 'Password', updatePassword: updatePassword),
+          MyPasswordField(label: AppLocalizations.of(context)!.password, updatePassword: updatePassword),
           const SizedBox(
             height: 10,
           ),
           MyElevatedButton(
-              title: "Sign In",
+              title: AppLocalizations.of(context)!.sign_in,
               buttonColor: mainColor,
               width: MediaQuery.of(context).size.width * 0.6,
               onButtonPressed: () {
@@ -74,9 +76,9 @@ class LoginWithEmailAndPasswordPage extends StatelessWidget {
           Container(
             height: MediaQuery.of(context).size.height * 0.1,
           ),
-          const Text(
-            'Or sign in with:',
-            style: TextStyle(color: secondaryColor, fontSize: 16),
+           Text(
+           AppLocalizations.of(context)!.other_type_of_login,
+            style: const TextStyle(color: secondaryColor, fontSize: 16),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
@@ -119,14 +121,14 @@ class LoginWithEmailAndPasswordPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text(
-                  'Don\'t have an account yet?',
-                  style: TextStyle(color: secondaryColor, fontSize: 16),
+                 Text(
+                AppLocalizations.of(context)!.ask_about_account ,
+                  style: const TextStyle(color: secondaryColor, fontSize: 16),
                 ),
                 MyTextButton(
                   textColor: mainColor,
                   textSize: 16,
-                  title: 'Sign Up',
+                  title: AppLocalizations.of(context)!.sign_up,
                   onButtonPressed: () {
                     onSwitchToSignUpClicked();
                   },

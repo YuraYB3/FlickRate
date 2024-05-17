@@ -8,6 +8,8 @@ import '../widgets/draw_circle.dart';
 import '../widgets/flickrate_text.dart';
 import '../widgets/my_email_field.dart';
 import '../widgets/my_password_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SignUpPage extends StatelessWidget {
   final Function onRegisterNewUserClicked;
@@ -36,19 +38,19 @@ class SignUpPage extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        MyPasswordField(label: 'Password', updatePassword: updatePassword),
+        MyPasswordField(label: AppLocalizations.of(context)!.password, updatePassword: updatePassword),
         const SizedBox(
           height: 10,
         ),
         MyPasswordField(
-            label: 'Repeat Password', updatePassword: updateRepeatedPassword),
+            label: AppLocalizations.of(context)!.repeat_password, updatePassword: updateRepeatedPassword),
         const SizedBox(
           height: 10,
         ),
         MyElevatedButton(
           buttonColor: mainColor,
           width: MediaQuery.of(context).size.width * 0.6,
-          title: "Sign Up",
+          title: AppLocalizations.of(context)!.sign_up,
           onButtonPressed: () {
             onRegisterNewUserClicked(
               showException: (message) => showCustomSnackBar(context, message),
@@ -61,7 +63,7 @@ class SignUpPage extends StatelessWidget {
         MyTextButton(
           textColor: secondaryColor,
           textSize: 16,
-          title: 'I already have an account',
+          title: AppLocalizations.of(context)!.have_account,
           onButtonPressed: () {
             onSwitchToEmailAndPasswordClicked();
           },

@@ -1,6 +1,8 @@
+import 'package:flickrate/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'common/screens/my_error_widget.dart';
 import 'common/widgets/my_loading_widget.dart';
 import 'routing/app_router.dart';
@@ -44,6 +46,14 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      supportedLocales: L10n.all,
+      locale: const Locale('uk'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
       debugShowCheckedModeBanner: false,
       navigatorKey: context.read<INavigationUtil>().navigatorKey,
       onGenerateRoute: widget._appRouter.onGenerateRoute,
@@ -51,10 +61,14 @@ class _AppState extends State<App> {
         stream: widget._userService.userStateStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(body: MyLoadingScreen());
+            return const Scaffold(
+              body: MyLoadingScreen(),
+            );
           } else {
             if (snapshot.hasError) {
-              return const Scaffold(body: MyErrorScreen());
+              return const Scaffold(
+                body: MyErrorScreen(),
+              );
             }
             switch (snapshot.data) {
               case UserState.notAuthorized:

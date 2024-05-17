@@ -8,6 +8,7 @@ import '../widgets/draw_circle.dart';
 import '../widgets/flickrate_text.dart';
 import '../widgets/my_otp_field.dart';
 import '../widgets/my_phone_number_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginWithPhoneNumberPage extends StatelessWidget {
   final bool isOtpSent;
@@ -44,7 +45,7 @@ class LoginWithPhoneNumberPage extends StatelessWidget {
               MyElevatedButton(
                 buttonColor: mainColor,
                 width: MediaQuery.of(context).size.width * 0.6,
-                title: 'Sent',
+                title: AppLocalizations.of(context)!.send,
                 onButtonPressed: () {
                   sentOtpClicked(
                     showException: (message) =>
@@ -64,7 +65,7 @@ class LoginWithPhoneNumberPage extends StatelessWidget {
               MyElevatedButton(
                 buttonColor: mainColor,
                 width: MediaQuery.of(context).size.width * 0.6,
-                title: 'Apply',
+                title: AppLocalizations.of(context)!.apply,
                 onButtonPressed: () {
                   onApplyOtpCodeButtonClicked(
                     showException: (message) =>
@@ -80,7 +81,7 @@ class LoginWithPhoneNumberPage extends StatelessWidget {
         MyTextButton(
           textColor: secondaryColor,
           textSize: 16,
-          title: 'Back',
+          title: AppLocalizations.of(context)!.back,
           onButtonPressed: () {
             onSwitchToEmailAndPasswordClicked();
           },

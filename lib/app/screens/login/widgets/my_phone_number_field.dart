@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../theme/color_palette.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class MyPhoneNumberField extends StatelessWidget {
   const MyPhoneNumberField({
@@ -20,13 +22,13 @@ class MyPhoneNumberField extends StatelessWidget {
         maxLength: 9,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         keyboardType: TextInputType.phone,
-        decoration: const InputDecoration(
-          prefix: Text('+380'),
-          labelStyle: TextStyle(color: secondaryColor),
-          labelText: 'Number',
-          focusedBorder: UnderlineInputBorder(
+        decoration:  InputDecoration(
+          prefix: const Text('+380'),
+          labelStyle: const TextStyle(color: secondaryColor),
+          labelText: AppLocalizations.of(context)!.number,
+          focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: secondaryColor)),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: secondaryColor),
           ),
           counterText: '',

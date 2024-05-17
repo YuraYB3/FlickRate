@@ -4,6 +4,8 @@ import '../../../../domain/user/i_my_user.dart';
 import '../../../common/widgets/cached_image.dart';
 import '../../../common/widgets/custom_snackbar.dart';
 import '../../../theme/color_palette.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class UpdateInfoWidget extends StatelessWidget {
   const UpdateInfoWidget(
@@ -74,12 +76,12 @@ class UpdateInfoWidget extends StatelessWidget {
                             updateUserNickNameField(value);
                           },
                           maxLength: 15,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: mainColor),
-                            hintText: 'Enter nickname',
-                            focusedBorder: UnderlineInputBorder(
+                          decoration:  InputDecoration(
+                            labelStyle: const TextStyle(color: mainColor),
+                            hintText: AppLocalizations.of(context)!.new_nickname,
+                            focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: mainColor)),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: mainColor),
                             ),
                             counterText: '',
@@ -126,16 +128,16 @@ void showCustomModelSnackBar(
             children: [
               Expanded(
                 child: InkWell(
-                  child: const Column(
+                  child:  Column(
                     children: [
-                      Icon(Icons.image, size: 60, color: mainColor),
-                      SizedBox(
+                      const Icon(Icons.image, size: 60, color: mainColor),
+                      const SizedBox(
                         height: 12,
                       ),
                       Text(
-                        "Gallery",
+                        AppLocalizations.of(context)!.gallery,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16, color: secondaryColor),
+                        style: const TextStyle(fontSize: 16, color: secondaryColor),
                       ),
                     ],
                   ),
@@ -151,16 +153,16 @@ void showCustomModelSnackBar(
               ),
               Expanded(
                 child: InkWell(
-                  child: const Column(
+                  child:  Column(
                     children: [
-                      Icon(Icons.camera, size: 60, color: mainColor),
-                      SizedBox(
+                      const Icon(Icons.camera, size: 60, color: mainColor),
+                      const SizedBox(
                         height: 12,
                       ),
                       Text(
-                        "Camera",
+                       AppLocalizations.of(context)!.camera ,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16, color: secondaryColor),
+                        style: const TextStyle(fontSize: 16, color: secondaryColor),
                       ),
                     ],
                   ),

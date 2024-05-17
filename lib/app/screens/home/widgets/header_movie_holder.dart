@@ -2,6 +2,8 @@
 
 import 'package:flickrate/app/common/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class HeaderMovieHolder extends StatelessWidget {
   const HeaderMovieHolder({
@@ -28,12 +30,12 @@ class HeaderMovieHolder extends StatelessWidget {
                 shape: BoxShape.rectangle,
                 width: double.infinity),
           ),
-          const Positioned(
+           Positioned(
             left: 10,
             bottom: 10,
             child: Text(
-              'TOP PICKS',
-              style: TextStyle(
+             AppLocalizations.of(context)!.top_picks.toUpperCase() ,
+              style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 24),

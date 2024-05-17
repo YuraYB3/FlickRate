@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class LogOutButton extends StatelessWidget {
   const LogOutButton({super.key, required this.onLogOutButtonPressed});
@@ -13,21 +15,21 @@ class LogOutButton extends StatelessWidget {
         onTap: () {
           onLogOutButtonPressed();
         },
-        child: const Row(
+        child:  Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.exit_to_app,
               color: Colors.red,
               size: 18,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
-              'Log out',
-              style: TextStyle(color: Colors.red, fontSize: 18),
+            AppLocalizations.of(context)!.log_out,
+              style: const TextStyle(color: Colors.red, fontSize: 18),
             )
           ],
         ),

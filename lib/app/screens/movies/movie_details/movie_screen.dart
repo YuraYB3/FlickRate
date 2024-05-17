@@ -1,6 +1,7 @@
 import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flickrate/app/screens/movies/movie_details/pages/details_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../theme/color_palette.dart';
 import 'movie_view_model.dart';
@@ -61,7 +62,7 @@ class _MovieScreenState extends State<MovieScreen> {
               bottomButton: ShowReviewBottomSheetButton(
                 movieName: widget._model.movie.movieName,
                 buttonColor: mainColor,
-                title: "Write review",
+                title: AppLocalizations.of(context)!.write_review,
                 reviewFormWidget: CreateReviewForm(
                     movie: widget._model.movie,
                     onBackButtonClicked: widget._model.onBackButtonClicked,

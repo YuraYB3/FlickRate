@@ -1,6 +1,7 @@
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flickrate/domain/movies/imovie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../common/widgets/custom_snackbar.dart';
 import '../../../../common/widgets/my_elevated_button.dart';
@@ -49,16 +50,17 @@ class _CreateReviewFormState extends State<CreateReviewForm> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.white, style: BorderStyle.solid),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    labelText: 'Review',
-                    labelStyle: TextStyle(color: Colors.white)),
+                decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.white, style: BorderStyle.solid),
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  labelText: AppLocalizations.of(context)!.review,
+                  labelStyle: const TextStyle(color: Colors.white),
+                ),
                 maxLines: 5,
                 onChanged: (value) {
                   widget.updateReview(value);
@@ -71,9 +73,9 @@ class _CreateReviewFormState extends State<CreateReviewForm> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Movie rating',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  Text(
+                    AppLocalizations.of(context)!.movie_rating,
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                   StatefulBuilder(
                     builder: (context, setState) {
@@ -103,7 +105,7 @@ class _CreateReviewFormState extends State<CreateReviewForm> {
               children: [
                 MyElevatedButton(
                   buttonColor: Colors.white,
-                  title: 'CANCEL',
+                  title: AppLocalizations.of(context)!.cancel.toUpperCase(),
                   width: MediaQuery.of(context).size.width * 0.4,
                   textColor: mainColor,
                   onButtonPressed: () {
@@ -112,7 +114,7 @@ class _CreateReviewFormState extends State<CreateReviewForm> {
                 ),
                 MyElevatedButton(
                   buttonColor: mainColor,
-                  title: 'CREATE',
+                  title: AppLocalizations.of(context)!.create.toUpperCase(),
                   width: MediaQuery.of(context).size.width * 0.4,
                   onButtonPressed: () {
                     widget.onCrateReviewClicked(

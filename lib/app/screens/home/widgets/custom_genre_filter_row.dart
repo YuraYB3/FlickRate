@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import '../../../theme/color_palette.dart';
 
@@ -15,16 +17,16 @@ class CustomGenreFilterRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          const Text(
-            "My Reviews",
-            style: TextStyle(fontSize: 20, color: mainColor),
+           Text(
+            AppLocalizations.of(context)!.my_reviews.toUpperCase(),
+            style: const TextStyle(fontSize: 20, color: mainColor),
           ),
           Expanded(child: Container()),
           GestureDetector(
             onTap: onButtonClicked,
-            child: const Text(
-              "All",
-              style: TextStyle(fontSize: 20, color: Colors.grey),
+            child:  Text(
+              AppLocalizations.of(context)!.all.toUpperCase(),
+              style: const TextStyle(fontSize: 20, color: Colors.grey),
             ),
           ),
         ],

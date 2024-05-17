@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import '../../../theme/color_palette.dart';
 
@@ -22,7 +24,7 @@ class ActionsInfoWidget extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const Text('Reviews', style: TextStyle(color: secondaryColor)),
+             Text(AppLocalizations.of(context)!.reviews, style: const TextStyle(color: secondaryColor)),
           ],
         ),
        

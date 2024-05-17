@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common/widgets/cached_image.dart';
 import '../../../theme/color_palette.dart';
@@ -16,7 +17,7 @@ class HomeAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Hi, $userName \u{1F44B}",
+            AppLocalizations.of(context)!.greeting(userName),
             style: const TextStyle(fontSize: 24, color: mainColor),
           ),
           SizedBox(

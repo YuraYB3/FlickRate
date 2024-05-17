@@ -1,0 +1,118 @@
+{
+    "greeting": "Hi, {username}",
+    "@greeting":{
+        "description": "Greeting with user"
+    },
+    "login": "Login to your account",
+    "@login": {
+        "description": "Login to your account"
+    },
+    "email": "Email",
+    "@email":{
+        "description": "Email field"
+    },
+    "password": "Password",
+    "@password":{
+        "description": "Password field"
+    },
+    "sign_in": "Sing In",
+    "@sign_in":{
+        "description": "Sing in button"
+    },
+    "other_type_of_login": "Or sign in with:",
+    "@other_type_of_login": {
+        "description": "Different type of login"
+    },
+    "ask_about_account": "Don't have an account yet?",
+    "@ask_about_account":{
+        "description": "Ask about user account"
+    },
+    "sign_up" : "Sign Up",
+    "@sing_up": {
+        "description": "Sign Up"
+    }, 
+    "number": "Number",
+    "@number":{
+        "description": "Enter phone number"
+    },
+    "send": "Send",
+    "@send": {
+        "description": "Send something"
+    },
+    "back": "Back",
+    "@back": {
+        "description": "Back button"
+    },
+    "code": "Code",
+    "@code":{
+        "description": "Otp code"
+    },
+    "apply": "Apply",
+    "@apply":{
+        "description": "Apply something"
+    },
+    "repeat_password": "Repeat Password",
+    "@repeat_password": {
+        "description": "Repeat your password"
+    },
+    "have_account": "I already have an account",
+    "@have_account":{
+        "description": "If user already had account"
+    },
+    "review": "Review",
+    "@review":{
+        "description": "Review"
+    },
+    "reviews": "Reviews",
+    "@reviews":{
+        "description": "Amount of reviews"
+    },
+    "new_nickname": "Enter nickname",
+    "@new_nickname": {
+        "description": "Enter new nickname"
+    },
+    "log_out" : "Log out",
+    "@log_out":{
+        "description": "Log out"
+    },
+    "gallery": "Gallery",
+    "@gallery":{
+        "description": "Gallery"
+    },
+    "camera": "Camera",
+    "@camera":{
+        "description": "Camera"
+    },
+    "enter_movie_name": "Enter movie name",
+    "@enter_movie_name":{
+        "description": "Enter movie name"
+    },
+    "write_review": "Write review",
+    "@write_review": {
+        "description": "Write review"
+    },
+    "cancel": "Cancel",
+    "@cancel":{
+        "description": "Cancel"
+    },
+    "create": "Create",
+    "@create":{
+        "description": "Create"
+    },
+    "movie_rating": "Movie rating",
+    "@movie_rating": {
+        "description": "Movie rating"
+    },
+    "top_picks": "Top Picks",
+    "@top_picks":{
+        "description": "Top Picks"
+    },
+    "my_reviews": "My reviews",
+    "@my_reviews":{
+        "description": "My reviews"
+    },
+    "all": "All",
+    "@all": {
+        "description": "All"
+    }
+}

@@ -1,5 +1,7 @@
 import 'package:flickrate/app/theme/color_palette.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SearchBarWidget extends StatefulWidget {
   const SearchBarWidget({super.key, required this.updateSearchQuery});
@@ -27,15 +29,15 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 widget.updateSearchQuery(value);
               },
               maxLength: 20,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 border: InputBorder.none,
                 counterText: '',
-                labelStyle: TextStyle(color: mainColor),
-                prefix: Icon(
+                labelStyle: const TextStyle(color: mainColor),
+                prefix: const Icon(
                   Icons.search,
                   color: Colors.white,
                 ),
-                hintText: 'Enter movie name here',
+                hintText: AppLocalizations.of(context)!.enter_movie_name,
               ),
             ),
           ),
