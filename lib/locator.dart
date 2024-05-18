@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flickrate/app/services/language/language_service.dart';
+import 'package:flickrate/domain/language/ilanguage_service.dart';
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/app/routing/navigation_util.dart';
 import 'package:flickrate/app/services/auth/auth_service.dart';
@@ -21,6 +23,7 @@ import 'package:flickrate/data/user/my_user_repository.dart';
 import 'package:flickrate/domain/review/ireview_repository.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/utils/isolate_handler.dart';
+import 'package:flickrate/app/services/local_storage/local_storage.dart';
 import 'package:flickrate/utils/permission_handler.dart';
 import 'package:get_it/get_it.dart';
 
@@ -51,6 +54,8 @@ void init() {
   initCameraConfig();
   initCameraService();
   initIsolateHandler();
+  initLocalStorage();
+  initLanguageService();
 }
 
 void initIsolateHandler() {
@@ -153,5 +158,16 @@ void initCameraService() {
   );
 }
 
+void initLocalStorage() {
+  locator.registerSingleton<LocalStorage>(
+    LocalStorage(),
+  );
+}
 
-
+void initLanguageService() {
+  locator.registerSingleton<ILanguageService>(
+    LanguageService(
+      localStorage: locator.get<LocalStorage>(),
+    ),
+  );
+}

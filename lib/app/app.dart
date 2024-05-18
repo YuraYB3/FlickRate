@@ -1,4 +1,6 @@
+import 'package:flickrate/domain/language/ilanguage_service.dart';
 import 'package:flickrate/l10n/l10n.dart';
+import 'package:flickrate/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -45,47 +47,54 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      supportedLocales: L10n.all,
-      locale: const Locale('uk'),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      debugShowCheckedModeBanner: false,
-      navigatorKey: context.read<INavigationUtil>().navigatorKey,
-      onGenerateRoute: widget._appRouter.onGenerateRoute,
-      home: StreamBuilder<UserState>(
-        stream: widget._userService.userStateStream(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: MyLoadingScreen(),
-            );
-          } else {
-            if (snapshot.hasError) {
-              return const Scaffold(
-                body: MyErrorScreen(),
-              );
-            }
-            switch (snapshot.data) {
-              case UserState.notAuthorized:
-                return LoginFactory.build();
-              case UserState.readyToWork:
-                return CoreNavigationFactory.build();
-              default:
-                return const Scaffold(
-                  body: Center(
-                    child: Text(
-                      'default',
-                      style: TextStyle(color: Colors.black, fontSize: 36),
-                    ),
-                  ),
-                );
-            }
-          }
+    return ChangeNotifierProvider(
+      create: (context) => locator<ILanguageService>(),
+      child: Consumer<ILanguageService>(
+        builder: (context, value, child) {
+          return MaterialApp(
+            supportedLocales: L10n.all,
+            locale: value.currentLocale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate
+            ],
+            debugShowCheckedModeBanner: false,
+            navigatorKey: context.read<INavigationUtil>().navigatorKey,
+            onGenerateRoute: widget._appRouter.onGenerateRoute,
+            home: StreamBuilder<UserState>(
+              stream: widget._userService.userStateStream(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Scaffold(
+                    body: MyLoadingScreen(),
+                  );
+                } else {
+                  if (snapshot.hasError) {
+                    return const Scaffold(
+                      body: MyErrorScreen(),
+                    );
+                  }
+                  switch (snapshot.data) {
+                    case UserState.notAuthorized:
+                      return LoginFactory.build();
+                    case UserState.readyToWork:
+                      return CoreNavigationFactory.build();
+                    default:
+                      return const Scaffold(
+                        body: Center(
+                          child: Text(
+                            'default',
+                            style: TextStyle(color: Colors.black, fontSize: 36),
+                          ),
+                        ),
+                      );
+                  }
+                }
+              },
+            ),
+          );
         },
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:flickrate/domain/language/ilanguage_service.dart';
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
 import 'package:flickrate/locator.dart';
@@ -13,10 +14,12 @@ class ProfileFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => ProfileViewModel(
-          permissionHandler: locator<PermissionHandler>(),
-          userService: locator<IUserService>(),
-          myUserRepository: locator<IMyUserRepository>(),
-          navigationUtil: locator<INavigationUtil>()),
+        languageService: locator<ILanguageService>(),
+        permissionHandler: locator<PermissionHandler>(),
+        userService: locator<IUserService>(),
+        myUserRepository: locator<IMyUserRepository>(),
+        navigationUtil: locator<INavigationUtil>(),
+      ),
       child: Consumer<ProfileViewModel>(
         builder: (context, model, child) => ProfileScreen(model: model),
       ),

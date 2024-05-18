@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flickrate/domain/language/ilanguage_service.dart';
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/app/routing/routes.dart';
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
@@ -18,6 +19,7 @@ class ProfileViewModel extends ChangeNotifier {
   final IMyUserRepository _myUserRepository;
   final PermissionHandler _permissionHandler;
   final INavigationUtil _navigationUtil;
+  final ILanguageService _languageService;
   late Stream<IMyUser> _userStream;
   late IMyUser _myUser;
   String _userNickName = '';
@@ -31,11 +33,13 @@ class ProfileViewModel extends ChangeNotifier {
       {required PermissionHandler permissionHandler,
       required IMyUserRepository myUserRepository,
       required IUserService userService,
-      required INavigationUtil navigationUtil,})
+      required INavigationUtil navigationUtil,
+      required ILanguageService languageService})
       : _userService = userService,
         _permissionHandler = permissionHandler,
         _myUserRepository = myUserRepository,
-        _navigationUtil = navigationUtil {
+        _navigationUtil = navigationUtil,
+        _languageService = languageService {
     _init();
   }
 
@@ -155,6 +159,14 @@ class ProfileViewModel extends ChangeNotifier {
       onEditInfoButtonClicked();
     } else {
       showException("Empty field");
+    }
+  }
+
+  void onChangeLanguageTap() {
+    if (_languageService.currentLocale == const Locale('en')) {
+      _languageService.changeLanguage('uk');
+    } else {
+      _languageService.changeLanguage('en');
     }
   }
 }

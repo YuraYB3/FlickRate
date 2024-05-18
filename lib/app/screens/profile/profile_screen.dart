@@ -40,6 +40,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.white,
                   ),
                 ),
+          IconButton(
+            onPressed: widget._model.onChangeLanguageTap,
+            icon: const Icon(
+              Icons.language,
+              color: Colors.white,
+            ),
+          )
         ],
       ),
       body: widget._model.profileViewState == ProfileViewState.loadingInfo
