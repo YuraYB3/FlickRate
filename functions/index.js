@@ -64,5 +64,34 @@ exports.onReviewDelete = functions.firestore
         return null;
       }
     });
+exports.pickDailyMovie = functions.pubsub.schedule("every day 00:00").
+    timeZone("Europe/Kiev").onRun(async (context) => {
+      const moviesCollection = admin.firestore().collection("movies");
+      const dailyMovieCollection = admin.firestore().collection("daily_movie");
+
+      try {
+        const moviesSnapshot = await moviesCollection.get();
+        const movies = [];
+
+        moviesSnapshot.forEach((doc) => {
+          movies.push({id: doc.id, ...doc.data()});
+        });
+
+        if (movies.length === 0) {
+          console.log("No movies found");
+          return null;
+        }
+
+        const randomMovie = movies[Math.floor(Math.random() * movies.length)];
+
+        await dailyMovieCollection.doc("today").set(randomMovie);
+
+        console.log("Daily movie selected:", randomMovie);
+      } catch (error) {
+        console.error("Error picking daily movie:", error);
+      }
+
+      return null;
+    });
 
 

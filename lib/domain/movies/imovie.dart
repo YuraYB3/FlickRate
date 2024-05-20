@@ -3,7 +3,7 @@ import '../ibase_model.dart';
 abstract interface class IMovie implements IBaseModel {
   final String movieName;
   final String movieGenre;
-  final num movieRating;
+  final String movieRating;
   final String movieDescription;
   final String movieImg;
 

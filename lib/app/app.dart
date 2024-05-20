@@ -63,40 +63,57 @@ class _AppState extends State<App> {
             debugShowCheckedModeBanner: false,
             navigatorKey: context.read<INavigationUtil>().navigatorKey,
             onGenerateRoute: widget._appRouter.onGenerateRoute,
-            home: StreamBuilder<UserState>(
-              stream: widget._userService.userStateStream(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Scaffold(
-                    body: MyLoadingScreen(),
-                  );
-                } else {
-                  if (snapshot.hasError) {
-                    return const Scaffold(
-                      body: MyErrorScreen(),
-                    );
-                  }
-                  switch (snapshot.data) {
-                    case UserState.notAuthorized:
-                      return LoginFactory.build();
-                    case UserState.readyToWork:
-                      return CoreNavigationFactory.build();
-                    default:
-                      return const Scaffold(
-                        body: Center(
-                          child: Text(
-                            'default',
-                            style: TextStyle(color: Colors.black, fontSize: 36),
-                          ),
-                        ),
-                      );
-                  }
-                }
-              },
+            home: MainScreen(
+              userStream: widget._userService.userStateStream(),
             ),
           );
         },
       ),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  final Stream<UserState> userStream;
+
+  const MainScreen({super.key, required this.userStream});
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<UserState>(
+      stream: widget.userStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: MyLoadingScreen(),
+          );
+        } else {
+          if (snapshot.hasError) {
+            return const Scaffold(
+              body: MyErrorScreen(),
+            );
+          }
+          switch (snapshot.data) {
+            case UserState.notAuthorized:
+              return LoginFactory.build();
+            case UserState.readyToWork:
+              return CoreNavigationFactory.build();
+            default:
+              return const Scaffold(
+                body: Center(
+                  child: Text(
+                    'default',
+                    style: TextStyle(color: Colors.black, fontSize: 36),
+                  ),
+                ),
+              );
+          }
+        }
+      },
     );
   }
 }

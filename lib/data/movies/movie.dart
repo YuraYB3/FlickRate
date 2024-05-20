@@ -10,7 +10,7 @@ class Movie implements IMovie {
   @override
   final String movieGenre;
   @override
-  final num movieRating;
+  final String movieRating;
   @override
   final String movieDescription;
 

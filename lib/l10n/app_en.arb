@@ -103,7 +103,7 @@
     "@movie_rating": {
         "description": "Movie rating"
     },
-    "top_picks": "Top Picks",
+    "top_picks": "Watch this!",
     "@top_picks":{
         "description": "Top Picks"
     },

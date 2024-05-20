@@ -6,29 +6,16 @@ import 'movie.dart';
 
 class MovieRepository implements IMovieRepository {
   final INetworkService _networkService;
-
   MovieRepository({
     required INetworkService networkService,
   }) : _networkService = networkService;
 
   @override
-  Stream<List<IMovie>> fetchMoviesStream() {
-    return _networkService.fetchDataStream(collectionMovies).map(
+  Stream<List<IMovie>> fetchMoviesStream(
+      {String collectionName = collectionMovies}) {
+    return _networkService.fetchDataStream(collectionName).map(
           (dataList) => dataList.map((data) => Movie.fromJson(data)).toList(),
         );
-  }
-
-  @override
-  Stream<IMovie> fetchMovieStream(String id) {
-    return _networkService
-        .read(id, collectionMovies)
-        .map((event) => Movie.fromJson(event));
-  }
-
-  @override
-  Stream<List<IMovie>> fetchMoviesStreamByGenre(String genre) {
-    return fetchMoviesStream().map((movies) =>
-        movies.where((movie) => movie.movieGenre == genre).toList());
   }
 
   @override
@@ -44,6 +31,21 @@ class MovieRepository implements IMovieRepository {
 
   @override
   Future<IMovie> getMovieById(String id) async {
-    return await fetchMovieStream(id).first;
+    Stream<List<IMovie>> moviesStream = fetchMoviesStream();
+    List<IMovie> moviesList = await moviesStream.first;
+    IMovie movie = moviesList.firstWhere((movie) => movie.documentId == id);
+    return movie;
+  }
+
+  @override
+  Future<IMovie> getDailyMovie() async {
+    Stream<List<IMovie>> moviesStream =
+        fetchMoviesStream(collectionName: collectionDaily);
+    List<IMovie> moviesList = await moviesStream.first;
+    if (moviesList.isEmpty) {
+      throw Exception('No movies available');
+    }
+    IMovie randomMovie = moviesList[0];
+    return randomMovie;
   }
 }

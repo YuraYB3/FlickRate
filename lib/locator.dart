@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flickrate/app/services/language/language_service.dart';
 import 'package:flickrate/domain/language/ilanguage_service.dart';
+import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/app/routing/navigation_util.dart';
 import 'package:flickrate/app/services/auth/auth_service.dart';
@@ -47,7 +48,6 @@ void init() {
   initNotificationService();
   initStorageService();
   initDeepLinkService();
-  initRepos();
   initAuthService();
   initUserService();
   initCameraCore();
@@ -56,6 +56,7 @@ void init() {
   initIsolateHandler();
   initLocalStorage();
   initLanguageService();
+  initRepos();
 }
 
 void initIsolateHandler() {
@@ -122,24 +123,6 @@ void initDeepLinkService() {
       UniService(navigationUtil: locator<INavigationUtil>()));
 }
 
-void initRepos() {
-  locator.registerFactory<IMovieRepository>(
-    () => MovieRepository(
-      networkService: locator.get<INetworkService>(),
-    ),
-  );
-  locator.registerFactory<IMyUserRepository>(
-    () => MyUserRepository(
-      networkService: locator.get<INetworkService>(),
-      storageService: locator.get<IStorageService>(),
-    ),
-  );
-
-  locator.registerFactory<IReviewRepository>(
-    () => ReviewRepository(networkService: locator.get<INetworkService>()),
-  );
-}
-
 void initCameraCore() {
   locator.registerSingleton<ICameraCore>(CameraCore());
 }
@@ -159,7 +142,7 @@ void initCameraService() {
 }
 
 void initLocalStorage() {
-  locator.registerSingleton<LocalStorage>(
+  locator.registerSingleton<ILocalStorage>(
     LocalStorage(),
   );
 }
@@ -167,7 +150,25 @@ void initLocalStorage() {
 void initLanguageService() {
   locator.registerSingleton<ILanguageService>(
     LanguageService(
-      localStorage: locator.get<LocalStorage>(),
+      localStorage: locator.get<ILocalStorage>(),
     ),
+  );
+}
+
+void initRepos() {
+  locator.registerSingleton<IMovieRepository>(
+    MovieRepository(
+      networkService: locator.get<INetworkService>(),
+    ),
+  );
+  locator.registerFactory<IMyUserRepository>(
+    () => MyUserRepository(
+      networkService: locator.get<INetworkService>(),
+      storageService: locator.get<IStorageService>(),
+    ),
+  );
+
+  locator.registerFactory<IReviewRepository>(
+    () => ReviewRepository(networkService: locator.get<INetworkService>()),
   );
 }

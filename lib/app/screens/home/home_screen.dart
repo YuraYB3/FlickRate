@@ -36,6 +36,8 @@ class HomeScreen extends StatelessWidget {
                           imgURL: userData.userProfileImage,
                           userName: userData.userName),
                       HeaderMovieHolder(
+                        onMovieClicked: model.onMovieClicked,
+                        movieImg: model.randomMovie.movieImg,
                         screenHeight: screenHeight,
                         screenWidth: screenWidth,
                       ),

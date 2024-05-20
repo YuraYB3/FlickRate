@@ -12,17 +12,6 @@ class FirebaseService implements INetworkService {
   }
 
   @override
-  Future<void> delete(String id, String collectionName) async {
-    await _firebaseFirestore.collection(collectionName).doc(id).delete();
-  }
-
-  @override
-  Stream<List<Map<String, dynamic>>> fetchDataStream(String collectionName) =>
-      _firebaseFirestore.collection(collectionName).snapshots().map(
-            (snapshot) => snapshot.docs.map((doc) => doc.data()).toList(),
-          );
-
-  @override
   Stream<Map<String, dynamic>> read(String id, String collectionName) {
     return _firebaseFirestore
         .collection(collectionName)
@@ -39,4 +28,15 @@ class FirebaseService implements INetworkService {
         .doc(documentId)
         .update(data);
   }
+
+  @override
+  Future<void> delete(String id, String collectionName) async {
+    await _firebaseFirestore.collection(collectionName).doc(id).delete();
+  }
+
+  @override
+  Stream<List<Map<String, dynamic>>> fetchDataStream(String collectionName) =>
+      _firebaseFirestore.collection(collectionName).snapshots().map(
+            (snapshot) => snapshot.docs.map((doc) => doc.data()).toList(),
+          );
 }
