@@ -19,8 +19,8 @@ class HomeViewModel extends ChangeNotifier {
   final IMyUserRepository _myUserRepository;
   final IMovieRepository _movieRepository;
   late Stream<IMyUser> _userStream;
-  late IMovie _randomMovie;
-  IMovie get randomMovie => _randomMovie;
+  late Stream<IMovie> _randomMovieStream;
+  Stream<IMovie> get randomMovieStream => _randomMovieStream;
   HomeViewState _homeState = HomeViewState.loadingInfo;
   Stream<IMyUser> get userStream => _userStream;
   HomeViewState get homeState => _homeState;
@@ -37,22 +37,26 @@ class HomeViewModel extends ChangeNotifier {
     _init();
   }
 
-  void _init() {
+  void _init() async {
     String userId = _userService.getCurrentUserId();
-    _getDailyMovie();
-    _fetchUserStream(userId);
+    await _fetchDailyMovie();
+    await _fetchUserStream(userId);
   }
 
-  void _fetchUserStream(String userId) async {
+  Future<void> _fetchUserStream(String userId) async {
     try {
       _userStream = _myUserRepository.fetchCurrentUser(userId);
       _homeState = HomeViewState.readyToWork;
-      notifyListeners();
+      _changeHomeViewState(HomeViewState.readyToWork);
     } catch (e) {
       log(e.toString());
-      _homeState = HomeViewState.loadingInfo;
+      _changeHomeViewState(HomeViewState.loadingInfo);
       notifyListeners();
     }
+  }
+
+  Future<void> _fetchDailyMovie() async {
+    _randomMovieStream = _movieRepository.getDailyMovie();
   }
 
   void onShowAllClicked() {
@@ -72,12 +76,13 @@ class HomeViewModel extends ChangeNotifier {
     );
   }
 
-  void _getDailyMovie() async {
-    _randomMovie = await _movieRepository.getDailyMovie();
+  void onMovieClicked(String movieId) async {
+    log(movieId);
+    await _navigationUtil.navigateTo(routeMovie, data: movieId);
   }
 
-  void onMovieClicked() async {
-    log(_randomMovie.documentId);
-    await _navigationUtil.navigateTo(routeMovie, data: _randomMovie.documentId);
+  void _changeHomeViewState(HomeViewState state) {
+    _homeState = state;
+    notifyListeners();
   }
 }

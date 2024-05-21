@@ -6,17 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HeaderMovieHolder extends StatelessWidget {
-  const HeaderMovieHolder({
-    super.key,
-    required this.screenHeight,
-    required this.screenWidth,
-    required this.movieImg,
-    required this.onMovieClicked,
-  });
+  const HeaderMovieHolder(
+      {super.key,
+      required this.screenHeight,
+      required this.screenWidth,
+      required this.movieImg,
+      required this.onMovieClicked,
+      required this.movieId});
 
   final double screenHeight;
   final double screenWidth;
   final String movieImg;
+  final String movieId;
   final Function onMovieClicked;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class HeaderMovieHolder extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
         onTap: () {
-          onMovieClicked();
+          onMovieClicked(movieId);
         },
         child: Stack(
           children: [
@@ -43,7 +44,10 @@ class HeaderMovieHolder extends StatelessWidget {
               right: 0,
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
                   color: mainColor.withOpacity(0.8),
                 ),
                 padding: const EdgeInsets.all(8.0),

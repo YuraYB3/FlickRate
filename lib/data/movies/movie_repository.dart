@@ -13,6 +13,7 @@ class MovieRepository implements IMovieRepository {
   @override
   Stream<List<IMovie>> fetchMoviesStream(
       {String collectionName = collectionMovies}) {
+    print(collectionName);
     return _networkService.fetchDataStream(collectionName).map(
           (dataList) => dataList.map((data) => Movie.fromJson(data)).toList(),
         );
@@ -38,14 +39,14 @@ class MovieRepository implements IMovieRepository {
   }
 
   @override
-  Future<IMovie> getDailyMovie() async {
-    Stream<List<IMovie>> moviesStream =
-        fetchMoviesStream(collectionName: collectionDaily);
-    List<IMovie> moviesList = await moviesStream.first;
-    if (moviesList.isEmpty) {
-      throw Exception('No movies available');
-    }
-    IMovie randomMovie = moviesList[0];
-    return randomMovie;
+  Stream<IMovie> getDailyMovie() {
+    Stream<Movie> moviesStream = _networkService
+        .fetchDataStream(collectionDaily)
+        .map((dataList) => dataList
+            .map(
+              (data) => Movie.fromJson(data),
+            )
+            .first);
+    return moviesStream;
   }
 }

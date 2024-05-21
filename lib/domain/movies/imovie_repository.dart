@@ -4,5 +4,5 @@ abstract interface class IMovieRepository {
   Stream<List<IMovie>> fetchMoviesStream();
   Stream<List<IMovie>> fetchMoviesByName(String movieName);
   Future<IMovie> getMovieById(String id);
-  Future<IMovie> getDailyMovie();
+  Stream<IMovie> getDailyMovie();
 }
