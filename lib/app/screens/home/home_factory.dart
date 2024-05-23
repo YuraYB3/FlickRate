@@ -1,3 +1,4 @@
+import 'package:flickrate/domain/date_time/idate_time_service.dart';
 import 'package:flickrate/domain/movies/imovie_repository.dart';
 import 'package:flickrate/domain/user_service/iuser_service.dart';
 import 'package:flickrate/domain/user/i_my_user_repository.dart';
@@ -13,10 +14,12 @@ class HomeFactory {
   static Widget build() {
     return ChangeNotifierProvider(
       create: (context) => HomeViewModel(
-          movieRepository: locator<IMovieRepository>(),
-          userService: locator<IUserService>(),
-          navigationUtil: locator<INavigationUtil>(),
-          myUserRepository: locator<IMyUserRepository>()),
+        dateTimeService: locator<IDateTimeService>(),
+        movieRepository: locator<IMovieRepository>(),
+        userService: locator<IUserService>(),
+        navigationUtil: locator<INavigationUtil>(),
+        myUserRepository: locator<IMyUserRepository>(),
+      ),
       child: Consumer<HomeViewModel>(
         builder: (context, model, child) => HomeScreen(model: model),
       ),

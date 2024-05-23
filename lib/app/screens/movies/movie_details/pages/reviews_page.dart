@@ -1,12 +1,14 @@
 import 'package:flickrate/app/common/screens/my_empty_screen.dart';
 import 'package:flickrate/app/common/screens/my_error_widget.dart';
-import 'package:flickrate/app/common/widgets/cached_image.dart';
 import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flickrate/app/screens/movies/movie_details/widgets/movie_bottom_navigation.dart';
+import 'package:flickrate/app/screens/movies/movie_details/widgets/review_tile.dart';
 import 'package:flickrate/app/theme/color_palette.dart';
+import 'package:flickrate/domain/movies/imovie.dart';
 import 'package:flickrate/domain/review/ireview.dart';
 import 'package:flickrate/domain/user/i_my_user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating/flutter_rating.dart';
 
 class ReviewsPage extends StatefulWidget {
   final double screenHeight;
@@ -14,6 +16,8 @@ class ReviewsPage extends StatefulWidget {
   final Widget bottomButton;
   final Stream<List<IReview>> reviewStreamList;
   final Map<String, IMyUser> userMap;
+  final IMovie movie;
+  final Function getTimeAgoSinceDate;
 
   const ReviewsPage({
     super.key,
@@ -22,6 +26,8 @@ class ReviewsPage extends StatefulWidget {
     required this.bottomButton,
     required this.reviewStreamList,
     required this.userMap,
+    required this.movie,
+    required this.getTimeAgoSinceDate,
   });
 
   @override
@@ -53,51 +59,53 @@ class _ReviewsPageState extends State<ReviewsPage> {
             return SizedBox(
               height: widget.screenHeight,
               width: widget.screenWidth,
-              child: Center(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: widget.screenHeight * 0.9,
-                        child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              final review = reviewData[index];
-                              final userData = widget.userMap[review.userId]!;
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ListTile(
-                                  leading: SizedBox(
-                                    height: 50,
-                                    width: 50,
-                                    child: CachedImageWidget(
-                                        imageUrl: userData.userProfileImage,
-                                        height: 50,
-                                        shape: BoxShape.circle,
-                                        width: 50),
-                                  ),
-                                  title: Text(userData.userName),
-                                  subtitle: Text(
-                                    review.reviewText,
-                                    maxLines: 50,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  trailing:
-                                      Text(review.rating.toStringAsFixed(1)),
-                                ),
-                              );
-                            },
-                            itemCount: reviewData.length),
-                      ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          final IReview review = reviewData[index];
+                          final IMyUser userData =
+                              widget.userMap[review.userId]!;
+                          return ReviewTile(
+                              userData: userData,
+                              review: review,
+                              getTimeAgoSinceDate: widget.getTimeAgoSinceDate);
+                        },
+                        itemCount: reviewData.length),
+                  ),
+                  SizedBox(
+                    child: Text(
+                      widget.movie.movieRating.toStringAsFixed(1),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 64,
+                          fontWeight: FontWeight.bold),
                     ),
-                    const MovieBottomNavigation(
-                      activeColor: secondaryColor,
-                      notActiveColor: mainColor,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    )
-                  ],
-                ),
+                  ),
+                  StarRating(
+                    size: 30.0,
+                    rating: widget.movie.movieRating.toDouble(),
+                    color: Colors.orange,
+                    borderColor: Colors.grey,
+                    allowHalfRating: true,
+                    starCount: 5,
+                  ),
+                  SizedBox(
+                    child: Text(
+                        'Based on ${widget.movie.numberOfReviews} reviews'),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const MovieBottomNavigation(
+                    activeColor: secondaryColor,
+                    notActiveColor: mainColor,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  )
+                ],
               ),
             );
           },

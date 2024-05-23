@@ -16,9 +16,14 @@ class HomeAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            AppLocalizations.of(context)!.greeting(userName),
-            style: const TextStyle(fontSize: 24, color: mainColor),
+          Flexible(
+            child: Text(
+              AppLocalizations.of(context)!.greeting(userName),
+              style: const TextStyle(
+                  color: mainColor, fontSize: 28, fontWeight: FontWeight.w400),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
           SizedBox(
             height: 50,

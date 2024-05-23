@@ -4,24 +4,23 @@ import '../../domain/movies/imovie.dart';
 import '../../domain/movies/imovie_repository.dart';
 import 'movie.dart';
 
+enum MovieSortType { byMovieNameAscending, byMovieNameDescending }
+
 class MovieRepository implements IMovieRepository {
   final INetworkService _networkService;
   MovieRepository({
     required INetworkService networkService,
   }) : _networkService = networkService;
 
-  @override
-  Stream<List<IMovie>> fetchMoviesStream(
-      {String collectionName = collectionMovies}) {
-    print(collectionName);
-    return _networkService.fetchDataStream(collectionName).map(
+  Stream<List<IMovie>> _fetchMoviesStream() {
+    return _networkService.fetchDataStream(collectionMovies).map(
           (dataList) => dataList.map((data) => Movie.fromJson(data)).toList(),
         );
   }
 
   @override
   Stream<List<IMovie>> fetchMoviesByName(String movieName) {
-    return fetchMoviesStream().map((movies) => movies
+    return _fetchMoviesStream().map((movies) => movies
         .where(
           (movie) => movie.movieName.toLowerCase().contains(
                 movieName.toLowerCase(),
@@ -32,7 +31,7 @@ class MovieRepository implements IMovieRepository {
 
   @override
   Future<IMovie> getMovieById(String id) async {
-    Stream<List<IMovie>> moviesStream = fetchMoviesStream();
+    Stream<List<IMovie>> moviesStream = _fetchMoviesStream();
     List<IMovie> moviesList = await moviesStream.first;
     IMovie movie = moviesList.firstWhere((movie) => movie.documentId == id);
     return movie;
@@ -48,5 +47,24 @@ class MovieRepository implements IMovieRepository {
             )
             .first);
     return moviesStream;
+  }
+
+  @override
+  Stream<List<IMovie>> fetchAllMoviesStream(
+      {MovieSortType sortType = MovieSortType.byMovieNameAscending}) {
+    return _fetchMoviesStream().map(
+      (movies) {
+        var sortedMovies = movies.toList();
+        switch (sortType) {
+          case MovieSortType.byMovieNameAscending:
+            sortedMovies.sort((a, b) => a.movieName.compareTo(b.movieName));
+            break;
+          case MovieSortType.byMovieNameDescending:
+            sortedMovies.sort((a, b) => b.movieName.compareTo(a.movieName));
+            break;
+        }
+        return sortedMovies;
+      },
+    );
   }
 }

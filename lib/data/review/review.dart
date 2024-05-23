@@ -13,19 +13,21 @@ class Review implements IReview {
   final String movieGenre;
   @override
   final String movieName;
+  @override
+  final DateTime creationTime;
 
   @override
   String documentId;
 
-  Review({
-    this.documentId = '',
-    this.movieName = '',
-    this.movieGenre = '',
-    required this.movieId,
-    required this.reviewText,
-    required this.userId,
-    required this.rating,
-  });
+  Review(
+      {this.documentId = '',
+      required this.movieGenre,
+      required this.movieName,
+      required this.movieId,
+      required this.reviewText,
+      required this.userId,
+      required this.rating,
+      required this.creationTime});
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
@@ -36,6 +38,7 @@ class Review implements IReview {
       movieGenre: json['movieGenre'],
       rating: json['rating'],
       reviewText: json['reviewText'],
+      creationTime: DateTime.parse(json['creationTime']),
     );
   }
   @override
@@ -46,7 +49,8 @@ class Review implements IReview {
       'reviewText': reviewText,
       'userId': userId,
       'movieName': movieName,
-      'movieGenre': movieGenre
+      'movieGenre': movieGenre,
+      'creationTime':creationTime.toIso8601String()
     };
   }
 }

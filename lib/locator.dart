@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flickrate/app/services/date_time/date_time_service.dart';
 import 'package:flickrate/app/services/language/language_service.dart';
+import 'package:flickrate/domain/date_time/idate_time_service.dart';
 import 'package:flickrate/domain/language/ilanguage_service.dart';
 import 'package:flickrate/domain/local_storage/ilocal_storage.dart';
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
@@ -56,6 +58,7 @@ void init() {
   initIsolateHandler();
   initLocalStorage();
   initLanguageService();
+  initDateTimeService();
   initRepos();
 }
 
@@ -152,6 +155,12 @@ void initLanguageService() {
     LanguageService(
       localStorage: locator.get<ILocalStorage>(),
     ),
+  );
+}
+
+void initDateTimeService() {
+  locator.registerLazySingleton<IDateTimeService>(
+    () => DateTimeService(),
   );
 }
 

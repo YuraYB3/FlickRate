@@ -30,10 +30,14 @@ class MovieBar extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        Text(
-          movieName.toUpperCase(),
-          style: const TextStyle(color: Colors.white, fontSize: 18),
-        ),
+          Flexible(
+            child: Text(
+              movieName.toUpperCase(),
+              style: const TextStyle(color: Colors.white, fontSize: 18),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ),
         IconButton(
           onPressed: () {
             shareMovie();

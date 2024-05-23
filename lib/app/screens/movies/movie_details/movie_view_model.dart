@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flickrate/app/routing/routes.dart';
+import 'package:flickrate/domain/date_time/idate_time_service.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
@@ -21,6 +22,7 @@ class MovieViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;
   final IReviewRepository _reviewRepository;
   final IMyUserRepository _userRepository;
+  final IDateTimeService _dateTimeService;
 
   final IUserService _userService;
   final String _movieId;
@@ -49,12 +51,14 @@ class MovieViewModel extends ChangeNotifier {
       required INavigationUtil navigationUtil,
       required IUserService userService,
       required IReviewRepository reviewRepository,
+      required IDateTimeService dateTimeService,
       required IMyUserRepository userRepo})
       : _movieRepository = movieRepository,
         _navigationUtil = navigationUtil,
         _userService = userService,
         _reviewRepository = reviewRepository,
         _userRepository = userRepo,
+        _dateTimeService = dateTimeService,
         _movieId = movieId;
 
   Future<void> init() async {
@@ -127,12 +131,14 @@ class MovieViewModel extends ChangeNotifier {
           _reviewRepository
               .createReview(
             Review(
-                userId: userId,
-                movieId: _movieId,
-                rating: _movieRating,
-                reviewText: _movieReview,
-                movieGenre: movie.movieGenre,
-                movieName: movie.movieName),
+              userId: userId,
+              movieId: _movieId,
+              rating: _movieRating,
+              reviewText: _movieReview,
+              movieGenre: movie.movieGenre,
+              movieName: movie.movieName,
+              creationTime: DateTime.now(),
+            ),
           )
               .then(
             (value) {
@@ -169,5 +175,9 @@ class MovieViewModel extends ChangeNotifier {
 
   void shareMovie() {
     Share.share('Have you seen this movie? \n' '$urlMovies$_movieId');
+  }
+
+  String getTimeAgoSinceDate(DateTime date) {
+    return _dateTimeService.getTimeAgoSinceDate(date);
   }
 }

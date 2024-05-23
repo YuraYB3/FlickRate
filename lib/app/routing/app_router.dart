@@ -1,7 +1,7 @@
 import 'package:flickrate/app/screens/camera/camera_factory.dart';
 import 'package:flickrate/app/screens/camera/camera_view_model.dart';
-import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_factory.dart';
-import 'package:flickrate/app/screens/reviews/show_reviews/show_reviews_view_model.dart';
+import 'package:flickrate/app/screens/reviews/show_reviews_factory.dart';
+import 'package:flickrate/app/screens/reviews/show_reviews_view_model.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/home/home_factory.dart';
@@ -59,12 +59,8 @@ class AppRouter {
         settings.arguments as Map<String, dynamic>;
     final ReviewLoadingType reviewLoadingType =
         argsMap['loadingType'] ?? ReviewLoadingType.byUserId;
-    final String movieGenre = argsMap['movieGenre'] ?? '';
-    return ShowReviewsFactory.build(
-        reviewLoadingType: reviewLoadingType, movieGenre: movieGenre);
+    return ShowReviewsFactory.build(reviewLoadingType: reviewLoadingType);
   }
-
-
 
   Widget _buildCameraSettings(RouteSettings settings) {
     final Map<String, dynamic> argsMap =

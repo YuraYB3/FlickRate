@@ -1,11 +1,12 @@
+import 'package:flickrate/app/common/screens/my_error_widget.dart';
 import 'package:flickrate/app/common/widgets/my_loading_widget.dart';
 import 'package:flickrate/app/screens/home/widgets/home_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'home_view_model.dart';
+import 'widgets/custom_grid_view.dart';
 import 'widgets/header_movie_holder.dart';
 import 'widgets/custom_genre_filter_row.dart';
-import 'widgets/custom_grid_view.dart';
 
 class HomeScreen extends StatefulWidget {
   final HomeViewModel model;
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     return switch (widget.model.homeState) {
       HomeViewState.loadingInfo => const MyLoadingScreen(),
+      HomeViewState.error => const MyErrorScreen(),
       HomeViewState.readyToWork => StreamBuilder(
           stream: widget.model.userStream,
           builder: (context, userSnapshot) {
@@ -56,16 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     CustomGenreFilterRow(
                       onButtonClicked: widget.model.onShowAllClicked,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                      child: CustomGridView(
-                        onGenreTileClicked: (genreItem) {
-                          widget.model.onGenreTileClicked(genreItem);
-                        },
+                   Expanded(
+                     child: SafeArea(
+                        child: CustomGridView(
+                          onGenreTileClicked: (genreItem) {
+                          },
+                        ),
                       ),
-                    ),
+                   ),
                   ],
                 );
               },

@@ -7,8 +7,10 @@ abstract interface class IReview implements IBaseModel {
   final String movieGenre;
   final String movieName;
   final num rating;
+  final DateTime creationTime;
 
   IReview({
+    required this.creationTime,
     required this.movieName,
     required this.rating,
     required this.reviewText,

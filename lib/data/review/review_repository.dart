@@ -5,6 +5,13 @@ import 'package:flickrate/domain/review/ireview_repository.dart';
 import '../../app/services/network/collection_name.dart';
 import '../../domain/review/ireview.dart';
 
+enum ReviewSortType {
+  byDateDescending,
+  byDateAscending,
+  byMovieNameAscending,
+  byMovieNameDescending
+}
+
 class ReviewRepository implements IReviewRepository {
   final INetworkService _networkService;
   ReviewRepository({required INetworkService networkService})
@@ -20,41 +27,74 @@ class ReviewRepository implements IReviewRepository {
     await _networkService.delete(id, collectionReviews);
   }
 
-  @override
-  Stream<IReview> fetchReview(String id) {
-    return _networkService
-        .read(id, collectionReviews)
-        .map((event) => Review.fromJson(event));
-  }
-
-  @override
-  Stream<List<IReview>> fetchReviewsStream() {
+  Stream<List<IReview>> _fetchReviewsStream() {
     return _networkService.fetchDataStream(collectionReviews).map(
           (dataList) => dataList.map((data) => Review.fromJson(data)).toList(),
         );
   }
 
   @override
-  Stream<List<IReview>> fetchReviewsStreamByUserId(String userId) {
-    return fetchReviewsStream().map(
-        (movies) => movies.where((review) => review.userId == userId).toList());
+  Stream<List<IReview>> fetchReviewsStreamByUserId(String userId,
+      {ReviewSortType sortType = ReviewSortType.byDateDescending}) {
+    return _fetchReviewsStream().map((reviews) {
+      List<IReview> filteredReviews =
+          reviews.where((review) => review.userId == userId).toList();
+      switch (sortType) {
+        case ReviewSortType.byDateDescending:
+          filteredReviews.sort(
+            (a, b) => b.creationTime.compareTo(a.creationTime),
+          );
+          break;
+        case ReviewSortType.byDateAscending:
+          filteredReviews.sort(
+            (a, b) => a.creationTime.compareTo(b.creationTime),
+          );
+          break;
+        case ReviewSortType.byMovieNameAscending:
+          filteredReviews.sort(
+            (a, b) => a.movieName.compareTo(b.movieName),
+          );
+          break;
+        case ReviewSortType.byMovieNameDescending:
+          filteredReviews.sort(
+            (a, b) => b.movieName.compareTo(a.movieName),
+          );
+          break;
+      }
+
+      return filteredReviews;
+    });
   }
 
   @override
-  Future<void> updateReview(IReview review) async {}
-
-  @override
-  Stream<List<IReview>> fetchReviewsStreamByMovieId(String movieId) {
-    return fetchReviewsStream().map((movies) =>
-        movies.where((review) => review.movieId == movieId).toList());
-  }
-
-  @override
-  Stream<List<IReview>> fetchReviewsStreamByUserIdAndMovieGenre(
-      String movieGenre, String userId) {
-    return fetchReviewsStream().map((movies) => movies
-        .where((review) =>
-            review.userId == userId && review.movieGenre == movieGenre)
-        .toList());
+  Stream<List<IReview>> fetchReviewsStreamByMovieId(String movieId,
+      {ReviewSortType sortType = ReviewSortType.byDateDescending}) {
+    return _fetchReviewsStream().map((reviews) {
+      List<IReview> filteredReviews =
+          reviews.where((review) => review.movieId == movieId).toList();
+      switch (sortType) {
+        case ReviewSortType.byDateDescending:
+          filteredReviews.sort(
+            (a, b) => b.creationTime.compareTo(a.creationTime),
+          );
+          break;
+        case ReviewSortType.byDateAscending:
+          filteredReviews.sort(
+            (a, b) => a.creationTime.compareTo(b.creationTime),
+          );
+          break;
+        case ReviewSortType.byMovieNameAscending:
+          filteredReviews.sort(
+            (a, b) => a.movieName.compareTo(b.movieName),
+          );
+          break;
+        case ReviewSortType.byMovieNameDescending:
+          filteredReviews.sort(
+            (a, b) => b.movieName.compareTo(a.movieName),
+          );
+          break;
+      }
+      return filteredReviews;
+    });
   }
 }

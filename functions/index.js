@@ -33,37 +33,87 @@ exports.onNewAuth = functions.auth.user().onCreate((user) => {
   return userProfileRef.set(userProfileData);
 },
 );
-exports.onReviewCreate = functions.firestore.
-    document("reviews/{reviewId}").onCreate(async (snapshot) => {
+
+/**
+ * Update user reviews count
+ * @param {string} userId - for concrete user
+ * @param {number} incrementValue - 1 or -1 for increment or decrement
+ * @return {Promise<void>}
+ */
+async function updateUserReviewCount(userId, incrementValue) {
+  const userQuerySnapshot = await admin.firestore()
+      .collection("users")
+      .where("userId", "==", userId)
+      .get();
+
+  if (!userQuerySnapshot.empty) {
+    await userQuerySnapshot.docs[0].ref
+        .update({reviewCount: admin.firestore.FieldValue.
+            increment(incrementValue)});
+  } else {
+    console.log("User not found");
+  }
+}
+/**
+ * Update movie reviews count
+ * @param {string} movieId -for concrete movie
+ * @param {number} incrementValue - 1 or -1 for increment or decrement
+ * @return {Promise<void>}
+ */
+async function updateMovieReviewCountAndRating(movieId, incrementValue) {
+  const movieQuerySnapshot = await admin.firestore()
+      .collection("movies")
+      .where("documentId", "==", movieId)
+      .get();
+
+  if (!movieQuerySnapshot.empty) {
+    await movieQuerySnapshot.docs[0].ref
+        .update({numberOfReviews: admin.firestore.FieldValue.
+            increment(incrementValue)});
+
+    const reviewsSnapshot = await admin.firestore()
+        .collection("reviews")
+        .where("movieId", "==", movieId)
+        .get();
+
+    let totalRating = 0;
+    let reviewCount = 0;
+
+    reviewsSnapshot.forEach((doc) => {
+      totalRating += doc.data().rating;
+      reviewCount++;
+    });
+
+    const newRating = reviewCount > 0 ? totalRating / reviewCount : 0;
+
+    await movieQuerySnapshot.docs[0].ref.update({movieRating: newRating});
+  } else {
+    console.log("Movie not found");
+  }
+}
+
+exports.onReviewCreate = functions.firestore
+    .document("reviews/{reviewId}")
+    .onCreate(async (snapshot) => {
       const reviewData = snapshot.data();
       const userId = reviewData.userId;
-      const userQuerySnapshot = await admin.firestore().
-          collection("users").where("userId", "==", userId).get();
-      if (!userQuerySnapshot.empty) {
-        await userQuerySnapshot.docs[0].ref.
-            update({reviewCount: admin.firestore.FieldValue.increment(1)});
-      } else {
-        console.log("User not found");
-        return null;
-      }
+      const movieId = reviewData.movieId;
+
+      await updateUserReviewCount(userId, 1);
+      await updateMovieReviewCountAndRating(movieId, 1);
     });
+
 exports.onReviewDelete = functions.firestore
     .document("reviews/{reviewId}")
     .onDelete(async (snapshot) => {
       const reviewData = snapshot.data();
       const userId = reviewData.userId;
-      const userQuerySnapshot = await admin.firestore()
-          .collection("users")
-          .where("userId", "==", userId)
-          .get();
-      if (!userQuerySnapshot.empty) {
-        await userQuerySnapshot.docs[0].ref
-            .update({reviewCount: admin.firestore.FieldValue.increment(-1)});
-      } else {
-        console.log("User not found");
-        return null;
-      }
+      const movieId = reviewData.movieId;
+
+      await updateUserReviewCount(userId, -1);
+      await updateMovieReviewCountAndRating(movieId, -1);
     });
+
 exports.pickDailyMovie = functions.pubsub.schedule("every day 00:00").
     timeZone("Europe/Kiev").onRun(async (context) => {
       const moviesCollection = admin.firestore().collection("movies");

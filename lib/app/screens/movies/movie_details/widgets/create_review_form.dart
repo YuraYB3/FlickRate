@@ -39,12 +39,16 @@ class _CreateReviewFormState extends State<CreateReviewForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.movie.movieName.toUpperCase(),
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 72,
-                  fontWeight: FontWeight.bold),
+            Flexible(
+              child: Text(
+                widget.movie.movieName,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 64,
+                    fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -91,8 +95,8 @@ class _CreateReviewFormState extends State<CreateReviewForm> {
                           widget.updateRating(newValue);
                         },
                         min: 0.1,
-                        max: 10,
-                        divisions: 99,
+                        max: 5,
+                        divisions: 49,
                         label: rat.toStringAsFixed(1),
                       );
                     },

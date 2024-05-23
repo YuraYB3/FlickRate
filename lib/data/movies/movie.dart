@@ -10,12 +10,15 @@ class Movie implements IMovie {
   @override
   final String movieGenre;
   @override
-  final String movieRating;
+  final num movieRating;
   @override
   final String movieDescription;
+  @override
+  final num numberOfReviews;
 
   Movie(
       {required this.movieName,
+      required this.numberOfReviews,
       required this.documentId,
       required this.movieImg,
       required this.movieRating,
@@ -29,7 +32,8 @@ class Movie implements IMovie {
         movieGenre: json['movieGenre'],
         movieRating: json['movieRating'],
         movieDescription: json['movieDescription'],
-        movieImg: json['movieImg']);
+        movieImg: json['movieImg'],
+        numberOfReviews: json['numberOfReviews']);
   }
 
   @override
@@ -40,7 +44,8 @@ class Movie implements IMovie {
       'movieDescription': movieDescription,
       'movieRating': movieRating,
       'movieImg': movieImg,
-      'documentId': documentId
+      'documentId': documentId,
+      'numberOfReviews': numberOfReviews
     };
   }
 }

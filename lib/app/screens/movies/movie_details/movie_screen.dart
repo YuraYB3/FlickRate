@@ -55,6 +55,8 @@ class _MovieScreenState extends State<MovieScreen> {
               onBackButtonClicked: widget._model.onBackButtonClicked,
             ),
             ReviewsPage(
+              getTimeAgoSinceDate: widget._model.getTimeAgoSinceDate,
+              movie: widget._model.movie,
               userMap: widget._model.userMap,
               reviewStreamList: widget._model.reviewStreamList,
               screenHeight: screenHeight,

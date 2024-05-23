@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flickrate/domain/date_time/idate_time_service.dart';
 import 'package:flickrate/domain/navigation/inavigation_util.dart';
 import 'package:flickrate/domain/user_service/iuser_service.dart';
 import 'package:flickrate/domain/review/ireview.dart';
@@ -12,11 +13,11 @@ class ShowReviewsViewModel extends ChangeNotifier {
   final IReviewRepository _reviewRepository;
   final IUserService _userService;
   final INavigationUtil _navigationUtil;
-  final String? _movieGenre;
+  final IDateTimeService _dateTimeService;
 
   final ReviewLoadingType _reviewLoadingType;
   ReviewLoadingType get reviewType => _reviewLoadingType;
-  
+
   late Stream<List<IReview>> _reviewStreamList;
   Stream<List<IReview>> get reviewStreamList => _reviewStreamList;
 
@@ -24,13 +25,13 @@ class ShowReviewsViewModel extends ChangeNotifier {
       {required IReviewRepository reviewRepository,
       required IUserService userService,
       required ReviewLoadingType reviewLoadingType,
-      String? movieGenre,
-      required INavigationUtil navigation})
+      required INavigationUtil navigation,
+      required IDateTimeService dateTimeService})
       : _reviewRepository = reviewRepository,
         _userService = userService,
         _reviewLoadingType = reviewLoadingType,
         _navigationUtil = navigation,
-        _movieGenre = movieGenre;
+        _dateTimeService = dateTimeService;
 
   void init() {
     switch (_reviewLoadingType) {
@@ -38,7 +39,6 @@ class ShowReviewsViewModel extends ChangeNotifier {
         _fetchReviewsStreamByUserId();
         break;
       case ReviewLoadingType.byMovieGenre:
-        _fetchReviewsStreamByUserMovieGenre();
       default:
     }
   }
@@ -48,18 +48,6 @@ class ShowReviewsViewModel extends ChangeNotifier {
     try {
       String userID = _userService.getCurrentUserId();
       _reviewStreamList = _reviewRepository.fetchReviewsStreamByUserId(userID);
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  Future<void> _fetchReviewsStreamByUserMovieGenre() async {
-    log('message 2');
-
-    try {
-      String userID = _userService.getCurrentUserId();
-      _reviewStreamList = _reviewRepository
-          .fetchReviewsStreamByUserIdAndMovieGenre(_movieGenre!, userID);
     } catch (e) {
       log(e.toString());
     }
@@ -75,5 +63,9 @@ class ShowReviewsViewModel extends ChangeNotifier {
 
   void navigateBack() {
     _navigationUtil.navigateBack();
+  }
+
+  String getTimeAgoSinceDate(DateTime date) {
+    return _dateTimeService.getTimeAgoSinceDate(date);
   }
 }
