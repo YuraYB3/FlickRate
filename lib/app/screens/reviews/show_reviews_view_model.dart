@@ -15,6 +15,8 @@ class ShowReviewsViewModel extends ChangeNotifier {
   final INavigationUtil _navigationUtil;
   final IDateTimeService _dateTimeService;
 
+  final String _movieGenre;
+
   final ReviewLoadingType _reviewLoadingType;
   ReviewLoadingType get reviewType => _reviewLoadingType;
 
@@ -26,12 +28,14 @@ class ShowReviewsViewModel extends ChangeNotifier {
       required IUserService userService,
       required ReviewLoadingType reviewLoadingType,
       required INavigationUtil navigation,
-      required IDateTimeService dateTimeService})
+      required IDateTimeService dateTimeService,
+      required String movieGenre})
       : _reviewRepository = reviewRepository,
         _userService = userService,
         _reviewLoadingType = reviewLoadingType,
         _navigationUtil = navigation,
-        _dateTimeService = dateTimeService;
+        _dateTimeService = dateTimeService,
+        _movieGenre = movieGenre;
 
   void init() {
     switch (_reviewLoadingType) {
@@ -39,6 +43,7 @@ class ShowReviewsViewModel extends ChangeNotifier {
         _fetchReviewsStreamByUserId();
         break;
       case ReviewLoadingType.byMovieGenre:
+        _fetchReviewsStreamByGenre();
       default:
     }
   }
@@ -48,6 +53,17 @@ class ShowReviewsViewModel extends ChangeNotifier {
     try {
       String userID = _userService.getCurrentUserId();
       _reviewStreamList = _reviewRepository.fetchReviewsStreamByUserId(userID);
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> _fetchReviewsStreamByGenre() async {
+    log(_movieGenre);
+    try {
+      String userID = _userService.getCurrentUserId();
+      _reviewStreamList = _reviewRepository.fetchReviewsStreamByUserIdAndGenre(
+          userID, _movieGenre);
     } catch (e) {
       log(e.toString());
     }

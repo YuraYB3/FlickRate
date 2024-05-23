@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+class ProfileCustomButton extends StatelessWidget {
+  const ProfileCustomButton(
+      {super.key,
+      required this.onButtonPressed,
+      required this.icon,
+      required this.buttonText});
 
-class LogOutButton extends StatelessWidget {
-  const LogOutButton({super.key, required this.onLogOutButtonPressed});
-
-  final Function onLogOutButtonPressed;
+  final Function onButtonPressed;
+  final IconData icon;
+  final String buttonText;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: GestureDetector(
-        onTap: () {
-          onLogOutButtonPressed();
-        },
-        child:  Row(
+    return GestureDetector(
+      onTap: () {
+        onButtonPressed();
+      },
+      child: Container(
+        height: 70,
+        width: double.infinity,
+        color: Colors.white10,
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.exit_to_app,
+            Icon(
+              icon,
               color: Colors.red,
               size: 18,
             ),
@@ -28,7 +34,7 @@ class LogOutButton extends StatelessWidget {
               width: 10,
             ),
             Text(
-            AppLocalizations.of(context)!.log_out,
+              buttonText,
               style: const TextStyle(color: Colors.red, fontSize: 18),
             )
           ],

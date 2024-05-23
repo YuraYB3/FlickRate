@@ -10,14 +10,16 @@ import 'show_reviews_view_model.dart';
 
 class ShowReviewsFactory {
   static Widget build(
-      {required ReviewLoadingType reviewLoadingType}) {
+      {required ReviewLoadingType reviewLoadingType, required String genre}) {
     return ChangeNotifierProvider(
       create: (context) => ShowReviewsViewModel(
+        movieGenre: genre,
         dateTimeService: locator<IDateTimeService>(),
-          navigation: locator<INavigationUtil>(),
-          reviewLoadingType: reviewLoadingType,
-          reviewRepository: locator<IReviewRepository>(),
-          userService: locator<IUserService>()),
+        navigation: locator<INavigationUtil>(),
+        reviewLoadingType: reviewLoadingType,
+        reviewRepository: locator<IReviewRepository>(),
+        userService: locator<IUserService>(),
+      ),
       child: Consumer<ShowReviewsViewModel>(
         builder: (context, model, child) => ShowReviewsScreen(model: model),
       ),

@@ -8,12 +8,12 @@ class CustomGridView extends StatelessWidget {
     super.key,
     required this.onGenreTileClicked,
   });
-  final Function(String genreItem) onGenreTileClicked;
+  final Function onGenreTileClicked;
 
   @override
   Widget build(BuildContext context) {
     return GridView(
-      padding: const EdgeInsets.all(25),
+      padding: const EdgeInsets.symmetric(horizontal: 25),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 3 / 2,

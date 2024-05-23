@@ -59,7 +59,9 @@ class AppRouter {
         settings.arguments as Map<String, dynamic>;
     final ReviewLoadingType reviewLoadingType =
         argsMap['loadingType'] ?? ReviewLoadingType.byUserId;
-    return ShowReviewsFactory.build(reviewLoadingType: reviewLoadingType);
+    final String movieGenre = argsMap['movieGenre'] ?? '';
+    return ShowReviewsFactory.build(
+        reviewLoadingType: reviewLoadingType, genre: movieGenre);
   }
 
   Widget _buildCameraSettings(RouteSettings settings) {

@@ -58,14 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     CustomGenreFilterRow(
                       onButtonClicked: widget.model.onShowAllClicked,
                     ),
-                   Expanded(
-                     child: SafeArea(
+                    Expanded(
+                      child: SafeArea(
                         child: CustomGridView(
-                          onGenreTileClicked: (genreItem) {
-                          },
-                        ),
+                            onGenreTileClicked:
+                                widget.model.onGenreTileClicked),
                       ),
-                   ),
+                    ),
                   ],
                 );
               },

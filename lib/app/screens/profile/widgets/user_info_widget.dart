@@ -14,9 +14,7 @@ class UserInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Row(
+    return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -40,7 +38,6 @@ class UserInfoWidget extends StatelessWidget {
             ],
           ),
         ],
-      ),
     );
   }
 }

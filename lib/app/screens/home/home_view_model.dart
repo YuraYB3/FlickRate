@@ -66,7 +66,7 @@ class HomeViewModel extends ChangeNotifier {
   void onShowAllClicked() {
     _navigationUtil.navigateTo(
       routeShowReviews,
-      data: {'reviewLoadingType': ReviewLoadingType.byUserId},
+      data: {'loadingType': ReviewLoadingType.byUserId},
     );
   }
 
@@ -82,5 +82,16 @@ class HomeViewModel extends ChangeNotifier {
 
   String getTimeAgoSinceDate(DateTime date) {
     return _dateTimeService.getTimeAgoSinceDate(date);
+  }
+
+  void onGenreTileClicked(String genre) {
+    log('clicked');
+    _navigationUtil.navigateTo(
+      routeShowReviews,
+      data: {
+        'loadingType': ReviewLoadingType.byMovieGenre,
+        'movieGenre': genre
+      },
+    );
   }
 }

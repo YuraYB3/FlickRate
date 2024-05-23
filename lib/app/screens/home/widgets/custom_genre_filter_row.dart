@@ -16,12 +16,12 @@ class CustomGenreFilterRow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
            Text(
             AppLocalizations.of(context)!.my_reviews.toUpperCase(),
             style: const TextStyle(fontSize: 20, color: mainColor),
           ),
-          Expanded(child: Container()),
           GestureDetector(
             onTap: onButtonClicked,
             child:  Text(

@@ -1,16 +1,11 @@
+import 'dart:developer';
+
 import 'package:flickrate/data/review/review.dart';
 import 'package:flickrate/domain/network/inetwork_service.dart';
 import 'package:flickrate/domain/review/ireview_repository.dart';
 
 import '../../app/services/network/collection_name.dart';
 import '../../domain/review/ireview.dart';
-
-enum ReviewSortType {
-  byDateDescending,
-  byDateAscending,
-  byMovieNameAscending,
-  byMovieNameDescending
-}
 
 class ReviewRepository implements IReviewRepository {
   final INetworkService _networkService;
@@ -96,5 +91,19 @@ class ReviewRepository implements IReviewRepository {
       }
       return filteredReviews;
     });
+  }
+
+  @override
+  Stream<List<IReview>> fetchReviewsStreamByUserIdAndGenre(
+      String userId, String genre,
+      {ReviewSortType sortType = ReviewSortType.byDateDescending}) {
+    log(genre);
+    return fetchReviewsStreamByUserId(userId, sortType: sortType).map(
+      (reviews) {
+        return reviews
+            .where((review) => review.movieGenre.contains(genre))
+            .toList();
+      },
+    );
   }
 }

@@ -22,33 +22,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        actions: [
-          widget._model.isEditInfoClicked
-              ? IconButton(
-                  onPressed: widget._model.onEditInfoButtonClicked,
-                  icon: const Icon(
-                    Icons.person_4,
-                    color: Colors.white,
-                  ),
-                )
-              : IconButton(
-                  onPressed: widget._model.onEditInfoButtonClicked,
-                  icon: const Icon(
-                    Icons.edit,
-                    color: Colors.white,
-                  ),
-                ),
-          IconButton(
-            onPressed: widget._model.onChangeLanguageTap,
-            icon: const Icon(
-              Icons.language,
-              color: Colors.white,
-            ),
-          )
-        ],
-      ),
       body: widget._model.profileViewState == ProfileViewState.loadingInfo
           ? const MyLoadingScreen()
           : StreamBuilder(
@@ -63,45 +36,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 final userData = snapshot.data!;
                 return Column(
                   children: [
-                    const Divider(
-                      color: Colors.grey,
+                    const Expanded(
+                      child: SizedBox(
+                        height: 20,
+                      ),
                     ),
                     if (!widget._model.isEditInfoClicked)
-                      UserInfoWidget(
-                        userName: userData.userName,
-                        userProfileImage: userData.userProfileImage,
+                      SafeArea(
+                        bottom: false,
+                        child: UserInfoWidget(
+                          userName: userData.userName,
+                          userProfileImage: userData.userProfileImage,
+                        ),
                       )
                     else
-                      UpdateInfoWidget(
-                          userData: userData,
-                          updateUserNickNameField:
-                              widget._model.updateUserNickNameField,
-                          onChangePhotoByGalleryClicked:
-                              widget._model.onChoosePhotoFromGalleryClicked,
-                          onChangeUserNickNameClicked:
-                              widget._model.onChangeUserNickNameClicked,
-                          onChangePhotoByCameraClicked:
-                              widget._model.onMadePhotoByCameraClicked),
+                      SafeArea(
+                        bottom: false,
+                        child: UpdateInfoWidget(
+                            userData: userData,
+                            updateUserNickNameField:
+                                widget._model.updateUserNickNameField,
+                            onChangePhotoByGalleryClicked:
+                                widget._model.onChoosePhotoFromGalleryClicked,
+                            onChangeUserNickNameClicked:
+                                widget._model.onChangeUserNickNameClicked,
+                            onChangePhotoByCameraClicked:
+                                widget._model.onMadePhotoByCameraClicked),
+                      ),
+                    widget._model.isEditInfoClicked
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),
+                            child: ActionsInfoWidget(
+                              reviewCount: userData.reviewCount.toString(),
+                            ),
+                          ),
+                    const SizedBox(
+                      height: 50,
+                    ),
                     const Divider(
-                      color: Colors.grey,
+                      color: mainColor,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: ActionsInfoWidget(
-                          reviewCount: userData.reviewCount.toString(),
-                          userLikes: userData.userLikes.toString()),
-                    ),
+                    ProfileCustomButton(
+                        onButtonPressed: () {},
+                        icon: Icons.favorite,
+                        buttonText: 'Favorite'),
                     const Divider(
-                      color: Colors.grey,
+                      color: mainColor,
                     ),
-                    LogOutButton(
-                        onLogOutButtonPressed:
-                            widget._model.onLogOutButtonPressed),
+                    ProfileCustomButton(
+                        onButtonPressed: widget._model.onChangeLanguageTap,
+                        icon: Icons.language,
+                        buttonText: 'Change language'),
                     const Divider(
-                      color: Colors.grey,
+                      color: mainColor,
                     ),
-                    Expanded(
-                      child: Container(),
+                    ProfileCustomButton(
+                        onButtonPressed: widget._model.onEditInfoButtonClicked,
+                        icon: Icons.edit,
+                        buttonText: 'Edit profile'),
+                    const Divider(
+                      color: mainColor,
+                    ),
+                    SafeArea(
+                      top: false,
+                      bottom: false,
+                      child: ProfileCustomButton(
+                          buttonText: 'Вийти',
+                          icon: Icons.logout,
+                          onButtonPressed: widget._model.onLogOutButtonPressed),
+                    ),
+                    const SafeArea(
+                      top: false,
+                      bottom: true,
+                      child: Divider(
+                        color: mainColor,
+                      ),
                     ),
                   ],
                 );
