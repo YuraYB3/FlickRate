@@ -13,8 +13,9 @@ class ShowMoviesViewModel extends ChangeNotifier {
 
   final INavigationUtil _navigationUtil;
   final IMovieRepository _movieRepository;
+  bool _isSearchButtonClicked = false;
 
-  String searchQuery = '';
+  String _searchQuery = '';
   ShowMoviesViewModel({
     required IMovieRepository movieRepository,
     required INavigationUtil navigationUtil,
@@ -35,11 +36,11 @@ class ShowMoviesViewModel extends ChangeNotifier {
   }
 
   void updateSearchQuery(String query) {
-    searchQuery = query;
-    if (searchQuery.trim().length > 3) {
-      _fetchMoviesStreamByQuery(query);
-    } else if (searchQuery.trim().isEmpty) {
+    _searchQuery = query;
+    if (_searchQuery.isEmpty && _isSearchButtonClicked) {
       fetchMoviesStream();
+      _isSearchButtonClicked = false;
+      notifyListeners();
     } else {}
   }
 
@@ -49,6 +50,15 @@ class ShowMoviesViewModel extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  void onSearchButtonClicked() {
+    if (!_isSearchButtonClicked) {
+      if (_searchQuery.trim().length >= 3) {
+        _isSearchButtonClicked = true;
+        _fetchMoviesStreamByQuery(_searchQuery);
+      } else {}
     }
   }
 }

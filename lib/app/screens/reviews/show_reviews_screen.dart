@@ -1,5 +1,4 @@
 import 'package:flickrate/app/common/screens/my_error_widget.dart';
-import 'package:flickrate/app/common/widgets/my_elevated_button.dart';
 import 'package:flickrate/app/screens/reviews/show_reviews_view_model.dart';
 import 'package:flickrate/app/screens/reviews/widgets/review_dialog.dart';
 import 'package:flickrate/app/screens/reviews/widgets/user_review_tile.dart';
@@ -93,7 +92,7 @@ class _ShowMoviesViewState extends State<ShowReviewsScreen> {
                   itemCount: reviewData.length,
                 ),
               ),
-              SafeArea(child: MyElevatedButton(title: 'Add new review', buttonColor: mainColor, width: 150, onButtonPressed: (){}))
+              //           SafeArea(child: MyElevatedButton(title: 'Add new review', buttonColor: mainColor, width: 150, onButtonPressed: (){}))
             ],
           );
         },

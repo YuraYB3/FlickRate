@@ -12,10 +12,10 @@ class ShowMoviesFactory {
     return ChangeNotifierProvider(
       create: (context) => ShowMoviesViewModel(
         movieRepository: locator<IMovieRepository>(),
-          navigationUtil: locator<INavigationUtil>(),
+        navigationUtil: locator<INavigationUtil>(),
       ),
       child: Consumer<ShowMoviesViewModel>(
-        builder: (context, model, child) => ShowMoviesScreen(model: model),
+        builder: (context, model, child) => ShowMoviesScreen(viewModel: model),
       ),
     );
   }
